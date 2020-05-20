@@ -100,7 +100,8 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>$(SolutionDir)\UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
+      <Command>xcopy /E /Y "$(SolutionDir)data" "$(TargetDir)" /d
+$(SolutionDir)\UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,7 +143,8 @@
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>$(SolutionDir)\UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
+      <Command>xcopy /E /Y "$(SolutionDir)data" "$(TargetDir)" /d
+$(SolutionDir)\UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

@@ -44,5 +44,6 @@ public:
 	 ~Utinni();
 	 static Utinni* instance();
 
-	 static std::string getUtinniPath();
+	 static std::string getUtinniPath(); 
+	 static std::string getSwgCfgFilename();
 };

@@ -11,6 +11,7 @@ UtinniBase* baseUtinniInstance = nullptr;
 Utinni* utinniInstance = nullptr;
 
 std::string utinniPath;
+std::string swgOverrideCfgFilename;
 
 UtinniBase* UtinniBase::instance() 
 {
@@ -135,6 +136,8 @@ Utinni::Utinni()
     std::string dllPath = std::string(dllPathbuffer);
     utinniPath = dllPath.substr(0, dllPath.find_last_of("\\/")) + "\\";
 
+    swgOverrideCfgFilename = "utinni.cfg";
+
     loadCoreDotNet();
 }
 
@@ -143,4 +146,9 @@ Utinni::~Utinni() {}
 std::string Utinni::getUtinniPath()
 {
     return utinniPath;
+}
+
+std::string Utinni::getSwgCfgFilename()
+{
+    return swgOverrideCfgFilename;
 }
