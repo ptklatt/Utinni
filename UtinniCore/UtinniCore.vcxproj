@@ -101,7 +101,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /E /Y "$(SolutionDir)data" "$(TargetDir)" /d
-$(SolutionDir)\UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
+$(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -144,7 +144,7 @@ $(SolutionDir)\UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe<
     <PostBuildEvent />
     <PostBuildEvent>
       <Command>xcopy /E /Y "$(SolutionDir)data" "$(TargetDir)" /d
-$(SolutionDir)\UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
+$(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
