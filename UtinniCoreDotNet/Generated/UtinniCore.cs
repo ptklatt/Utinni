@@ -113,4 +113,2000 @@ namespace UtinniCore
             }
         }
     }
+
+    namespace Swg
+    {
+        namespace Math
+        {
+            public unsafe partial class Vector2d : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 8)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal float X;
+
+                    [FieldOffset(4)]
+                    internal float Y;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Vector2d@math@swg@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Vector2d@math@swg@@QAE@MM@Z")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, float x, float y);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Vector2d@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??HVector2d@math@swg@@QBE?AU012@ABU012@@Z")]
+                    internal static extern void OperatorPlus(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr vector);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??GVector2d@math@swg@@QBE?AU012@ABU012@@Z")]
+                    internal static extern void OperatorMinus(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr vector);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??DVector2d@math@swg@@QBE?AU012@M@Z")]
+                    internal static extern void OperatorStar(global::System.IntPtr __instance, global::System.IntPtr @return, float scalar);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??KVector2d@math@swg@@QBE?AU012@M@Z")]
+                    internal static extern void OperatorSlash(global::System.IntPtr __instance, global::System.IntPtr @return, float scalar);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Vector2d> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Vector2d>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.Vector2d __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Vector2d(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.Vector2d __CreateInstance(global::UtinniCore.Swg.Math.Vector2d.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Vector2d(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.Vector2d.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Vector2d.__Internal));
+                    *(global::UtinniCore.Swg.Math.Vector2d.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private Vector2d(global::UtinniCore.Swg.Math.Vector2d.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected Vector2d(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public Vector2d()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Vector2d.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public Vector2d(float x, float y)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Vector2d.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance, x, y);
+                }
+
+                public Vector2d(global::UtinniCore.Swg.Math.Vector2d _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Vector2d.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Swg.Math.Vector2d.__Internal*) __Instance) = *((global::UtinniCore.Swg.Math.Vector2d.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.Vector2d __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public static global::UtinniCore.Swg.Math.Vector2d operator +(global::UtinniCore.Swg.Math.Vector2d __op, global::UtinniCore.Swg.Math.Vector2d vector)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    if (ReferenceEquals(vector, null))
+                        throw new global::System.ArgumentNullException("vector", "Cannot be null because it is a C++ reference (&).");
+                    var __arg1 = vector.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector2d.__Internal();
+                    __Internal.OperatorPlus(__arg0, new IntPtr(&__ret), __arg1);
+                    return global::UtinniCore.Swg.Math.Vector2d.__CreateInstance(__ret);
+                }
+
+                public static global::UtinniCore.Swg.Math.Vector2d operator -(global::UtinniCore.Swg.Math.Vector2d __op, global::UtinniCore.Swg.Math.Vector2d vector)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    if (ReferenceEquals(vector, null))
+                        throw new global::System.ArgumentNullException("vector", "Cannot be null because it is a C++ reference (&).");
+                    var __arg1 = vector.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector2d.__Internal();
+                    __Internal.OperatorMinus(__arg0, new IntPtr(&__ret), __arg1);
+                    return global::UtinniCore.Swg.Math.Vector2d.__CreateInstance(__ret);
+                }
+
+                public static global::UtinniCore.Swg.Math.Vector2d operator *(global::UtinniCore.Swg.Math.Vector2d __op, float scalar)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector2d.__Internal();
+                    __Internal.OperatorStar(__arg0, new IntPtr(&__ret), scalar);
+                    return global::UtinniCore.Swg.Math.Vector2d.__CreateInstance(__ret);
+                }
+
+                public static global::UtinniCore.Swg.Math.Vector2d operator /(global::UtinniCore.Swg.Math.Vector2d __op, float scalar)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector2d.__Internal();
+                    __Internal.OperatorSlash(__arg0, new IntPtr(&__ret), scalar);
+                    return global::UtinniCore.Swg.Math.Vector2d.__CreateInstance(__ret);
+                }
+
+                public float X
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Vector2d.__Internal*) __Instance)->X;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Vector2d.__Internal*)__Instance)->X = value;
+                    }
+                }
+
+                public float Y
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Vector2d.__Internal*) __Instance)->Y;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Vector2d.__Internal*)__Instance)->Y = value;
+                    }
+                }
+            }
+
+            public unsafe partial class Vector : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 12)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal float X;
+
+                    [FieldOffset(4)]
+                    internal float Y;
+
+                    [FieldOffset(8)]
+                    internal float Z;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Vector@math@swg@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Vector@math@swg@@QAE@MMM@Z")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, float x, float y, float z);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Vector@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??HVector@math@swg@@QBE?AU012@ABU012@@Z")]
+                    internal static extern void OperatorPlus(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr vector);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??GVector@math@swg@@QBE?AU012@ABU012@@Z")]
+                    internal static extern void OperatorMinus(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr vector);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??DVector@math@swg@@QBE?AU012@M@Z")]
+                    internal static extern void OperatorStar(global::System.IntPtr __instance, global::System.IntPtr @return, float scalar);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??KVector@math@swg@@QBE?AU012@M@Z")]
+                    internal static extern void OperatorSlash(global::System.IntPtr __instance, global::System.IntPtr @return, float scalar);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?normalize@Vector@math@swg@@QAE_NXZ")]
+                    [return: MarshalAs(UnmanagedType.I1)]
+                    internal static extern bool Normalize(global::System.IntPtr __instance);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Vector> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Vector>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.Vector __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Vector(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.Vector __CreateInstance(global::UtinniCore.Swg.Math.Vector.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Vector(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.Vector.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Vector.__Internal));
+                    *(global::UtinniCore.Swg.Math.Vector.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private Vector(global::UtinniCore.Swg.Math.Vector.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected Vector(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public Vector()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Vector.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public Vector(float x, float y, float z)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Vector.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance, x, y, z);
+                }
+
+                public Vector(global::UtinniCore.Swg.Math.Vector _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Vector.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Swg.Math.Vector.__Internal*) __Instance) = *((global::UtinniCore.Swg.Math.Vector.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.Vector __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public static global::UtinniCore.Swg.Math.Vector operator +(global::UtinniCore.Swg.Math.Vector __op, global::UtinniCore.Swg.Math.Vector vector)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    if (ReferenceEquals(vector, null))
+                        throw new global::System.ArgumentNullException("vector", "Cannot be null because it is a C++ reference (&).");
+                    var __arg1 = vector.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector.__Internal();
+                    __Internal.OperatorPlus(__arg0, new IntPtr(&__ret), __arg1);
+                    return global::UtinniCore.Swg.Math.Vector.__CreateInstance(__ret);
+                }
+
+                public static global::UtinniCore.Swg.Math.Vector operator -(global::UtinniCore.Swg.Math.Vector __op, global::UtinniCore.Swg.Math.Vector vector)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    if (ReferenceEquals(vector, null))
+                        throw new global::System.ArgumentNullException("vector", "Cannot be null because it is a C++ reference (&).");
+                    var __arg1 = vector.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector.__Internal();
+                    __Internal.OperatorMinus(__arg0, new IntPtr(&__ret), __arg1);
+                    return global::UtinniCore.Swg.Math.Vector.__CreateInstance(__ret);
+                }
+
+                public static global::UtinniCore.Swg.Math.Vector operator *(global::UtinniCore.Swg.Math.Vector __op, float scalar)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector.__Internal();
+                    __Internal.OperatorStar(__arg0, new IntPtr(&__ret), scalar);
+                    return global::UtinniCore.Swg.Math.Vector.__CreateInstance(__ret);
+                }
+
+                public static global::UtinniCore.Swg.Math.Vector operator /(global::UtinniCore.Swg.Math.Vector __op, float scalar)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector.__Internal();
+                    __Internal.OperatorSlash(__arg0, new IntPtr(&__ret), scalar);
+                    return global::UtinniCore.Swg.Math.Vector.__CreateInstance(__ret);
+                }
+
+                public bool Normalize()
+                {
+                    var __ret = __Internal.Normalize(__Instance);
+                    return __ret;
+                }
+
+                public float X
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Vector.__Internal*) __Instance)->X;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Vector.__Internal*)__Instance)->X = value;
+                    }
+                }
+
+                public float Y
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Vector.__Internal*) __Instance)->Y;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Vector.__Internal*)__Instance)->Y = value;
+                    }
+                }
+
+                public float Z
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Vector.__Internal*) __Instance)->Z;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Vector.__Internal*)__Instance)->Z = value;
+                    }
+                }
+            }
+
+            public unsafe partial class Transform : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 48)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal fixed float matrix[12];
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Transform@math@swg@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Transform@math@swg@@QAE@MMM@Z")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, float x, float y, float z);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Transform@math@swg@@QAE@AAUVector@12@@Z")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, global::System.IntPtr position);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Transform@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor_1(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?setPosition@Transform@math@swg@@QAEXMMM@Z")]
+                    internal static extern void SetPosition(global::System.IntPtr __instance, float x, float y, float z);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?rotate_l2p@Transform@math@swg@@QAE?AUVector@23@ABU423@@Z")]
+                    internal static extern void RotateL2p(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr vector);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?addPosition@Transform@math@swg@@QAE?AU123@ABU123@@Z")]
+                    internal static extern void AddPosition(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr Transform);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?addPosition@Transform@math@swg@@QAE?AU123@ABUVector@23@@Z")]
+                    internal static extern void AddPosition_1(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr vector);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?subtractPosition@Transform@math@swg@@QAE?AU123@ABU123@@Z")]
+                    internal static extern void SubtractPosition(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr Transform);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?subtractPosition@Transform@math@swg@@QAE?AU123@ABUVector@23@@Z")]
+                    internal static extern void SubtractPosition_1(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr vector);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?multiply@Transform@math@swg@@QAEXABU123@@Z")]
+                    internal static extern void Multiply(global::System.IntPtr __instance, global::System.IntPtr Transform);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?multiply@Transform@math@swg@@QAEXABU123@0@Z")]
+                    internal static extern void Multiply(global::System.IntPtr __instance, global::System.IntPtr left, global::System.IntPtr right);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?invert@Transform@math@swg@@QAEXABU123@@Z")]
+                    internal static extern void Invert(global::System.IntPtr __instance, global::System.IntPtr Transform);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?rotate_o2w@Transform@math@swg@@QAE?AUVector@23@ABU423@@Z")]
+                    internal static extern void RotateO2w(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr vector);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?rotate_p2w@Transform@math@swg@@QAE?AUVector@23@ABU423@@Z")]
+                    internal static extern void RotateP2w(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr vector);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?getPosition@Transform@math@swg@@QAE?AUVector@23@XZ")]
+                    internal static extern void GetPosition(global::System.IntPtr __instance, global::System.IntPtr @return);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?setPosition@Transform@math@swg@@QAEXABUVector@23@@Z")]
+                    internal static extern void SetPosition(global::System.IntPtr __instance, global::System.IntPtr position);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Transform> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Transform>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.Transform __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Transform(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.Transform __CreateInstance(global::UtinniCore.Swg.Math.Transform.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Transform(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.Transform.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Transform.__Internal));
+                    *(global::UtinniCore.Swg.Math.Transform.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private Transform(global::UtinniCore.Swg.Math.Transform.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected Transform(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public Transform()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Transform.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public Transform(float x, float y, float z)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Transform.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance, x, y, z);
+                }
+
+                public Transform(global::UtinniCore.Swg.Math.Vector position)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Transform.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    if (ReferenceEquals(position, null))
+                        throw new global::System.ArgumentNullException("position", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = position.__Instance;
+                    __Internal.ctor(__Instance, __arg0);
+                }
+
+                public Transform(global::UtinniCore.Swg.Math.Transform _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Transform.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Swg.Math.Transform.__Internal*) __Instance) = *((global::UtinniCore.Swg.Math.Transform.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.Transform __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public void SetPosition(float x, float y, float z)
+                {
+                    __Internal.SetPosition(__Instance, x, y, z);
+                }
+
+                public global::UtinniCore.Swg.Math.Vector RotateL2p(global::UtinniCore.Swg.Math.Vector vector)
+                {
+                    if (ReferenceEquals(vector, null))
+                        throw new global::System.ArgumentNullException("vector", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = vector.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector.__Internal();
+                    __Internal.RotateL2p(__Instance, new IntPtr(&__ret), __arg0);
+                    return global::UtinniCore.Swg.Math.Vector.__CreateInstance(__ret);
+                }
+
+                public global::UtinniCore.Swg.Math.Transform AddPosition(global::UtinniCore.Swg.Math.Transform Transform)
+                {
+                    if (ReferenceEquals(Transform, null))
+                        throw new global::System.ArgumentNullException("Transform", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = Transform.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Transform.__Internal();
+                    __Internal.AddPosition(__Instance, new IntPtr(&__ret), __arg0);
+                    return global::UtinniCore.Swg.Math.Transform.__CreateInstance(__ret);
+                }
+
+                public global::UtinniCore.Swg.Math.Transform AddPosition(global::UtinniCore.Swg.Math.Vector vector)
+                {
+                    if (ReferenceEquals(vector, null))
+                        throw new global::System.ArgumentNullException("vector", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = vector.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Transform.__Internal();
+                    __Internal.AddPosition_1(__Instance, new IntPtr(&__ret), __arg0);
+                    return global::UtinniCore.Swg.Math.Transform.__CreateInstance(__ret);
+                }
+
+                public global::UtinniCore.Swg.Math.Transform SubtractPosition(global::UtinniCore.Swg.Math.Transform Transform)
+                {
+                    if (ReferenceEquals(Transform, null))
+                        throw new global::System.ArgumentNullException("Transform", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = Transform.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Transform.__Internal();
+                    __Internal.SubtractPosition(__Instance, new IntPtr(&__ret), __arg0);
+                    return global::UtinniCore.Swg.Math.Transform.__CreateInstance(__ret);
+                }
+
+                public global::UtinniCore.Swg.Math.Transform SubtractPosition(global::UtinniCore.Swg.Math.Vector vector)
+                {
+                    if (ReferenceEquals(vector, null))
+                        throw new global::System.ArgumentNullException("vector", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = vector.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Transform.__Internal();
+                    __Internal.SubtractPosition_1(__Instance, new IntPtr(&__ret), __arg0);
+                    return global::UtinniCore.Swg.Math.Transform.__CreateInstance(__ret);
+                }
+
+                public void Multiply(global::UtinniCore.Swg.Math.Transform Transform)
+                {
+                    if (ReferenceEquals(Transform, null))
+                        throw new global::System.ArgumentNullException("Transform", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = Transform.__Instance;
+                    __Internal.Multiply(__Instance, __arg0);
+                }
+
+                public void Multiply(global::UtinniCore.Swg.Math.Transform left, global::UtinniCore.Swg.Math.Transform right)
+                {
+                    if (ReferenceEquals(left, null))
+                        throw new global::System.ArgumentNullException("left", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = left.__Instance;
+                    if (ReferenceEquals(right, null))
+                        throw new global::System.ArgumentNullException("right", "Cannot be null because it is a C++ reference (&).");
+                    var __arg1 = right.__Instance;
+                    __Internal.Multiply(__Instance, __arg0, __arg1);
+                }
+
+                public void Invert(global::UtinniCore.Swg.Math.Transform Transform)
+                {
+                    if (ReferenceEquals(Transform, null))
+                        throw new global::System.ArgumentNullException("Transform", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = Transform.__Instance;
+                    __Internal.Invert(__Instance, __arg0);
+                }
+
+                public global::UtinniCore.Swg.Math.Vector RotateO2w(global::UtinniCore.Swg.Math.Vector vector)
+                {
+                    if (ReferenceEquals(vector, null))
+                        throw new global::System.ArgumentNullException("vector", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = vector.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector.__Internal();
+                    __Internal.RotateO2w(__Instance, new IntPtr(&__ret), __arg0);
+                    return global::UtinniCore.Swg.Math.Vector.__CreateInstance(__ret);
+                }
+
+                public global::UtinniCore.Swg.Math.Vector RotateP2w(global::UtinniCore.Swg.Math.Vector vector)
+                {
+                    if (ReferenceEquals(vector, null))
+                        throw new global::System.ArgumentNullException("vector", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = vector.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Vector.__Internal();
+                    __Internal.RotateP2w(__Instance, new IntPtr(&__ret), __arg0);
+                    return global::UtinniCore.Swg.Math.Vector.__CreateInstance(__ret);
+                }
+
+                public static implicit operator global::UtinniCore.Swg.Math.Transform(global::UtinniCore.Swg.Math.Vector position)
+                {
+                    return new global::UtinniCore.Swg.Math.Transform(position);
+                }
+
+                public global::UtinniCore.Swg.Math.Vector Position
+                {
+                    get
+                    {
+                        var __ret = new global::UtinniCore.Swg.Math.Vector.__Internal();
+                        __Internal.GetPosition(__Instance, new IntPtr(&__ret));
+                        return global::UtinniCore.Swg.Math.Vector.__CreateInstance(__ret);
+                    }
+
+                    set
+                    {
+                        if (ReferenceEquals(value, null))
+                            throw new global::System.ArgumentNullException("value", "Cannot be null because it is a C++ reference (&).");
+                        var __arg0 = value.__Instance;
+                        __Internal.SetPosition(__Instance, __arg0);
+                    }
+                }
+            }
+
+            public unsafe partial class Matrix4x4 : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 64)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal fixed float matrix[16];
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Matrix4x4@math@swg@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Matrix4x4@math@swg@@QAE@ABUTransform@12@@Z")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, global::System.IntPtr Transform);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Matrix4x4@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor_1(global::System.IntPtr __instance, global::System.IntPtr matrix4x4);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?addPosition@Matrix4x4@math@swg@@QAE?AU123@ABU123@@Z")]
+                    internal static extern void AddPosition(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr matrix4x4);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?subtractPosition@Matrix4x4@math@swg@@QAE?AU123@ABU123@@Z")]
+                    internal static extern void SubtractPosition(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr matrix4x4);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                        EntryPoint="?transpose@Matrix4x4@math@swg@@SAXPBMPAM@Z")]
+                    internal static extern void Transpose(float* source, float* destination);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??HMatrix4x4@math@swg@@QBE?AU012@ABU012@@Z")]
+                    internal static extern void OperatorPlus(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr matrix);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??GMatrix4x4@math@swg@@QBE?AU012@ABU012@@Z")]
+                    internal static extern void OperatorMinus(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr matrix);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Matrix4x4> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Matrix4x4>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.Matrix4x4 __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Matrix4x4(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.Matrix4x4 __CreateInstance(global::UtinniCore.Swg.Math.Matrix4x4.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Matrix4x4(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.Matrix4x4.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Matrix4x4.__Internal));
+                    global::UtinniCore.Swg.Math.Matrix4x4.__Internal.cctor_1(ret, new global::System.IntPtr(&native));
+                    return ret.ToPointer();
+                }
+
+                private Matrix4x4(global::UtinniCore.Swg.Math.Matrix4x4.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected Matrix4x4(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public Matrix4x4()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Matrix4x4.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public Matrix4x4(global::UtinniCore.Swg.Math.Transform Transform)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Matrix4x4.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    if (ReferenceEquals(Transform, null))
+                        throw new global::System.ArgumentNullException("Transform", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = Transform.__Instance;
+                    __Internal.ctor(__Instance, __arg0);
+                }
+
+                public Matrix4x4(global::UtinniCore.Swg.Math.Matrix4x4 matrix4x4)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Matrix4x4.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    if (ReferenceEquals(matrix4x4, null))
+                        throw new global::System.ArgumentNullException("matrix4x4", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = matrix4x4.__Instance;
+                    __Internal.cctor_1(__Instance, __arg0);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.Matrix4x4 __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public global::UtinniCore.Swg.Math.Matrix4x4 AddPosition(global::UtinniCore.Swg.Math.Matrix4x4 matrix4x4)
+                {
+                    if (ReferenceEquals(matrix4x4, null))
+                        throw new global::System.ArgumentNullException("matrix4x4", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = matrix4x4.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Matrix4x4.__Internal();
+                    __Internal.AddPosition(__Instance, new IntPtr(&__ret), __arg0);
+                    return global::UtinniCore.Swg.Math.Matrix4x4.__CreateInstance(__ret);
+                }
+
+                public global::UtinniCore.Swg.Math.Matrix4x4 SubtractPosition(global::UtinniCore.Swg.Math.Matrix4x4 matrix4x4)
+                {
+                    if (ReferenceEquals(matrix4x4, null))
+                        throw new global::System.ArgumentNullException("matrix4x4", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = matrix4x4.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Matrix4x4.__Internal();
+                    __Internal.SubtractPosition(__Instance, new IntPtr(&__ret), __arg0);
+                    return global::UtinniCore.Swg.Math.Matrix4x4.__CreateInstance(__ret);
+                }
+
+                public static global::UtinniCore.Swg.Math.Matrix4x4 operator +(global::UtinniCore.Swg.Math.Matrix4x4 __op, global::UtinniCore.Swg.Math.Matrix4x4 matrix)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    if (ReferenceEquals(matrix, null))
+                        throw new global::System.ArgumentNullException("matrix", "Cannot be null because it is a C++ reference (&).");
+                    var __arg1 = matrix.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Matrix4x4.__Internal();
+                    __Internal.OperatorPlus(__arg0, new IntPtr(&__ret), __arg1);
+                    return global::UtinniCore.Swg.Math.Matrix4x4.__CreateInstance(__ret);
+                }
+
+                public static global::UtinniCore.Swg.Math.Matrix4x4 operator -(global::UtinniCore.Swg.Math.Matrix4x4 __op, global::UtinniCore.Swg.Math.Matrix4x4 matrix)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    if (ReferenceEquals(matrix, null))
+                        throw new global::System.ArgumentNullException("matrix", "Cannot be null because it is a C++ reference (&).");
+                    var __arg1 = matrix.__Instance;
+                    var __ret = new global::UtinniCore.Swg.Math.Matrix4x4.__Internal();
+                    __Internal.OperatorMinus(__arg0, new IntPtr(&__ret), __arg1);
+                    return global::UtinniCore.Swg.Math.Matrix4x4.__CreateInstance(__ret);
+                }
+
+                public static implicit operator global::UtinniCore.Swg.Math.Matrix4x4(global::UtinniCore.Swg.Math.Transform Transform)
+                {
+                    return new global::UtinniCore.Swg.Math.Matrix4x4(Transform);
+                }
+
+                public static void Transpose(ref float source, ref float destination)
+                {
+                    fixed (float* __source0 = &source)
+                    {
+                        var __arg0 = __source0;
+                        fixed (float* __destination1 = &destination)
+                        {
+                            var __arg1 = __destination1;
+                            __Internal.Transpose(__arg0, __arg1);
+                        }
+                    }
+                }
+            }
+
+            public unsafe partial class Plane : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 16)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal global::UtinniCore.Swg.Math.Vector.__Internal normal;
+
+                    [FieldOffset(12)]
+                    internal float d;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Plane@math@swg@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Plane@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Plane> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Plane>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.Plane __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Plane(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.Plane __CreateInstance(global::UtinniCore.Swg.Math.Plane.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Plane(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.Plane.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Plane.__Internal));
+                    *(global::UtinniCore.Swg.Math.Plane.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private Plane(global::UtinniCore.Swg.Math.Plane.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected Plane(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public Plane()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Plane.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public Plane(global::UtinniCore.Swg.Math.Plane _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Plane.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Swg.Math.Plane.__Internal*) __Instance) = *((global::UtinniCore.Swg.Math.Plane.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.Plane __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public global::UtinniCore.Swg.Math.Vector Normal
+                {
+                    get
+                    {
+                        return global::UtinniCore.Swg.Math.Vector.__CreateInstance(new global::System.IntPtr(&((global::UtinniCore.Swg.Math.Plane.__Internal*) __Instance)->normal));
+                    }
+
+                    set
+                    {
+                        if (ReferenceEquals(value, null))
+                            throw new global::System.ArgumentNullException("value", "Cannot be null because it is passed by value.");
+                        ((global::UtinniCore.Swg.Math.Plane.__Internal*)__Instance)->normal = *(global::UtinniCore.Swg.Math.Vector.__Internal*) value.__Instance;
+                    }
+                }
+
+                public float D
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Plane.__Internal*) __Instance)->d;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Plane.__Internal*)__Instance)->d = value;
+                    }
+                }
+            }
+
+            public unsafe partial class Volume : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 8)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal int numberOfPlanes;
+
+                    [FieldOffset(4)]
+                    internal global::System.IntPtr plane;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Volume@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Volume> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Volume>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.Volume __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Volume(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.Volume __CreateInstance(global::UtinniCore.Swg.Math.Volume.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Volume(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.Volume.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Volume.__Internal));
+                    *(global::UtinniCore.Swg.Math.Volume.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private Volume(global::UtinniCore.Swg.Math.Volume.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected Volume(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public Volume()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Volume.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                public Volume(global::UtinniCore.Swg.Math.Volume _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Volume.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Swg.Math.Volume.__Internal*) __Instance) = *((global::UtinniCore.Swg.Math.Volume.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.Volume __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public int NumberOfPlanes
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Volume.__Internal*) __Instance)->numberOfPlanes;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Volume.__Internal*)__Instance)->numberOfPlanes = value;
+                    }
+                }
+
+                public global::UtinniCore.Swg.Math.Plane Plane
+                {
+                    get
+                    {
+                        global::UtinniCore.Swg.Math.Plane __result0;
+                        if (((global::UtinniCore.Swg.Math.Volume.__Internal*) __Instance)->plane == IntPtr.Zero) __result0 = null;
+                        else if (global::UtinniCore.Swg.Math.Plane.NativeToManagedMap.ContainsKey(((global::UtinniCore.Swg.Math.Volume.__Internal*) __Instance)->plane))
+                            __result0 = (global::UtinniCore.Swg.Math.Plane) global::UtinniCore.Swg.Math.Plane.NativeToManagedMap[((global::UtinniCore.Swg.Math.Volume.__Internal*) __Instance)->plane];
+                        else __result0 = global::UtinniCore.Swg.Math.Plane.__CreateInstance(((global::UtinniCore.Swg.Math.Volume.__Internal*) __Instance)->plane);
+                        return __result0;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Volume.__Internal*)__Instance)->plane = ReferenceEquals(value, null) ? global::System.IntPtr.Zero : value.__Instance;
+                    }
+                }
+            }
+
+            public unsafe partial class Quaternion : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 16)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal float W;
+
+                    [FieldOffset(4)]
+                    internal float X;
+
+                    [FieldOffset(8)]
+                    internal float Y;
+
+                    [FieldOffset(12)]
+                    internal float Z;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Quaternion@math@swg@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Quaternion@math@swg@@QAE@ABUTransform@12@@Z")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, global::System.IntPtr Transform);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Quaternion@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor_1(global::System.IntPtr __instance, global::System.IntPtr _0);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Quaternion> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Quaternion>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.Quaternion __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Quaternion(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.Quaternion __CreateInstance(global::UtinniCore.Swg.Math.Quaternion.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Quaternion(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.Quaternion.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Quaternion.__Internal));
+                    *(global::UtinniCore.Swg.Math.Quaternion.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private Quaternion(global::UtinniCore.Swg.Math.Quaternion.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected Quaternion(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public Quaternion()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Quaternion.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public Quaternion(global::UtinniCore.Swg.Math.Transform Transform)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Quaternion.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    if (ReferenceEquals(Transform, null))
+                        throw new global::System.ArgumentNullException("Transform", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = Transform.__Instance;
+                    __Internal.ctor(__Instance, __arg0);
+                }
+
+                public Quaternion(global::UtinniCore.Swg.Math.Quaternion _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Quaternion.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Swg.Math.Quaternion.__Internal*) __Instance) = *((global::UtinniCore.Swg.Math.Quaternion.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.Quaternion __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public static implicit operator global::UtinniCore.Swg.Math.Quaternion(global::UtinniCore.Swg.Math.Transform Transform)
+                {
+                    return new global::UtinniCore.Swg.Math.Quaternion(Transform);
+                }
+
+                public float W
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Quaternion.__Internal*) __Instance)->W;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Quaternion.__Internal*)__Instance)->W = value;
+                    }
+                }
+
+                public float X
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Quaternion.__Internal*) __Instance)->X;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Quaternion.__Internal*)__Instance)->X = value;
+                    }
+                }
+
+                public float Y
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Quaternion.__Internal*) __Instance)->Y;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Quaternion.__Internal*)__Instance)->Y = value;
+                    }
+                }
+
+                public float Z
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Quaternion.__Internal*) __Instance)->Z;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Quaternion.__Internal*)__Instance)->Z = value;
+                    }
+                }
+            }
+
+            public unsafe partial class Point : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 8)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal float X;
+
+                    [FieldOffset(4)]
+                    internal float Y;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Point@math@swg@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Point@math@swg@@QAE@MM@Z")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, float x, float y);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Point@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Point> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Point>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.Point __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Point(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.Point __CreateInstance(global::UtinniCore.Swg.Math.Point.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Point(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.Point.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Point.__Internal));
+                    *(global::UtinniCore.Swg.Math.Point.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private Point(global::UtinniCore.Swg.Math.Point.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected Point(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public Point()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Point.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public Point(float x, float y)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Point.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance, x, y);
+                }
+
+                public Point(global::UtinniCore.Swg.Math.Point _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Point.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Swg.Math.Point.__Internal*) __Instance) = *((global::UtinniCore.Swg.Math.Point.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.Point __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public float X
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Point.__Internal*) __Instance)->X;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Point.__Internal*)__Instance)->X = value;
+                    }
+                }
+
+                public float Y
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Point.__Internal*) __Instance)->Y;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Point.__Internal*)__Instance)->Y = value;
+                    }
+                }
+            }
+
+            public unsafe partial class UiPoint : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 8)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal int X;
+
+                    [FieldOffset(4)]
+                    internal int Y;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0UiPoint@math@swg@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0UiPoint@math@swg@@QAE@HH@Z")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, int x, int y);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0UiPoint@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.UiPoint> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.UiPoint>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.UiPoint __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.UiPoint(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.UiPoint __CreateInstance(global::UtinniCore.Swg.Math.UiPoint.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.UiPoint(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.UiPoint.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.UiPoint.__Internal));
+                    *(global::UtinniCore.Swg.Math.UiPoint.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private UiPoint(global::UtinniCore.Swg.Math.UiPoint.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected UiPoint(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public UiPoint()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.UiPoint.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public UiPoint(int x, int y)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.UiPoint.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance, x, y);
+                }
+
+                public UiPoint(global::UtinniCore.Swg.Math.UiPoint _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.UiPoint.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Swg.Math.UiPoint.__Internal*) __Instance) = *((global::UtinniCore.Swg.Math.UiPoint.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.UiPoint __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public int X
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.UiPoint.__Internal*) __Instance)->X;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.UiPoint.__Internal*)__Instance)->X = value;
+                    }
+                }
+
+                public int Y
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.UiPoint.__Internal*) __Instance)->Y;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.UiPoint.__Internal*)__Instance)->Y = value;
+                    }
+                }
+            }
+
+            public unsafe partial class Rect2d : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 16)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal float X0;
+
+                    [FieldOffset(4)]
+                    internal float Y0;
+
+                    [FieldOffset(8)]
+                    internal float X1;
+
+                    [FieldOffset(12)]
+                    internal float Y1;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Rect2d@math@swg@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Rect2d@math@swg@@QAE@MMMM@Z")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, float x0, float y0, float x1, float y1);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Rect2d@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?getWidth@Rect2d@math@swg@@QBEMXZ")]
+                    internal static extern float GetWidth(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?getHeight@Rect2d@math@swg@@QBEMXZ")]
+                    internal static extern float GetHeight(global::System.IntPtr __instance);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Rect2d> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Rect2d>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.Rect2d __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Rect2d(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.Rect2d __CreateInstance(global::UtinniCore.Swg.Math.Rect2d.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.Rect2d(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.Rect2d.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Rect2d.__Internal));
+                    *(global::UtinniCore.Swg.Math.Rect2d.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private Rect2d(global::UtinniCore.Swg.Math.Rect2d.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected Rect2d(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public Rect2d()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Rect2d.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public Rect2d(float x0, float y0, float x1, float y1)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Rect2d.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance, x0, y0, x1, y1);
+                }
+
+                public Rect2d(global::UtinniCore.Swg.Math.Rect2d _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.Rect2d.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Swg.Math.Rect2d.__Internal*) __Instance) = *((global::UtinniCore.Swg.Math.Rect2d.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.Rect2d __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public float X0
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Rect2d.__Internal*) __Instance)->X0;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Rect2d.__Internal*)__Instance)->X0 = value;
+                    }
+                }
+
+                public float Y0
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Rect2d.__Internal*) __Instance)->Y0;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Rect2d.__Internal*)__Instance)->Y0 = value;
+                    }
+                }
+
+                public float X1
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Rect2d.__Internal*) __Instance)->X1;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Rect2d.__Internal*)__Instance)->X1 = value;
+                    }
+                }
+
+                public float Y1
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.Rect2d.__Internal*) __Instance)->Y1;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.Rect2d.__Internal*)__Instance)->Y1 = value;
+                    }
+                }
+
+                public float Width
+                {
+                    get
+                    {
+                        var __ret = __Internal.GetWidth(__Instance);
+                        return __ret;
+                    }
+                }
+
+                public float Height
+                {
+                    get
+                    {
+                        var __ret = __Internal.GetHeight(__Instance);
+                        return __ret;
+                    }
+                }
+            }
+
+            public unsafe partial class UiRect : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 16)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal int Left;
+
+                    [FieldOffset(4)]
+                    internal int Top;
+
+                    [FieldOffset(8)]
+                    internal int Right;
+
+                    [FieldOffset(12)]
+                    internal int Bottom;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0UiRect@math@swg@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0UiRect@math@swg@@QAE@HHHH@Z")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, int left, int top, int right, int bottom);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0UiRect@math@swg@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?getWidth@UiRect@math@swg@@QBEHXZ")]
+                    internal static extern int GetWidth(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?getHeight@UiRect@math@swg@@QBEHXZ")]
+                    internal static extern int GetHeight(global::System.IntPtr __instance);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.UiRect> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.UiRect>();
+                protected internal void*[] __OriginalVTables;
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Swg.Math.UiRect __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.UiRect(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Swg.Math.UiRect __CreateInstance(global::UtinniCore.Swg.Math.UiRect.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Swg.Math.UiRect(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Swg.Math.UiRect.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.UiRect.__Internal));
+                    *(global::UtinniCore.Swg.Math.UiRect.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private UiRect(global::UtinniCore.Swg.Math.UiRect.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected UiRect(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public UiRect()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.UiRect.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public UiRect(int left, int top, int right, int bottom)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.UiRect.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance, left, top, right, bottom);
+                }
+
+                public UiRect(global::UtinniCore.Swg.Math.UiRect _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Swg.Math.UiRect.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Swg.Math.UiRect.__Internal*) __Instance) = *((global::UtinniCore.Swg.Math.UiRect.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Swg.Math.UiRect __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public int Left
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.UiRect.__Internal*) __Instance)->Left;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.UiRect.__Internal*)__Instance)->Left = value;
+                    }
+                }
+
+                public int Top
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.UiRect.__Internal*) __Instance)->Top;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.UiRect.__Internal*)__Instance)->Top = value;
+                    }
+                }
+
+                public int Right
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.UiRect.__Internal*) __Instance)->Right;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.UiRect.__Internal*)__Instance)->Right = value;
+                    }
+                }
+
+                public int Bottom
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Swg.Math.UiRect.__Internal*) __Instance)->Bottom;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Swg.Math.UiRect.__Internal*)__Instance)->Bottom = value;
+                    }
+                }
+
+                public int Width
+                {
+                    get
+                    {
+                        var __ret = __Internal.GetWidth(__Instance);
+                        return __ret;
+                    }
+                }
+
+                public int Height
+                {
+                    get
+                    {
+                        var __ret = __Internal.GetHeight(__Instance);
+                        return __ret;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -168,12 +168,14 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
     <ClCompile Include="swg\game\game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="swg\misc\swg_math.cpp" />
     <ClCompile Include="utility\utility.cpp" />
     <ClCompile Include="utility\memory.cpp" />
     <ClCompile Include="utinni.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="swg\game\game.h" />
+    <ClInclude Include="swg\misc\swg_math.h" />
     <ClInclude Include="utility\utility.h" />
     <ClInclude Include="utility\memory.h" />
     <ClInclude Include="utinni.h" />
