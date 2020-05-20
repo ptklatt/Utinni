@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Forms;
 using CppSharp;
 using CppSharp.AST;
 using CppSharp.Generators;
@@ -25,10 +26,13 @@ namespace UtinniCoreDotNetGen
                 var module = options.AddModule(targetProjName);
 
                 // Includes
+                module.IncludeDirs.Add(slnDir + "\\external\\");
                 module.IncludeDirs.Add(slnDir + targetProjName); // ToDo make this a loop to grab all the subfolders
+                module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\game\\");
+
 
                 // Headers
-                //module.Headers.Add("world_snapshot.h");
+                module.Headers.Add("game.h");
 
                 // Library
                 module.LibraryDirs.Add(slnDir + "bin\\" + buildMode + "\\");
@@ -41,7 +45,12 @@ namespace UtinniCoreDotNetGen
 
             public void Preprocess(Driver driver, ASTContext ctx)
             {
+                ctx.IgnoreHeadersWithName("detourxs");
+                ctx.IgnoreHeadersWithName("ADE32");
+
                 ctx.IgnoreHeadersWithName("utinni");
+                ctx.IgnoreHeadersWithName("utility");
+
 
             }
 
@@ -54,6 +63,7 @@ namespace UtinniCoreDotNetGen
         static void Main(string[] args)
         {
             ConsoleDriver.Run(new Gen());
+            //Console.Read();
         }
     }
 }
