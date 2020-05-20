@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Launcher", "Launcher\Launcher.vcxproj", "{E1923E12-B8CB-4C7E-8A12-68877DC01E5C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{39AB8A43-B916-4C6E-87DD-928B438CAE68} = {39AB8A43-B916-4C6E-87DD-928B438CAE68}
+		{AEFED7F6-4BA9-44FC-A353-71A463A82FDE} = {AEFED7F6-4BA9-44FC-A353-71A463A82FDE}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UtinniCore", "UtinniCore\UtinniCore.vcxproj", "{AEFED7F6-4BA9-44FC-A353-71A463A82FDE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{88A2EDD9-FBE1-4D66-A867-6359B31566D3} = {88A2EDD9-FBE1-4D66-A867-6359B31566D3}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtinniCoreDotNet", "UtinniCoreDotNet\UtinniCoreDotNet.csproj", "{39AB8A43-B916-4C6E-87DD-928B438CAE68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtinniCoreDotNetGen", "UtinniCoreDotNetGen\UtinniCoreDotNetGen.csproj", "{88A2EDD9-FBE1-4D66-A867-6359B31566D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1923E12-B8CB-4C7E-8A12-68877DC01E5C}.Debug|x86.ActiveCfg = Debug|Win32
+		{E1923E12-B8CB-4C7E-8A12-68877DC01E5C}.Debug|x86.Build.0 = Debug|Win32
+		{E1923E12-B8CB-4C7E-8A12-68877DC01E5C}.Release|x86.ActiveCfg = Release|Win32
+		{E1923E12-B8CB-4C7E-8A12-68877DC01E5C}.Release|x86.Build.0 = Release|Win32
+		{AEFED7F6-4BA9-44FC-A353-71A463A82FDE}.Debug|x86.ActiveCfg = Debug|Win32
+		{AEFED7F6-4BA9-44FC-A353-71A463A82FDE}.Debug|x86.Build.0 = Debug|Win32
+		{AEFED7F6-4BA9-44FC-A353-71A463A82FDE}.Release|x86.ActiveCfg = Release|Win32
+		{AEFED7F6-4BA9-44FC-A353-71A463A82FDE}.Release|x86.Build.0 = Release|Win32
+		{39AB8A43-B916-4C6E-87DD-928B438CAE68}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{39AB8A43-B916-4C6E-87DD-928B438CAE68}.Debug|x86.Build.0 = Debug|Any CPU
+		{39AB8A43-B916-4C6E-87DD-928B438CAE68}.Release|x86.ActiveCfg = Release|Any CPU
+		{39AB8A43-B916-4C6E-87DD-928B438CAE68}.Release|x86.Build.0 = Release|Any CPU
+		{88A2EDD9-FBE1-4D66-A867-6359B31566D3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{88A2EDD9-FBE1-4D66-A867-6359B31566D3}.Debug|x86.Build.0 = Debug|Any CPU
+		{88A2EDD9-FBE1-4D66-A867-6359B31566D3}.Release|x86.ActiveCfg = Release|Any CPU
+		{88A2EDD9-FBE1-4D66-A867-6359B31566D3}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {37589E42-20E2-43DA-98B7-0C65B696C260}
+	EndGlobalSection
+EndGlobal
