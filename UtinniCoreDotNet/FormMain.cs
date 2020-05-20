@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
-using UtinniCore;
+//using UtinniCore;
 
 namespace UtinniCoreDotNet
 {
@@ -16,7 +16,7 @@ namespace UtinniCoreDotNet
 
         private void FormMain_Shown(object sender, EventArgs e)
         {
-			
+
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
