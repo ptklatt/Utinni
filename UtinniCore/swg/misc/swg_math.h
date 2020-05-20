@@ -62,6 +62,8 @@ struct UTINNI_API Transform
     void invert(const Transform& Transform);
     Vector rotate_o2w(const Vector& vector);
     Vector rotate_p2w(const Vector& vector);
+
+    static Transform getIdentity();
 };
 
 struct UTINNI_API Matrix4x4

@@ -266,6 +266,11 @@ Vector Transform::rotate_p2w(const Vector& vector)
         matrix[0][2] * vector.X + matrix[1][2] * vector.Y + matrix[2][2] * vector.Z };
 }
 
+Transform Transform::getIdentity()
+{
+    return Transform();
+}
+
 Matrix4x4::Matrix4x4()
 {
     matrix[0][0] = 1;
