@@ -97,7 +97,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /E /Y "$(SolutionDir)data" "$(TargetDir)" /d
@@ -139,7 +139,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
@@ -164,14 +164,18 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\external\DetourXS\ADE32.cpp" />
+    <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
+    <ClCompile Include="swg\game\game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="utility\memory.cpp" />
     <ClCompile Include="utility\utility.cpp" />
+    <ClCompile Include="utility\memory.cpp" />
     <ClCompile Include="utinni.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="utility\memory.h" />
+    <ClInclude Include="swg\game\game.h" />
     <ClInclude Include="utility\utility.h" />
+    <ClInclude Include="utility\memory.h" />
     <ClInclude Include="utinni.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -3,6 +3,8 @@
 #include <mscoree.h>
 #include <metahost.h>
 
+#include "swg/game/game.h"
+
 #pragma comment(lib, "mscoree.lib")
 
 static const LPCWSTR netParam = L"";
@@ -137,6 +139,8 @@ Utinni::Utinni()
     utinniPath = dllPath.substr(0, dllPath.find_last_of("\\/")) + "\\";
 
     swgOverrideCfgFilename = "utinni.cfg";
+
+    utinni::Game::detour();
 
     loadCoreDotNet();
 }

@@ -16,6 +16,11 @@
 #include <cassert>
 #include <string>
 
+#include "DetourXS/detourxs.h"
+
+#include "utility/utility.h"
+#include "utility/memory.h"
+
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(a) { if((a)) { delete (a); (a) = NULL; } }
 #endif
