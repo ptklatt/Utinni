@@ -18,3 +18,5 @@ ipch/
 *.obj
 *.config
 *.lastbuildstate
+/UtinniCoreDotNet/Generated/Std-symbols.cpp
+/UtinniCoreDotNet/Generated/UtinniCore-symbols.cpp
