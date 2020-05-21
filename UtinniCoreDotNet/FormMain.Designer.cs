@@ -46,7 +46,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(22, 86);
+            this.button2.Location = new System.Drawing.Point(22, 57);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(22, 57);
+            this.button3.Location = new System.Drawing.Point(22, 86);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
@@ -73,6 +73,8 @@
             this.pnlGame.Name = "pnlGame";
             this.pnlGame.Size = new System.Drawing.Size(640, 360);
             this.pnlGame.TabIndex = 3;
+            this.pnlGame.SizeChanged += new System.EventHandler(this.pnlGame_SizeChanged);
+            this.pnlGame.Resize += new System.EventHandler(this.pnlGame_Resize);
             // 
             // FormMain
             // 

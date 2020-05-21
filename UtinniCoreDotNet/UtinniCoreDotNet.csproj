@@ -55,7 +55,9 @@
     </Compile>
     <Compile Include="Generated\UtinniCore.cs" />
     <Compile Include="main.cs" />
-    <Compile Include="PanelGame.cs" />
+    <Compile Include="PanelGame.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

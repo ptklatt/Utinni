@@ -1,5 +1,6 @@
 #include "game.h"
 #include "utinni.h";
+#include "swg/client/client.h"
 
 namespace swg::game
 {
@@ -28,17 +29,27 @@ pIsViewFirstPerson isViewFirstPerson = (pIsViewFirstPerson)0x00425C10;
 pIsHudSceneTypeSpace isHudSceneTypeSpace = (pIsHudSceneTypeSpace)0x00426170;
 }
 
-void __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
-{
-    swg::game::mainLoop(presentToWindow, hwnd, width, height);
-}
-
 namespace utinni
 {
 
 int getMainLoopCount()
 {
     return memory::read<int>(0x1908830); // Ptr to the main loop count
+}
+
+void __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
+{
+    RECT rect;
+    if (Client::getIsEditorChild() && GetWindowRect(Client::getHwnd(), &rect))
+    {
+        int newWidth = rect.right - rect.left;
+        int newHeight = rect.bottom - rect.top;
+        swg::game::mainLoop(false, Client::getHwnd(), newWidth, newHeight);
+    }
+    else
+    {
+        swg::game::mainLoop(presentToWindow, hwnd, width, height);
+    }
 }
 
 void Game::detour()
@@ -48,11 +59,6 @@ void Game::detour()
         swg::game::mainLoop = (swg::game::pMainLoop)Detour::Create(swg::game::mainLoop, hkMainLoop, DETOUR_TYPE_PUSH_RET);
 
     }
-    else
-    {
-
-    }
-
 }
 
 void Game::quit()

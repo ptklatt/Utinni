@@ -3,6 +3,7 @@
 #include <mscoree.h>
 #include <metahost.h>
 
+#include "swg/client/client.h"
 #include "swg/game/game.h"
 #include "swg/graphics/graphics.h"
 
@@ -141,10 +142,14 @@ Utinni::Utinni()
 
     swgOverrideCfgFilename = "utinni.cfg";
 
+    utinni::Client::setIsEditorChild(true); // ToDo make this a setting
+
+    utinni::Client::detour();
     utinni::Game::detour();
     utinni::Graphics::detour();
 
     loadCoreDotNet();
+
 }
 
 Utinni::~Utinni() {}

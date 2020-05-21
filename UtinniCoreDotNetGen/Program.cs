@@ -27,11 +27,13 @@ namespace UtinniCoreDotNetGen
                 // Includes
                 module.IncludeDirs.Add(slnDir + "\\external\\");
                 module.IncludeDirs.Add(slnDir + targetProjName); // ToDo make this a loop to grab all the subfolders
+                module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\client\\");
                 module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\game\\");
                 module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\graphics\\");
                 module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\misc\\");
 
                 // Headers
+                module.Headers.Add("client.h");
                 module.Headers.Add("game.h");
                 module.Headers.Add("graphics.h");
                 module.Headers.Add("swg_math.h");

@@ -18,7 +18,6 @@ public:
     static void flushResources(bool fullFlush);
 
     static void reloadTextures();
-    
 };
 };
 
