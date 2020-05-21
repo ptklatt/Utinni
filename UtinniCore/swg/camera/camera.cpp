@@ -1,6 +1,6 @@
 #include "camera.h"
-#include "../game/game.h"
-#include "../scene/ground_scene.h"
+#include "swg/game/game.h"
+#include "swg/scene/ground_scene.h"
 
 namespace swg::camera
 {

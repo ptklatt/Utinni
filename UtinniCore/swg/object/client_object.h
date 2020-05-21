@@ -5,7 +5,8 @@
 
 namespace utinni
 {
-class UTINNI_API ClientObject : Object
+
+class UTINNI_API ClientObject : public Object
 {
 public:
 	 uint32_t pArrangementDescriptor;

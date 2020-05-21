@@ -6,6 +6,8 @@
 
 namespace utinni
 {
+class Camera;
+
 class UTINNI_API GroundScene : public NetworkScene
 {
 public:

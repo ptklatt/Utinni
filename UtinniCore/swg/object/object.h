@@ -1,7 +1,6 @@
 #pragma once
 
 #include "utinni.h"
-#include "client_object.h"
 #include "swg/misc/crc_string.h"
 #include "swg/misc/swg_math.h"
 #include "swg/misc/swg_misc.h"
@@ -9,7 +8,11 @@
 
 namespace utinni
 {
+class Appearance;
 class Object;
+class ClientObject;
+struct Controller;
+struct ConstCharCrcString;
 
 class UTINNI_API ObjectTemplate : DataResource
 {

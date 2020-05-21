@@ -81,8 +81,8 @@ using pSetScale = void(__thiscall*)(utinni::Object* pThis, swg::math::Vector& sc
 
 using pRotate_o2w = const swg::math::Vector(__thiscall*)(utinni::Object* pThis, DWORD unk, const swg::math::Vector* o2w, const swg::math::Vector* pointInSpace); // ??
 
-using pGetAppearance = appearance::Data* (__thiscall*)(utinni::Object* pThis);
-using pSetAppearance = void(__thiscall*)(utinni::Object* pThis, appearance::Data* appearance);
+using pGetAppearance = utinni::Appearance* (__thiscall*)(utinni::Object* pThis);
+using pSetAppearance = void(__thiscall*)(utinni::Object* pThis, utinni::Appearance* appearance);
 using pGetAppearanceFilename = const char* (__thiscall*)(utinni::Object* pThis);
 using pSetAppearanceByFilename = void(__thiscall*)(utinni::Object* pThis, const char* filename);
 

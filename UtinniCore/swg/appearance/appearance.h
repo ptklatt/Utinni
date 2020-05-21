@@ -5,14 +5,16 @@
 #include "swg/misc/swg_math.h"
 #include "swg/object/object.h"
 
+namespace utinni
+{
+class Object;
+
 struct UTINNI_API Hardpoint
 {
     utinni::PersistentCrcString name;
     swg::math::Transform Transform;
 };
 
-namespace utinni
-{
 class UTINNI_API AppearanceTemplate
 {
 public:
