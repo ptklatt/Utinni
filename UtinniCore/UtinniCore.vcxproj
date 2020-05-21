@@ -166,19 +166,45 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
   <ItemGroup>
     <ClCompile Include="..\external\DetourXS\ADE32.cpp" />
     <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
+    <ClCompile Include="swg\camera\camera.cpp" />
+    <ClCompile Include="swg\object\client_object.cpp" />
+    <ClCompile Include="swg\appearance\appearance.cpp" />
+    <ClCompile Include="swg\object\object.cpp" />
+    <ClCompile Include="swg\misc\crc_string.cpp" />
+    <ClCompile Include="swg\misc\network.cpp" />
+    <ClCompile Include="swg\misc\io_win.cpp" />
+    <ClCompile Include="swg\scene\scene.cpp" />
+    <ClCompile Include="swg\scene\ground_scene.cpp" />
     <ClCompile Include="swg\game\game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="swg\misc\swg_math.cpp" />
+    <ClCompile Include="swg\misc\swg_utility.cpp" />
+    <ClCompile Include="swg\misc\swg_misc.cpp" />
+    <ClCompile Include="swg\scene\terrain.cpp" />
     <ClCompile Include="utility\utility.cpp" />
     <ClCompile Include="utility\memory.cpp" />
     <ClCompile Include="utinni.cpp" />
+    <ClCompile Include="swg\scene\world_snapshot.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="swg\camera\camera.h" />
+    <ClInclude Include="swg\object\client_object.h" />
+    <ClInclude Include="swg\appearance\appearance.h" />
+    <ClInclude Include="swg\object\object.h" />
+    <ClInclude Include="swg\misc\crc_string.h" />
+    <ClInclude Include="swg\misc\network.h" />
+    <ClInclude Include="swg\misc\io_win.h" />
+    <ClInclude Include="swg\scene\scene.h" />
+    <ClInclude Include="swg\scene\ground_scene.h" />
     <ClInclude Include="swg\game\game.h" />
     <ClInclude Include="swg\misc\swg_math.h" />
+    <ClInclude Include="swg\misc\swg_utility.h" />
+    <ClInclude Include="swg\misc\swg_misc.h" />
+    <ClInclude Include="swg\scene\terrain.h" />
     <ClInclude Include="utility\utility.h" />
     <ClInclude Include="utility\memory.h" />
     <ClInclude Include="utinni.h" />
+    <ClInclude Include="swg\scene\world_snapshot.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

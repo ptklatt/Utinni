@@ -1,10 +1,12 @@
 #pragma once
+
 #include "utinni.h"
 #include "scene.h"
+#include "swg/camera/camera.h"
 
 namespace utinni
 {
-class UTINNI_API GroundScene : NetworkScene
+class UTINNI_API GroundScene : public NetworkScene
 {
 public:
     DWORD* inputMap;
@@ -47,9 +49,12 @@ public:
     uint32_t unk17;
 
     static GroundScene* get();
+    const char* getName();
 
     static void detour();
     static void removeDetour();
+
+    Camera* getCurrentCamera();
 };
 
 }

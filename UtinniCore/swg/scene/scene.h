@@ -6,7 +6,7 @@
 
 namespace utinni
 {
-class UTINNI_API Scene : IoWin
+class UTINNI_API Scene : public IoWin
 {
 public:
 	 uint32_t unk01;
@@ -15,7 +15,7 @@ public:
 	 uint32_t unk04;
 };
 
-class UTINNI_API NetworkScene : Scene
+class UTINNI_API NetworkScene : public Scene
 {
 public:
 	 Object* playerObject;

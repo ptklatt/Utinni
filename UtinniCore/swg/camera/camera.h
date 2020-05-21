@@ -17,7 +17,7 @@ enum cameraProjectionMode
 	 pm_Parallel = 1,
 };
 
-class UTINNI_API Camera : Object
+class UTINNI_API Camera : public Object
 {
 public:
 	 swg::math::Matrix4x4 projectionMatrix;

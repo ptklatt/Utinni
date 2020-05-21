@@ -1,4 +1,5 @@
 #pragma once
+
 #include "utinni.h"
 #include "client_object.h"
 #include "swg/misc/crc_string.h"
