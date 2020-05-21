@@ -12,6 +12,52 @@ namespace UtinniCore
 {
     namespace Utinni
     {
+        public unsafe partial class Camera
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 0)]
+            public partial struct __Internal
+            {
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Camera> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Camera>();
+            protected internal void*[] __OriginalVTables;
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.Utinni.Camera __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.Camera(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.Utinni.Camera __CreateInstance(global::UtinniCore.Utinni.Camera.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.Camera(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.Utinni.Camera.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.Camera.__Internal));
+                *(global::UtinniCore.Utinni.Camera.__Internal*) ret = native;
+                return ret.ToPointer();
+            }
+
+            private Camera(global::UtinniCore.Utinni.Camera.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected Camera(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+            }
+        }
+
         public unsafe partial class Game : IDisposable
         {
             [StructLayout(LayoutKind.Explicit, Size = 0)]
@@ -31,6 +77,16 @@ namespace UtinniCore
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
                     EntryPoint="?quit@Game@utinni@@SAXXZ")]
                 internal static extern void Quit();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getCamera@Game@utinni@@SAPAVCamera@2@XZ")]
+                internal static extern global::System.IntPtr GetCamera();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getConstCamera@Game@utinni@@SAPBVCamera@2@XZ")]
+                internal static extern global::System.IntPtr GetConstCamera();
             }
 
             public global::System.IntPtr __Instance { get; protected set; }
@@ -110,6 +166,196 @@ namespace UtinniCore
             public static void Quit()
             {
                 __Internal.Quit();
+            }
+
+            public static global::UtinniCore.Utinni.Camera Camera
+            {
+                get
+                {
+                    var __ret = __Internal.GetCamera();
+                    global::UtinniCore.Utinni.Camera __result0;
+                    if (__ret == IntPtr.Zero) __result0 = null;
+                    else if (global::UtinniCore.Utinni.Camera.NativeToManagedMap.ContainsKey(__ret))
+                        __result0 = (global::UtinniCore.Utinni.Camera) global::UtinniCore.Utinni.Camera.NativeToManagedMap[__ret];
+                    else __result0 = global::UtinniCore.Utinni.Camera.__CreateInstance(__ret);
+                    return __result0;
+                }
+            }
+
+            public static global::UtinniCore.Utinni.Camera ConstCamera
+            {
+                get
+                {
+                    var __ret = __Internal.GetConstCamera();
+                    global::UtinniCore.Utinni.Camera __result0;
+                    if (__ret == IntPtr.Zero) __result0 = null;
+                    else if (global::UtinniCore.Utinni.Camera.NativeToManagedMap.ContainsKey(__ret))
+                        __result0 = (global::UtinniCore.Utinni.Camera) global::UtinniCore.Utinni.Camera.NativeToManagedMap[__ret];
+                    else __result0 = global::UtinniCore.Utinni.Camera.__CreateInstance(__ret);
+                    return __result0;
+                }
+            }
+        }
+    }
+
+    namespace Utinni
+    {
+        public unsafe partial class Graphics : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 0)]
+            public partial struct __Internal
+            {
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Graphics@utinni@@QAE@ABV01@@Z")]
+                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?detour@Graphics@utinni@@SAXXZ")]
+                internal static extern void Detour();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?showMouseCursor@Graphics@utinni@@SAX_N@Z")]
+                internal static extern void ShowMouseCursor(bool isShown);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?setSystemMouseCursorPosition@Graphics@utinni@@SAXHH@Z")]
+                internal static extern void SetSystemMouseCursorPosition(int X, int Y);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?flushResources@Graphics@utinni@@SAX_N@Z")]
+                internal static extern void FlushResources(bool fullFlush);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?reloadTextures@Graphics@utinni@@SAXXZ")]
+                internal static extern void ReloadTextures();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getCurrentRenderTargetWidth@Graphics@utinni@@SAHXZ")]
+                internal static extern int GetCurrentRenderTargetWidth();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getCurrentRenderTargetHeight@Graphics@utinni@@SAHXZ")]
+                internal static extern int GetCurrentRenderTargetHeight();
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Graphics> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Graphics>();
+            protected internal void*[] __OriginalVTables;
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.Utinni.Graphics __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.Graphics(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.Utinni.Graphics __CreateInstance(global::UtinniCore.Utinni.Graphics.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.Graphics(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.Utinni.Graphics.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.Graphics.__Internal));
+                *(global::UtinniCore.Utinni.Graphics.__Internal*) ret = native;
+                return ret.ToPointer();
+            }
+
+            private Graphics(global::UtinniCore.Utinni.Graphics.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected Graphics(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+            }
+
+            public Graphics()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.Graphics.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            public Graphics(global::UtinniCore.Utinni.Graphics _0)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.Graphics.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                *((global::UtinniCore.Utinni.Graphics.__Internal*) __Instance) = *((global::UtinniCore.Utinni.Graphics.__Internal*) _0.__Instance);
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.Utinni.Graphics __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            public static void Detour()
+            {
+                __Internal.Detour();
+            }
+
+            public static void ShowMouseCursor(bool isShown)
+            {
+                __Internal.ShowMouseCursor(isShown);
+            }
+
+            public static void SetSystemMouseCursorPosition(int X, int Y)
+            {
+                __Internal.SetSystemMouseCursorPosition(X, Y);
+            }
+
+            public static void FlushResources(bool fullFlush)
+            {
+                __Internal.FlushResources(fullFlush);
+            }
+
+            public static void ReloadTextures()
+            {
+                __Internal.ReloadTextures();
+            }
+
+            public static int CurrentRenderTargetWidth
+            {
+                get
+                {
+                    var __ret = __Internal.GetCurrentRenderTargetWidth();
+                    return __ret;
+                }
+            }
+
+            public static int CurrentRenderTargetHeight
+            {
+                get
+                {
+                    var __ret = __Internal.GetCurrentRenderTargetHeight();
+                    return __ret;
+                }
             }
         }
     }
@@ -634,6 +880,11 @@ namespace UtinniCore
                     [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
                         EntryPoint="?setPosition@Transform@math@swg@@QAEXABUVector@23@@Z")]
                     internal static extern void SetPosition(global::System.IntPtr __instance, global::System.IntPtr position);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                        EntryPoint="?getIdentity@Transform@math@swg@@SA?AU123@XZ")]
+                    internal static extern void GetIdentity(global::System.IntPtr @return);
                 }
 
                 public global::System.IntPtr __Instance { get; protected set; }
@@ -847,6 +1098,16 @@ namespace UtinniCore
                             throw new global::System.ArgumentNullException("value", "Cannot be null because it is a C++ reference (&).");
                         var __arg0 = value.__Instance;
                         __Internal.SetPosition(__Instance, __arg0);
+                    }
+                }
+
+                public static global::UtinniCore.Swg.Math.Transform Identity
+                {
+                    get
+                    {
+                        var __ret = new global::UtinniCore.Swg.Math.Transform.__Internal();
+                        __Internal.GetIdentity(new IntPtr(&__ret));
+                        return global::UtinniCore.Swg.Math.Transform.__CreateInstance(__ret);
                     }
                 }
             }
