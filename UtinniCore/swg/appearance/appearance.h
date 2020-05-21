@@ -15,9 +15,10 @@ namespace utinni
 {
 class UTINNI_API AppearanceTemplate
 {
+public:
     DWORD* vtbl;
     int referenceCount;
-    utinni::PersistentCrcString* const m_crcName;
+    PersistentCrcString* const m_crcName;
     DWORD* unk01;
     DWORD* unk02;
     std::vector<Hardpoint*, std::allocator<Hardpoint*>>* hardpoints;
@@ -27,6 +28,7 @@ class UTINNI_API AppearanceTemplate
 
 class UTINNI_API Appearance
 {
+public:
     DWORD* vtbl;
     AppearanceTemplate* appearanceTemplate;
     DWORD* extent;
@@ -39,5 +41,25 @@ class UTINNI_API Appearance
     swg::math::Transform appearanceToWorld;
 };
 
+class UTINNI_API CellProperty
+{
+public:
+    DWORD getParentCell();
+    static void setPortalTransitions(bool enabled);
+};
+
+class UTINNI_API PortalPropertyTemplate
+{
+public:
+    int getCrc();
+    int getCellCount();
+    const char* getExteriorAppearanceName();
+};
+
+class UTINNI_API PortalPropertyTemplateList
+{
+public:
+    static PortalPropertyTemplate* getPobByCrcString(PersistentCrcString* pobCrcString);
+};
 
 }
