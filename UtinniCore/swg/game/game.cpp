@@ -60,12 +60,12 @@ void Game::quit()
     swg::game::quit();
 }
 
-Camera* getCamera()
+Camera* Game::getCamera()
 {
     return swg::game::getCamera();
 }
 
-const Camera* getConstCamera()
+const Camera* Game::getConstCamera()
 {
     return swg::game::getConstCamera();
 }

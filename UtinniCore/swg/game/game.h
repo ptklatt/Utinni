@@ -1,10 +1,11 @@
 #pragma once
 
 #include "utinni.h"
-#include "swg/camera/camera.h"
 
 namespace utinni
 {
+class Camera;
+
 class UTINNI_API Game
 {
 public:

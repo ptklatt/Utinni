@@ -4,6 +4,7 @@
 #include <metahost.h>
 
 #include "swg/game/game.h"
+#include "swg/graphics/graphics.h"
 
 #pragma comment(lib, "mscoree.lib")
 
@@ -141,6 +142,7 @@ Utinni::Utinni()
     swgOverrideCfgFilename = "utinni.cfg";
 
     utinni::Game::detour();
+    utinni::Graphics::detour();
 
     loadCoreDotNet();
 }
