@@ -6,9 +6,9 @@
 
 namespace swg::objectTemplateList
 {
-using pGetObjectTemplateByFilename = DWORD(__cdecl*)(const char* filename);
-using pGetObjectTemplateByIff = DWORD(__cdecl*)(DWORD iff);
-using pGetObjectTemplateByCrc = DWORD(__cdecl*)(unsigned int crc);
+using pGetObjectTemplateByFilename = utinni::SharedObjectTemplate* (__cdecl*)(const char* filename);
+using pGetObjectTemplateByIff = utinni::SharedObjectTemplate* (__cdecl*)(DWORD iff);
+using pGetObjectTemplateByCrc = utinni::SharedObjectTemplate* (__cdecl*)(unsigned int crc);
 
 using pReloadObject = DWORD(__cdecl*)(DWORD iff);
 
@@ -146,12 +146,12 @@ pGetTemplateFilename getTemplateFilename = (pGetTemplateFilename)0x00B23C40;
 
 namespace utinni
 {
-DWORD ObjectTemplateList::getObjectTemplateByFilename(const char* filename)
+utinni::SharedObjectTemplate* ObjectTemplateList::getObjectTemplateByFilename(const char* filename)
 {
     return swg::objectTemplateList::getObjectTemplateByFilename(filename);
 }
 
-DWORD ObjectTemplateList::getObjectTemplateByIff(DWORD iff)
+utinni::SharedObjectTemplate* ObjectTemplateList::getObjectTemplateByIff(DWORD iff)
 {
     return swg::objectTemplateList::getObjectTemplateByIff(iff);
 }
@@ -254,7 +254,7 @@ void Object::removeFromWorld()
     swg::object::removeFromWorld(this);
 }
 
-void Object::setAppearance(appearance::Data* appearance)
+void Object::setAppearance(Appearance* appearance)
 {
     swg::object::setAppearance(this, appearance);
 }

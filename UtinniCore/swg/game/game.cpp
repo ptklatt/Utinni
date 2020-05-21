@@ -9,6 +9,9 @@ using pMainLoop = int(__cdecl*)(bool presentToWindow, HWND hwnd, int width, int 
 using pSetupScene = void(__cdecl*)(DWORD newScene);
 using pCleanupScene = void(__cdecl*)();
 
+using pGetCamera = utinni::Camera* (__cdecl*)();
+using pGetConstCamera = const utinni::Camera* (__cdecl*)();
+
 using pIsViewFirstPerson = bool(__cdecl*)();
 using pIsHudSceneTypeSpace = bool(__cdecl*)();
 
@@ -17,6 +20,9 @@ pQuit quit = (pQuit)0x00423720;
 pMainLoop mainLoop = (pMainLoop)0x004237C0;
 pSetupScene setupScene = (pSetupScene)0x00424220;
 pCleanupScene cleanupScene = (pCleanupScene)0x00423700;
+
+pGetCamera getCamera = (pGetCamera)0x00425BB0;
+pGetConstCamera getConstCamera = (pGetConstCamera)0x00425BE0;
 
 pIsViewFirstPerson isViewFirstPerson = (pIsViewFirstPerson)0x00425C10;
 pIsHudSceneTypeSpace isHudSceneTypeSpace = (pIsHudSceneTypeSpace)0x00426170;
@@ -52,6 +58,16 @@ void Game::detour()
 void Game::quit()
 {
     swg::game::quit();
+}
+
+Camera* getCamera()
+{
+    return swg::game::getCamera();
+}
+
+const Camera* getConstCamera()
+{
+    return swg::game::getConstCamera();
 }
 
 }

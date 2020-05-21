@@ -4,23 +4,11 @@
 #include "swg/misc/crc_string.h"
 #include "swg/misc/swg_math.h"
 #include "swg/misc/swg_misc.h"
-
-namespace appearance { struct Data; }
+#include "swg/appearance/appearance.h"
 
 namespace utinni
 {
-
 class Object;
-
-class UTINNI_API ObjectTemplateList
-{
-public:
-    static DWORD getObjectTemplateByFilename(const char* filename);
-    static DWORD getObjectTemplateByIff(DWORD iff);
-    static const ConstCharCrcString getCrcStringByCrc(unsigned int crc);
-    static ConstCharCrcString getCrcStringByName(const char* name);
-    static DWORD getCrcStringByNameAsDWORD(const char* name);
-};
 
 class UTINNI_API ObjectTemplate : DataResource
 {
@@ -45,6 +33,16 @@ public:
     const char* getInteriorLayoutFilename();
 };
 
+class UTINNI_API ObjectTemplateList
+{
+public:
+    static SharedObjectTemplate* getObjectTemplateByFilename(const char* filename);
+    static SharedObjectTemplate* getObjectTemplateByIff(DWORD iff);
+    static const ConstCharCrcString getCrcStringByCrc(unsigned int crc);
+    static ConstCharCrcString getCrcStringByName(const char* name);
+    static DWORD getCrcStringByNameAsDWORD(const char* name);
+};
+
 class UTINNI_API Object
 {
 public:
@@ -56,7 +54,7 @@ public:
     uint32_t unk04;
     char* name;
     int64_t networkId;
-    appearance::Data* appearance;
+    Appearance* appearance;
     Controller* controller;
     uint32_t unk07;
     Object* parentObject;
@@ -88,7 +86,7 @@ public:
 
     void addToWorld();
     void removeFromWorld();
-    void setAppearance(appearance::Data* appearance);
+    void setAppearance(Appearance* appearance);
     DWORD getParentCell();
     void addNotification(DWORD notification, bool allowWhenInWorld);
 
