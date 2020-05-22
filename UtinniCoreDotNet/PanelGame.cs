@@ -58,7 +58,8 @@ namespace UtinniCoreDotNet
         private void PanelGame_MouseEnter(object sender, EventArgs e)
         {
             Client.ResumeInput();
-            Cursor.Hide(); 
+            Cursor.Hide();
+            Focus();
             HasFocus = true;
         }
 
@@ -66,6 +67,7 @@ namespace UtinniCoreDotNet
         {
             Client.SuspendInput();
             Cursor.Show();
+            Parent.Focus(); // Feels hacky, need to unfocus
             HasFocus = false;
         }
 

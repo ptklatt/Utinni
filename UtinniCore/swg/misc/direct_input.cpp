@@ -44,7 +44,7 @@ int __cdecl hkSetupInstall(HINSTANCE hInstance, HWND hwnd, DWORD menuKey, DWORD 
 
     Graphics::useHardwareCursor(false); // Turning this to false makes the game render its own cursor
 
-    return swg::directInput::setupInstall(GetModuleHandle(NULL), result, menuKey, unk);
+    return swg::directInput::setupInstall(hInstance, result, menuKey, unk);
 }
 
 void DirectInput::detour()

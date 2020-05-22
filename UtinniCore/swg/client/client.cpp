@@ -1,6 +1,5 @@
 #include "client.h"
 #include "swg/graphics/graphics.h"
-#include "swg/ui/cui_manager.h"
 #include "swg/game/game.h"
 #include "swg/misc/direct_input.h"
 
@@ -81,6 +80,7 @@ int __cdecl hkSetupStartInstall(StartupData* pStartupData)
         pStartupData->useNewWindowHandle = true;
         pStartupData->windowHandle = Client::getHwnd();
         pStartupData->processMessagePump = true;
+        pStartupData->lostFocusCallback = 0;
     }
 
     return swg::client::setupStartDataInstall(pStartupData);
@@ -90,9 +90,7 @@ LRESULT CALLBACK hkWndProc(HWND Hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     if (Client::getIsEditorChild())
     {
-
     }
-
     return CallWindowProc((WNDPROC)swg::client::wndProc, Hwnd, msg, wParam, lParam);
 }
 
@@ -105,7 +103,6 @@ int __cdecl hkMainLoop(HINSTANCE hInstance, int unk1, int unk2)
             Sleep(1); // Wait until the Editor has set the HWND and HInstance the game should use
              // ToDo add a timeout
         }
-
         return swg::client::clientMain(GetModuleHandle(nullptr), unk1, unk2);
     }
     else
@@ -120,6 +117,6 @@ void Client::detour()
     swg::client::clientMain = (swg::client::pMainLoop)Detour::Create((LPVOID)swg::client::clientMain, hkMainLoop, DETOUR_TYPE_PUSH_RET);
 
     DirectInput::detour();
-
 }
+
 }

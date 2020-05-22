@@ -13,15 +13,13 @@ namespace UtinniCoreDotNet
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
-
-            KeyPreview = true;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) // ToDo figure out how to handle this inside PanelGame potentially
         {
             if (game.HasFocus)
             {
-                return true; // Block key input if the game has focus, to prevent the input firing things inside WinForms
+                return false; // Block key input if the game has focus, to prevent the input firing things inside WinForms
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -29,10 +27,12 @@ namespace UtinniCoreDotNet
 
         private void FormMain_Shown(object sender, EventArgs e)
         {
+
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+
         }
 
         private void button1_Click(object sender, EventArgs e)
