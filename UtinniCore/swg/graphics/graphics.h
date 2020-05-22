@@ -9,6 +9,7 @@ class UTINNI_API Graphics
 public:
     static void detour();
 
+    static void useHardwareCursor(bool value);
     static void showMouseCursor(bool isShown);
     static void setSystemMouseCursorPosition(int X, int Y);
 

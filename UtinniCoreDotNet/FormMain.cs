@@ -1,15 +1,30 @@
 ﻿using System;
 using System.Windows.Forms;
-using UtinniCore.Utinni;
 
 namespace UtinniCoreDotNet
 {
     public partial class FormMain : Form
     {
+        private PanelGame game;
+
         public FormMain()
         {
             InitializeComponent();
-            pnlGame.Controls.Add(new PanelGame());
+
+            game = new PanelGame();
+            pnlGame.Controls.Add(game);
+
+            KeyPreview = true;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) // ToDo figure out how to handle this inside PanelGame potentially
+        {
+            if (game.HasFocus)
+            {
+                return true; // Block key input if the game has focus, to prevent the input firing things inside WinForms
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void FormMain_Shown(object sender, EventArgs e)
@@ -32,16 +47,6 @@ namespace UtinniCoreDotNet
 
         private void button3_Click(object sender, EventArgs e)
         {
-        }
-
-        private void pnlGame_SizeChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnlGame_Resize(object sender, EventArgs e)
-        {
-
         }
     }
 }

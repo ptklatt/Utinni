@@ -73,8 +73,6 @@
             this.pnlGame.Name = "pnlGame";
             this.pnlGame.Size = new System.Drawing.Size(640, 360);
             this.pnlGame.TabIndex = 3;
-            this.pnlGame.SizeChanged += new System.EventHandler(this.pnlGame_SizeChanged);
-            this.pnlGame.Resize += new System.EventHandler(this.pnlGame_Resize);
             // 
             // FormMain
             // 

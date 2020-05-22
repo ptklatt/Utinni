@@ -31,7 +31,6 @@ pIsHudSceneTypeSpace isHudSceneTypeSpace = (pIsHudSceneTypeSpace)0x00426170;
 
 namespace utinni
 {
-
 int getMainLoopCount()
 {
     return memory::read<int>(0x1908830); // Ptr to the main loop count
@@ -57,13 +56,17 @@ void Game::detour()
     if (getMainLoopCount() == 0) // Checks the Games main loop count, if 0, we're in the 'suspended' startup entry point loop
     {
         swg::game::mainLoop = (swg::game::pMainLoop)Detour::Create(swg::game::mainLoop, hkMainLoop, DETOUR_TYPE_PUSH_RET);
-
     }
 }
 
 void Game::quit()
 {
     swg::game::quit();
+}
+
+bool Game::isRunning()
+{
+    return getMainLoopCount();
 }
 
 Camera* Game::getCamera()

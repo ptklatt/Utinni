@@ -31,12 +31,14 @@ namespace UtinniCoreDotNetGen
                 module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\game\\");
                 module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\graphics\\");
                 module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\misc\\");
+                module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\ui\\");
 
                 // Headers
                 module.Headers.Add("client.h");
                 module.Headers.Add("game.h");
                 module.Headers.Add("graphics.h");
                 module.Headers.Add("swg_math.h");
+                module.Headers.Add("cui_manager.h");
 
                 // Library
                 module.LibraryDirs.Add(slnDir + "bin\\" + buildMode + "\\");

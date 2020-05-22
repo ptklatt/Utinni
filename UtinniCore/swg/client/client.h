@@ -48,6 +48,9 @@ public:
     static int getWidth();
     static int getHeight();
 
+    static void suspendInput();
+    static void resumeInput();
+
     static void detour();
 };
 

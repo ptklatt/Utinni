@@ -12,6 +12,8 @@ public:
     static void detour();
     static void quit();
 
+    static bool isRunning();
+
     static Camera* getCamera();
     static const Camera* getConstCamera();
 

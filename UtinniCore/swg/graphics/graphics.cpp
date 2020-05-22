@@ -12,6 +12,7 @@ using pEndScene = void(__cdecl*)();
 using pPresentWindow = int(__cdecl*)(HWND hwnd, int width, int height);
 using pPresent = void(__cdecl*)();
 
+using pUseHardwareCursor = bool(__cdecl*)(bool value);
 using pShowMouseCursor = bool(__cdecl*)(bool isShown);
 using pSetSystemMouseCursorPosition = void(__cdecl*)(int X, int Y);
 
@@ -27,6 +28,7 @@ pEndScene endScene = (pEndScene)0x00755740;
 pPresentWindow presentWindow = (pPresentWindow)0x00755810;
 pPresent present = (pPresent)0x00755800; 
 
+pUseHardwareCursor useHardwareCursor = (pUseHardwareCursor)0x00755940;
 pShowMouseCursor showMouseCursor = (pShowMouseCursor)0x00755A50;
 pSetSystemMouseCursorPosition setSystemMouseCursorPosition = (pSetSystemMouseCursorPosition)0x00755AC0;
 
@@ -89,6 +91,11 @@ void Graphics::detour()
 
     swg::graphics::presentWindow = (swg::graphics::pPresentWindow)Detour::Create((LPVOID)swg::graphics::presentWindow, hkPresentWindow, DETOUR_TYPE_JMP, 5);
     swg::graphics::present = (swg::graphics::pPresent)Detour::Create((LPVOID)0x00755800, hkPresent, DETOUR_TYPE_JMP, 5);
+}
+
+void Graphics::useHardwareCursor(bool value)
+{
+    swg::graphics::useHardwareCursor(value);
 }
 
 void Graphics::showMouseCursor(bool isShown)

@@ -1,16 +1,21 @@
 #include "client.h"
+#include "swg/graphics/graphics.h"
+#include "swg/ui/cui_manager.h"
+#include "swg/game/game.h"
+#include "swg/misc/direct_input.h"
 
 namespace swg::client
 {
 using pSetupInstall = int(__cdecl*)(utinni::StartupData* pStartupData);
-using pSetupDirectInputInstall = int(__cdecl*)(HINSTANCE hInstance, HWND hwnd, DWORD menuKey, bool isWindowed);
 using pMainLoop = int(__cdecl*)(HINSTANCE hInstance, int a2, int a3);
 
+using pWndProc = int(__stdcall*)(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+
 pSetupInstall setupStartDataInstall = (pSetupInstall)0x00A9F970;
-pSetupDirectInputInstall setupDirectInputInstall = (pSetupDirectInputInstall)0x00421490;
 pMainLoop clientMain = (pMainLoop)0x00401050;
 
-DWORD wndProc = 0x00AA0970; // Address to SWG's WndProc
+pWndProc wndProc = (pWndProc)0x00AA0970; // SWG's WndProc
+
 }
 
 bool isEditorChild = false;
@@ -49,36 +54,46 @@ HINSTANCE Client::getHInstance()
     return hInstance;
 }
 
+void Client::suspendInput()
+{
+    if (Game::isRunning())
+    {
+        Graphics::showMouseCursor(false);
+        DirectInput::suspend();
+    }
+}
+
+void Client::resumeInput()
+{
+    if (Game::isRunning())
+    {
+        Graphics::showMouseCursor(true);
+        DirectInput::resume();
+    }
+}
+
 int __cdecl hkSetupStartInstall(StartupData* pStartupData)
 {
     if (Client::getIsEditorChild())
     {
         pStartupData->createOwnWindow = false;
-        pStartupData->hInstance = Client::getHInstance();
-        pStartupData->processMessagePump = true;
+        pStartupData->hInstance = nullptr;
         pStartupData->useNewWindowHandle = true;
         pStartupData->windowHandle = Client::getHwnd();
+        pStartupData->processMessagePump = true;
     }
 
     return swg::client::setupStartDataInstall(pStartupData);
 }
 
-int __cdecl hkSetupDirectInputInstall(HINSTANCE hInstance, HWND hwnd, DWORD menuKey, DWORD unk)
+LRESULT CALLBACK hkWndProc(HWND Hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    memory::nopAddress(0x0041E51C, 5); // NOPs setCooperativeLevel inside KeyboardDevice(), modify it to skip the isWindowKeyEnabled check, source of the issues?
-
-    HWND result = Client::getHwnd();
-    HWND topWindow;
-    do
+    if (Client::getIsEditorChild())
     {
-        topWindow = GetParent(result);
-        if (topWindow)
-        {
-            result = topWindow;
-        }
-    } while (topWindow);
 
-    return swg::client::setupDirectInputInstall(hInstance, result, menuKey, unk);
+    }
+
+    return CallWindowProc((WNDPROC)swg::client::wndProc, Hwnd, msg, wParam, lParam);
 }
 
 int __cdecl hkMainLoop(HINSTANCE hInstance, int unk1, int unk2)
@@ -91,8 +106,6 @@ int __cdecl hkMainLoop(HINSTANCE hInstance, int unk1, int unk2)
              // ToDo add a timeout
         }
 
-        SetWindowLongPtr(Client::getHwnd(), GWL_WNDPROC, (LONG_PTR)swg::client::wndProc); // Sets WndProc to SWG's
-
         return swg::client::clientMain(GetModuleHandle(nullptr), unk1, unk2);
     }
     else
@@ -104,7 +117,9 @@ int __cdecl hkMainLoop(HINSTANCE hInstance, int unk1, int unk2)
 void Client::detour()
 {
     swg::client::setupStartDataInstall = (swg::client::pSetupInstall)Detour::Create((LPVOID)swg::client::setupStartDataInstall, hkSetupStartInstall, DETOUR_TYPE_PUSH_RET);
-    swg::client::setupDirectInputInstall = (swg::client::pSetupDirectInputInstall)Detour::Create((LPVOID)swg::client::setupDirectInputInstall, hkSetupDirectInputInstall, DETOUR_TYPE_PUSH_RET);
     swg::client::clientMain = (swg::client::pMainLoop)Detour::Create((LPVOID)swg::client::clientMain, hkMainLoop, DETOUR_TYPE_PUSH_RET);
+
+    DirectInput::detour();
+
 }
 }
