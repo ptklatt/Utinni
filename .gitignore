@@ -16,7 +16,6 @@ ipch/
 *.opensdf
 *.pdb
 *.obj
-*.config
 *.lastbuildstate
 /UtinniCoreDotNet/Generated/Std-symbols.cpp
 /UtinniCoreDotNet/Generated/UtinniCore-symbols.cpp
