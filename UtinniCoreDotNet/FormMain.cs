@@ -13,13 +13,20 @@ namespace UtinniCoreDotNet
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
+
+            KeyPreview = true;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) // ToDo figure out how to handle this inside PanelGame potentially
         {
-            if (game.HasFocus)
+            if (game.HasFocus && keyData == Keys.Tab)
             {
-                return false; // Block key input if the game has focus, to prevent the input firing things inside WinForms
+                return true; // Block the TAB key from firing inside WinForms when the game has focus
+            }
+
+            if (game.HasFocus )
+            {
+                return false; // Block other key input if the game has focus, to prevent the input firing things inside WinForms
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
