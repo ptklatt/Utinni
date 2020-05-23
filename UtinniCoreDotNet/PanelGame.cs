@@ -19,6 +19,7 @@ namespace UtinniCoreDotNet
 
             base.WndProc(ref m);
         }
+
         public bool HasFocus;
 
         public PanelGame()
@@ -35,7 +36,7 @@ namespace UtinniCoreDotNet
             MouseHover += PanelGame_MouseHover;
             MouseUp += PanelGame_MouseUp;
             MouseDown += PanelGame_MouseDown;
-
+            
             Client.SetHwnd(Handle);
             Client.SetHInstance(Process.GetCurrentProcess().Handle);
         }

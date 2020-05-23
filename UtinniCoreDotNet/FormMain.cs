@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace UtinniCoreDotNet
@@ -13,8 +14,6 @@ namespace UtinniCoreDotNet
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
-
-            KeyPreview = true;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) // ToDo figure out how to handle this inside PanelGame potentially
@@ -35,6 +34,8 @@ namespace UtinniCoreDotNet
         private void FormMain_Shown(object sender, EventArgs e)
         {
 
+            Point thisPos = PointToScreen(Point.Empty);
+            Cursor.Position = new Point(thisPos.X + 20, thisPos.Y + 20);
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
