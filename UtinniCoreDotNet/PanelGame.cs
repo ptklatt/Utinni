@@ -59,7 +59,6 @@ namespace UtinniCoreDotNet
         {
             Client.ResumeInput();
             Cursor.Hide();
-            Focus();
             HasFocus = true;
         }
 
@@ -67,7 +66,6 @@ namespace UtinniCoreDotNet
         {
             Client.SuspendInput();
             Cursor.Show();
-            Parent.Focus(); // Feels hacky, need to unfocus
             HasFocus = false;
         }
 

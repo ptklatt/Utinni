@@ -57,6 +57,7 @@ void Client::suspendInput()
 {
     if (Game::isRunning())
     {
+        SetFocus(NULL);
         Graphics::showMouseCursor(false);
         DirectInput::suspend();
     }
@@ -66,6 +67,7 @@ void Client::resumeInput()
 {
     if (Game::isRunning())
     {
+        SetFocus(Client::getHwnd());
         Graphics::showMouseCursor(true);
         DirectInput::resume();
     }
