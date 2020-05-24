@@ -81,6 +81,10 @@ namespace Std
 
 namespace Std
 {
+}
+
+namespace Std
+{
     namespace Allocator
     {
         [StructLayout(LayoutKind.Explicit, Size = 0)]
@@ -163,6 +167,18 @@ namespace Std
             __Instance = IntPtr.Zero;
         }
     }
+}
+
+namespace Std
+{
+}
+
+namespace Std
+{
+}
+
+namespace Std
+{
 }
 
 namespace Std

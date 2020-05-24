@@ -3,17 +3,17 @@
 #include <string>
 #include <TlHelp32.h>
 #include <Shlwapi.h>
-#include <cstdio>
 #include <stdexcept>
+#include <filesystem>
+
+#include "LeksysINI/iniparser.hpp"
+
+std::string currentDir;
+std::string iniName = "ut.ini";
 
 void inject(PROCESS_INFORMATION procInfo)
 {
-    char curDirBuffer[MAX_PATH];
-    GetModuleFileName(nullptr, curDirBuffer, MAX_PATH);
-    std::string curDir_tmp = std::string(curDirBuffer);
-    std::string currentDir = curDir_tmp.substr(0, curDir_tmp.find_last_of('\\'));
-
-    std::string dllFilename = currentDir + "\\UtinniCore.dll";
+    std::string dllFilename = currentDir + "UtinniCore.dll";
     LPVOID lpMemory = (LPVOID)VirtualAllocEx(procInfo.hProcess, nullptr, dllFilename.length(), MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
     WriteProcessMemory(procInfo.hProcess, lpMemory, (LPVOID)dllFilename.c_str(), dllFilename.length(), nullptr);
 
@@ -35,12 +35,56 @@ void inject(PROCESS_INFORMATION procInfo)
 
 void loadDll()
 {
+    char curDirBuffer[MAX_PATH];
+    GetModuleFileName(nullptr, curDirBuffer, MAX_PATH);
+    std::string curDir_tmp = std::string(curDirBuffer);
+    currentDir = curDir_tmp.substr(0, curDir_tmp.find_last_of('\\') + 1);
+
+    INI::File ini;
+    if (!ini.Load(currentDir + iniName))
+    {
+        // ToDo Create ut.ini if missing
+    }
+
+    std::string swgClientPath = ini.GetSection("Launcher")->GetValue("swgClientPath").AsString();
+    std::string swgClientName = ini.GetSection("Launcher")->GetValue("swgClientName").AsString();
+
     STARTUPINFOA StartupInfo = { 0 };
     StartupInfo.cb = sizeof(StartupInfo);
     PROCESS_INFORMATION procInfo;
 
-    std::string swgClientPath = "G:/SWG Related/LoadTest/";
-    std::string swgClientName = "MtgClient_LoadScene.exe";
+    if (swgClientPath.empty() || swgClientName.empty() || !swgClientName.find(".exe") || !std::filesystem::exists(swgClientPath + swgClientName))
+    {
+        char filename[MAX_PATH];
+
+        OPENFILENAME ofn;
+        ZeroMemory(&filename, sizeof(filename));
+        ZeroMemory(&ofn, sizeof(ofn));
+        ofn.lStructSize = sizeof(ofn);
+        ofn.hwndOwner = nullptr;
+        ofn.lpstrFilter = "Executable Files\0*.exe\0";
+        ofn.lpstrFile = filename;
+        ofn.nMaxFile = MAX_PATH;
+        ofn.lpstrTitle = "Please select your SWG Client";
+        ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
+
+        if (GetOpenFileNameA(&ofn))
+        {
+            std::string swgFn = std::string(filename);
+            const int lastSlashPos = swgFn.find_last_of('\\');
+            swgClientPath = swgFn.substr(0, lastSlashPos + 1);
+            swgClientName = swgFn.substr(lastSlashPos + 1);
+
+            ini.GetSection("Launcher")->SetValue("swgClientPath", swgClientPath);
+            ini.GetSection("Launcher")->SetValue("swgClientName", swgClientName);
+
+            ini.Save(currentDir + iniName);
+        }
+        else
+        {
+            return;
+        }
+    }
 
     std::string swgClientFilename = swgClientPath + swgClientName;
     if (CreateProcess(swgClientFilename.c_str(), nullptr, nullptr, nullptr, false, CREATE_SUSPENDED, nullptr, swgClientPath.c_str(), &StartupInfo, &procInfo))

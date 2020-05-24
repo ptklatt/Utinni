@@ -14,7 +14,8 @@ static const LPCWSTR netParam = L"";
 UtinniBase* baseUtinniInstance = nullptr;
 Utinni* utinniInstance = nullptr;
 
-std::string utinniPath;
+std::string path;
+std::string iniName = "ut.ini";
 std::string swgOverrideCfgFilename;
 
 UtinniBase* UtinniBase::instance() 
@@ -115,7 +116,7 @@ ICLRRuntimeHost* startCLR(LPCWSTR dotNetVersion)
 
 void loadCoreDotNet()
 {
-    std::string path = Utinni::getUtinniPath();
+    std::string path = Utinni::getPath();
     int pathSize = MultiByteToWideChar(CP_UTF8, 0, &path[0], (int)path.size(), NULL, 0);
     std::wstring wPath(pathSize, 0);
     MultiByteToWideChar(CP_UTF8, 0, &path[0], (int)path.size(), &wPath[0], pathSize);
@@ -138,28 +139,38 @@ Utinni::Utinni()
     GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)&Utinni::instance, &handle);
     GetModuleFileNameA(handle, dllPathbuffer, sizeof(dllPathbuffer));
     std::string dllPath = std::string(dllPathbuffer);
-    utinniPath = dllPath.substr(0, dllPath.find_last_of("\\/")) + "\\";
+    path = dllPath.substr(0, dllPath.find_last_of("\\/")) + "\\";
 
     swgOverrideCfgFilename = "utinni.cfg";
 
-    utinni::Client::setIsEditorChild(true); // ToDo make this a setting
+    INI::File ini;
+    if (!ini.Load(getIniFilename()))
+    {
+        // ToDo Create ut.ini if missing
+    }
+
+    utinni::Client::setIsEditorChild(ini.GetSection("UtinniCore")->GetValue("isEditorChild").AsBool());
 
     utinni::Client::detour();
     utinni::Game::detour();
     utinni::Graphics::detour();
 
     loadCoreDotNet();
-
 }
 
 Utinni::~Utinni() {}
 
-std::string Utinni::getUtinniPath()
+std::string Utinni::getPath()
 {
-    return utinniPath;
+    return path;
 }
 
 std::string Utinni::getSwgCfgFilename()
 {
     return swgOverrideCfgFilename;
+}
+
+std::string Utinni::getIniFilename()
+{
+    return path + iniName;
 }

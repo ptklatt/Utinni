@@ -56,6 +56,7 @@ namespace UtinniCoreDotNetGen
 
                 ctx.IgnoreHeadersWithName("utinni");
                 ctx.IgnoreHeadersWithName("utility");
+                ctx.IgnoreHeadersWithName("iniparser");
 
 
             }
