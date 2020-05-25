@@ -23,34 +23,10 @@
 #include "utility/utility.h"
 #include "utility/memory.h"
 
-#ifndef SAFE_DELETE
-#define SAFE_DELETE(a) { if((a)) { delete (a); (a) = NULL; } }
-#endif
 #define UTINNI_API  __declspec(dllexport)
 
-class UtinniBase
+namespace Utinni
 {
-private:
-	 UtinniBase();
-
-public:
-	 static UtinniBase* instance();
-
-	 bool initialize();
-	 ~UtinniBase();
-
-	 void cleanUpHook();
-};
-
-class Utinni
-{
-private:
-	 Utinni();
-
-public:
-	 ~Utinni();
-	 static Utinni* instance();
-
-	 static std::string getPath();
-	 static std::string getSwgCfgFilename();
+	 extern std::string getPath();
+	 extern std::string getSwgCfgFilename();
 };

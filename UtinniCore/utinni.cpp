@@ -1,5 +1,4 @@
 #include "utinni.h"
-#include <codecvt>
 #include <mscoree.h>
 #include <metahost.h>
 
@@ -11,60 +10,16 @@
 
 static const LPCWSTR netParam = L"";
 
-UtinniBase* baseUtinniInstance = nullptr;
-Utinni* utinniInstance = nullptr;
-
 std::string path;
 std::string swgOverrideCfgFilename = "utinni.cfg";
 
-UtinniBase* UtinniBase::instance() 
-{
-	 if (!baseUtinniInstance)
-	 {
-        baseUtinniInstance = new UtinniBase();
-	 }
-	 return baseUtinniInstance;
-}
+ICLRMetaHost* pClrMetaHost = nullptr;
+ICLRRuntimeInfo* pClrRuntimeInfo = nullptr;
+ICLRRuntimeHost* pClrRuntimeHost = nullptr;
 
-void UtinniBase::cleanUpHook() 
-{
-	 SAFE_DELETE(utinniInstance);
-}
-
-UtinniBase::UtinniBase() 
-{
-	 DisableThreadLibraryCalls(GetModuleHandle(nullptr));
-}
-
-bool UtinniBase::initialize() 
-{
-    utinniInstance = Utinni::instance();
-	 return true;
-}
-
-UtinniBase::~UtinniBase() 
-{
-	 SAFE_DELETE(utinniInstance);
-    baseUtinniInstance = nullptr;
-}
-
-Utinni* Utinni::instance()
-{
-    baseUtinniInstance = UtinniBase::instance();
-    if (!utinniInstance && baseUtinniInstance)
-    {
-        utinniInstance = new Utinni();
-    }
-    return utinniInstance;
-}
-
-ICLRRuntimeHost* startCLR(LPCWSTR dotNetVersion)
+void startCLR(LPCWSTR dotNetVersion)
 {
     HRESULT hr;
-
-    ICLRMetaHost* pClrMetaHost = nullptr;
-    ICLRRuntimeInfo* pClrRuntimeInfo = nullptr;
-    ICLRRuntimeHost* pClrRuntimeHost = nullptr;
 
     // Get information about the installed .NET
     hr = CLRCreateInstance(CLSID_CLRMetaHost, IID_ICLRMetaHost, (LPVOID*)&pClrMetaHost);
@@ -85,7 +40,7 @@ ICLRRuntimeHost* startCLR(LPCWSTR dotNetVersion)
                 {
                     // Start the CLR
                     pClrRuntimeHost->Start();
-                    return pClrRuntimeHost;
+                    return;
                 }
             }
         }
@@ -109,8 +64,17 @@ ICLRRuntimeHost* startCLR(LPCWSTR dotNetVersion)
         pClrMetaHost->Release();
         pClrMetaHost = nullptr;
     }
+}
 
-    return nullptr;
+void stopCLR()
+{
+    pClrRuntimeHost->Release();
+    pClrRuntimeInfo->Release();
+    pClrMetaHost->Release();
+
+    pClrRuntimeHost = nullptr;
+    pClrRuntimeInfo = nullptr;
+    pClrMetaHost = nullptr;
 }
 
 void loadCoreDotNet()
@@ -122,27 +86,31 @@ void loadCoreDotNet()
 
     const std::wstring combinedPath = wPath + L"UtinniCoreDotNet.dll";
 
-    HRESULT hr;
-    ICLRRuntimeHost* pClr = startCLR(L"v4.0.30319");
-    if (pClr != nullptr)
+    startCLR(L"v4.0.30319");
+    if (pClrRuntimeHost != nullptr)
     {
         DWORD result;
-        hr = pClr->ExecuteInDefaultAppDomain(combinedPath.c_str(), L"UtinniCoreDotNet.Startup", L"EntryPoint", netParam, &result);
+        HRESULT hr = pClrRuntimeHost->ExecuteInDefaultAppDomain(combinedPath.c_str(), L"UtinniCoreDotNet.Startup", L"EntryPoint", netParam, &result);
+        if (hr == S_OK)
+            return;
+
+        pClrRuntimeHost->Release();
+        pClrRuntimeHost = nullptr;
     }
 }
 
-Utinni::Utinni()
+void main()
 {
     char dllPathbuffer[MAX_PATH];
     HMODULE handle = nullptr;
-    GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)&Utinni::instance, &handle);
+    GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)&loadCoreDotNet, &handle);
     GetModuleFileNameA(handle, dllPathbuffer, sizeof(dllPathbuffer));
     std::string dllPath = std::string(dllPathbuffer);
     path = dllPath.substr(0, dllPath.find_last_of("\\/")) + "\\";
 
     utinni::loadConfig();
 
-    utinni::Client::setIsEditorChild(utinni::getConfigValue("UtinniCore", "isEditorChild").AsBool());
+    utinni::Client::setIsEditorChild(utinni::getConfigBool("UtinniCore", "isEditorChild"));
 
     utinni::Client::detour();
     utinni::Game::detour();
@@ -151,7 +119,25 @@ Utinni::Utinni()
     loadCoreDotNet();
 }
 
-Utinni::~Utinni() {}
+void detatch()
+{
+    stopCLR();
+}
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) 
+{
+	 switch (fdwReason) 
+	 {
+	 case DLL_PROCESS_ATTACH:
+		  CreateThread(0, 0, (LPTHREAD_START_ROUTINE)main, 0, 0, 0);
+		  return true;
+
+	 case DLL_PROCESS_DETACH:
+        detatch();
+		  return true;
+	 }
+	 return false;
+}
 
 std::string Utinni::getPath()
 {

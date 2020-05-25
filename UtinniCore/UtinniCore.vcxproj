@@ -180,14 +180,13 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\scene\scene.cpp" />
     <ClCompile Include="swg\scene\ground_scene.cpp" />
     <ClCompile Include="swg\game\game.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="utinni.cpp" />
     <ClCompile Include="swg\misc\swg_math.cpp" />
     <ClCompile Include="swg\misc\swg_utility.cpp" />
     <ClCompile Include="swg\misc\swg_misc.cpp" />
     <ClCompile Include="swg\scene\terrain.cpp" />
     <ClCompile Include="utility\utility.cpp" />
     <ClCompile Include="utility\memory.cpp" />
-    <ClCompile Include="utinni.cpp" />
     <ClCompile Include="swg\scene\world_snapshot.cpp" />
   </ItemGroup>
   <ItemGroup>
