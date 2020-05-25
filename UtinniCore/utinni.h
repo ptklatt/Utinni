@@ -17,8 +17,8 @@
 #include <string>
 
 #include "DetourXS/detourxs.h"
-#include "LeksysINI/iniparser.hpp"
 
+#include "UtinINI/utinini.h"
 
 #include "utility/utility.h"
 #include "utility/memory.h"
@@ -52,6 +52,5 @@ public:
 	 static Utinni* instance();
 
 	 static std::string getPath();
-	 static std::string getIniFilename();
 	 static std::string getSwgCfgFilename();
 };

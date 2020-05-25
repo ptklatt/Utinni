@@ -54,6 +54,7 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Generated\UtinniCore.cs" />
+    <Compile Include="PluginFramework\IPlugin.cs" />
     <Compile Include="main.cs" />
     <Compile Include="PanelGame.cs">
       <SubType>Component</SubType>

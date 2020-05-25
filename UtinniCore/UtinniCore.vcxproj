@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{AEFED7F6-4BA9-44FC-A353-71A463A82FDE}</ProjectGuid>
-    <RootNamespace>bootstrap</RootNamespace>
+    <RootNamespace>UtinniCore</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -91,7 +91,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)external;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)external;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,7 +126,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>Default</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)external;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)external;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -213,6 +213,11 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClInclude Include="utility\memory.h" />
     <ClInclude Include="utinni.h" />
     <ClInclude Include="swg\scene\world_snapshot.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UtinINI\UtinINI.vcxproj">
+      <Project>{5f903813-e62a-49f6-8b3e-0443decadb5d}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -6,13 +6,15 @@
 #include <stdexcept>
 #include <filesystem>
 
-#include "LeksysINI/iniparser.hpp"
-
-std::string currentDir;
-std::string iniName = "ut.ini";
+#include "UtinINI/utinini.h"
 
 void inject(PROCESS_INFORMATION procInfo)
 {
+    char curDirBuffer[MAX_PATH];
+    GetModuleFileName(nullptr, curDirBuffer, MAX_PATH);
+    std::string currentDir = std::string(curDirBuffer);
+    currentDir = currentDir.substr(0, currentDir.find_last_of('\\') + 1);
+
     std::string dllFilename = currentDir + "UtinniCore.dll";
     LPVOID lpMemory = (LPVOID)VirtualAllocEx(procInfo.hProcess, nullptr, dllFilename.length(), MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
     WriteProcessMemory(procInfo.hProcess, lpMemory, (LPVOID)dllFilename.c_str(), dllFilename.length(), nullptr);
@@ -33,60 +35,58 @@ void inject(PROCESS_INFORMATION procInfo)
         throw std::runtime_error("[ERROR] LoadLibraryA couldn't inject dll.");
 }
 
-void loadDll()
+std::string swgClientPath;
+
+std::string getSwgClientFilename()
 {
-    char curDirBuffer[MAX_PATH];
-    GetModuleFileName(nullptr, curDirBuffer, MAX_PATH);
-    std::string curDir_tmp = std::string(curDirBuffer);
-    currentDir = curDir_tmp.substr(0, curDir_tmp.find_last_of('\\') + 1);
+    utinni::loadConfig();
 
-    INI::File ini;
-    if (!ini.Load(currentDir + iniName))
-    {
-        // ToDo Create ut.ini if missing
-    }
-
-    std::string swgClientPath = ini.GetSection("Launcher")->GetValue("swgClientPath").AsString();
-    std::string swgClientName = ini.GetSection("Launcher")->GetValue("swgClientName").AsString();
-
-    STARTUPINFOA StartupInfo = { 0 };
-    StartupInfo.cb = sizeof(StartupInfo);
-    PROCESS_INFORMATION procInfo;
+    swgClientPath = utinni::getConfigValue("Launcher", "swgClientPath").AsString();
+    std::string swgClientName = utinni::getConfigValue("Launcher", "swgClientName").AsString();
 
     if (swgClientPath.empty() || swgClientName.empty() || !swgClientName.find(".exe") || !std::filesystem::exists(swgClientPath + swgClientName))
     {
-        char filename[MAX_PATH];
+        char filenameBuffer[MAX_PATH];
 
         OPENFILENAME ofn;
-        ZeroMemory(&filename, sizeof(filename));
+        ZeroMemory(&filenameBuffer, sizeof(filenameBuffer));
         ZeroMemory(&ofn, sizeof(ofn));
         ofn.lStructSize = sizeof(ofn);
         ofn.hwndOwner = nullptr;
         ofn.lpstrFilter = "Executable Files\0*.exe\0";
-        ofn.lpstrFile = filename;
+        ofn.lpstrFile = filenameBuffer;
         ofn.nMaxFile = MAX_PATH;
         ofn.lpstrTitle = "Please select your SWG Client";
         ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
 
         if (GetOpenFileNameA(&ofn))
         {
-            std::string swgFn = std::string(filename);
-            const int lastSlashPos = swgFn.find_last_of('\\');
-            swgClientPath = swgFn.substr(0, lastSlashPos + 1);
-            swgClientName = swgFn.substr(lastSlashPos + 1);
+            const std::string filename = std::string(filenameBuffer);
+            const int lastSlashPos = filename.find_last_of('\\');
+            swgClientPath = filename.substr(0, lastSlashPos + 1);
+            swgClientName = filename.substr(lastSlashPos + 1);
 
-            ini.GetSection("Launcher")->SetValue("swgClientPath", swgClientPath);
-            ini.GetSection("Launcher")->SetValue("swgClientName", swgClientName);
+            utinni::setConfigValue("Launcher", "swgClientPath", swgClientPath);
+            utinni::setConfigValue("Launcher", "swgClientName", swgClientName);
 
-            ini.Save(currentDir + iniName);
+            utinni::saveConfig();
         }
         else
         {
-            return;
+            throw std::runtime_error("[ERROR] Can't open the selected file.");
         }
     }
 
-    std::string swgClientFilename = swgClientPath + swgClientName;
+    return swgClientPath + swgClientName;
+}
+
+void loadDll()
+{
+    STARTUPINFOA StartupInfo = { 0 };
+    StartupInfo.cb = sizeof(StartupInfo);
+    PROCESS_INFORMATION procInfo;
+
+    const std::string swgClientFilename = getSwgClientFilename();
     if (CreateProcess(swgClientFilename.c_str(), nullptr, nullptr, nullptr, false, CREATE_SUSPENDED, nullptr, swgClientPath.c_str(), &StartupInfo, &procInfo))
     {
         const HANDLE hProcess(procInfo.hProcess);

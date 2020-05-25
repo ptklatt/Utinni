@@ -15,8 +15,7 @@ UtinniBase* baseUtinniInstance = nullptr;
 Utinni* utinniInstance = nullptr;
 
 std::string path;
-std::string iniName = "ut.ini";
-std::string swgOverrideCfgFilename;
+std::string swgOverrideCfgFilename = "utinni.cfg";
 
 UtinniBase* UtinniBase::instance() 
 {
@@ -128,7 +127,7 @@ void loadCoreDotNet()
     if (pClr != nullptr)
     {
         DWORD result;
-        hr = pClr->ExecuteInDefaultAppDomain(combinedPath.c_str(), L"UtinniCoreDotNet.Startup", L"EntryPoint", L"", &result);
+        hr = pClr->ExecuteInDefaultAppDomain(combinedPath.c_str(), L"UtinniCoreDotNet.Startup", L"EntryPoint", netParam, &result);
     }
 }
 
@@ -141,15 +140,9 @@ Utinni::Utinni()
     std::string dllPath = std::string(dllPathbuffer);
     path = dllPath.substr(0, dllPath.find_last_of("\\/")) + "\\";
 
-    swgOverrideCfgFilename = "utinni.cfg";
+    utinni::loadConfig();
 
-    INI::File ini;
-    if (!ini.Load(getIniFilename()))
-    {
-        // ToDo Create ut.ini if missing
-    }
-
-    utinni::Client::setIsEditorChild(ini.GetSection("UtinniCore")->GetValue("isEditorChild").AsBool());
+    utinni::Client::setIsEditorChild(utinni::getConfigValue("UtinniCore", "isEditorChild").AsBool());
 
     utinni::Client::detour();
     utinni::Game::detour();
@@ -168,9 +161,4 @@ std::string Utinni::getPath()
 std::string Utinni::getSwgCfgFilename()
 {
     return swgOverrideCfgFilename;
-}
-
-std::string Utinni::getIniFilename()
-{
-    return path + iniName;
 }

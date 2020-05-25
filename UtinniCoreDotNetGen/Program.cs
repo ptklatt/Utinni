@@ -25,6 +25,7 @@ namespace UtinniCoreDotNetGen
                 var module = options.AddModule(targetProjName);
 
                 // Includes
+                module.IncludeDirs.Add(slnDir);
                 module.IncludeDirs.Add(slnDir + "\\external\\");
                 module.IncludeDirs.Add(slnDir + targetProjName); // ToDo make this a loop to grab all the subfolders
                 module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\client\\");
