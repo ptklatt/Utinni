@@ -79,12 +79,52 @@ INI::File getConfig()
     return ini;
 }
 
-INI::Value getConfigValue(const std::string& sectionName, const std::string& valueName)
+INI::Value getConfigValue(const char* sectionName, const char* valueName)
 {
     return ini.GetSection(sectionName)->GetValue(valueName);
 }
 
-void setConfigValue(const std::string& sectionName, const std::string& valueName, const INI::Value& value)
+const char* getConfigString(const char* sectionName, const char* valueName)
+{
+    return ini.GetSection(sectionName)->GetValue(valueName).AsString().c_str();
+}
+
+bool getConfigBool(const char* sectionName, const char* valueName)
+{
+    return ini.GetSection(sectionName)->GetValue(valueName).AsBool();
+}
+
+int getConfigInt(const char* sectionName, const char* valueName)
+{
+    return ini.GetSection(sectionName)->GetValue(valueName).AsInt();
+}
+
+float getConfigFloat(const char* sectionName, const char* valueName)
+{
+    return ini.GetSection(sectionName)->GetValue(valueName).AsDouble();
+}
+
+void setConfigValue(const char* sectionName, const char* valueName, const INI::Value& value)
+{
+    ini.GetSection(sectionName)->SetValue(valueName, value);
+}
+
+void setConfigString(const char* sectionName, const char* valueName, const char* value)
+{
+    ini.GetSection(sectionName)->SetValue(valueName, value);
+}
+
+void setConfigBool(const char* sectionName, const char* valueName, bool value)
+{
+    ini.GetSection(sectionName)->SetValue(valueName, value);
+}
+
+void setConfigInt(const char* sectionName, const char* valueName, int value)
+{
+    ini.GetSection(sectionName)->SetValue(valueName, value);
+}
+
+void setConfigFloat(const char* sectionName, const char* valueName, float value)
 {
     ini.GetSection(sectionName)->SetValue(valueName, value);
 }
