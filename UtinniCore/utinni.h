@@ -18,15 +18,16 @@
 
 #include "DetourXS/detourxs.h"
 
-#include "UtinINI/utinini.h"
+#include "UtINI/utini.h"
 
 #include "utility/utility.h"
 #include "utility/memory.h"
 
 #define UTINNI_API  __declspec(dllexport)
 
-namespace Utinni
+namespace utinni
 {
 	 extern std::string getPath();
 	 extern std::string getSwgCfgFilename();
+	 extern UtINI getConfig();
 };

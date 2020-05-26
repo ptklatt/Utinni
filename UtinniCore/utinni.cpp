@@ -13,6 +13,8 @@ static const LPCWSTR netParam = L"";
 std::string path;
 std::string swgOverrideCfgFilename = "utinni.cfg";
 
+static utinni::UtINI ini;
+
 ICLRMetaHost* pClrMetaHost = nullptr;
 ICLRRuntimeInfo* pClrRuntimeInfo = nullptr;
 ICLRRuntimeHost* pClrRuntimeHost = nullptr;
@@ -79,7 +81,7 @@ void stopCLR()
 
 void loadCoreDotNet()
 {
-    std::string path = Utinni::getPath();
+    std::string path = utinni::getPath();
     int pathSize = MultiByteToWideChar(CP_UTF8, 0, &path[0], (int)path.size(), NULL, 0);
     std::wstring wPath(pathSize, 0);
     MultiByteToWideChar(CP_UTF8, 0, &path[0], (int)path.size(), &wPath[0], pathSize);
@@ -108,9 +110,9 @@ void main()
     std::string dllPath = std::string(dllPathbuffer);
     path = dllPath.substr(0, dllPath.find_last_of("\\/")) + "\\";
 
-    utinni::loadConfig();
+    ini = utinni::UtINI(std::string(path + "ut.ini").c_str());
 
-    utinni::Client::setIsEditorChild(utinni::getConfigBool("UtinniCore", "isEditorChild"));
+    utinni::Client::setIsEditorChild(ini.getBool("UtinniCore", "isEditorChild"));
 
     utinni::Client::detour();
     utinni::Game::detour();
@@ -139,12 +141,17 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 	 return false;
 }
 
-std::string Utinni::getPath()
+std::string utinni::getPath()
 {
     return path;
 }
 
-std::string Utinni::getSwgCfgFilename()
+std::string utinni::getSwgCfgFilename()
 {
     return swgOverrideCfgFilename;
+}
+
+utinni::UtINI utinni::getConfig()
+{
+    return ini;
 }

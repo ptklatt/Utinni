@@ -158,7 +158,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UtinINI\UtinINI.vcxproj">
+    <ProjectReference Include="..\UtINI\UtINI.vcxproj">
       <Project>{5f903813-e62a-49f6-8b3e-0443decadb5d}</Project>
     </ProjectReference>
   </ItemGroup>

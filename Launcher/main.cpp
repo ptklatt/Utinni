@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <filesystem>
 
-#include "UtinINI/utinini.h"
+#include "UtINI/utini.h"
 
 void inject(PROCESS_INFORMATION procInfo)
 {
@@ -38,10 +38,17 @@ std::string swgClientPath;
 
 std::string getSwgClientFilename()
 {
-    utinni::loadConfig();
+    char curDirBuffer[MAX_PATH];
+    HMODULE handle = nullptr;
+    GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)&inject, &handle);
+    GetModuleFileNameA(handle, curDirBuffer, sizeof(curDirBuffer));
+    const std::string path = std::string(curDirBuffer);
+    std::string iniFilename = path.substr(0, path.find_last_of("\\/")) + "\\ut.ini";
 
-    swgClientPath = utinni::getConfigValue("Launcher", "swgClientPath").AsString();
-    std::string swgClientName = utinni::getConfigValue("Launcher", "swgClientName").AsString();
+    utinni::UtINI ini(iniFilename.c_str());
+
+    swgClientPath = ini.getValue("Launcher", "swgClientPath").AsString();
+    std::string swgClientName = ini.getValue("Launcher", "swgClientName").AsString();
 
     if (swgClientPath.empty() || swgClientName.empty() || !swgClientName.find(".exe") || !std::filesystem::exists(swgClientPath + swgClientName))
     {
@@ -65,10 +72,10 @@ std::string getSwgClientFilename()
             swgClientPath = filename.substr(0, lastSlashPos + 1);
             swgClientName = filename.substr(lastSlashPos + 1);
 
-            utinni::setConfigValue("Launcher", "swgClientPath", swgClientPath);
-            utinni::setConfigValue("Launcher", "swgClientName", swgClientName);
+            ini.setValue("Launcher", "swgClientPath", swgClientPath);
+            ini.setValue("Launcher", "swgClientName", swgClientName);
 
-            utinni::saveConfig();
+            ini.save();
         }
         else
         {
