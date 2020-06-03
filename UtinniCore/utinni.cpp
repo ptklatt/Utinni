@@ -96,7 +96,7 @@ void loadCoreDotNet()
         if (hr == S_OK)
             return;
 
-        // If the CLR Runtime Host crashes, shut the game down and  release the CLR
+        // If the CLR Runtime Host crashes, shut the game down and release the CLR
         utinni::Game::quit();
         stopCLR();
     }
