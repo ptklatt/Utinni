@@ -24,4 +24,5 @@ namespace UtinniCoreDotNet.PluginFramework
     {
         PluginInformation Information { get; }
     }
+
 }

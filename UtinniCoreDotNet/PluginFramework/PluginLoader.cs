@@ -2,7 +2,6 @@
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
-using System.Reflection;
 
 namespace UtinniCoreDotNet.PluginFramework
 {
@@ -20,7 +19,7 @@ namespace UtinniCoreDotNet.PluginFramework
         {
             Plugins = new List<IPlugin>();
 
-            var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/Plugins/";
+            var pluginDir = UtinniCore.Utinni.utinni.GetPath() + "/Plugins/";
             var catalog = new AggregateCatalog(new DirectoryCatalog(pluginDir));
 
             // Find and load all .dll's that implement IPlugin inside each folder located in the plugin directory

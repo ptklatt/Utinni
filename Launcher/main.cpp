@@ -47,8 +47,8 @@ std::string getSwgClientFilename()
 
     utinni::UtINI ini(iniFilename.c_str());
 
-    swgClientPath = ini.getValue("Launcher", "swgClientPath").AsString();
-    std::string swgClientName = ini.getValue("Launcher", "swgClientName").AsString();
+    swgClientPath = ini.getString("Launcher", "swgClientPath");
+    std::string swgClientName = ini.getString("Launcher", "swgClientName");
 
     if (swgClientPath.empty() || swgClientName.empty() || !swgClientName.find(".exe") || !std::filesystem::exists(swgClientPath + swgClientName))
     {

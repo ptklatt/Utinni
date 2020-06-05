@@ -21,25 +21,25 @@ namespace UtinniCoreDotNetGen
                 options.GeneratorKind = GeneratorKind.CSharp;
                 options.OutputDir = slnDir + "UtinniCoreDotNet\\Generated\\";
 
+                options.SystemModule.SymbolsLibraryName = "UtinniCore-Symbols";
+
                 string targetProjName = "UtinniCore";
                 var module = options.AddModule(targetProjName);
 
                 // Includes
                 module.IncludeDirs.Add(slnDir);
-                module.IncludeDirs.Add(slnDir + "\\external\\");
+                module.IncludeDirs.Add(slnDir + "external");
                 module.IncludeDirs.Add(slnDir + targetProjName); // ToDo make this a loop to grab all the subfolders
-                module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\client\\");
-                module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\game\\");
-                module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\graphics\\");
-                module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\misc\\");
-                module.IncludeDirs.Add(slnDir + targetProjName + "\\swg\\ui\\");
 
                 // Headers
-                module.Headers.Add("client.h");
-                module.Headers.Add("game.h");
-                module.Headers.Add("graphics.h");
-                module.Headers.Add("swg_math.h");
-                module.Headers.Add("cui_manager.h");
+                module.Headers.Add("swg\\client\\client.h");
+                module.Headers.Add("swg\\game\\game.h");
+                module.Headers.Add("swg\\graphics\\graphics.h");
+                module.Headers.Add("swg\\misc\\swg_math.h");
+                module.Headers.Add("swg\\scene\\world_snapshot.h");
+                module.Headers.Add("swg\\ui\\cui_manager.h");
+
+                //module.Headers.Add("spdlog/spdlog.h");
 
                 // Library
                 module.LibraryDirs.Add(slnDir + "bin\\" + buildMode + "\\");
@@ -55,12 +55,7 @@ namespace UtinniCoreDotNetGen
                 ctx.IgnoreHeadersWithName("detourxs");
                 ctx.IgnoreHeadersWithName("ADE32");
 
-                ctx.IgnoreHeadersWithName("utinni");
                 ctx.IgnoreHeadersWithName("utility");
-                ctx.IgnoreHeadersWithName("iniparser");
-                ctx.IgnoreHeadersWithName("utini");
-
-
             }
 
             public void Postprocess(Driver driver, ASTContext ctx)

@@ -9,7 +9,7 @@ struct IniValue
     INI::Value value;
 };
 
-    // ToDo make a different array that's setable for other plugins
+    // ToDo make a different array that's settable for other plugins
 const static IniValue values[] = {
 
     // Launcher settings

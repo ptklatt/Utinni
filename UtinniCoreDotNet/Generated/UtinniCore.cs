@@ -86,7 +86,6 @@ namespace UtinniCore
             public global::System.IntPtr __Instance { get; protected set; }
 
             internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.StartupData> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.StartupData>();
-            protected internal void*[] __OriginalVTables;
 
             protected bool __ownsNativeInstance;
 
@@ -462,7 +461,6 @@ namespace UtinniCore
             public global::System.IntPtr __Instance { get; protected set; }
 
             internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Client> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Client>();
-            protected internal void*[] __OriginalVTables;
 
             protected bool __ownsNativeInstance;
 
@@ -592,6 +590,2960 @@ namespace UtinniCore
         }
     }
 
+    namespace INI
+    {
+        namespace RefCountPtr
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 8)]
+            public unsafe partial struct __Internal
+            {
+                [FieldOffset(0)]
+                internal global::System.IntPtr vfptr_RefCountPtr;
+
+                [FieldOffset(4)]
+                internal global::System.IntPtr _ptr;
+            }
+
+            namespace Refcont
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 28)]
+                public unsafe partial struct __Internalc__N_INI_S_RefCountPtr____N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C
+                {
+                    [FieldOffset(0)]
+                    internal global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C val;
+
+                    [FieldOffset(24)]
+                    internal uint count;
+                }
+            }
+
+        }
+
+        /// <summary>stream to be used for conversions</summary>
+        public unsafe partial class Convstream : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 176)]
+            public partial struct __Internal
+            {
+                [FieldOffset(0)]
+                internal global::System.IntPtr vbptr_basic_istream;
+
+                [FieldOffset(8)]
+                internal long _Chcount;
+
+                [FieldOffset(16)]
+                internal global::System.IntPtr vbptr_basic_ostream;
+
+                [FieldOffset(24)]
+                internal global::Std.BasicStringbuf.__Internalc__N_std_S_basic_stringbuf__C___N_std_S_char_traits__C___N_std_S_allocator__C _Stringbuffer;
+
+                [FieldOffset(100)]
+                internal global::System.IntPtr vtordisp_convstream;
+
+                [FieldOffset(104)]
+                internal global::System.IntPtr vfptr_ios_base;
+
+                [FieldOffset(112)]
+                internal uint _Stdstr;
+
+                [FieldOffset(116)]
+                internal int _Mystate;
+
+                [FieldOffset(120)]
+                internal int _Except;
+
+                [FieldOffset(124)]
+                internal int _Fmtfl;
+
+                [FieldOffset(128)]
+                internal long _Prec;
+
+                [FieldOffset(136)]
+                internal long _Wide;
+
+                [FieldOffset(144)]
+                internal global::System.IntPtr _Arr;
+
+                [FieldOffset(148)]
+                internal global::System.IntPtr _Calls;
+
+                [FieldOffset(152)]
+                internal global::System.IntPtr _Ploc;
+
+                [FieldOffset(160)]
+                internal global::System.IntPtr _Mystrbuf;
+
+                [FieldOffset(164)]
+                internal global::System.IntPtr _Tiestr;
+
+                [FieldOffset(168)]
+                internal sbyte _Fillch;
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0convstream@INI@@QAE@XZ")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.Convstream> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.Convstream>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.INI.Convstream __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.Convstream(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.INI.Convstream __CreateInstance(global::UtinniCore.INI.Convstream.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.Convstream(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.INI.Convstream.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Convstream.__Internal));
+                *(global::UtinniCore.INI.Convstream.__Internal*) ret = native;
+                return ret.ToPointer();
+            }
+
+            private Convstream(global::UtinniCore.INI.Convstream.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected Convstream(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+                if (!skipVTables)
+                    SetupVTables(true);
+            }
+
+            public Convstream()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Convstream.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                __Internal.ctor(__Instance);
+                SetupVTables(GetType().FullName == "UtinniCore.INI.Convstream");
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.INI.Convstream __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                ((global::UtinniCore.INI.Convstream.__Internal*) __Instance)->vbptr_basic_istream = new global::System.IntPtr(__OriginalVTables[0]);
+                ((global::UtinniCore.INI.Convstream.__Internal*) __Instance)->vbptr_basic_ostream = new global::System.IntPtr(__OriginalVTables[1]);
+                ((global::UtinniCore.INI.Convstream.__Internal*) __Instance)->vtordisp_convstream = new global::System.IntPtr(__OriginalVTables[2]);
+                ((global::UtinniCore.INI.Convstream.__Internal*) __Instance)->vfptr_ios_base = new global::System.IntPtr(__OriginalVTables[3]);
+                if (disposing)
+                {
+                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 0 * 4);
+                    var ___dtorDelegate = (global::UtinniCore.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::UtinniCore.Delegates.Action_IntPtr_int));
+                    ___dtorDelegate(__Instance, 0);
+                }
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            #region Virtual table interop
+
+            // convstream
+            private static global::UtinniCore.Delegates.Action_IntPtr_int _dtorDelegateInstance;
+
+            private static void _dtorDelegateHook(global::System.IntPtr __instance, int delete)
+            {
+                if (!NativeToManagedMap.ContainsKey(__instance))
+                    throw new global::System.Exception("No managed instance was found");
+
+                var __target = (global::UtinniCore.INI.Convstream) NativeToManagedMap[__instance];
+                if (__target.__ownsNativeInstance)
+                    __target.SetupVTables();
+                __target.Dispose(true);
+            }
+
+            private static void*[] __ManagedVTables;
+            private static void*[] __ManagedVTablesDtorOnly;
+            private static void*[] _Thunks;
+            private static void*[] __originalVTables;
+            protected internal virtual void*[] __OriginalVTables => __originalVTables ?? new void*[] { *(void**) (__Instance + 0), *(void**) (__Instance + 16), *(void**) (__Instance + 100), *(void**) (__Instance + 104) };
+            private void SetupVTables(bool destructorOnly = false)
+            {
+                if (_Thunks == null)
+                {
+                    _Thunks = new void*[1];
+                    _dtorDelegateInstance += _dtorDelegateHook;
+                    _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_dtorDelegateInstance).ToPointer();
+
+                    __ManagedVTablesDtorOnly = new void*[1];
+                    var vfptr_dtor0 = Marshal.AllocHGlobal(1 * 4);
+                    __ManagedVTablesDtorOnly[0] = vfptr_dtor0.ToPointer();
+                    *(void**) (vfptr_dtor0 + 0) = _Thunks[0];
+
+                    __ManagedVTables = new void*[1];
+                    var vfptr0 = Marshal.AllocHGlobal(1 * 4);
+                    __ManagedVTables[0] = vfptr0.ToPointer();
+                    *(void**) (vfptr0 + 0) = _Thunks[0];
+
+                    __originalVTables = new void*[] { *(void**) (__Instance + 0), *(void**) (__Instance + 16), *(void**) (__Instance + 100), *(void**) (__Instance + 104) };}
+
+                if (destructorOnly)
+                {
+                    *(void**) (__Instance + 0) = __ManagedVTablesDtorOnly[0];
+                    *(void**) (__Instance + 16) = __ManagedVTablesDtorOnly[1];
+                    *(void**) (__Instance + 100) = __ManagedVTablesDtorOnly[2];
+                    *(void**) (__Instance + 104) = __ManagedVTablesDtorOnly[3];
+                }
+                else
+                {
+                    *(void**) (__Instance + 0) = __ManagedVTables[0];
+                    *(void**) (__Instance + 16) = __ManagedVTables[1];
+                    *(void**) (__Instance + 100) = __ManagedVTables[2];
+                    *(void**) (__Instance + 104) = __ManagedVTables[3];
+                }
+            }
+
+            #endregion
+        }
+
+        /// <summary>
+        /// <para>Value to be stored in INI-file</para>
+        /// <para>This is a simple reference-counting class, storing a pointer to original string</para>
+        /// <para>It has some functions for easy converting toother types</para>
+        /// <para>Value can contain array (in string representation) and be converted toit</para>
+        /// </summary>
+        public unsafe partial class Value : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 12)]
+            public partial struct __Internal
+            {
+                [FieldOffset(0)]
+                internal global::System.IntPtr vfptr_Value;
+
+                [FieldOffset(4)]
+                internal global::UtinniCore.INI.RefCountPtr.__Internal _val;
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Value@INI@@QAE@XZ")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Value@INI@@QAE@ABV01@@Z")]
+                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr cp);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Value@INI@@QAE@PBD@Z")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??8Value@INI@@QBE_NABV01@@Z")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool OperatorEqualEqual(global::System.IntPtr __instance, global::System.IntPtr rgh);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??9Value@INI@@QBE_NABV01@@Z")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool OperatorExclaimEqual(global::System.IntPtr __instance, global::System.IntPtr val);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??MValue@INI@@QBE_NABV01@@Z")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool OperatorLess(global::System.IntPtr __instance, global::System.IntPtr rgh);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?Set@Value@INI@@QAEXPBD@Z")]
+                internal static extern void Set(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??$Set@VArray@INI@@@Value@INI@@QAEXABVArray@1@@Z")]
+                internal static extern void Set(global::System.IntPtr __instance, global::System.IntPtr value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??$Set@VMap@INI@@@Value@INI@@QAEXABVMap@1@@Z")]
+                internal static extern void Set_1(global::System.IntPtr __instance, global::System.IntPtr value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??$Get@VMap@INI@@@Value@INI@@QBE?AVMap@1@XZ")]
+                internal static extern void Get(global::System.IntPtr __instance, global::System.IntPtr @return);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?AsString@Value@INI@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ")]
+                internal static extern void AsString(global::System.IntPtr __instance, global::System.IntPtr @return);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?AsInt@Value@INI@@QBEHXZ")]
+                internal static extern int AsInt(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?AsDouble@Value@INI@@QBENXZ")]
+                internal static extern double AsDouble(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?AsBool@Value@INI@@QBE_NXZ")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool AsBool(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?AsArray@Value@INI@@QBE?AVArray@2@XZ")]
+                internal static extern void AsArray(global::System.IntPtr __instance, global::System.IntPtr @return);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?AsMap@Value@INI@@QBE?AVMap@2@XZ")]
+                internal static extern void AsMap(global::System.IntPtr __instance, global::System.IntPtr @return);
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.Value> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.Value>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.INI.Value __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.Value(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.INI.Value __CreateInstance(global::UtinniCore.INI.Value.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.Value(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.INI.Value.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Value.__Internal));
+                global::UtinniCore.INI.Value.__Internal.cctor(ret, new global::System.IntPtr(&native));
+                return ret.ToPointer();
+            }
+
+            private Value(global::UtinniCore.INI.Value.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected Value(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+                if (!skipVTables)
+                    SetupVTables(true);
+            }
+
+            public Value()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Value.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                __Internal.ctor(__Instance);
+                SetupVTables(GetType().FullName == "UtinniCore.INI.Value");
+            }
+
+            public Value(global::UtinniCore.INI.Value cp)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Value.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                if (ReferenceEquals(cp, null))
+                    throw new global::System.ArgumentNullException("cp", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = cp.__Instance;
+                __Internal.cctor(__Instance, __arg0);
+                SetupVTables(GetType().FullName == "UtinniCore.INI.Value");
+            }
+
+            public Value(string value)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Value.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                __Internal.ctor(__Instance, value);
+                SetupVTables(GetType().FullName == "UtinniCore.INI.Value");
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.INI.Value __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                ((global::UtinniCore.INI.Value.__Internal*) __Instance)->vfptr_Value = new global::System.IntPtr(__OriginalVTables[0]);
+                if (disposing)
+                {
+                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 0 * 4);
+                    var ___dtorDelegate = (global::UtinniCore.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::UtinniCore.Delegates.Action_IntPtr_int));
+                    ___dtorDelegate(__Instance, 0);
+                }
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            public static bool operator ==(global::UtinniCore.INI.Value __op, global::UtinniCore.INI.Value rgh)
+            {
+                bool __opNull = ReferenceEquals(__op, null);
+                bool rghNull = ReferenceEquals(rgh, null);
+                if (__opNull || rghNull)
+                    return __opNull && rghNull;
+                var __arg0 = __op.__Instance;
+                var __arg1 = rgh.__Instance;
+                var __ret = __Internal.OperatorEqualEqual(__arg0, __arg1);
+                return __ret;
+            }
+
+            public override bool Equals(object obj)
+            {
+                return this == obj as global::UtinniCore.INI.Value;
+            }
+
+            public override int GetHashCode()
+            {
+                if (__Instance == global::System.IntPtr.Zero)
+                    return global::System.IntPtr.Zero.GetHashCode();
+                return (*(global::UtinniCore.INI.Value.__Internal*) __Instance).GetHashCode();
+            }
+
+            public static bool operator !=(global::UtinniCore.INI.Value __op, global::UtinniCore.INI.Value val)
+            {
+                bool __opNull = ReferenceEquals(__op, null);
+                bool valNull = ReferenceEquals(val, null);
+                if (__opNull || valNull)
+                    return !(__opNull && valNull);
+                var __arg0 = __op.__Instance;
+                var __arg1 = val.__Instance;
+                var __ret = __Internal.OperatorExclaimEqual(__arg0, __arg1);
+                return __ret;
+            }
+
+            public static bool operator >(global::UtinniCore.INI.Value __op, global::UtinniCore.INI.Value rgh)
+            {
+                return !(__op < rgh);
+            }
+
+            public static bool operator <(global::UtinniCore.INI.Value __op, global::UtinniCore.INI.Value rgh)
+            {
+                if (ReferenceEquals(__op, null))
+                    throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = __op.__Instance;
+                if (ReferenceEquals(rgh, null))
+                    throw new global::System.ArgumentNullException("rgh", "Cannot be null because it is a C++ reference (&).");
+                var __arg1 = rgh.__Instance;
+                var __ret = __Internal.OperatorLess(__arg0, __arg1);
+                return __ret;
+            }
+
+            public void Set(string value)
+            {
+                __Internal.Set(__Instance, value);
+            }
+
+            public void Set(global::UtinniCore.INI.Array value)
+            {
+                if (ReferenceEquals(value, null))
+                    throw new global::System.ArgumentNullException("value", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = value.__Instance;
+                __Internal.Set(__Instance, __arg0);
+            }
+
+            public void Set(global::UtinniCore.INI.Map value)
+            {
+                if (ReferenceEquals(value, null))
+                    throw new global::System.ArgumentNullException("value", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = value.__Instance;
+                __Internal.Set_1(__Instance, __arg0);
+            }
+
+            public global::UtinniCore.INI.Map Get()
+            {
+                var __ret = new global::UtinniCore.INI.Map.__Internal();
+                __Internal.Get(__Instance, new IntPtr(&__ret));
+                return global::UtinniCore.INI.Map.__CreateInstance(__ret);
+            }
+
+            public static implicit operator global::UtinniCore.INI.Value(string value)
+            {
+                return new global::UtinniCore.INI.Value(value);
+            }
+
+            /// <summary>Converts Value to std::string</summary>
+            public string AsString
+            {
+                get
+                {
+                    var __ret = new global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C();
+                    __Internal.AsString(__Instance, new IntPtr(&__ret));
+                    var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&__ret));
+                    var __retString0 = global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                    __basicStringRet0.Dispose();
+                    return __retString0;
+                }
+            }
+
+            /// <summary>Converts Value to integer</summary>
+            public int AsInt
+            {
+                get
+                {
+                    var __ret = __Internal.AsInt(__Instance);
+                    return __ret;
+                }
+            }
+
+            /// <summary>Converts Value to double</summary>
+            public double AsDouble
+            {
+                get
+                {
+                    var __ret = __Internal.AsDouble(__Instance);
+                    return __ret;
+                }
+            }
+
+            /// <summary>Converts Value to boolean</summary>
+            public bool AsBool
+            {
+                get
+                {
+                    var __ret = __Internal.AsBool(__Instance);
+                    return __ret;
+                }
+            }
+
+            /// <summary>Converts Value to Array</summary>
+            public global::UtinniCore.INI.Array AsArray
+            {
+                get
+                {
+                    var __ret = new global::UtinniCore.INI.Array.__Internal();
+                    __Internal.AsArray(__Instance, new IntPtr(&__ret));
+                    return global::UtinniCore.INI.Array.__CreateInstance(__ret);
+                }
+            }
+
+            /// <summary>Converts Value to Map</summary>
+            public global::UtinniCore.INI.Map AsMap
+            {
+                get
+                {
+                    var __ret = new global::UtinniCore.INI.Map.__Internal();
+                    __Internal.AsMap(__Instance, new IntPtr(&__ret));
+                    return global::UtinniCore.INI.Map.__CreateInstance(__ret);
+                }
+            }
+
+            #region Virtual table interop
+
+            // virtual ~Value() {}
+            private static global::UtinniCore.Delegates.Action_IntPtr_int _dtorDelegateInstance;
+
+            private static void _dtorDelegateHook(global::System.IntPtr __instance, int delete)
+            {
+                if (!NativeToManagedMap.ContainsKey(__instance))
+                    throw new global::System.Exception("No managed instance was found");
+
+                var __target = (global::UtinniCore.INI.Value) NativeToManagedMap[__instance];
+                if (__target.__ownsNativeInstance)
+                    __target.SetupVTables();
+                __target.Dispose(true);
+            }
+
+            private static void*[] __ManagedVTables;
+            private static void*[] __ManagedVTablesDtorOnly;
+            private static void*[] _Thunks;
+            private static void*[] __originalVTables;
+            protected internal virtual void*[] __OriginalVTables => __originalVTables ?? new void*[] { *(void**) (__Instance + 0) };
+            private void SetupVTables(bool destructorOnly = false)
+            {
+                if (_Thunks == null)
+                {
+                    _Thunks = new void*[1];
+                    _dtorDelegateInstance += _dtorDelegateHook;
+                    _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_dtorDelegateInstance).ToPointer();
+
+                    __ManagedVTablesDtorOnly = new void*[1];
+                    var vfptr_dtor0 = Marshal.AllocHGlobal(1 * 4);
+                    __ManagedVTablesDtorOnly[0] = vfptr_dtor0.ToPointer();
+                    *(void**) (vfptr_dtor0 + 0) = _Thunks[0];
+
+                    __ManagedVTables = new void*[1];
+                    var vfptr0 = Marshal.AllocHGlobal(1 * 4);
+                    __ManagedVTables[0] = vfptr0.ToPointer();
+                    *(void**) (vfptr0 + 0) = _Thunks[0];
+
+                    __originalVTables = new void*[] { *(void**) (__Instance + 0) };}
+
+                if (destructorOnly)
+                {
+                    *(void**) (__Instance + 0) = __ManagedVTablesDtorOnly[0];
+                }
+                else
+                {
+                    *(void**) (__Instance + 0) = __ManagedVTables[0];
+                }
+            }
+
+            #endregion
+        }
+
+        /// <summary>
+        /// <para>Array of Values</para>
+        /// <para>Reference-counting class</para>
+        /// </summary>
+        public unsafe partial class Array : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 12)]
+            public partial struct __Internal
+            {
+                [FieldOffset(0)]
+                internal global::System.IntPtr vfptr_Array;
+
+                [FieldOffset(4)]
+                internal global::UtinniCore.INI.RefCountPtr.__Internal _val;
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Array@INI@@QAE@XZ")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Array@INI@@QAE@ABV01@@Z")]
+                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr cp);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Array@INI@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@DDDD@Z")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, global::System.IntPtr str, sbyte sep, sbyte seg_open, sbyte seg_close, sbyte esc);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?GetValue@Array@INI@@QBE?AVValue@2@IABV32@@Z")]
+                internal static extern void GetValue(global::System.IntPtr __instance, global::System.IntPtr @return, uint pos, global::System.IntPtr def_val);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?SetValue@Array@INI@@QAEXIABVValue@2@@Z")]
+                internal static extern void SetValue(global::System.IntPtr __instance, uint pos, global::System.IntPtr value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?PushBack@Array@INI@@QAEAAV12@ABVValue@2@@Z")]
+                internal static extern global::System.IntPtr PushBack(global::System.IntPtr __instance, global::System.IntPtr val);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?ToString@Array@INI@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@DDDD@Z")]
+                internal static extern void ToString(global::System.IntPtr __instance, global::System.IntPtr @return, sbyte sep, sbyte seg_open, sbyte seg_close, sbyte esc);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?FromString@Array@INI@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@DDDD@Z")]
+                internal static extern void FromString(global::System.IntPtr __instance, global::System.IntPtr str, sbyte sep, sbyte seg_open, sbyte seg_close, sbyte esc);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?ToValue@Array@INI@@QBE?AVValue@2@XZ")]
+                internal static extern void ToValue(global::System.IntPtr __instance, global::System.IntPtr @return);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?FromValue@Array@INI@@QAEXABVValue@2@@Z")]
+                internal static extern void FromValue(global::System.IntPtr __instance, global::System.IntPtr val);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??AArray@INI@@QAEAAVValue@1@I@Z")]
+                internal static extern global::System.IntPtr OperatorSubscript(global::System.IntPtr __instance, uint pos);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?Size@Array@INI@@QBEIXZ")]
+                internal static extern uint Size(global::System.IntPtr __instance);
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.Array> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.Array>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.INI.Array __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.Array(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.INI.Array __CreateInstance(global::UtinniCore.INI.Array.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.Array(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.INI.Array.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Array.__Internal));
+                global::UtinniCore.INI.Array.__Internal.cctor(ret, new global::System.IntPtr(&native));
+                return ret.ToPointer();
+            }
+
+            private Array(global::UtinniCore.INI.Array.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected Array(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+                if (!skipVTables)
+                    SetupVTables(true);
+            }
+
+            public Array()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Array.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                __Internal.ctor(__Instance);
+                SetupVTables(GetType().FullName == "UtinniCore.INI.Array");
+            }
+
+            public Array(global::UtinniCore.INI.Array cp)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Array.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                if (ReferenceEquals(cp, null))
+                    throw new global::System.ArgumentNullException("cp", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = cp.__Instance;
+                __Internal.cctor(__Instance, __arg0);
+                SetupVTables(GetType().FullName == "UtinniCore.INI.Array");
+            }
+
+            public Array(string str, sbyte sep, sbyte seg_open, sbyte seg_close, sbyte esc)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Array.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, str);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.ctor(__Instance, __arg0, sep, seg_open, seg_close, esc);
+                __basicString0.Dispose();
+                SetupVTables(GetType().FullName == "UtinniCore.INI.Array");
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.INI.Array __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                ((global::UtinniCore.INI.Array.__Internal*) __Instance)->vfptr_Array = new global::System.IntPtr(__OriginalVTables[0]);
+                if (disposing)
+                {
+                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 0 * 4);
+                    var ___dtorDelegate = (global::UtinniCore.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::UtinniCore.Delegates.Action_IntPtr_int));
+                    ___dtorDelegate(__Instance, 0);
+                }
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            /// <summary>Gets value with specified position</summary>
+            /// <param name="pos">If</param>
+            /// <param name="pos">is &gt;= Size() returns</param>
+            public global::UtinniCore.INI.Value GetValue(uint pos, global::UtinniCore.INI.Value def_val)
+            {
+                if (ReferenceEquals(def_val, null))
+                    throw new global::System.ArgumentNullException("def_val", "Cannot be null because it is a C++ reference (&).");
+                var __arg1 = def_val.__Instance;
+                var __ret = new global::UtinniCore.INI.Value.__Internal();
+                __Internal.GetValue(__Instance, new IntPtr(&__ret), pos, __arg1);
+                return global::UtinniCore.INI.Value.__CreateInstance(__ret);
+            }
+
+            /// <summary>Sets value</summary>
+            /// <param name="value">to specified position</param>
+            /// <param name="pos">Array is automatically widen (if needed) to allow this operation</param>
+            public void SetValue(uint pos, global::UtinniCore.INI.Value value)
+            {
+                if (ReferenceEquals(value, null))
+                    throw new global::System.ArgumentNullException("value", "Cannot be null because it is a C++ reference (&).");
+                var __arg1 = value.__Instance;
+                __Internal.SetValue(__Instance, pos, __arg1);
+            }
+
+            /// <summary>Adds</summary>
+            /// <param name="val">to the end of the Array</param>
+            public global::UtinniCore.INI.Array PushBack(global::UtinniCore.INI.Value val)
+            {
+                if (ReferenceEquals(val, null))
+                    throw new global::System.ArgumentNullException("val", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = val.__Instance;
+                var __ret = __Internal.PushBack(__Instance, __arg0);
+                global::UtinniCore.INI.Array __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.INI.Array.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.INI.Array) global::UtinniCore.INI.Array.NativeToManagedMap[__ret];
+                else global::UtinniCore.INI.Array.NativeToManagedMap[__ret] = __result0 = (global::UtinniCore.INI.Array) global::UtinniCore.INI.Array.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            /// <summary>Formats string with all values of this array represented as strings, separated by</summary>
+            public string ToString(sbyte sep, sbyte seg_open, sbyte seg_close, sbyte esc)
+            {
+                var __ret = new global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C();
+                __Internal.ToString(__Instance, new IntPtr(&__ret), sep, seg_open, seg_close, esc);
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&__ret));
+                var __retString0 = global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                __basicStringRet0.Dispose();
+                return __retString0;
+            }
+
+            /// <summary>Fills array with values from string</summary>
+            /// <param name="str,">separated by</param>
+            public void FromString(string str, sbyte sep, sbyte seg_open, sbyte seg_close, sbyte esc)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, str);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.FromString(__Instance, __arg0, sep, seg_open, seg_close, esc);
+                __basicString0.Dispose();
+            }
+
+            /// <summary>Converts Array to Value</summary>
+            public global::UtinniCore.INI.Value ToValue()
+            {
+                var __ret = new global::UtinniCore.INI.Value.__Internal();
+                __Internal.ToValue(__Instance, new IntPtr(&__ret));
+                return global::UtinniCore.INI.Value.__CreateInstance(__ret);
+            }
+
+            /// <summary>Gets Array from Value</summary>
+            public void FromValue(global::UtinniCore.INI.Value val)
+            {
+                if (ReferenceEquals(val, null))
+                    throw new global::System.ArgumentNullException("val", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = val.__Instance;
+                __Internal.FromValue(__Instance, __arg0);
+            }
+
+            public global::UtinniCore.INI.Value this[uint pos]
+            {
+                get
+                {
+                    var __ret = __Internal.OperatorSubscript(__Instance, pos);
+                    return global::UtinniCore.INI.Value.__CreateInstance(__ret);
+                }
+
+                set
+                {
+                    if (ReferenceEquals(value, null))
+                        throw new global::System.ArgumentNullException("value", "Cannot be null because it is passed by value.");
+                    global::UtinniCore.INI.Value.__Internal.cctor(global::UtinniCore.INI.Array.__Internal.OperatorSubscript(__Instance, pos), value.__Instance);
+                }
+            }
+
+            /// <summary>Returns array size</summary>
+            public uint Size
+            {
+                get
+                {
+                    var __ret = __Internal.Size(__Instance);
+                    return __ret;
+                }
+            }
+
+            #region Virtual table interop
+
+            // virtual ~Array() {}
+            private static global::UtinniCore.Delegates.Action_IntPtr_int _dtorDelegateInstance;
+
+            private static void _dtorDelegateHook(global::System.IntPtr __instance, int delete)
+            {
+                if (!NativeToManagedMap.ContainsKey(__instance))
+                    throw new global::System.Exception("No managed instance was found");
+
+                var __target = (global::UtinniCore.INI.Array) NativeToManagedMap[__instance];
+                if (__target.__ownsNativeInstance)
+                    __target.SetupVTables();
+                __target.Dispose(true);
+            }
+
+            private static void*[] __ManagedVTables;
+            private static void*[] __ManagedVTablesDtorOnly;
+            private static void*[] _Thunks;
+            private static void*[] __originalVTables;
+            protected internal virtual void*[] __OriginalVTables => __originalVTables ?? new void*[] { *(void**) (__Instance + 0) };
+            private void SetupVTables(bool destructorOnly = false)
+            {
+                if (_Thunks == null)
+                {
+                    _Thunks = new void*[1];
+                    _dtorDelegateInstance += _dtorDelegateHook;
+                    _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_dtorDelegateInstance).ToPointer();
+
+                    __ManagedVTablesDtorOnly = new void*[1];
+                    var vfptr_dtor0 = Marshal.AllocHGlobal(1 * 4);
+                    __ManagedVTablesDtorOnly[0] = vfptr_dtor0.ToPointer();
+                    *(void**) (vfptr_dtor0 + 0) = _Thunks[0];
+
+                    __ManagedVTables = new void*[1];
+                    var vfptr0 = Marshal.AllocHGlobal(1 * 4);
+                    __ManagedVTables[0] = vfptr0.ToPointer();
+                    *(void**) (vfptr0 + 0) = _Thunks[0];
+
+                    __originalVTables = new void*[] { *(void**) (__Instance + 0) };}
+
+                if (destructorOnly)
+                {
+                    *(void**) (__Instance + 0) = __ManagedVTablesDtorOnly[0];
+                }
+                else
+                {
+                    *(void**) (__Instance + 0) = __ManagedVTables[0];
+                }
+            }
+
+            #endregion
+        }
+
+        /// <summary>
+        /// <para>Map of Values</para>
+        /// <para>Reference-counting class</para>
+        /// </summary>
+        public unsafe partial class Map : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 12)]
+            public partial struct __Internal
+            {
+                [FieldOffset(0)]
+                internal global::System.IntPtr vfptr_Map;
+
+                [FieldOffset(4)]
+                internal global::UtinniCore.INI.RefCountPtr.__Internal _val;
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Map@INI@@QAE@XZ")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Map@INI@@QAE@ABV01@@Z")]
+                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr cp);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Map@INI@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@DDDDD@Z")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, global::System.IntPtr str, sbyte sep, sbyte seg_open, sbyte seg_close, sbyte kval, sbyte esc);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?GetValue@Map@INI@@QBE?AVValue@2@ABV32@0@Z")]
+                internal static extern void GetValue(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr key, global::System.IntPtr def_val);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?SetValue@Map@INI@@QAEXABVValue@2@0@Z")]
+                internal static extern void SetValue(global::System.IntPtr __instance, global::System.IntPtr key, global::System.IntPtr value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?ToString@Map@INI@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@DDDDD@Z")]
+                internal static extern void ToString(global::System.IntPtr __instance, global::System.IntPtr @return, sbyte sep, sbyte seg_open, sbyte seg_close, sbyte kval, sbyte esc);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?FromString@Map@INI@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@DDDDD@Z")]
+                internal static extern void FromString(global::System.IntPtr __instance, global::System.IntPtr str, sbyte sep, sbyte seg_open, sbyte seg_close, sbyte kval, sbyte esc);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?ToValue@Map@INI@@QBE?AVValue@2@XZ")]
+                internal static extern void ToValue(global::System.IntPtr __instance, global::System.IntPtr @return);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?FromValue@Map@INI@@QAEXABVValue@2@@Z")]
+                internal static extern void FromValue(global::System.IntPtr __instance, global::System.IntPtr val);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??AMap@INI@@QAEAAVValue@1@ABV21@@Z")]
+                internal static extern global::System.IntPtr OperatorSubscript(global::System.IntPtr __instance, global::System.IntPtr key);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?Size@Map@INI@@QBEIXZ")]
+                internal static extern uint Size(global::System.IntPtr __instance);
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.Map> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.Map>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.INI.Map __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.Map(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.INI.Map __CreateInstance(global::UtinniCore.INI.Map.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.Map(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.INI.Map.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Map.__Internal));
+                global::UtinniCore.INI.Map.__Internal.cctor(ret, new global::System.IntPtr(&native));
+                return ret.ToPointer();
+            }
+
+            private Map(global::UtinniCore.INI.Map.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected Map(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+                if (!skipVTables)
+                    SetupVTables(true);
+            }
+
+            public Map()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Map.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                __Internal.ctor(__Instance);
+                SetupVTables(GetType().FullName == "UtinniCore.INI.Map");
+            }
+
+            public Map(global::UtinniCore.INI.Map cp)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Map.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                if (ReferenceEquals(cp, null))
+                    throw new global::System.ArgumentNullException("cp", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = cp.__Instance;
+                __Internal.cctor(__Instance, __arg0);
+                SetupVTables(GetType().FullName == "UtinniCore.INI.Map");
+            }
+
+            public Map(string str, sbyte sep, sbyte seg_open, sbyte seg_close, sbyte kval, sbyte esc)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Map.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, str);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.ctor(__Instance, __arg0, sep, seg_open, seg_close, kval, esc);
+                __basicString0.Dispose();
+                SetupVTables(GetType().FullName == "UtinniCore.INI.Map");
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.INI.Map __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                ((global::UtinniCore.INI.Map.__Internal*) __Instance)->vfptr_Map = new global::System.IntPtr(__OriginalVTables[0]);
+                if (disposing)
+                {
+                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 0 * 4);
+                    var ___dtorDelegate = (global::UtinniCore.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::UtinniCore.Delegates.Action_IntPtr_int));
+                    ___dtorDelegate(__Instance, 0);
+                }
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            /// <summary>Gets value for specified key</summary>
+            /// <param name="key">If there is no specified key - returns</param>
+            public global::UtinniCore.INI.Value GetValue(global::UtinniCore.INI.Value key, global::UtinniCore.INI.Value def_val)
+            {
+                if (ReferenceEquals(key, null))
+                    throw new global::System.ArgumentNullException("key", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = key.__Instance;
+                if (ReferenceEquals(def_val, null))
+                    throw new global::System.ArgumentNullException("def_val", "Cannot be null because it is a C++ reference (&).");
+                var __arg1 = def_val.__Instance;
+                var __ret = new global::UtinniCore.INI.Value.__Internal();
+                __Internal.GetValue(__Instance, new IntPtr(&__ret), __arg0, __arg1);
+                return global::UtinniCore.INI.Value.__CreateInstance(__ret);
+            }
+
+            /// <summary>Sets value</summary>
+            /// <param name="value">to specified key</param>
+            public void SetValue(global::UtinniCore.INI.Value key, global::UtinniCore.INI.Value value)
+            {
+                if (ReferenceEquals(key, null))
+                    throw new global::System.ArgumentNullException("key", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = key.__Instance;
+                if (ReferenceEquals(value, null))
+                    throw new global::System.ArgumentNullException("value", "Cannot be null because it is a C++ reference (&).");
+                var __arg1 = value.__Instance;
+                __Internal.SetValue(__Instance, __arg0, __arg1);
+            }
+
+            /// <summary>Formats string with all values of this map</summary>
+            public string ToString(sbyte sep, sbyte seg_open, sbyte seg_close, sbyte kval, sbyte esc)
+            {
+                var __ret = new global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C();
+                __Internal.ToString(__Instance, new IntPtr(&__ret), sep, seg_open, seg_close, kval, esc);
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&__ret));
+                var __retString0 = global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                __basicStringRet0.Dispose();
+                return __retString0;
+            }
+
+            /// <summary>Fills map with values from string</summary>
+            public void FromString(string str, sbyte sep, sbyte seg_open, sbyte seg_close, sbyte kval, sbyte esc)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, str);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.FromString(__Instance, __arg0, sep, seg_open, seg_close, kval, esc);
+                __basicString0.Dispose();
+            }
+
+            /// <summary>Converts Array to Value</summary>
+            public global::UtinniCore.INI.Value ToValue()
+            {
+                var __ret = new global::UtinniCore.INI.Value.__Internal();
+                __Internal.ToValue(__Instance, new IntPtr(&__ret));
+                return global::UtinniCore.INI.Value.__CreateInstance(__ret);
+            }
+
+            /// <summary>Gets Array from Value</summary>
+            public void FromValue(global::UtinniCore.INI.Value val)
+            {
+                if (ReferenceEquals(val, null))
+                    throw new global::System.ArgumentNullException("val", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = val.__Instance;
+                __Internal.FromValue(__Instance, __arg0);
+            }
+
+            public global::UtinniCore.INI.Value this[global::UtinniCore.INI.Value key]
+            {
+                get
+                {
+                    if (ReferenceEquals(key, null))
+                        throw new global::System.ArgumentNullException("key", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = key.__Instance;
+                    var __ret = __Internal.OperatorSubscript(__Instance, __arg0);
+                    return global::UtinniCore.INI.Value.__CreateInstance(__ret);
+                }
+
+                set
+                {
+                    if (ReferenceEquals(value, null))
+                        throw new global::System.ArgumentNullException("value", "Cannot be null because it is passed by value.");
+                    if (ReferenceEquals(key, null))
+                        throw new global::System.ArgumentNullException("key", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = key.__Instance;
+                    global::UtinniCore.INI.Value.__Internal.cctor(global::UtinniCore.INI.Map.__Internal.OperatorSubscript(__Instance, __arg0), value.__Instance);
+                }
+            }
+
+            /// <summary>Returns map size</summary>
+            public uint Size
+            {
+                get
+                {
+                    var __ret = __Internal.Size(__Instance);
+                    return __ret;
+                }
+            }
+
+            #region Virtual table interop
+
+            // virtual ~Map(){}
+            private static global::UtinniCore.Delegates.Action_IntPtr_int _dtorDelegateInstance;
+
+            private static void _dtorDelegateHook(global::System.IntPtr __instance, int delete)
+            {
+                if (!NativeToManagedMap.ContainsKey(__instance))
+                    throw new global::System.Exception("No managed instance was found");
+
+                var __target = (global::UtinniCore.INI.Map) NativeToManagedMap[__instance];
+                if (__target.__ownsNativeInstance)
+                    __target.SetupVTables();
+                __target.Dispose(true);
+            }
+
+            private static void*[] __ManagedVTables;
+            private static void*[] __ManagedVTablesDtorOnly;
+            private static void*[] _Thunks;
+            private static void*[] __originalVTables;
+            protected internal virtual void*[] __OriginalVTables => __originalVTables ?? new void*[] { *(void**) (__Instance + 0) };
+            private void SetupVTables(bool destructorOnly = false)
+            {
+                if (_Thunks == null)
+                {
+                    _Thunks = new void*[1];
+                    _dtorDelegateInstance += _dtorDelegateHook;
+                    _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_dtorDelegateInstance).ToPointer();
+
+                    __ManagedVTablesDtorOnly = new void*[1];
+                    var vfptr_dtor0 = Marshal.AllocHGlobal(1 * 4);
+                    __ManagedVTablesDtorOnly[0] = vfptr_dtor0.ToPointer();
+                    *(void**) (vfptr_dtor0 + 0) = _Thunks[0];
+
+                    __ManagedVTables = new void*[1];
+                    var vfptr0 = Marshal.AllocHGlobal(1 * 4);
+                    __ManagedVTables[0] = vfptr0.ToPointer();
+                    *(void**) (vfptr0 + 0) = _Thunks[0];
+
+                    __originalVTables = new void*[] { *(void**) (__Instance + 0) };}
+
+                if (destructorOnly)
+                {
+                    *(void**) (__Instance + 0) = __ManagedVTablesDtorOnly[0];
+                }
+                else
+                {
+                    *(void**) (__Instance + 0) = __ManagedVTables[0];
+                }
+            }
+
+            #endregion
+        }
+
+        /// <summary>
+        /// <para>One section of the ini-file</para>
+        /// <para>This can be created by INIFile class only</para>
+        /// </summary>
+        public unsafe partial class Section : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 68)]
+            public partial struct __Internal
+            {
+                [FieldOffset(0)]
+                internal global::System.IntPtr _file;
+
+                [FieldOffset(4)]
+                internal global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C _name;
+
+                [FieldOffset(28)]
+                internal global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C _comment;
+
+                [FieldOffset(52)]
+                internal global::Std.Map.__Internalc__N_std_S_map____N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C___N_INI_S_Value___N_std_S_less__S0____N_std_S_allocator____N_std_S_pair__1S0__S3_ _entries;
+
+                [FieldOffset(60)]
+                internal global::Std.Map.__Internalc__N_std_S_map____N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C_S0____N_std_S_less__S0____N_std_S_allocator____N_std_S_pair__1S0__S0_ _comments;
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??1Section@INI@@QAE@XZ")]
+                internal static extern void dtor(global::System.IntPtr __instance, int delete);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?GetValue@Section@INI@@QBE?AVValue@2@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV32@@Z")]
+                internal static extern void GetValue(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr key, global::System.IntPtr def_value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?SetValue@Section@INI@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABVValue@2@0@Z")]
+                internal static extern void SetValue(global::System.IntPtr __instance, global::System.IntPtr key, global::System.IntPtr val, global::System.IntPtr comment);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?SetArrayValue@Section@INI@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IABVValue@2@@Z")]
+                internal static extern void SetArrayValue(global::System.IntPtr __instance, global::System.IntPtr key, uint pos, global::System.IntPtr val);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?RemoveValue@Section@INI@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern void RemoveValue(global::System.IntPtr __instance, global::System.IntPtr key);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?GetComment@Section@INI@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV34@@Z")]
+                internal static extern void GetComment(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr key);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?SetComment@Section@INI@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z")]
+                internal static extern void SetComment(global::System.IntPtr __instance, global::System.IntPtr key, global::System.IntPtr comment);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?FindSubSection@Section@INI@@QBEPAV12@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern global::System.IntPtr FindSubSection(global::System.IntPtr __instance, global::System.IntPtr name);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?GetSubSection@Section@INI@@QAEPAV12@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern global::System.IntPtr GetSubSection(global::System.IntPtr __instance, global::System.IntPtr name);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?ValuesSize@Section@INI@@QBEIXZ")]
+                internal static extern uint ValuesSize(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?FullName@Section@INI@@QBEABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ")]
+                internal static extern global::System.IntPtr FullName(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?Name@Section@INI@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ")]
+                internal static extern void Name(global::System.IntPtr __instance, global::System.IntPtr @return);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?Comment@Section@INI@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ")]
+                internal static extern void Comment(global::System.IntPtr __instance, global::System.IntPtr @return);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?FindParent@Section@INI@@QBEPAV12@XZ")]
+                internal static extern global::System.IntPtr FindParent(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?GetParent@Section@INI@@QAEPAV12@XZ")]
+                internal static extern global::System.IntPtr GetParent(global::System.IntPtr __instance);
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.Section> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.Section>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.INI.Section __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.Section(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.INI.Section __CreateInstance(global::UtinniCore.INI.Section.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.Section(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.INI.Section.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.Section.__Internal));
+                *(global::UtinniCore.INI.Section.__Internal*) ret = native;
+                return ret.ToPointer();
+            }
+
+            private Section(global::UtinniCore.INI.Section.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected Section(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.INI.Section __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                if (disposing)
+                    __Internal.dtor(__Instance, 0);
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            /// <summary>Get Value</summary>
+            public global::UtinniCore.INI.Value GetValue(string key, global::UtinniCore.INI.Value def_value)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, key);
+                var __arg0 = __basicString0.__Instance;
+                if (ReferenceEquals(def_value, null))
+                    throw new global::System.ArgumentNullException("def_value", "Cannot be null because it is a C++ reference (&).");
+                var __arg1 = def_value.__Instance;
+                var __ret = new global::UtinniCore.INI.Value.__Internal();
+                __Internal.GetValue(__Instance, new IntPtr(&__ret), __arg0, __arg1);
+                __basicString0.Dispose();
+                return global::UtinniCore.INI.Value.__CreateInstance(__ret);
+            }
+
+            /// <summary>Set Value</summary>
+            public void SetValue(string key, global::UtinniCore.INI.Value val, string comment)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, key);
+                var __arg0 = __basicString0.__Instance;
+                if (ReferenceEquals(val, null))
+                    throw new global::System.ArgumentNullException("val", "Cannot be null because it is a C++ reference (&).");
+                var __arg1 = val.__Instance;
+                var __basicString2 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString2, comment);
+                var __arg2 = __basicString2.__Instance;
+                __Internal.SetValue(__Instance, __arg0, __arg1, __arg2);
+                __basicString0.Dispose();
+                __basicString2.Dispose();
+            }
+
+            /// <summary>Set Value to array</summary>
+            public void SetArrayValue(string key, uint pos, global::UtinniCore.INI.Value val)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, key);
+                var __arg0 = __basicString0.__Instance;
+                if (ReferenceEquals(val, null))
+                    throw new global::System.ArgumentNullException("val", "Cannot be null because it is a C++ reference (&).");
+                var __arg2 = val.__Instance;
+                __Internal.SetArrayValue(__Instance, __arg0, pos, __arg2);
+                __basicString0.Dispose();
+            }
+
+            /// <summary>Remove value</summary>
+            public void RemoveValue(string key)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, key);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.RemoveValue(__Instance, __arg0);
+                __basicString0.Dispose();
+            }
+
+            /// <summary>Get comment, associated with provided value</summary>
+            public string GetComment(string key)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, key);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = new global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C();
+                __Internal.GetComment(__Instance, new IntPtr(&__ret), __arg0);
+                __basicString0.Dispose();
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&__ret));
+                var __retString0 = global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                __basicStringRet0.Dispose();
+                return __retString0;
+            }
+
+            /// <summary>Set comment for specified key</summary>
+            public void SetComment(string key, string comment)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, key);
+                var __arg0 = __basicString0.__Instance;
+                var __basicString1 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString1, comment);
+                var __arg1 = __basicString1.__Instance;
+                __Internal.SetComment(__Instance, __arg0, __arg1);
+                __basicString0.Dispose();
+                __basicString1.Dispose();
+            }
+
+            public global::UtinniCore.INI.Section FindSubSection(string name)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, name);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.FindSubSection(__Instance, __arg0);
+                __basicString0.Dispose();
+                global::UtinniCore.INI.Section __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.INI.Section.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.INI.Section) global::UtinniCore.INI.Section.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.INI.Section.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            public global::UtinniCore.INI.Section GetSubSection(string name)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, name);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.GetSubSection(__Instance, __arg0);
+                __basicString0.Dispose();
+                global::UtinniCore.INI.Section __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.INI.Section.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.INI.Section) global::UtinniCore.INI.Section.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.INI.Section.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            public uint ValuesSize
+            {
+                get
+                {
+                    var __ret = __Internal.ValuesSize(__Instance);
+                    return __ret;
+                }
+            }
+
+            /// <summary>Returns full section name (subsection name will contain '.', separating subsection part)</summary>
+            public string FullName
+            {
+                get
+                {
+                    var __ret = __Internal.FullName(__Instance);
+                    var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(__ret);
+                    return global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                }
+            }
+
+            /// <summary>Return section name (will be parsed to get individual section name)</summary>
+            public string Name
+            {
+                get
+                {
+                    var __ret = new global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C();
+                    __Internal.Name(__Instance, new IntPtr(&__ret));
+                    var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&__ret));
+                    var __retString0 = global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                    __basicStringRet0.Dispose();
+                    return __retString0;
+                }
+            }
+
+            /// <summary>Get comment, associated with this section (written before the line with the section, or after it)</summary>
+            public string Comment
+            {
+                get
+                {
+                    var __ret = new global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C();
+                    __Internal.Comment(__Instance, new IntPtr(&__ret));
+                    var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&__ret));
+                    var __retString0 = global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                    __basicStringRet0.Dispose();
+                    return __retString0;
+                }
+            }
+
+            public global::UtinniCore.INI.Section FindParent
+            {
+                get
+                {
+                    var __ret = __Internal.FindParent(__Instance);
+                    global::UtinniCore.INI.Section __result0;
+                    if (__ret == IntPtr.Zero) __result0 = null;
+                    else if (global::UtinniCore.INI.Section.NativeToManagedMap.ContainsKey(__ret))
+                        __result0 = (global::UtinniCore.INI.Section) global::UtinniCore.INI.Section.NativeToManagedMap[__ret];
+                    else __result0 = global::UtinniCore.INI.Section.__CreateInstance(__ret);
+                    return __result0;
+                }
+            }
+
+            public global::UtinniCore.INI.Section Parent
+            {
+                get
+                {
+                    var __ret = __Internal.GetParent(__Instance);
+                    global::UtinniCore.INI.Section __result0;
+                    if (__ret == IntPtr.Zero) __result0 = null;
+                    else if (global::UtinniCore.INI.Section.NativeToManagedMap.ContainsKey(__ret))
+                        __result0 = (global::UtinniCore.INI.Section) global::UtinniCore.INI.Section.NativeToManagedMap[__ret];
+                    else __result0 = global::UtinniCore.INI.Section.__CreateInstance(__ret);
+                    return __result0;
+                }
+            }
+        }
+
+        /// <summary>
+        /// <para>Main class of the parser</para>
+        /// <para>Provides way to load and save ini-files, as well as</para>
+        /// <para>setting specific values in them</para>
+        /// </summary>
+        public unsafe partial class File : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 68)]
+            public partial struct __Internal
+            {
+                [FieldOffset(0)]
+                internal global::System.IntPtr vfptr_File;
+
+                [FieldOffset(4)]
+                internal global::Std.Map.__Internalc__N_std_S_map____N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C____N_INI_S_Section___N_std_S_less__S0____N_std_S_allocator____N_std_S_pair__1S0__S3_ _sections;
+
+                [FieldOffset(12)]
+                internal global::UtinniCore.INI.File.PResult.__Internal _result;
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0File@INI@@QAE@XZ")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0File@INI@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, global::System.IntPtr fname);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0File@INI@@QAE@ABV01@@Z")]
+                internal static extern global::System.IntPtr cctor_1(global::System.IntPtr __instance, global::System.IntPtr lf);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?CopyFrom@File@INI@@QAEXABV12@@Z")]
+                internal static extern void CopyFrom(global::System.IntPtr __instance, global::System.IntPtr lf);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?GetValue@File@INI@@QAE?AVValue@2@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV32@@Z")]
+                internal static extern void GetValue(global::System.IntPtr __instance, global::System.IntPtr @return, global::System.IntPtr name, global::System.IntPtr def_val);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?SetValue@File@INI@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABVValue@2@0@Z")]
+                internal static extern void SetValue(global::System.IntPtr __instance, global::System.IntPtr name, global::System.IntPtr value, global::System.IntPtr comment);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?SetArrayValue@File@INI@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IABVValue@2@@Z")]
+                internal static extern void SetArrayValue(global::System.IntPtr __instance, global::System.IntPtr key, uint pos, global::System.IntPtr val);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?GetSection@File@INI@@QAEPAVSection@2@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern global::System.IntPtr GetSection(global::System.IntPtr __instance, global::System.IntPtr name);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?FindSection@File@INI@@QBEPAVSection@2@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern global::System.IntPtr FindSection(global::System.IntPtr __instance, global::System.IntPtr name);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?DeleteSection@File@INI@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern void DeleteSection(global::System.IntPtr __instance, global::System.IntPtr name);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?FindSubSection@File@INI@@QBEPAVSection@2@PBV32@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern global::System.IntPtr FindSubSection(global::System.IntPtr __instance, global::System.IntPtr sect, global::System.IntPtr name);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?GetSubSection@File@INI@@QAEPAVSection@2@PAV32@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern global::System.IntPtr GetSubSection(global::System.IntPtr __instance, global::System.IntPtr sect, global::System.IntPtr name);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?FindParentSection@File@INI@@QBEPAVSection@2@PBV32@@Z")]
+                internal static extern global::System.IntPtr FindParentSection(global::System.IntPtr __instance, global::System.IntPtr sect);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?GetParentSection@File@INI@@QAEPAVSection@2@PBV32@@Z")]
+                internal static extern global::System.IntPtr GetParentSection(global::System.IntPtr __instance, global::System.IntPtr sect);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?Load@File@INI@@QAEHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N@Z")]
+                internal static extern int Load(global::System.IntPtr __instance, global::System.IntPtr fname, bool unload_prev);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?Save@File@INI@@QAEHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern int Save(global::System.IntPtr __instance, global::System.IntPtr fname);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?Unload@File@INI@@QAEXXZ")]
+                internal static extern void Unload(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?ParseLine@File@INI@@IBE?AW4LineType@12@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAV45@111@Z")]
+                internal static extern global::UtinniCore.INI.File.LineType ParseLine(global::System.IntPtr __instance, global::System.IntPtr input_line, global::System.IntPtr section, global::System.IntPtr key, global::System.IntPtr value, global::System.IntPtr comment);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?SectionsSize@File@INI@@QBEIXZ")]
+                internal static extern uint SectionsSize(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?LastResult@File@INI@@QAEABUPResult@12@XZ")]
+                internal static extern global::System.IntPtr LastResult(global::System.IntPtr __instance);
+            }
+
+            public enum LineType
+            {
+                LEKSYSINI_EMPTY = 0,
+                LEKSYSINI_SECTION = 1,
+                LEKSYSINI_ENTRY = 2,
+                LEKSYSINI_COMMENT = 3,
+                LEKSYSINI_ERROR = 4
+            }
+
+            /// <summary>Result of previous parse operation</summary>
+            public unsafe partial class PResult : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 56)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal int error_code;
+
+                    [FieldOffset(4)]
+                    internal int error_line_num;
+
+                    [FieldOffset(8)]
+                    internal global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C error_line;
+
+                    [FieldOffset(32)]
+                    internal global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C file_name;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0PResult@File@INI@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0PResult@File@INI@@QAE@ABU012@@Z")]
+                    internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??1PResult@File@INI@@QAE@XZ")]
+                    internal static extern void dtor(global::System.IntPtr __instance, int delete);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?Set@PResult@File@INI@@QAEXHHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                    internal static extern void Set(global::System.IntPtr __instance, int code, int line_num, global::System.IntPtr line);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?Invalidate@PResult@File@INI@@QAEXXZ")]
+                    internal static extern void Invalidate(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??BPResult@File@INI@@QBE_NXZ")]
+                    [return: MarshalAs(UnmanagedType.I1)]
+                    internal static extern bool OperatorConversion(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?GetErrorDesc@PResult@File@INI@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ")]
+                    internal static extern void GetErrorDesc(global::System.IntPtr __instance, global::System.IntPtr @return);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.File.PResult> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.File.PResult>();
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.INI.File.PResult __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.INI.File.PResult(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.INI.File.PResult __CreateInstance(global::UtinniCore.INI.File.PResult.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.INI.File.PResult(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.INI.File.PResult.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.File.PResult.__Internal));
+                    global::UtinniCore.INI.File.PResult.__Internal.cctor(ret, new global::System.IntPtr(&native));
+                    return ret.ToPointer();
+                }
+
+                private PResult(global::UtinniCore.INI.File.PResult.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected PResult(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public PResult()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.File.PResult.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public PResult(global::UtinniCore.INI.File.PResult _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.File.PResult.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    if (ReferenceEquals(_0, null))
+                        throw new global::System.ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = _0.__Instance;
+                    __Internal.cctor(__Instance, __arg0);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.INI.File.PResult __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (disposing)
+                        __Internal.dtor(__Instance, 0);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public void Set(int code, int line_num, string line)
+                {
+                    var __basicString2 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                    global::Std.BasicStringExtensions.Assign(__basicString2, line);
+                    var __arg2 = __basicString2.__Instance;
+                    __Internal.Set(__Instance, code, line_num, __arg2);
+                    __basicString2.Dispose();
+                }
+
+                public void Invalidate()
+                {
+                    __Internal.Invalidate(__Instance);
+                }
+
+                public static implicit operator bool(global::UtinniCore.INI.File.PResult __op)
+                {
+                    if (ReferenceEquals(__op, null))
+                        throw new global::System.ArgumentNullException("__op", "Cannot be null because it is a C++ reference (&).");
+                    var __arg0 = __op.__Instance;
+                    var __ret = __Internal.OperatorConversion(__arg0);
+                    return __ret;
+                }
+
+                public int ErrorCode
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.INI.File.PResult.__Internal*) __Instance)->error_code;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.INI.File.PResult.__Internal*)__Instance)->error_code = value;
+                    }
+                }
+
+                public int ErrorLineNum
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.INI.File.PResult.__Internal*) __Instance)->error_line_num;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.INI.File.PResult.__Internal*)__Instance)->error_line_num = value;
+                    }
+                }
+
+                public string ErrorLine
+                {
+                    get
+                    {
+                        var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&((global::UtinniCore.INI.File.PResult.__Internal*) __Instance)->error_line));
+                        return global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                    }
+
+                    set
+                    {
+                        global::Std.BasicStringExtensions.__Internal.Assign(new global::System.IntPtr(&((global::UtinniCore.INI.File.PResult.__Internal*)__Instance)->error_line), value);
+                    }
+                }
+
+                public string FileName
+                {
+                    get
+                    {
+                        var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&((global::UtinniCore.INI.File.PResult.__Internal*) __Instance)->file_name));
+                        return global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                    }
+
+                    set
+                    {
+                        global::Std.BasicStringExtensions.__Internal.Assign(new global::System.IntPtr(&((global::UtinniCore.INI.File.PResult.__Internal*)__Instance)->file_name), value);
+                    }
+                }
+
+                public string ErrorDesc
+                {
+                    get
+                    {
+                        var __ret = new global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C();
+                        __Internal.GetErrorDesc(__Instance, new IntPtr(&__ret));
+                        var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&__ret));
+                        var __retString0 = global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                        __basicStringRet0.Dispose();
+                        return __retString0;
+                    }
+                }
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.File> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.INI.File>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.INI.File __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.File(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.INI.File __CreateInstance(global::UtinniCore.INI.File.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.INI.File(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.INI.File.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.File.__Internal));
+                global::UtinniCore.INI.File.__Internal.cctor_1(ret, new global::System.IntPtr(&native));
+                return ret.ToPointer();
+            }
+
+            private File(global::UtinniCore.INI.File.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected File(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+                if (!skipVTables)
+                    SetupVTables(true);
+            }
+
+            public File()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.File.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                __Internal.ctor(__Instance);
+                SetupVTables(GetType().FullName == "UtinniCore.INI.File");
+            }
+
+            public File(string fname)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.File.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, fname);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.ctor(__Instance, __arg0);
+                __basicString0.Dispose();
+                SetupVTables(GetType().FullName == "UtinniCore.INI.File");
+            }
+
+            public File(global::UtinniCore.INI.File lf)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.INI.File.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                if (ReferenceEquals(lf, null))
+                    throw new global::System.ArgumentNullException("lf", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = lf.__Instance;
+                __Internal.cctor_1(__Instance, __arg0);
+                SetupVTables(GetType().FullName == "UtinniCore.INI.File");
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.INI.File __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                ((global::UtinniCore.INI.File.__Internal*) __Instance)->vfptr_File = new global::System.IntPtr(__OriginalVTables[0]);
+                if (disposing)
+                {
+                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 0 * 4);
+                    var ___dtorDelegate = (global::UtinniCore.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::UtinniCore.Delegates.Action_IntPtr_int));
+                    ___dtorDelegate(__Instance, 0);
+                }
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            public void CopyFrom(global::UtinniCore.INI.File lf)
+            {
+                if (ReferenceEquals(lf, null))
+                    throw new global::System.ArgumentNullException("lf", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = lf.__Instance;
+                __Internal.CopyFrom(__Instance, __arg0);
+            }
+
+            /// <summary>
+            /// <para>Get value from the file</para>
+            /// <para>Use INI_SECTION_VALUE_DELIMETER to separate section name from value name</para>
+            /// </summary>
+            public global::UtinniCore.INI.Value GetValue(string name, global::UtinniCore.INI.Value def_val)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, name);
+                var __arg0 = __basicString0.__Instance;
+                if (ReferenceEquals(def_val, null))
+                    throw new global::System.ArgumentNullException("def_val", "Cannot be null because it is a C++ reference (&).");
+                var __arg1 = def_val.__Instance;
+                var __ret = new global::UtinniCore.INI.Value.__Internal();
+                __Internal.GetValue(__Instance, new IntPtr(&__ret), __arg0, __arg1);
+                __basicString0.Dispose();
+                return global::UtinniCore.INI.Value.__CreateInstance(__ret);
+            }
+
+            /// <summary>
+            /// <para>Set value to the file</para>
+            /// <para>Use INI_SECTION_VALUE_DELIMETER to separate section name from value name</para>
+            /// </summary>
+            public void SetValue(string name, global::UtinniCore.INI.Value value, string comment)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, name);
+                var __arg0 = __basicString0.__Instance;
+                if (ReferenceEquals(value, null))
+                    throw new global::System.ArgumentNullException("value", "Cannot be null because it is a C++ reference (&).");
+                var __arg1 = value.__Instance;
+                var __basicString2 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString2, comment);
+                var __arg2 = __basicString2.__Instance;
+                __Internal.SetValue(__Instance, __arg0, __arg1, __arg2);
+                __basicString0.Dispose();
+                __basicString2.Dispose();
+            }
+
+            /// <summary>Set array Value to array</summary>
+            public void SetArrayValue(string key, uint pos, global::UtinniCore.INI.Value val)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, key);
+                var __arg0 = __basicString0.__Instance;
+                if (ReferenceEquals(val, null))
+                    throw new global::System.ArgumentNullException("val", "Cannot be null because it is a C++ reference (&).");
+                var __arg2 = val.__Instance;
+                __Internal.SetArrayValue(__Instance, __arg0, pos, __arg2);
+                __basicString0.Dispose();
+            }
+
+            /// <summary>
+            /// <para>Returns pointer to section with specified name</para>
+            /// <para>If section does not exists - creates it</para>
+            /// </summary>
+            public global::UtinniCore.INI.Section GetSection(string name)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, name);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.GetSection(__Instance, __arg0);
+                __basicString0.Dispose();
+                global::UtinniCore.INI.Section __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.INI.Section.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.INI.Section) global::UtinniCore.INI.Section.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.INI.Section.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            /// <summary>Find existing section by name</summary>
+            /// <returns>pointer to existing section or NULL</returns>
+            public global::UtinniCore.INI.Section FindSection(string name)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, name);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.FindSection(__Instance, __arg0);
+                __basicString0.Dispose();
+                global::UtinniCore.INI.Section __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.INI.Section.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.INI.Section) global::UtinniCore.INI.Section.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.INI.Section.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            /// <summary>Deletes section with specified name</summary>
+            public void DeleteSection(string name)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, name);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.DeleteSection(__Instance, __arg0);
+                __basicString0.Dispose();
+            }
+
+            /// <summary>Get subsection of specified section with specified name</summary>
+            public global::UtinniCore.INI.Section FindSubSection(global::UtinniCore.INI.Section sect, string name)
+            {
+                var __arg0 = ReferenceEquals(sect, null) ? global::System.IntPtr.Zero : sect.__Instance;
+                var __basicString1 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString1, name);
+                var __arg1 = __basicString1.__Instance;
+                var __ret = __Internal.FindSubSection(__Instance, __arg0, __arg1);
+                __basicString1.Dispose();
+                global::UtinniCore.INI.Section __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.INI.Section.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.INI.Section) global::UtinniCore.INI.Section.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.INI.Section.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            /// <summary>If subsection does not exists, creates it</summary>
+            public global::UtinniCore.INI.Section GetSubSection(global::UtinniCore.INI.Section sect, string name)
+            {
+                var __arg0 = ReferenceEquals(sect, null) ? global::System.IntPtr.Zero : sect.__Instance;
+                var __basicString1 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString1, name);
+                var __arg1 = __basicString1.__Instance;
+                var __ret = __Internal.GetSubSection(__Instance, __arg0, __arg1);
+                __basicString1.Dispose();
+                global::UtinniCore.INI.Section __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.INI.Section.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.INI.Section) global::UtinniCore.INI.Section.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.INI.Section.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            /// <summary>Get parent section of the specified section</summary>
+            public global::UtinniCore.INI.Section FindParentSection(global::UtinniCore.INI.Section sect)
+            {
+                var __arg0 = ReferenceEquals(sect, null) ? global::System.IntPtr.Zero : sect.__Instance;
+                var __ret = __Internal.FindParentSection(__Instance, __arg0);
+                global::UtinniCore.INI.Section __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.INI.Section.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.INI.Section) global::UtinniCore.INI.Section.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.INI.Section.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            /// <summary>Get parent section (created if needed)</summary>
+            public global::UtinniCore.INI.Section GetParentSection(global::UtinniCore.INI.Section sect)
+            {
+                var __arg0 = ReferenceEquals(sect, null) ? global::System.IntPtr.Zero : sect.__Instance;
+                var __ret = __Internal.GetParentSection(__Instance, __arg0);
+                global::UtinniCore.INI.Section __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.INI.Section.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.INI.Section) global::UtinniCore.INI.Section.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.INI.Section.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            /// <summary>
+            /// <para>Load ini from file in system</para>
+            /// <para>Set</para>
+            /// </summary>
+            /// <param name="unload_prev">to false for not unloading any stuff currently in memory before loading</param>
+            public int Load(string fname, bool unload_prev)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, fname);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.Load(__Instance, __arg0, unload_prev);
+                __basicString0.Dispose();
+                return __ret;
+            }
+
+            /// <summary>Save ini file to file</summary>
+            public int Save(string fname)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, fname);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.Save(__Instance, __arg0);
+                __basicString0.Dispose();
+                return __ret;
+            }
+
+            /// <summary>Unload memory</summary>
+            public void Unload()
+            {
+                __Internal.Unload(__Instance);
+            }
+
+            /// <summary>
+            /// <para>Parse input line</para>
+            /// <para>Line must be concatenated (if needed) and trimmed before passing to this function</para>
+            /// </summary>
+            /// <param name="input_line">- Line to parse</param>
+            /// <param name="section">- will contain section name in case SECTION return</param>
+            /// <param name="key">- will contain key in case ENTRY return</param>
+            /// <param name="value">- will contain value in case ENTRY return</param>
+            /// <param name="comment">- will contain comment in case of return != EMPTY and != ERROR</param>
+            /// <returns>type of the parsed line</returns>
+            protected global::UtinniCore.INI.File.LineType ParseLine(string input_line, string section, string key, string value, string comment)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, input_line);
+                var __arg0 = __basicString0.__Instance;
+                var __basicString1 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString1, section);
+                var __arg1 = __basicString1.__Instance;
+                var __basicString2 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString2, key);
+                var __arg2 = __basicString2.__Instance;
+                var __basicString3 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString3, value);
+                var __arg3 = __basicString3.__Instance;
+                var __basicString4 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString4, comment);
+                var __arg4 = __basicString4.__Instance;
+                var __ret = __Internal.ParseLine(__Instance, __arg0, __arg1, __arg2, __arg3, __arg4);
+                __basicString0.Dispose();
+                __basicString1.Dispose();
+                __basicString2.Dispose();
+                __basicString3.Dispose();
+                __basicString4.Dispose();
+                return __ret;
+            }
+
+            public static implicit operator global::UtinniCore.INI.File(string fname)
+            {
+                return new global::UtinniCore.INI.File(fname);
+            }
+
+            /// <summary>
+            /// <para>A way to iterate through all sections</para>
+            /// <para>Section pointer can be accesed as SectionMap::iterator::second, section name - as ::first</para>
+            /// </summary>
+            public uint SectionsSize
+            {
+                get
+                {
+                    var __ret = __Internal.SectionsSize(__Instance);
+                    return __ret;
+                }
+            }
+
+            /// <summary>Return last operation result</summary>
+            public global::UtinniCore.INI.File.PResult LastResult
+            {
+                get
+                {
+                    var __ret = __Internal.LastResult(__Instance);
+                    global::UtinniCore.INI.File.PResult __result0;
+                    if (__ret == IntPtr.Zero) __result0 = null;
+                    else if (global::UtinniCore.INI.File.PResult.NativeToManagedMap.ContainsKey(__ret))
+                        __result0 = (global::UtinniCore.INI.File.PResult) global::UtinniCore.INI.File.PResult.NativeToManagedMap[__ret];
+                    else __result0 = global::UtinniCore.INI.File.PResult.__CreateInstance(__ret);
+                    return __result0;
+                }
+            }
+
+            #region Virtual table interop
+
+            // virtual ~File() {Unload();}
+            private static global::UtinniCore.Delegates.Action_IntPtr_int _dtorDelegateInstance;
+
+            private static void _dtorDelegateHook(global::System.IntPtr __instance, int delete)
+            {
+                if (!NativeToManagedMap.ContainsKey(__instance))
+                    throw new global::System.Exception("No managed instance was found");
+
+                var __target = (global::UtinniCore.INI.File) NativeToManagedMap[__instance];
+                if (__target.__ownsNativeInstance)
+                    __target.SetupVTables();
+                __target.Dispose(true);
+            }
+
+            private static void*[] __ManagedVTables;
+            private static void*[] __ManagedVTablesDtorOnly;
+            private static void*[] _Thunks;
+            private static void*[] __originalVTables;
+            protected internal virtual void*[] __OriginalVTables => __originalVTables ?? new void*[] { *(void**) (__Instance + 0) };
+            private void SetupVTables(bool destructorOnly = false)
+            {
+                if (_Thunks == null)
+                {
+                    _Thunks = new void*[1];
+                    _dtorDelegateInstance += _dtorDelegateHook;
+                    _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_dtorDelegateInstance).ToPointer();
+
+                    __ManagedVTablesDtorOnly = new void*[1];
+                    var vfptr_dtor0 = Marshal.AllocHGlobal(1 * 4);
+                    __ManagedVTablesDtorOnly[0] = vfptr_dtor0.ToPointer();
+                    *(void**) (vfptr_dtor0 + 0) = _Thunks[0];
+
+                    __ManagedVTables = new void*[1];
+                    var vfptr0 = Marshal.AllocHGlobal(1 * 4);
+                    __ManagedVTables[0] = vfptr0.ToPointer();
+                    *(void**) (vfptr0 + 0) = _Thunks[0];
+
+                    __originalVTables = new void*[] { *(void**) (__Instance + 0) };}
+
+                if (destructorOnly)
+                {
+                    *(void**) (__Instance + 0) = __ManagedVTablesDtorOnly[0];
+                }
+                else
+                {
+                    *(void**) (__Instance + 0) = __ManagedVTables[0];
+                }
+            }
+
+            #endregion
+        }
+
+        public unsafe partial class iniparser
+        {
+            public partial struct __Internal
+            {
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?string_to_lower@INI@@YAXAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern void StringToLower(global::System.IntPtr str);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?string_to_upper@INI@@YAXAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern void StringToUpper(global::System.IntPtr str);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="??$t_to_string@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@INI@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV12@@Z")]
+                internal static extern void TToString(global::System.IntPtr @return, global::System.IntPtr i);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="??$string_to_t@_N@INI@@YA_NABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool StringToT(global::System.IntPtr v);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?__in_isspace@INI@@YAHH@Z")]
+                internal static extern int InIsspace(int ch);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?ltrim@INI@@YAAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAV23@@Z")]
+                internal static extern global::System.IntPtr Ltrim(global::System.IntPtr s);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?rtrim@INI@@YAAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAV23@@Z")]
+                internal static extern global::System.IntPtr Rtrim(global::System.IntPtr s);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?trim@INI@@YAAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAV23@@Z")]
+                internal static extern global::System.IntPtr Trim(global::System.IntPtr s);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?char_is_one_of@INI@@YA_NHPBD@Z")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool CharIsOneOf(int ch, [MarshalAs(UnmanagedType.LPUTF8Str)] string charset);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?str_replace@INI@@YAAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAV23@ABV23@1@Z")]
+                internal static extern global::System.IntPtr StrReplace(global::System.IntPtr str, global::System.IntPtr what, global::System.IntPtr rep);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?normalize_path@INI@@YAXAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern void NormalizePath(global::System.IntPtr path);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?file_path@INI@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV23@@Z")]
+                internal static extern void FilePath(global::System.IntPtr @return, global::System.IntPtr file_fullname);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?file_name@INI@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV23@@Z")]
+                internal static extern void FileName(global::System.IntPtr @return, global::System.IntPtr file_fullname);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?path_is_absolute@INI@@YA_NABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool PathIsAbsolute(global::System.IntPtr path);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?path_is_relative@INI@@YA_NABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool PathIsRelative(global::System.IntPtr path);
+            }
+
+            /// <summary>String to lower case</summary>
+            public static void StringToLower(string str)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, str);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.StringToLower(__arg0);
+                __basicString0.Dispose();
+            }
+
+            /// <summary>String to upper case</summary>
+            public static void StringToUpper(string str)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, str);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.StringToUpper(__arg0);
+                __basicString0.Dispose();
+            }
+
+            /// <summary>Special case for string (to avoid overheat)</summary>
+            public static string TToString(string i)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, i);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = new global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C();
+                __Internal.TToString(new IntPtr(&__ret), __arg0);
+                __basicString0.Dispose();
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&__ret));
+                var __retString0 = global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                __basicStringRet0.Dispose();
+                return __retString0;
+            }
+
+            /// <summary>
+            /// <para>Special case for boolean value</para>
+            /// <para>std::boolalpha only covers 'true' or 'false', while we have more cases</para>
+            /// </summary>
+            public static bool StringToT(string v)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, v);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.StringToT(__arg0);
+                __basicString0.Dispose();
+                return __ret;
+            }
+
+            public static int InIsspace(int ch)
+            {
+                var __ret = __Internal.InIsspace(ch);
+                return __ret;
+            }
+
+            public static string Ltrim(string s)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, s);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.Ltrim(__arg0);
+                __basicString0.Dispose();
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(__ret);
+                return global::Std.BasicStringExtensions.Data(__basicStringRet0);
+            }
+
+            public static string Rtrim(string s)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, s);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.Rtrim(__arg0);
+                __basicString0.Dispose();
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(__ret);
+                return global::Std.BasicStringExtensions.Data(__basicStringRet0);
+            }
+
+            public static string Trim(string s)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, s);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.Trim(__arg0);
+                __basicString0.Dispose();
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(__ret);
+                return global::Std.BasicStringExtensions.Data(__basicStringRet0);
+            }
+
+            /// <summary>Test whether provided char is in the charset</summary>
+            public static bool CharIsOneOf(int ch, string charset)
+            {
+                var __ret = __Internal.CharIsOneOf(ch, charset);
+                return __ret;
+            }
+
+            public static string StrReplace(string str, string what, string rep)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, str);
+                var __arg0 = __basicString0.__Instance;
+                var __basicString1 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString1, what);
+                var __arg1 = __basicString1.__Instance;
+                var __basicString2 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString2, rep);
+                var __arg2 = __basicString2.__Instance;
+                var __ret = __Internal.StrReplace(__arg0, __arg1, __arg2);
+                __basicString0.Dispose();
+                __basicString1.Dispose();
+                __basicString2.Dispose();
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(__ret);
+                return global::Std.BasicStringExtensions.Data(__basicStringRet0);
+            }
+
+            public static void NormalizePath(string path)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, path);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.NormalizePath(__arg0);
+                __basicString0.Dispose();
+            }
+
+            public static string FilePath(string file_fullname)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, file_fullname);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = new global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C();
+                __Internal.FilePath(new IntPtr(&__ret), __arg0);
+                __basicString0.Dispose();
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&__ret));
+                var __retString0 = global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                __basicStringRet0.Dispose();
+                return __retString0;
+            }
+
+            public static string FileName(string file_fullname)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, file_fullname);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = new global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C();
+                __Internal.FileName(new IntPtr(&__ret), __arg0);
+                __basicString0.Dispose();
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(new global::System.IntPtr(&__ret));
+                var __retString0 = global::Std.BasicStringExtensions.Data(__basicStringRet0);
+                __basicStringRet0.Dispose();
+                return __retString0;
+            }
+
+            public static bool PathIsAbsolute(string path)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, path);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.PathIsAbsolute(__arg0);
+                __basicString0.Dispose();
+                return __ret;
+            }
+
+            public static bool PathIsRelative(string path)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, path);
+                var __arg0 = __basicString0.__Instance;
+                var __ret = __Internal.PathIsRelative(__arg0);
+                __basicString0.Dispose();
+                return __ret;
+            }
+        }
+    }
+
+    namespace Utinni
+    {
+        public unsafe partial class UtINI : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 72)]
+            public partial struct __Internal
+            {
+                [FieldOffset(0)]
+                internal global::System.IntPtr filename;
+
+                [FieldOffset(4)]
+                internal global::UtinniCore.INI.File.__Internal ini;
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0UtINI@utinni@@QAE@XZ")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0UtINI@utinni@@QAE@PBD@Z")]
+                internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string filename);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0UtINI@utinni@@QAE@ABV01@@Z")]
+                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??1UtINI@utinni@@QAE@XZ")]
+                internal static extern void dtor(global::System.IntPtr __instance, int delete);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?load@UtINI@utinni@@QAEXXZ")]
+                internal static extern void Load(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?save@UtINI@utinni@@QAEXXZ")]
+                internal static extern void Save(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getValue@UtINI@utinni@@QAE?AVValue@INI@@PBD0@Z")]
+                internal static extern void GetValue(global::System.IntPtr __instance, global::System.IntPtr @return, [MarshalAs(UnmanagedType.LPUTF8Str)] string sectionName, [MarshalAs(UnmanagedType.LPUTF8Str)] string valueName);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getString@UtINI@utinni@@QAEPBDPBD0@Z")]
+                internal static extern global::System.IntPtr GetString(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string sectionName, [MarshalAs(UnmanagedType.LPUTF8Str)] string valueName);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getBool@UtINI@utinni@@QAE_NPBD0@Z")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool GetBool(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string sectionName, [MarshalAs(UnmanagedType.LPUTF8Str)] string valueName);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getInt@UtINI@utinni@@QAEHPBD0@Z")]
+                internal static extern int GetInt(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string sectionName, [MarshalAs(UnmanagedType.LPUTF8Str)] string valueName);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getFloat@UtINI@utinni@@QAEMPBD0@Z")]
+                internal static extern float GetFloat(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string sectionName, [MarshalAs(UnmanagedType.LPUTF8Str)] string valueName);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?setValue@UtINI@utinni@@QAEXPBD0ABVValue@INI@@@Z")]
+                internal static extern void SetValue(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string sectionName, [MarshalAs(UnmanagedType.LPUTF8Str)] string valueName, global::System.IntPtr value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?setString@UtINI@utinni@@QAEXPBD00@Z")]
+                internal static extern void SetString(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string sectionName, [MarshalAs(UnmanagedType.LPUTF8Str)] string valueName, [MarshalAs(UnmanagedType.LPUTF8Str)] string value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?setBool@UtINI@utinni@@QAEXPBD0_N@Z")]
+                internal static extern void SetBool(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string sectionName, [MarshalAs(UnmanagedType.LPUTF8Str)] string valueName, bool value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?setInt@UtINI@utinni@@QAEXPBD0H@Z")]
+                internal static extern void SetInt(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string sectionName, [MarshalAs(UnmanagedType.LPUTF8Str)] string valueName, int value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?setFloat@UtINI@utinni@@QAEXPBD0M@Z")]
+                internal static extern void SetFloat(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string sectionName, [MarshalAs(UnmanagedType.LPUTF8Str)] string valueName, float value);
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.UtINI> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.UtINI>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.Utinni.UtINI __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.UtINI(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.Utinni.UtINI __CreateInstance(global::UtinniCore.Utinni.UtINI.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.UtINI(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.Utinni.UtINI.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.UtINI.__Internal));
+                global::UtinniCore.Utinni.UtINI.__Internal.cctor(ret, new global::System.IntPtr(&native));
+                return ret.ToPointer();
+            }
+
+            private UtINI(global::UtinniCore.Utinni.UtINI.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected UtINI(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+            }
+
+            public UtINI()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.UtINI.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                __Internal.ctor(__Instance);
+            }
+
+            public UtINI(string filename)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.UtINI.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                __Internal.ctor(__Instance, filename);
+            }
+
+            public UtINI(global::UtinniCore.Utinni.UtINI _0)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.UtINI.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                if (ReferenceEquals(_0, null))
+                    throw new global::System.ArgumentNullException("_0", "Cannot be null because it is a C++ reference (&).");
+                var __arg0 = _0.__Instance;
+                __Internal.cctor(__Instance, __arg0);
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.Utinni.UtINI __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                if (disposing)
+                    __Internal.dtor(__Instance, 0);
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            public void Load()
+            {
+                __Internal.Load(__Instance);
+            }
+
+            public void Save()
+            {
+                __Internal.Save(__Instance);
+            }
+
+            public global::UtinniCore.INI.Value GetValue(string sectionName, string valueName)
+            {
+                var __ret = new global::UtinniCore.INI.Value.__Internal();
+                __Internal.GetValue(__Instance, new IntPtr(&__ret), sectionName, valueName);
+                return global::UtinniCore.INI.Value.__CreateInstance(__ret);
+            }
+
+            public string GetString(string sectionName, string valueName)
+            {
+                var __ret = __Internal.GetString(__Instance, sectionName, valueName);
+                if (__ret == global::System.IntPtr.Zero)
+                    return default(string);
+                var __retPtr = (byte*) __ret;
+                int __length = 0;
+                while (*(__retPtr++) != 0) __length += sizeof(byte);
+                return global::System.Text.Encoding.UTF8.GetString((byte*) __ret, __length);
+            }
+
+            public bool GetBool(string sectionName, string valueName)
+            {
+                var __ret = __Internal.GetBool(__Instance, sectionName, valueName);
+                return __ret;
+            }
+
+            public int GetInt(string sectionName, string valueName)
+            {
+                var __ret = __Internal.GetInt(__Instance, sectionName, valueName);
+                return __ret;
+            }
+
+            public float GetFloat(string sectionName, string valueName)
+            {
+                var __ret = __Internal.GetFloat(__Instance, sectionName, valueName);
+                return __ret;
+            }
+
+            public void SetValue(string sectionName, string valueName, global::UtinniCore.INI.Value value)
+            {
+                if (ReferenceEquals(value, null))
+                    throw new global::System.ArgumentNullException("value", "Cannot be null because it is a C++ reference (&).");
+                var __arg2 = value.__Instance;
+                __Internal.SetValue(__Instance, sectionName, valueName, __arg2);
+            }
+
+            public void SetString(string sectionName, string valueName, string value)
+            {
+                __Internal.SetString(__Instance, sectionName, valueName, value);
+            }
+
+            public void SetBool(string sectionName, string valueName, bool value)
+            {
+                __Internal.SetBool(__Instance, sectionName, valueName, value);
+            }
+
+            public void SetInt(string sectionName, string valueName, int value)
+            {
+                __Internal.SetInt(__Instance, sectionName, valueName, value);
+            }
+
+            public void SetFloat(string sectionName, string valueName, float value)
+            {
+                __Internal.SetFloat(__Instance, sectionName, valueName, value);
+            }
+
+            public static implicit operator global::UtinniCore.Utinni.UtINI(string filename)
+            {
+                return new global::UtinniCore.Utinni.UtINI(filename);
+            }
+        }
+    }
+
+    namespace Utinni
+    {
+        public unsafe partial class utinni
+        {
+            public partial struct __Internal
+            {
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getPath@utinni@@YAABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ")]
+                internal static extern global::System.IntPtr GetPath();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getSwgCfgFilename@utinni@@YAABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ")]
+                internal static extern global::System.IntPtr GetSwgCfgFilename();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getConfig@utinni@@YAABVUtINI@1@XZ")]
+                internal static extern global::System.IntPtr GetConfig();
+            }
+
+            public static string GetPath()
+            {
+                var __ret = __Internal.GetPath();
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(__ret);
+                return global::Std.BasicStringExtensions.Data(__basicStringRet0);
+            }
+
+            public static string GetSwgCfgFilename()
+            {
+                var __ret = __Internal.GetSwgCfgFilename();
+                var __basicStringRet0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(__ret);
+                return global::Std.BasicStringExtensions.Data(__basicStringRet0);
+            }
+
+            public static global::UtinniCore.Utinni.UtINI GetConfig()
+            {
+                var __ret = __Internal.GetConfig();
+                global::UtinniCore.Utinni.UtINI __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.Utinni.UtINI.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.Utinni.UtINI) global::UtinniCore.Utinni.UtINI.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.Utinni.UtINI.__CreateInstance(__ret);
+                return __result0;
+            }
+        }
+    }
+
     namespace Utinni
     {
         public unsafe partial class Camera
@@ -604,7 +3556,6 @@ namespace UtinniCore
             public global::System.IntPtr __Instance { get; protected set; }
 
             internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Camera> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Camera>();
-            protected internal void*[] __OriginalVTables;
 
             protected bool __ownsNativeInstance;
 
@@ -680,7 +3631,6 @@ namespace UtinniCore
             public global::System.IntPtr __Instance { get; protected set; }
 
             internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Game> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Game>();
-            protected internal void*[] __OriginalVTables;
 
             protected bool __ownsNativeInstance;
 
@@ -851,7 +3801,6 @@ namespace UtinniCore
             public global::System.IntPtr __Instance { get; protected set; }
 
             internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Graphics> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Graphics>();
-            protected internal void*[] __OriginalVTables;
 
             protected bool __ownsNativeInstance;
 
@@ -1021,7 +3970,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Vector2d> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Vector2d>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -1228,7 +4176,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Vector> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Vector>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -1497,7 +4444,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Transform> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Transform>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -1771,7 +4717,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Matrix4x4> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Matrix4x4>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -1942,7 +4887,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Plane> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Plane>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -2058,7 +5002,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Volume> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Volume>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -2192,7 +5135,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Quaternion> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Quaternion>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -2358,7 +5300,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Point> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Point>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -2490,7 +5431,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.UiPoint> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.UiPoint>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -2638,7 +5578,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Rect2d> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.Rect2d>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -2830,7 +5769,6 @@ namespace UtinniCore
                 public global::System.IntPtr __Instance { get; protected set; }
 
                 internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.UiRect> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Swg.Math.UiRect>();
-                protected internal void*[] __OriginalVTables;
 
                 protected bool __ownsNativeInstance;
 
@@ -2980,6 +5918,757 @@ namespace UtinniCore
 
     namespace Utinni
     {
+        public unsafe partial class WorldSnapshotReaderWriter : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 16)]
+            public partial struct __Internal
+            {
+                [FieldOffset(0)]
+                internal global::System.IntPtr nodeList;
+
+                [FieldOffset(4)]
+                internal global::System.IntPtr objectTemplateNameList;
+
+                [FieldOffset(8)]
+                internal global::System.IntPtr objectTemplateCrcMap;
+
+                [FieldOffset(12)]
+                internal global::System.IntPtr networkIdMap;
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0WorldSnapshotReaderWriter@utinni@@QAE@ABV01@@Z")]
+                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?get@WorldSnapshotReaderWriter@utinni@@SAPAV12@XZ")]
+                internal static extern global::System.IntPtr Get();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?clear@WorldSnapshotReaderWriter@utinni@@QAEXXZ")]
+                internal static extern void Clear(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?clearPreloadList@WorldSnapshotReaderWriter@utinni@@SAXKKK@Z")]
+                internal static extern void ClearPreloadList(uint unk1, uint unk2, uint unk3);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?saveFile@WorldSnapshotReaderWriter@utinni@@QAEXXZ")]
+                internal static extern void SaveFile(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getObjectTemplateName@WorldSnapshotReaderWriter@utinni@@QAEPBDH@Z")]
+                internal static extern global::System.IntPtr GetObjectTemplateName(global::System.IntPtr __instance, int objectTemplateNameIndex);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getNodeByNetworkId@WorldSnapshotReaderWriter@utinni@@QAEPAVNode@12@_J@Z")]
+                internal static extern global::System.IntPtr GetNodeByNetworkId(global::System.IntPtr __instance, long networkId);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getNodeByIndex@WorldSnapshotReaderWriter@utinni@@QAEPAVNode@12@H@Z")]
+                internal static extern global::System.IntPtr GetNodeByIndex(global::System.IntPtr __instance, int nodeId);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?addNode@WorldSnapshotReaderWriter@utinni@@QAEPAVNode@12@HHPBDHABUTransform@math@swg@@MI@Z")]
+                internal static extern global::System.IntPtr AddNode(global::System.IntPtr __instance, int nodeId, int parentNodeId, [MarshalAs(UnmanagedType.LPUTF8Str)] string objectFilename, int cellId, global::System.IntPtr transform, float radius, uint pobCrc);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getNodeCount@WorldSnapshotReaderWriter@utinni@@QAEHXZ")]
+                internal static extern int GetNodeCount(global::System.IntPtr __instance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getNodeCountTotal@WorldSnapshotReaderWriter@utinni@@QAEHXZ")]
+                internal static extern int GetNodeCountTotal(global::System.IntPtr __instance);
+            }
+
+            public unsafe partial class Node : IDisposable
+            {
+                [StructLayout(LayoutKind.Explicit, Size = 96)]
+                public partial struct __Internal
+                {
+                    [FieldOffset(0)]
+                    internal byte isDeleted;
+
+                    [FieldOffset(4)]
+                    internal int id;
+
+                    [FieldOffset(8)]
+                    internal int parentId;
+
+                    [FieldOffset(12)]
+                    internal int objectTemplateNameIndex;
+
+                    [FieldOffset(16)]
+                    internal int cellIndex;
+
+                    [FieldOffset(20)]
+                    internal global::UtinniCore.Swg.Math.Transform.__Internal transform;
+
+                    [FieldOffset(68)]
+                    internal float radius;
+
+                    [FieldOffset(72)]
+                    internal int pobCRC;
+
+                    [FieldOffset(76)]
+                    internal global::System.IntPtr parentNode;
+
+                    [FieldOffset(80)]
+                    internal global::System.IntPtr children;
+
+                    [FieldOffset(84)]
+                    internal global::System.IntPtr pSpatialSubdivisionHandle;
+
+                    [FieldOffset(88)]
+                    internal float distanceSquaredTo;
+
+                    [FieldOffset(92)]
+                    internal byte isInWorld;
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Node@WorldSnapshotReaderWriter@utinni@@QAE@XZ")]
+                    internal static extern global::System.IntPtr ctor(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="??0Node@WorldSnapshotReaderWriter@utinni@@QAE@ABV012@@Z")]
+                    internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?removeNode@Node@WorldSnapshotReaderWriter@utinni@@QAEXXZ")]
+                    internal static extern void RemoveNode(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?removeNodeFull@Node@WorldSnapshotReaderWriter@utinni@@QAEXXZ")]
+                    internal static extern void RemoveNodeFull(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?getNodeNetworkId@Node@WorldSnapshotReaderWriter@utinni@@QAE_JXZ")]
+                    internal static extern long GetNodeNetworkId(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?getNodeSpatialSubdivisionHandle@Node@WorldSnapshotReaderWriter@utinni@@QAEKXZ")]
+                    internal static extern uint GetNodeSpatialSubdivisionHandle(global::System.IntPtr __instance);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?setNodeSpatialSubdivisionHandle@Node@WorldSnapshotReaderWriter@utinni@@QAEXK@Z")]
+                    internal static extern void SetNodeSpatialSubdivisionHandle(global::System.IntPtr __instance, uint handle);
+                }
+
+                public global::System.IntPtr __Instance { get; protected set; }
+
+                internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node>();
+
+                protected bool __ownsNativeInstance;
+
+                internal static global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node(native.ToPointer(), skipVTables);
+                }
+
+                internal static global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node __CreateInstance(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal native, bool skipVTables = false)
+                {
+                    return new global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node(native, skipVTables);
+                }
+
+                private static void* __CopyValue(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal native)
+                {
+                    var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal));
+                    *(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) ret = native;
+                    return ret.ToPointer();
+                }
+
+                private Node(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal native, bool skipVTables = false)
+                    : this(__CopyValue(native), skipVTables)
+                {
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                }
+
+                protected Node(void* native, bool skipVTables = false)
+                {
+                    if (native == null)
+                        return;
+                    __Instance = new global::System.IntPtr(native);
+                }
+
+                public Node()
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    __Internal.ctor(__Instance);
+                }
+
+                public Node(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node _0)
+                {
+                    __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal));
+                    __ownsNativeInstance = true;
+                    NativeToManagedMap[__Instance] = this;
+                    *((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance) = *((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) _0.__Instance);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(disposing: true);
+                }
+
+                public virtual void Dispose(bool disposing)
+                {
+                    if (__Instance == IntPtr.Zero)
+                        return;
+                    global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node __dummy;
+                    NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                    if (__ownsNativeInstance)
+                        Marshal.FreeHGlobal(__Instance);
+                    __Instance = IntPtr.Zero;
+                }
+
+                public void RemoveNode()
+                {
+                    __Internal.RemoveNode(__Instance);
+                }
+
+                public void RemoveNodeFull()
+                {
+                    __Internal.RemoveNodeFull(__Instance);
+                }
+
+                public bool IsDeleted
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->isDeleted != 0;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->isDeleted = (byte) (value ? 1 : 0);
+                    }
+                }
+
+                public int Id
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->id;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->id = value;
+                    }
+                }
+
+                public int ParentId
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->parentId;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->parentId = value;
+                    }
+                }
+
+                public int ObjectTemplateNameIndex
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->objectTemplateNameIndex;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->objectTemplateNameIndex = value;
+                    }
+                }
+
+                public int CellIndex
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->cellIndex;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->cellIndex = value;
+                    }
+                }
+
+                public global::UtinniCore.Swg.Math.Transform Transform
+                {
+                    get
+                    {
+                        return global::UtinniCore.Swg.Math.Transform.__CreateInstance(new global::System.IntPtr(&((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->transform));
+                    }
+
+                    set
+                    {
+                        if (ReferenceEquals(value, null))
+                            throw new global::System.ArgumentNullException("value", "Cannot be null because it is passed by value.");
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->transform = *(global::UtinniCore.Swg.Math.Transform.__Internal*) value.__Instance;
+                    }
+                }
+
+                public float Radius
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->radius;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->radius = value;
+                    }
+                }
+
+                public int PobCRC
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->pobCRC;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->pobCRC = value;
+                    }
+                }
+
+                public global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node ParentNode
+                {
+                    get
+                    {
+                        global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node __result0;
+                        if (((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->parentNode == IntPtr.Zero) __result0 = null;
+                        else if (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap.ContainsKey(((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->parentNode))
+                            __result0 = (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node) global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap[((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->parentNode];
+                        else __result0 = global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__CreateInstance(((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->parentNode);
+                        return __result0;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->parentNode = ReferenceEquals(value, null) ? global::System.IntPtr.Zero : value.__Instance;
+                    }
+                }
+
+                public uint* PSpatialSubdivisionHandle
+                {
+                    get
+                    {
+                        return (uint*) ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->pSpatialSubdivisionHandle;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->pSpatialSubdivisionHandle = (global::System.IntPtr) value;
+                    }
+                }
+
+                public float DistanceSquaredTo
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->distanceSquaredTo;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->distanceSquaredTo = value;
+                    }
+                }
+
+                public bool IsInWorld
+                {
+                    get
+                    {
+                        return ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*) __Instance)->isInWorld != 0;
+                    }
+
+                    set
+                    {
+                        ((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__Internal*)__Instance)->isInWorld = (byte) (value ? 1 : 0);
+                    }
+                }
+
+                public long NodeNetworkId
+                {
+                    get
+                    {
+                        var __ret = __Internal.GetNodeNetworkId(__Instance);
+                        return __ret;
+                    }
+                }
+
+                public uint NodeSpatialSubdivisionHandle
+                {
+                    get
+                    {
+                        var __ret = __Internal.GetNodeSpatialSubdivisionHandle(__Instance);
+                        return __ret;
+                    }
+
+                    set
+                    {
+                        __Internal.SetNodeSpatialSubdivisionHandle(__Instance, value);
+                    }
+                }
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.WorldSnapshotReaderWriter> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.WorldSnapshotReaderWriter>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.Utinni.WorldSnapshotReaderWriter __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.WorldSnapshotReaderWriter(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.Utinni.WorldSnapshotReaderWriter __CreateInstance(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.WorldSnapshotReaderWriter(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.__Internal));
+                *(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.__Internal*) ret = native;
+                return ret.ToPointer();
+            }
+
+            private WorldSnapshotReaderWriter(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected WorldSnapshotReaderWriter(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+            }
+
+            public WorldSnapshotReaderWriter()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            public WorldSnapshotReaderWriter(global::UtinniCore.Utinni.WorldSnapshotReaderWriter _0)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                *((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.__Internal*) __Instance) = *((global::UtinniCore.Utinni.WorldSnapshotReaderWriter.__Internal*) _0.__Instance);
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.Utinni.WorldSnapshotReaderWriter __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            public void Clear()
+            {
+                __Internal.Clear(__Instance);
+            }
+
+            public void SaveFile()
+            {
+                __Internal.SaveFile(__Instance);
+            }
+
+            public string GetObjectTemplateName(int objectTemplateNameIndex)
+            {
+                var __ret = __Internal.GetObjectTemplateName(__Instance, objectTemplateNameIndex);
+                if (__ret == global::System.IntPtr.Zero)
+                    return default(string);
+                var __retPtr = (byte*) __ret;
+                int __length = 0;
+                while (*(__retPtr++) != 0) __length += sizeof(byte);
+                return global::System.Text.Encoding.UTF8.GetString((byte*) __ret, __length);
+            }
+
+            public global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node GetNodeByNetworkId(long networkId)
+            {
+                var __ret = __Internal.GetNodeByNetworkId(__Instance, networkId);
+                global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node) global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            public global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node GetNodeByIndex(int nodeId)
+            {
+                var __ret = __Internal.GetNodeByIndex(__Instance, nodeId);
+                global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node) global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            public global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node AddNode(int nodeId, int parentNodeId, string objectFilename, int cellId, global::UtinniCore.Swg.Math.Transform transform, float radius, uint pobCrc)
+            {
+                if (ReferenceEquals(transform, null))
+                    throw new global::System.ArgumentNullException("transform", "Cannot be null because it is a C++ reference (&).");
+                var __arg4 = transform.__Instance;
+                var __ret = __Internal.AddNode(__Instance, nodeId, parentNodeId, objectFilename, cellId, __arg4, radius, pobCrc);
+                global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node) global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            public static global::UtinniCore.Utinni.WorldSnapshotReaderWriter Get()
+            {
+                var __ret = __Internal.Get();
+                global::UtinniCore.Utinni.WorldSnapshotReaderWriter __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.Utinni.WorldSnapshotReaderWriter) global::UtinniCore.Utinni.WorldSnapshotReaderWriter.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.Utinni.WorldSnapshotReaderWriter.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            public static void ClearPreloadList(uint unk1, uint unk2, uint unk3)
+            {
+                __Internal.ClearPreloadList(unk1, unk2, unk3);
+            }
+
+            public int NodeCount
+            {
+                get
+                {
+                    var __ret = __Internal.GetNodeCount(__Instance);
+                    return __ret;
+                }
+            }
+
+            public int NodeCountTotal
+            {
+                get
+                {
+                    var __ret = __Internal.GetNodeCountTotal(__Instance);
+                    return __ret;
+                }
+            }
+        }
+
+        public unsafe partial class WorldSnapshot : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 0)]
+            public partial struct __Internal
+            {
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0WorldSnapshot@utinni@@QAE@ABV01@@Z")]
+                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?load@WorldSnapshot@utinni@@SAXPBD@Z")]
+                internal static extern void Load([MarshalAs(UnmanagedType.LPUTF8Str)] string name);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?unload@WorldSnapshot@utinni@@SAXXZ")]
+                internal static extern void Unload();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?reload@WorldSnapshot@utinni@@SAXXZ")]
+                internal static extern void Reload();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?detailLevelChanged@WorldSnapshot@utinni@@SAXXZ")]
+                internal static extern void DetailLevelChanged();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?createNewNode@WorldSnapshot@utinni@@SAXPBDAAUTransform@math@swg@@@Z")]
+                internal static extern void CreateNewNode([MarshalAs(UnmanagedType.LPUTF8Str)] string objectFilename, global::System.IntPtr transform);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?removeNode@WorldSnapshot@utinni@@SAXPAVNode@WorldSnapshotReaderWriter@2@@Z")]
+                internal static extern void RemoveNode(global::System.IntPtr pNode);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getPreloadSnapshot@WorldSnapshot@utinni@@SA_NXZ")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool GetPreloadSnapshot();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?setPreloadSnapshot@WorldSnapshot@utinni@@SAX_N@Z")]
+                internal static extern void SetPreloadSnapshot(bool preloadSnapshot);
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.WorldSnapshot> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.WorldSnapshot>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.Utinni.WorldSnapshot __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.WorldSnapshot(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.Utinni.WorldSnapshot __CreateInstance(global::UtinniCore.Utinni.WorldSnapshot.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.WorldSnapshot(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.Utinni.WorldSnapshot.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.WorldSnapshot.__Internal));
+                *(global::UtinniCore.Utinni.WorldSnapshot.__Internal*) ret = native;
+                return ret.ToPointer();
+            }
+
+            private WorldSnapshot(global::UtinniCore.Utinni.WorldSnapshot.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected WorldSnapshot(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+            }
+
+            public WorldSnapshot()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.WorldSnapshot.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            public WorldSnapshot(global::UtinniCore.Utinni.WorldSnapshot _0)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.WorldSnapshot.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                *((global::UtinniCore.Utinni.WorldSnapshot.__Internal*) __Instance) = *((global::UtinniCore.Utinni.WorldSnapshot.__Internal*) _0.__Instance);
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.Utinni.WorldSnapshot __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            public static void Load(string name)
+            {
+                __Internal.Load(name);
+            }
+
+            public static void Unload()
+            {
+                __Internal.Unload();
+            }
+
+            public static void Reload()
+            {
+                __Internal.Reload();
+            }
+
+            public static void DetailLevelChanged()
+            {
+                __Internal.DetailLevelChanged();
+            }
+
+            public static void CreateNewNode(string objectFilename, global::UtinniCore.Swg.Math.Transform transform)
+            {
+                if (ReferenceEquals(transform, null))
+                    throw new global::System.ArgumentNullException("transform", "Cannot be null because it is a C++ reference (&).");
+                var __arg1 = transform.__Instance;
+                __Internal.CreateNewNode(objectFilename, __arg1);
+            }
+
+            public static void RemoveNode(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node pNode)
+            {
+                var __arg0 = ReferenceEquals(pNode, null) ? global::System.IntPtr.Zero : pNode.__Instance;
+                __Internal.RemoveNode(__arg0);
+            }
+
+            public static bool PreloadSnapshot
+            {
+                get
+                {
+                    var __ret = __Internal.GetPreloadSnapshot();
+                    return __ret;
+                }
+
+                set
+                {
+                    __Internal.SetPreloadSnapshot(value);
+                }
+            }
+        }
+    }
+
+    namespace Utinni
+    {
         public unsafe partial class CuiManager : IDisposable
         {
             [StructLayout(LayoutKind.Explicit, Size = 0)]
@@ -3004,7 +6693,6 @@ namespace UtinniCore
             public global::System.IntPtr __Instance { get; protected set; }
 
             internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.CuiManager> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.CuiManager>();
-            protected internal void*[] __OriginalVTables;
 
             protected bool __ownsNativeInstance;
 
@@ -3105,7 +6793,6 @@ namespace UtinniCore
             public global::System.IntPtr __Instance { get; protected set; }
 
             internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.UiManager> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.UiManager>();
-            protected internal void*[] __OriginalVTables;
 
             protected bool __ownsNativeInstance;
 
@@ -3187,5 +6874,11 @@ namespace UtinniCore
                 return __result0;
             }
         }
+    }
+
+    namespace Delegates
+    {
+        [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.ThisCall)]
+        internal unsafe delegate void Action_IntPtr_int(global::System.IntPtr __instance, int arg1);
     }
 }

@@ -58,7 +58,7 @@ namespace UtinniCoreDotNet
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            UtinniCore.Utinni.Game.Quit();
+            MessageBox.Show(UtinniCore.Utinni.utinni.GetConfig().GetString("Launcher", "swgClientName"));
         }
     }
 }

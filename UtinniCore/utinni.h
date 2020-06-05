@@ -27,7 +27,7 @@
 
 namespace utinni
 {
-	 extern std::string getPath();
-	 extern std::string getSwgCfgFilename();
-	 extern UtINI getConfig();
+UTINNI_API extern const std::string& getPath();
+UTINNI_API extern const std::string& getSwgCfgFilename();
+UTINNI_API extern const UtINI& getConfig();
 };

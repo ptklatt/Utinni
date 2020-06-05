@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("UtinniCore")]
+[assembly: InternalsVisibleTo("UtinniCore")]
 
 namespace Std
 {
@@ -23,12 +23,12 @@ namespace Std
 
             [SuppressUnmanagedCodeSecurity]
             [DllImport("UtinniCore-Symbols", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
-                EntryPoint="??0?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ")]
+                EntryPoint = "??0?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ")]
             internal static extern global::System.IntPtr ctorc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C(global::System.IntPtr __instance);
 
             [SuppressUnmanagedCodeSecurity]
             [DllImport("UtinniCore-Symbols", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
-                EntryPoint="??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ")]
+                EntryPoint = "??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ")]
             internal static extern void dtorc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C(global::System.IntPtr __instance, int delete);
         }
     }
@@ -54,7 +54,7 @@ namespace Std
         private static void* __CopyValue(global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C native)
         {
             var ret = Marshal.AllocHGlobal(sizeof(global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C));
-            *(global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C*) ret = native;
+            *(global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C*)ret = native;
             return ret.ToPointer();
         }
 
@@ -179,7 +179,7 @@ namespace Std
         private static void* __CopyValue(global::Std.CharTraits.__Internal native)
         {
             var ret = Marshal.AllocHGlobal(sizeof(global::Std.CharTraits.__Internal));
-            *(global::Std.CharTraits.__Internal*) ret = native;
+            *(global::Std.CharTraits.__Internal*)ret = native;
             return ret.ToPointer();
         }
 
@@ -221,12 +221,12 @@ namespace Std
         {
             [SuppressUnmanagedCodeSecurity]
             [DllImport("UtinniCore-Symbols", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
-                EntryPoint="?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@QBD@Z")]
+                EntryPoint = "?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@QBD@Z")]
             internal static extern global::System.IntPtr Assign(global::System.IntPtr __instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string _Ptr);
 
             [SuppressUnmanagedCodeSecurity]
             [DllImport("UtinniCore-Symbols", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
-                EntryPoint="?data@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEPBDXZ")]
+                EntryPoint = "?data@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEPBDXZ")]
             internal static extern global::System.IntPtr Data(global::System.IntPtr __instance);
         }
 
@@ -237,7 +237,7 @@ namespace Std
             global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>> __result0;
             if (__ret == IntPtr.Zero) __result0 = null;
             else if (global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.NativeToManagedMap.ContainsKey(__ret))
-                __result0 = (global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>) global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.NativeToManagedMap[__ret];
+                __result0 = (global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>)global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.NativeToManagedMap[__ret];
             else __result0 = global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>.__CreateInstance(__ret);
             return __result0;
         }
@@ -248,10 +248,10 @@ namespace Std
             var __ret = __Internal.Data(__arg0);
             if (__ret == global::System.IntPtr.Zero)
                 return default(string);
-            var __retPtr = (byte*) __ret;
+            var __retPtr = (byte*)__ret;
             int __length = 0;
             while (*(__retPtr++) != 0) __length += sizeof(byte);
-            return global::System.Text.Encoding.UTF8.GetString((byte*) __ret, __length);
+            return global::System.Text.Encoding.UTF8.GetString((byte*)__ret, __length);
         }
     }
 }
@@ -269,13 +269,6 @@ namespace Std
         {
             [FieldOffset(0)]
             internal global::Std.StringVal.__Internalc__N_std_S__String_val____N_std_S__Simple_types__C _Myval2;
-        }
-
-        [StructLayout(LayoutKind.Explicit, Size = 12)]
-        public unsafe partial struct __Internalc__N_std_S__Compressed_pair____N_std_S_allocator____N_INI_S_Value___N_std_S__Vector_val____N_std_S__Simple_types__S1__Vb1
-        {
-            [FieldOffset(0)]
-            internal global::Std.VectorVal.__Internal _Myval2;
         }
 
         [StructLayout(LayoutKind.Explicit, Size = 8)]
@@ -342,7 +335,7 @@ namespace Std
         {
             [SuppressUnmanagedCodeSecurity]
             [DllImport("UtinniCore-Symbols", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
-                EntryPoint="??0?$allocator@D@std@@QAE@XZ")]
+                EntryPoint = "??0?$allocator@D@std@@QAE@XZ")]
             internal static extern global::System.IntPtr ctorc__N_std_S_allocator__C(global::System.IntPtr __instance);
         }
     }
@@ -368,7 +361,7 @@ namespace Std
         private static void* __CopyValue(global::Std.Allocator.__Internal native)
         {
             var ret = Marshal.AllocHGlobal(sizeof(global::Std.Allocator.__Internal));
-            *(global::Std.Allocator.__Internal*) ret = native;
+            *(global::Std.Allocator.__Internal*)ret = native;
             return ret.ToPointer();
         }
 

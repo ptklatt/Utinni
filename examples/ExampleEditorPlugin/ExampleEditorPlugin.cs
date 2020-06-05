@@ -20,12 +20,13 @@ namespace ExampleEditorPlugin
                                                 , "Example Author"
                                                 , new Version(1, 0));
 
+
+
         }
 
         private void btnTest_Click(object sender, EventArgs e)
         {
             UtinniCore.Utinni.Game.Quit();
-
         }
     }
 }

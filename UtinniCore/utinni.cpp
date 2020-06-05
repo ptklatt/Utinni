@@ -142,17 +142,22 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 	 return false;
 }
 
-std::string utinni::getPath()
+namespace utinni
+{
+
+const std::string& getPath()
 {
     return path;
 }
 
-std::string utinni::getSwgCfgFilename()
+const std::string& getSwgCfgFilename()
 {
     return swgOverrideCfgFilename;
 }
 
-utinni::UtINI utinni::getConfig()
+const UtINI& getConfig()
 {
     return ini;
+}
+
 }

@@ -54,6 +54,7 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generated\StdEdited.cs" />
     <Compile Include="Generated\UtinniCore.cs" />
     <Compile Include="PluginFramework\IEditorPlugin.cs" />
     <Compile Include="PluginFramework\IPlugin.cs" />
@@ -87,6 +88,5 @@
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
