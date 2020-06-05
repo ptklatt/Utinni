@@ -9,6 +9,7 @@ struct IniValue
     INI::Value value;
 };
 
+    // ToDo make a different array that's setable for other plugins
 const static IniValue values[] = {
 
     // Launcher settings
@@ -19,13 +20,11 @@ const static IniValue values[] = {
     { "UtinniCore", "isEditorChild", false}
 };
 
-UtINI::UtINI()
-    : filename(nullptr)
+UtINI::UtINI() : filename(nullptr)
 {
 }
 
-UtINI::UtINI(const char* filename)
-    : filename(filename)
+UtINI::UtINI(const char* filename) : filename(filename)
 {
     load();
 }
@@ -75,7 +74,9 @@ INI::Value UtINI::getValue(const char* sectionName, const char* valueName)
 
 const char* UtINI::getString(const char* sectionName, const char* valueName)
 {
-    return ini.GetSection(sectionName)->GetValue(valueName).AsString().c_str();
+    static std::string result; // Temporary hack, fix it up the ini lib
+    result = ini.GetSection(sectionName)->GetValue(valueName).AsString(); 
+    return result.c_str();
 }
 
 bool UtINI::getBool(const char* sectionName, const char* valueName)

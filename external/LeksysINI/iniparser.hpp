@@ -398,16 +398,16 @@ namespace INI
     class Value
     {
     public:
-        Value(){}
-        Value(const Value& cp):_val(cp._val){}
-        template<class T> Value(const T& val){Set(val);}
-        Value(const char* value){Set(value);}
-        virtual ~Value(){}
+        Value() {}
+        Value(const Value& cp) :_val(cp._val) {}
+        template<class T> Value(const T& val) { Set(val); }
+        Value(const char* value) { Set(value); }
+        virtual ~Value() {}
 
-        Value& operator= (const Value& rt) {_val = rt._val; return *this;}
-        template<class T> Value& operator= (const T& value) { Set(value); return *this;}
-        bool operator== (const Value& rgh) const { return _val == rgh._val;}
-        bool operator!= (const Value& val) const { return !(*this == val);}
+        Value& operator= (const Value& rt) { _val = rt._val; return *this; }
+        template<class T> Value& operator= (const T& value) { Set(value); return *this; }
+        bool operator== (const Value& rgh) const { return _val == rgh._val; }
+        bool operator!= (const Value& val) const { return !(*this == val); }
         bool operator< (const Value& rgh) const
         {
             if (!_val.IsValid())
@@ -418,7 +418,7 @@ namespace INI
         }
 
         /// Template function to convert value to any type
-        template<class T> T Get() const { return string_to_t<T>(_val.DataObj());}
+        template<class T> T Get() const { return string_to_t<T>(_val.DataObj()); }
         void Set(const std::string& str) { _val = RefCountPtr<std::string>(str); }
         /// Template function to set value
         template<class T> void Set(const T& value) { Set(t_to_string(value)); }
@@ -426,19 +426,19 @@ namespace INI
         void Set(const char* value) { _val = RefCountPtr<std::string>(std::string(value)); }
 
         /// Converts Value to std::string
-        std::string AsString() const { return _val.DataObj();}
+        std::string AsString() const { return _val.DataObj(); }
         /// Converts Value to integer
-        int AsInt() const {return Get<int>();}
+        int AsInt() const { return Get<int>(); }
         /// Converts Value to double
-        double AsDouble() const {return Get<double>();}
+        double AsDouble() const { return Get<double>(); }
         /// Converts Value to boolean
-        bool AsBool() const {return Get<bool>();}
+        bool AsBool() const { return Get<bool>(); }
         /// Converts Value to Array
         Array AsArray() const;
         /// Converts Value to Map
         Map AsMap() const;
         /// Converts Value to specified type T
-        template<class T> T AsT() const {return Get<T>();}
+        template<class T> T AsT() const { return Get<T>(); }
 
     private:
         RefCountPtr<std::string> _val;

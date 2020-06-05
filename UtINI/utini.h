@@ -6,7 +6,7 @@
 
 namespace utinni
 {
-UTINNI_API class UtINI
+class UTINNI_API UtINI
 {
 private:
     const char* filename;
