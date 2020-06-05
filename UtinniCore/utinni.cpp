@@ -2,6 +2,9 @@
 #include <mscoree.h>
 #include <metahost.h>
 
+//#include "spdlog/spdlog.h"
+#include "spdlog/sinks/basic_file_sink.h"
+
 #include "swg/client/client.h"
 #include "swg/game/game.h"
 #include "swg/graphics/graphics.h"
@@ -112,6 +115,15 @@ void main()
     path = dllPath.substr(0, dllPath.find_last_of("\\/")) + "\\";
 
     ini = utinni::UtINI(std::string(path + "ut.ini").c_str());
+
+    spdlog::set_level(spdlog::level::debug); 
+    spdlog::set_pattern("[%H:%M:%S] [%n] %v");
+    spdlog::flush_every(std::chrono::seconds(5));
+
+    auto file_logger = spdlog::basic_logger_mt("UtinniLog", path + "utinni.log");
+    spdlog::set_default_logger(file_logger);
+
+    spdlog::info("UtinniCore main()");
 
     utinni::Client::setIsEditorChild(ini.getBool("UtinniCore", "isEditorChild"));
 

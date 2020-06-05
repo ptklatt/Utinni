@@ -55,6 +55,7 @@ namespace UtinniCoreDotNetGen
                 ctx.IgnoreHeadersWithName("detourxs");
                 ctx.IgnoreHeadersWithName("ADE32");
 
+                ctx.IgnoreHeadersWithName("spdlog");
                 ctx.IgnoreHeadersWithName("utility");
             }
 
