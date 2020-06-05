@@ -1,5 +1,6 @@
 ﻿using System;
 using UtinniCoreDotNet.PluginFramework;
+using UtinniCoreDotNet.Utility;
 
 namespace ExampleEditorPlugin
 {
@@ -21,11 +22,12 @@ namespace ExampleEditorPlugin
                                                 , new Version(1, 0));
 
 
-
+            Log.Info("Example Editor Plugin created");
         }
 
         private void btnTest_Click(object sender, EventArgs e)
         {
+            Log.Info("Test");
             UtinniCore.Utinni.Game.Quit();
         }
     }

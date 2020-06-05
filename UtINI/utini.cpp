@@ -17,7 +17,11 @@ const static IniValue values[] = {
     { "Launcher", "swgClientName", ""},
 
     // UtinniCore settings
-    { "UtinniCore", "isEditorChild", false}
+    { "UtinniCore", "isEditorChild", false},
+
+    // Log settings
+    { "Log", "writeClassName", false},
+    { "Log", "writeFunctionName", false},
 };
 
 UtINI::UtINI() : filename(nullptr)

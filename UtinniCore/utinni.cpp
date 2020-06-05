@@ -22,7 +22,7 @@ ICLRMetaHost* pClrMetaHost = nullptr;
 ICLRRuntimeInfo* pClrRuntimeInfo = nullptr;
 ICLRRuntimeHost* pClrRuntimeHost = nullptr;
 
-void startCLR(LPCWSTR dotNetVersion)
+void startCLR()
 {
     HRESULT hr;
 
@@ -30,8 +30,8 @@ void startCLR(LPCWSTR dotNetVersion)
     hr = CLRCreateInstance(CLSID_CLRMetaHost, IID_ICLRMetaHost, (LPVOID*)&pClrMetaHost);
     if (hr == S_OK)
     {
-        // Ge runtime information for this version of .NET
-        hr = pClrMetaHost->GetRuntime(dotNetVersion, IID_PPV_ARGS(&pClrRuntimeInfo));
+        // Get the runtime information for this version of .NET
+        hr = pClrMetaHost->GetRuntime(L"v4.0.30319", IID_PPV_ARGS(&pClrRuntimeInfo));
         if (hr == S_OK)
         {
             // Check if the CLR can be loaded
@@ -50,6 +50,8 @@ void startCLR(LPCWSTR dotNetVersion)
             }
         }
     }
+
+    spdlog::critical("Failed to start CLR");
 
     // Cleanup if failed
     if (pClrRuntimeHost)
@@ -91,7 +93,7 @@ void loadCoreDotNet()
 
     const std::wstring combinedPath = wPath + L"UtinniCoreDotNet.dll";
 
-    startCLR(L"v4.0.30319");
+    startCLR();
     if (pClrRuntimeHost != nullptr)
     {
         DWORD result;
@@ -116,14 +118,15 @@ void main()
 
     ini = utinni::UtINI(std::string(path + "ut.ini").c_str());
 
-    spdlog::set_level(spdlog::level::debug); 
-    spdlog::set_pattern("[%H:%M:%S] [%n] %v");
-    spdlog::flush_every(std::chrono::seconds(5));
+    spdlog::set_level(spdlog::level::debug);
+
+    spdlog::set_pattern("[%D][%H:%M:%S] [%l] %! %v");
+    spdlog::flush_on(spdlog::level::info);
 
     auto file_logger = spdlog::basic_logger_mt("UtinniLog", path + "utinni.log");
     spdlog::set_default_logger(file_logger);
 
-    spdlog::info("UtinniCore main()");
+    spdlog::info("Process: " + std::to_string(_getpid()));
 
     utinni::Client::setIsEditorChild(ini.getBool("UtinniCore", "isEditorChild"));
 

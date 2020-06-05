@@ -2,6 +2,8 @@
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using System.Linq;
+using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet.PluginFramework
 {
@@ -35,6 +37,8 @@ namespace UtinniCoreDotNet.PluginFramework
 
             // Loads all found plugins
             container.ComposeParts(this);
+
+            Log.Info(Plugins.Count() +  " Plugin(s) loaded");
         }
     }
 }

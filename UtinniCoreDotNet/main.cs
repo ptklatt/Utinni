@@ -1,15 +1,13 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 using UtinniCoreDotNet.PluginFramework;
+using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet
 {
     internal static class Startup
     {
         private static bool initialized;
-        public static string CurrentDirectory;
 
         [STAThread]
         private static int EntryPoint(string args)
@@ -19,7 +17,7 @@ namespace UtinniCoreDotNet
                 initialized = true;
                 Application.EnableVisualStyles();
 
-                CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                Log.LoadConfig();
 
                 // Load plugins from the /Plugins/ directory
                 PluginLoader pluginLoader = new PluginLoader();

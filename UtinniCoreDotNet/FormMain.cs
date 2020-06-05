@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI;
+using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet
 {
@@ -23,14 +24,13 @@ namespace UtinniCoreDotNet
                 IEditorPlugin editorPlugin = (IEditorPlugin)plugin;
                 if (editorPlugin != null)
                 {
+                    Log.Info("Editor Plugin: [" + editorPlugin.Information.Name + "] loaded");
                     flpnlPlugins.Controls.Add(new CollapsiblePanel(editorPlugin.GetControl(), editorPlugin.Information.Name));
                 }
             }
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
-
-            UtinniCore.Utinni.Log.log.Info("FormMain Created");
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) // ToDo figure out how to handle this inside PanelGame potentially

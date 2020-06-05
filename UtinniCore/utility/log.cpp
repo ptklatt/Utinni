@@ -3,14 +3,14 @@
 
 namespace utinni::log
 {
-void debug(const char* text)
-{
-    spdlog::debug(text);
-}
-
 void critical(const char* text)
 {
     spdlog::critical(text);
+}
+
+void debug(const char* text)
+{
+    spdlog::debug(text);
 }
 
 void error(const char* text)

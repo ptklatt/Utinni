@@ -76,6 +76,7 @@
     <Compile Include="UI\CollapsiblePanel.Designer.cs">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utility\Log.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormMain.resx">
@@ -88,5 +89,6 @@
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
