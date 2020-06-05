@@ -17,6 +17,12 @@ namespace UtinniCoreDotNetGen
                 string slnDir = Directory.GetParent(workingDir.Substring(0, workingDir.LastIndexOf("\\bin\\"))).FullName + "\\"; 
 
                 driver.ParserOptions.TargetTriple = "i686-pc-win32-msvc"; // Generates x86 EntryPoints
+
+                // Needed for spdlog to work
+                driver.ParserOptions.EnableRTTI = true;
+                driver.ParserOptions.AddDefines("SPDLOG_NO_EXCEPTIONS");
+                driver.ParserOptions.AddDefines("FMT_EXCEPTIONS=0");
+
                 var options = driver.Options;
                 options.GeneratorKind = GeneratorKind.CSharp;
                 options.OutputDir = slnDir + "UtinniCoreDotNet\\Generated\\";
@@ -32,14 +38,15 @@ namespace UtinniCoreDotNetGen
                 module.IncludeDirs.Add(slnDir + targetProjName); // ToDo make this a loop to grab all the subfolders
 
                 // Headers
+
+                module.Headers.Add("utility\\log.h");
+
                 module.Headers.Add("swg\\client\\client.h");
                 module.Headers.Add("swg\\game\\game.h");
                 module.Headers.Add("swg\\graphics\\graphics.h");
                 module.Headers.Add("swg\\misc\\swg_math.h");
                 module.Headers.Add("swg\\scene\\world_snapshot.h");
                 module.Headers.Add("swg\\ui\\cui_manager.h");
-
-                //module.Headers.Add("spdlog/spdlog.h");
 
                 // Library
                 module.LibraryDirs.Add(slnDir + "bin\\" + buildMode + "\\");
@@ -52,11 +59,11 @@ namespace UtinniCoreDotNetGen
 
             public void Preprocess(Driver driver, ASTContext ctx)
             {
+                ctx.IgnoreHeadersWithName("spdlog");
                 ctx.IgnoreHeadersWithName("detourxs");
                 ctx.IgnoreHeadersWithName("ADE32");
 
-                ctx.IgnoreHeadersWithName("spdlog");
-                ctx.IgnoreHeadersWithName("utility");
+                //ctx.IgnoreHeadersWithName("utility");
             }
 
             public void Postprocess(Driver driver, ASTContext ctx)

@@ -29,6 +29,8 @@ namespace UtinniCoreDotNet
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
+
+            UtinniCore.Utinni.Log.log.Info("FormMain Created");
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) // ToDo figure out how to handle this inside PanelGame potentially

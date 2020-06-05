@@ -2,7 +2,7 @@
 #include <mscoree.h>
 #include <metahost.h>
 
-//#include "spdlog/spdlog.h"
+#include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 
 #include "swg/client/client.h"
@@ -171,5 +171,8 @@ const UtINI& getConfig()
 {
     return ini;
 }
+
+  
+
 
 }

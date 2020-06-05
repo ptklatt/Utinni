@@ -12,579 +12,51 @@ namespace UtinniCore
 {
     namespace Utinni
     {
-        public unsafe partial class StartupData : IDisposable
+        namespace Log
         {
-            [StructLayout(LayoutKind.Explicit, Size = 64)]
-            public partial struct __Internal
+            public unsafe partial class log
             {
-                [FieldOffset(0)]
-                internal byte createOwnWindow;
-
-                [FieldOffset(4)]
-                internal global::System.IntPtr windowName;
-
-                [FieldOffset(8)]
-                internal global::System.IntPtr normalIcon;
-
-                [FieldOffset(12)]
-                internal global::System.IntPtr smallIcon;
-
-                [FieldOffset(16)]
-                internal global::System.IntPtr hInstance;
-
-                [FieldOffset(20)]
-                internal byte useNewWindowHandle;
-
-                [FieldOffset(21)]
-                internal byte processMessagePump;
-
-                [FieldOffset(24)]
-                internal global::System.IntPtr windowHandle;
-
-                [FieldOffset(28)]
-                internal byte writeMiniDumps;
-
-                [FieldOffset(29)]
-                internal byte unk1;
-
-                [FieldOffset(30)]
-                internal byte unk2;
-
-                [FieldOffset(32)]
-                internal global::System.IntPtr commandLine;
-
-                [FieldOffset(36)]
-                internal int argc;
-
-                [FieldOffset(40)]
-                internal global::System.IntPtr argv;
-
-                [FieldOffset(44)]
-                internal global::System.IntPtr configFile;
-
-                [FieldOffset(48)]
-                internal global::System.IntPtr unk3;
-
-                [FieldOffset(52)]
-                internal float frameRateLimit;
-
-                [FieldOffset(56)]
-                internal byte unk4;
-
-                [FieldOffset(57)]
-                internal byte unk5;
-
-                [FieldOffset(60)]
-                internal uint lostFocusCallback;
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
-                    EntryPoint="??0StartupData@utinni@@QAE@ABU01@@Z")]
-                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
-            }
-
-            public global::System.IntPtr __Instance { get; protected set; }
-
-            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.StartupData> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.StartupData>();
-
-            protected bool __ownsNativeInstance;
-
-            internal static global::UtinniCore.Utinni.StartupData __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
-            {
-                return new global::UtinniCore.Utinni.StartupData(native.ToPointer(), skipVTables);
-            }
-
-            internal static global::UtinniCore.Utinni.StartupData __CreateInstance(global::UtinniCore.Utinni.StartupData.__Internal native, bool skipVTables = false)
-            {
-                return new global::UtinniCore.Utinni.StartupData(native, skipVTables);
-            }
-
-            private static void* __CopyValue(global::UtinniCore.Utinni.StartupData.__Internal native)
-            {
-                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.StartupData.__Internal));
-                *(global::UtinniCore.Utinni.StartupData.__Internal*) ret = native;
-                return ret.ToPointer();
-            }
-
-            private StartupData(global::UtinniCore.Utinni.StartupData.__Internal native, bool skipVTables = false)
-                : this(__CopyValue(native), skipVTables)
-            {
-                __ownsNativeInstance = true;
-                NativeToManagedMap[__Instance] = this;
-            }
-
-            protected StartupData(void* native, bool skipVTables = false)
-            {
-                if (native == null)
-                    return;
-                __Instance = new global::System.IntPtr(native);
-            }
-
-            public StartupData()
-            {
-                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.StartupData.__Internal));
-                __ownsNativeInstance = true;
-                NativeToManagedMap[__Instance] = this;
-            }
-
-            public StartupData(global::UtinniCore.Utinni.StartupData _0)
-            {
-                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.StartupData.__Internal));
-                __ownsNativeInstance = true;
-                NativeToManagedMap[__Instance] = this;
-                *((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance) = *((global::UtinniCore.Utinni.StartupData.__Internal*) _0.__Instance);
-            }
-
-            public void Dispose()
-            {
-                Dispose(disposing: true);
-            }
-
-            public virtual void Dispose(bool disposing)
-            {
-                if (__Instance == IntPtr.Zero)
-                    return;
-                global::UtinniCore.Utinni.StartupData __dummy;
-                NativeToManagedMap.TryRemove(__Instance, out __dummy);
-                if (__ownsNativeInstance)
-                    Marshal.FreeHGlobal(__Instance);
-                __Instance = IntPtr.Zero;
-            }
-
-            public bool CreateOwnWindow
-            {
-                get
+                public partial struct __Internal
                 {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->createOwnWindow != 0;
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                        EntryPoint="?critical@log@utinni@@YAXPBD@Z")]
+                    internal static extern void Critical([MarshalAs(UnmanagedType.LPUTF8Str)] string text);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                        EntryPoint="?debug@log@utinni@@YAXPBD@Z")]
+                    internal static extern void Debug([MarshalAs(UnmanagedType.LPUTF8Str)] string text);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                        EntryPoint="?error@log@utinni@@YAXPBD@Z")]
+                    internal static extern void Error([MarshalAs(UnmanagedType.LPUTF8Str)] string text);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                        EntryPoint="?info@log@utinni@@YAXPBD@Z")]
+                    internal static extern void Info([MarshalAs(UnmanagedType.LPUTF8Str)] string text);
                 }
 
-                set
+                public static void Critical(string text)
                 {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->createOwnWindow = (byte) (value ? 1 : 0);
-                }
-            }
-
-            public string WindowName
-            {
-                get
-                {
-                    if (((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->windowName == global::System.IntPtr.Zero)
-                        return default(string);
-                    var __retPtr = (byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->windowName;
-                    int __length = 0;
-                    while (*(__retPtr++) != 0) __length += sizeof(byte);
-                    return global::System.Text.Encoding.UTF8.GetString((byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->windowName, __length);
+                    __Internal.Critical(text);
                 }
 
-                set
+                public static void Debug(string text)
                 {
-                    byte[] __bytes0 = global::System.Text.Encoding.UTF8.GetBytes(value);
-                    fixed (byte* __bytePtr0 = __bytes0)
-                    {
-                        ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->windowName = (global::System.IntPtr) new global::System.IntPtr(__bytePtr0);
-                    }
-                }
-            }
-
-            public bool UseNewWindowHandle
-            {
-                get
-                {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->useNewWindowHandle != 0;
+                    __Internal.Debug(text);
                 }
 
-                set
+                public static void Error(string text)
                 {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->useNewWindowHandle = (byte) (value ? 1 : 0);
-                }
-            }
-
-            public bool ProcessMessagePump
-            {
-                get
-                {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->processMessagePump != 0;
+                    __Internal.Error(text);
                 }
 
-                set
+                public static void Info(string text)
                 {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->processMessagePump = (byte) (value ? 1 : 0);
-                }
-            }
-
-            public bool WriteMiniDumps
-            {
-                get
-                {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->writeMiniDumps != 0;
-                }
-
-                set
-                {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->writeMiniDumps = (byte) (value ? 1 : 0);
-                }
-            }
-
-            public bool Unk1
-            {
-                get
-                {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk1 != 0;
-                }
-
-                set
-                {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->unk1 = (byte) (value ? 1 : 0);
-                }
-            }
-
-            public bool Unk2
-            {
-                get
-                {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk2 != 0;
-                }
-
-                set
-                {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->unk2 = (byte) (value ? 1 : 0);
-                }
-            }
-
-            public string CommandLine
-            {
-                get
-                {
-                    if (((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->commandLine == global::System.IntPtr.Zero)
-                        return default(string);
-                    var __retPtr = (byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->commandLine;
-                    int __length = 0;
-                    while (*(__retPtr++) != 0) __length += sizeof(byte);
-                    return global::System.Text.Encoding.UTF8.GetString((byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->commandLine, __length);
-                }
-
-                set
-                {
-                    byte[] __bytes0 = global::System.Text.Encoding.UTF8.GetBytes(value);
-                    fixed (byte* __bytePtr0 = __bytes0)
-                    {
-                        ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->commandLine = (global::System.IntPtr) new global::System.IntPtr(__bytePtr0);
-                    }
-                }
-            }
-
-            public int Argc
-            {
-                get
-                {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->argc;
-                }
-
-                set
-                {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->argc = value;
-                }
-            }
-
-            public sbyte** Argv
-            {
-                get
-                {
-                    return (sbyte**) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->argv;
-                }
-
-                set
-                {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->argv = (global::System.IntPtr) value;
-                }
-            }
-
-            public string ConfigFile
-            {
-                get
-                {
-                    if (((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->configFile == global::System.IntPtr.Zero)
-                        return default(string);
-                    var __retPtr = (byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->configFile;
-                    int __length = 0;
-                    while (*(__retPtr++) != 0) __length += sizeof(byte);
-                    return global::System.Text.Encoding.UTF8.GetString((byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->configFile, __length);
-                }
-
-                set
-                {
-                    byte[] __bytes0 = global::System.Text.Encoding.UTF8.GetBytes(value);
-                    fixed (byte* __bytePtr0 = __bytes0)
-                    {
-                        ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->configFile = (global::System.IntPtr) new global::System.IntPtr(__bytePtr0);
-                    }
-                }
-            }
-
-            public string Unk3
-            {
-                get
-                {
-                    if (((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk3 == global::System.IntPtr.Zero)
-                        return default(string);
-                    var __retPtr = (byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk3;
-                    int __length = 0;
-                    while (*(__retPtr++) != 0) __length += sizeof(byte);
-                    return global::System.Text.Encoding.UTF8.GetString((byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk3, __length);
-                }
-
-                set
-                {
-                    byte[] __bytes0 = global::System.Text.Encoding.UTF8.GetBytes(value);
-                    fixed (byte* __bytePtr0 = __bytes0)
-                    {
-                        ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->unk3 = (global::System.IntPtr) new global::System.IntPtr(__bytePtr0);
-                    }
-                }
-            }
-
-            public float FrameRateLimit
-            {
-                get
-                {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->frameRateLimit;
-                }
-
-                set
-                {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->frameRateLimit = value;
-                }
-            }
-
-            public bool Unk4
-            {
-                get
-                {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk4 != 0;
-                }
-
-                set
-                {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->unk4 = (byte) (value ? 1 : 0);
-                }
-            }
-
-            public bool Unk5
-            {
-                get
-                {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk5 != 0;
-                }
-
-                set
-                {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->unk5 = (byte) (value ? 1 : 0);
-                }
-            }
-
-            public uint LostFocusCallback
-            {
-                get
-                {
-                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->lostFocusCallback;
-                }
-
-                set
-                {
-                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->lostFocusCallback = value;
-                }
-            }
-        }
-
-        public unsafe partial class Client : IDisposable
-        {
-            [StructLayout(LayoutKind.Explicit, Size = 0)]
-            public partial struct __Internal
-            {
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
-                    EntryPoint="??0Client@utinni@@QAE@ABV01@@Z")]
-                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?setHwnd@Client@utinni@@SAXPAX@Z")]
-                internal static extern void SetHwnd(global::System.IntPtr newHwnd);
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?setHInstance@Client@utinni@@SAXPAX@Z")]
-                internal static extern void SetHInstance(global::System.IntPtr newHInstance);
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?setSize@Client@utinni@@SAXHH@Z")]
-                internal static extern void SetSize(int width, int height);
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?suspendInput@Client@utinni@@SAXXZ")]
-                internal static extern void SuspendInput();
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?resumeInput@Client@utinni@@SAXXZ")]
-                internal static extern void ResumeInput();
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?detour@Client@utinni@@SAXXZ")]
-                internal static extern void Detour();
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?getIsEditorChild@Client@utinni@@SA_NXZ")]
-                [return: MarshalAs(UnmanagedType.I1)]
-                internal static extern bool GetIsEditorChild();
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?setIsEditorChild@Client@utinni@@SAX_N@Z")]
-                internal static extern void SetIsEditorChild(bool value);
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?getWidth@Client@utinni@@SAHXZ")]
-                internal static extern int GetWidth();
-
-                [SuppressUnmanagedCodeSecurity]
-                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?getHeight@Client@utinni@@SAHXZ")]
-                internal static extern int GetHeight();
-            }
-
-            public global::System.IntPtr __Instance { get; protected set; }
-
-            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Client> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Client>();
-
-            protected bool __ownsNativeInstance;
-
-            internal static global::UtinniCore.Utinni.Client __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
-            {
-                return new global::UtinniCore.Utinni.Client(native.ToPointer(), skipVTables);
-            }
-
-            internal static global::UtinniCore.Utinni.Client __CreateInstance(global::UtinniCore.Utinni.Client.__Internal native, bool skipVTables = false)
-            {
-                return new global::UtinniCore.Utinni.Client(native, skipVTables);
-            }
-
-            private static void* __CopyValue(global::UtinniCore.Utinni.Client.__Internal native)
-            {
-                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.Client.__Internal));
-                *(global::UtinniCore.Utinni.Client.__Internal*) ret = native;
-                return ret.ToPointer();
-            }
-
-            private Client(global::UtinniCore.Utinni.Client.__Internal native, bool skipVTables = false)
-                : this(__CopyValue(native), skipVTables)
-            {
-                __ownsNativeInstance = true;
-                NativeToManagedMap[__Instance] = this;
-            }
-
-            protected Client(void* native, bool skipVTables = false)
-            {
-                if (native == null)
-                    return;
-                __Instance = new global::System.IntPtr(native);
-            }
-
-            public Client()
-            {
-                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.Client.__Internal));
-                __ownsNativeInstance = true;
-                NativeToManagedMap[__Instance] = this;
-            }
-
-            public Client(global::UtinniCore.Utinni.Client _0)
-            {
-                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.Client.__Internal));
-                __ownsNativeInstance = true;
-                NativeToManagedMap[__Instance] = this;
-                *((global::UtinniCore.Utinni.Client.__Internal*) __Instance) = *((global::UtinniCore.Utinni.Client.__Internal*) _0.__Instance);
-            }
-
-            public void Dispose()
-            {
-                Dispose(disposing: true);
-            }
-
-            public virtual void Dispose(bool disposing)
-            {
-                if (__Instance == IntPtr.Zero)
-                    return;
-                global::UtinniCore.Utinni.Client __dummy;
-                NativeToManagedMap.TryRemove(__Instance, out __dummy);
-                if (__ownsNativeInstance)
-                    Marshal.FreeHGlobal(__Instance);
-                __Instance = IntPtr.Zero;
-            }
-
-            public static void SetHwnd(global::System.IntPtr newHwnd)
-            {
-                __Internal.SetHwnd(newHwnd);
-            }
-
-            public static void SetHInstance(global::System.IntPtr newHInstance)
-            {
-                __Internal.SetHInstance(newHInstance);
-            }
-
-            public static void SetSize(int width, int height)
-            {
-                __Internal.SetSize(width, height);
-            }
-
-            public static void SuspendInput()
-            {
-                __Internal.SuspendInput();
-            }
-
-            public static void ResumeInput()
-            {
-                __Internal.ResumeInput();
-            }
-
-            public static void Detour()
-            {
-                __Internal.Detour();
-            }
-
-            public static bool IsEditorChild
-            {
-                get
-                {
-                    var __ret = __Internal.GetIsEditorChild();
-                    return __ret;
-                }
-
-                set
-                {
-                    __Internal.SetIsEditorChild(value);
-                }
-            }
-
-            public static int Width
-            {
-                get
-                {
-                    var __ret = __Internal.GetWidth();
-                    return __ret;
-                }
-            }
-
-            public static int Height
-            {
-                get
-                {
-                    var __ret = __Internal.GetHeight();
-                    return __ret;
+                    __Internal.Info(text);
                 }
             }
         }
@@ -750,7 +222,7 @@ namespace UtinniCore
                 ((global::UtinniCore.INI.Convstream.__Internal*) __Instance)->vfptr_ios_base = new global::System.IntPtr(__OriginalVTables[3]);
                 if (disposing)
                 {
-                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 0 * 4);
+                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 1 * 4);
                     var ___dtorDelegate = (global::UtinniCore.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::UtinniCore.Delegates.Action_IntPtr_int));
                     ___dtorDelegate(__Instance, 0);
                 }
@@ -789,14 +261,16 @@ namespace UtinniCore
                     _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_dtorDelegateInstance).ToPointer();
 
                     __ManagedVTablesDtorOnly = new void*[1];
-                    var vfptr_dtor0 = Marshal.AllocHGlobal(1 * 4);
+                    var vfptr_dtor0 = Marshal.AllocHGlobal(2 * 4);
                     __ManagedVTablesDtorOnly[0] = vfptr_dtor0.ToPointer();
-                    *(void**) (vfptr_dtor0 + 0) = _Thunks[0];
+                    *(void**) (vfptr_dtor0 + 0) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 0);
+                    *(void**) (vfptr_dtor0 + 4) = _Thunks[0];
 
                     __ManagedVTables = new void*[1];
-                    var vfptr0 = Marshal.AllocHGlobal(1 * 4);
+                    var vfptr0 = Marshal.AllocHGlobal(2 * 4);
                     __ManagedVTables[0] = vfptr0.ToPointer();
-                    *(void**) (vfptr0 + 0) = _Thunks[0];
+                    *(void**) (vfptr0 + 0) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 0);
+                    *(void**) (vfptr0 + 4) = _Thunks[0];
 
                     __originalVTables = new void*[] { *(void**) (__Instance + 0), *(void**) (__Instance + 16), *(void**) (__Instance + 100), *(void**) (__Instance + 104) };}
 
@@ -1004,7 +478,7 @@ namespace UtinniCore
                 ((global::UtinniCore.INI.Value.__Internal*) __Instance)->vfptr_Value = new global::System.IntPtr(__OriginalVTables[0]);
                 if (disposing)
                 {
-                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 0 * 4);
+                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 1 * 4);
                     var ___dtorDelegate = (global::UtinniCore.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::UtinniCore.Delegates.Action_IntPtr_int));
                     ___dtorDelegate(__Instance, 0);
                 }
@@ -1195,14 +669,16 @@ namespace UtinniCore
                     _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_dtorDelegateInstance).ToPointer();
 
                     __ManagedVTablesDtorOnly = new void*[1];
-                    var vfptr_dtor0 = Marshal.AllocHGlobal(1 * 4);
+                    var vfptr_dtor0 = Marshal.AllocHGlobal(2 * 4);
                     __ManagedVTablesDtorOnly[0] = vfptr_dtor0.ToPointer();
-                    *(void**) (vfptr_dtor0 + 0) = _Thunks[0];
+                    *(void**) (vfptr_dtor0 + 0) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 0);
+                    *(void**) (vfptr_dtor0 + 4) = _Thunks[0];
 
                     __ManagedVTables = new void*[1];
-                    var vfptr0 = Marshal.AllocHGlobal(1 * 4);
+                    var vfptr0 = Marshal.AllocHGlobal(2 * 4);
                     __ManagedVTables[0] = vfptr0.ToPointer();
-                    *(void**) (vfptr0 + 0) = _Thunks[0];
+                    *(void**) (vfptr0 + 0) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 0);
+                    *(void**) (vfptr0 + 4) = _Thunks[0];
 
                     __originalVTables = new void*[] { *(void**) (__Instance + 0) };}
 
@@ -1382,7 +858,7 @@ namespace UtinniCore
                 ((global::UtinniCore.INI.Array.__Internal*) __Instance)->vfptr_Array = new global::System.IntPtr(__OriginalVTables[0]);
                 if (disposing)
                 {
-                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 0 * 4);
+                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 1 * 4);
                     var ___dtorDelegate = (global::UtinniCore.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::UtinniCore.Delegates.Action_IntPtr_int));
                     ___dtorDelegate(__Instance, 0);
                 }
@@ -1526,14 +1002,16 @@ namespace UtinniCore
                     _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_dtorDelegateInstance).ToPointer();
 
                     __ManagedVTablesDtorOnly = new void*[1];
-                    var vfptr_dtor0 = Marshal.AllocHGlobal(1 * 4);
+                    var vfptr_dtor0 = Marshal.AllocHGlobal(2 * 4);
                     __ManagedVTablesDtorOnly[0] = vfptr_dtor0.ToPointer();
-                    *(void**) (vfptr_dtor0 + 0) = _Thunks[0];
+                    *(void**) (vfptr_dtor0 + 0) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 0);
+                    *(void**) (vfptr_dtor0 + 4) = _Thunks[0];
 
                     __ManagedVTables = new void*[1];
-                    var vfptr0 = Marshal.AllocHGlobal(1 * 4);
+                    var vfptr0 = Marshal.AllocHGlobal(2 * 4);
                     __ManagedVTables[0] = vfptr0.ToPointer();
-                    *(void**) (vfptr0 + 0) = _Thunks[0];
+                    *(void**) (vfptr0 + 0) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 0);
+                    *(void**) (vfptr0 + 4) = _Thunks[0];
 
                     __originalVTables = new void*[] { *(void**) (__Instance + 0) };}
 
@@ -1708,7 +1186,7 @@ namespace UtinniCore
                 ((global::UtinniCore.INI.Map.__Internal*) __Instance)->vfptr_Map = new global::System.IntPtr(__OriginalVTables[0]);
                 if (disposing)
                 {
-                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 0 * 4);
+                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 1 * 4);
                     var ___dtorDelegate = (global::UtinniCore.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::UtinniCore.Delegates.Action_IntPtr_int));
                     ___dtorDelegate(__Instance, 0);
                 }
@@ -1845,14 +1323,16 @@ namespace UtinniCore
                     _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_dtorDelegateInstance).ToPointer();
 
                     __ManagedVTablesDtorOnly = new void*[1];
-                    var vfptr_dtor0 = Marshal.AllocHGlobal(1 * 4);
+                    var vfptr_dtor0 = Marshal.AllocHGlobal(2 * 4);
                     __ManagedVTablesDtorOnly[0] = vfptr_dtor0.ToPointer();
-                    *(void**) (vfptr_dtor0 + 0) = _Thunks[0];
+                    *(void**) (vfptr_dtor0 + 0) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 0);
+                    *(void**) (vfptr_dtor0 + 4) = _Thunks[0];
 
                     __ManagedVTables = new void*[1];
-                    var vfptr0 = Marshal.AllocHGlobal(1 * 4);
+                    var vfptr0 = Marshal.AllocHGlobal(2 * 4);
                     __ManagedVTables[0] = vfptr0.ToPointer();
-                    *(void**) (vfptr0 + 0) = _Thunks[0];
+                    *(void**) (vfptr0 + 0) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 0);
+                    *(void**) (vfptr0 + 4) = _Thunks[0];
 
                     __originalVTables = new void*[] { *(void**) (__Instance + 0) };}
 
@@ -2651,7 +2131,7 @@ namespace UtinniCore
                 ((global::UtinniCore.INI.File.__Internal*) __Instance)->vfptr_File = new global::System.IntPtr(__OriginalVTables[0]);
                 if (disposing)
                 {
-                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 0 * 4);
+                    var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 1 * 4);
                     var ___dtorDelegate = (global::UtinniCore.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::UtinniCore.Delegates.Action_IntPtr_int));
                     ___dtorDelegate(__Instance, 0);
                 }
@@ -2956,14 +2436,16 @@ namespace UtinniCore
                     _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_dtorDelegateInstance).ToPointer();
 
                     __ManagedVTablesDtorOnly = new void*[1];
-                    var vfptr_dtor0 = Marshal.AllocHGlobal(1 * 4);
+                    var vfptr_dtor0 = Marshal.AllocHGlobal(2 * 4);
                     __ManagedVTablesDtorOnly[0] = vfptr_dtor0.ToPointer();
-                    *(void**) (vfptr_dtor0 + 0) = _Thunks[0];
+                    *(void**) (vfptr_dtor0 + 0) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 0);
+                    *(void**) (vfptr_dtor0 + 4) = _Thunks[0];
 
                     __ManagedVTables = new void*[1];
-                    var vfptr0 = Marshal.AllocHGlobal(1 * 4);
+                    var vfptr0 = Marshal.AllocHGlobal(2 * 4);
                     __ManagedVTables[0] = vfptr0.ToPointer();
-                    *(void**) (vfptr0 + 0) = _Thunks[0];
+                    *(void**) (vfptr0 + 0) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 0);
+                    *(void**) (vfptr0 + 4) = _Thunks[0];
 
                     __originalVTables = new void*[] { *(void**) (__Instance + 0) };}
 
@@ -3540,6 +3022,717 @@ namespace UtinniCore
                     __result0 = (global::UtinniCore.Utinni.UtINI) global::UtinniCore.Utinni.UtINI.NativeToManagedMap[__ret];
                 else __result0 = global::UtinniCore.Utinni.UtINI.__CreateInstance(__ret);
                 return __result0;
+            }
+        }
+    }
+
+    namespace Memory
+    {
+        public unsafe partial class memory
+        {
+            public partial struct __Internal
+            {
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?write@memory@@YAXKPAXH@Z")]
+                internal static extern void Write(uint address, global::System.IntPtr value, int length);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?set@memory@@YAXKKH@Z")]
+                internal static extern void Set(uint address, uint value, int size);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?patchAddress@memory@@YAXKK@Z")]
+                internal static extern void PatchAddress(uint address, uint value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?nopAddress@memory@@YAXKH@Z")]
+                internal static extern void NopAddress(uint address, int nopCount);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?createJMP@memory@@YAXPAEKK@Z")]
+                internal static extern void CreateJMP(byte* address, uint jumpToAddress, uint overrideLength);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getAddress@memory@@YAKKH@Z")]
+                internal static extern uint GetAddress(uint baseAddress, int ptrDepth);
+            }
+
+            public static void Write(uint address, global::System.IntPtr value, int length)
+            {
+                __Internal.Write(address, value, length);
+            }
+
+            public static void Set(uint address, uint value, int size)
+            {
+                __Internal.Set(address, value, size);
+            }
+
+            public static void PatchAddress(uint address, uint value)
+            {
+                __Internal.PatchAddress(address, value);
+            }
+
+            public static void NopAddress(uint address, int nopCount)
+            {
+                __Internal.NopAddress(address, nopCount);
+            }
+
+            public static void CreateJMP(byte* address, uint jumpToAddress, uint overrideLength)
+            {
+                __Internal.CreateJMP(address, jumpToAddress, overrideLength);
+            }
+
+            public static uint GetAddress(uint baseAddress, int ptrDepth)
+            {
+                var __ret = __Internal.GetAddress(baseAddress, ptrDepth);
+                return __ret;
+            }
+        }
+    }
+
+    namespace Utility
+    {
+        public unsafe partial class utility
+        {
+            public partial struct __Internal
+            {
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?showMessageBox@utility@@YAXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z")]
+                internal static extern void ShowMessageBox(global::System.IntPtr title, global::System.IntPtr text);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?showMessageBox@utility@@YAXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z")]
+                internal static extern void ShowMessageBox(global::System.IntPtr text);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?showMessageBoxEmpty@utility@@YAXXZ")]
+                internal static extern void ShowMessageBoxEmpty();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?showLastErrorMessageBox@utility@@YAXXZ")]
+                internal static extern void ShowLastErrorMessageBox();
+            }
+
+            public static void ShowMessageBox(string title, string text)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, title);
+                var __arg0 = __basicString0.__Instance;
+                var __basicString1 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString1, text);
+                var __arg1 = __basicString1.__Instance;
+                __Internal.ShowMessageBox(__arg0, __arg1);
+                __basicString0.Dispose();
+                __basicString1.Dispose();
+            }
+
+            public static void ShowMessageBox(string text)
+            {
+                var __basicString0 = new global::Std.BasicString<sbyte, global::Std.CharTraits<sbyte>, global::Std.Allocator<sbyte>>();
+                global::Std.BasicStringExtensions.Assign(__basicString0, text);
+                var __arg0 = __basicString0.__Instance;
+                __Internal.ShowMessageBox(__arg0);
+                __basicString0.Dispose();
+            }
+
+            public static void ShowMessageBoxEmpty()
+            {
+                __Internal.ShowMessageBoxEmpty();
+            }
+
+            public static void ShowLastErrorMessageBox()
+            {
+                __Internal.ShowLastErrorMessageBox();
+            }
+        }
+    }
+
+    namespace Utinni
+    {
+        public unsafe partial class StartupData : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 64)]
+            public partial struct __Internal
+            {
+                [FieldOffset(0)]
+                internal byte createOwnWindow;
+
+                [FieldOffset(4)]
+                internal global::System.IntPtr windowName;
+
+                [FieldOffset(8)]
+                internal global::System.IntPtr normalIcon;
+
+                [FieldOffset(12)]
+                internal global::System.IntPtr smallIcon;
+
+                [FieldOffset(16)]
+                internal global::System.IntPtr hInstance;
+
+                [FieldOffset(20)]
+                internal byte useNewWindowHandle;
+
+                [FieldOffset(21)]
+                internal byte processMessagePump;
+
+                [FieldOffset(24)]
+                internal global::System.IntPtr windowHandle;
+
+                [FieldOffset(28)]
+                internal byte writeMiniDumps;
+
+                [FieldOffset(29)]
+                internal byte unk1;
+
+                [FieldOffset(30)]
+                internal byte unk2;
+
+                [FieldOffset(32)]
+                internal global::System.IntPtr commandLine;
+
+                [FieldOffset(36)]
+                internal int argc;
+
+                [FieldOffset(40)]
+                internal global::System.IntPtr argv;
+
+                [FieldOffset(44)]
+                internal global::System.IntPtr configFile;
+
+                [FieldOffset(48)]
+                internal global::System.IntPtr unk3;
+
+                [FieldOffset(52)]
+                internal float frameRateLimit;
+
+                [FieldOffset(56)]
+                internal byte unk4;
+
+                [FieldOffset(57)]
+                internal byte unk5;
+
+                [FieldOffset(60)]
+                internal uint lostFocusCallback;
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0StartupData@utinni@@QAE@ABU01@@Z")]
+                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.StartupData> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.StartupData>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.Utinni.StartupData __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.StartupData(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.Utinni.StartupData __CreateInstance(global::UtinniCore.Utinni.StartupData.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.StartupData(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.Utinni.StartupData.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.StartupData.__Internal));
+                *(global::UtinniCore.Utinni.StartupData.__Internal*) ret = native;
+                return ret.ToPointer();
+            }
+
+            private StartupData(global::UtinniCore.Utinni.StartupData.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected StartupData(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+            }
+
+            public StartupData()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.StartupData.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            public StartupData(global::UtinniCore.Utinni.StartupData _0)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.StartupData.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                *((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance) = *((global::UtinniCore.Utinni.StartupData.__Internal*) _0.__Instance);
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.Utinni.StartupData __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            public bool CreateOwnWindow
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->createOwnWindow != 0;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->createOwnWindow = (byte) (value ? 1 : 0);
+                }
+            }
+
+            public string WindowName
+            {
+                get
+                {
+                    if (((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->windowName == global::System.IntPtr.Zero)
+                        return default(string);
+                    var __retPtr = (byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->windowName;
+                    int __length = 0;
+                    while (*(__retPtr++) != 0) __length += sizeof(byte);
+                    return global::System.Text.Encoding.UTF8.GetString((byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->windowName, __length);
+                }
+
+                set
+                {
+                    byte[] __bytes0 = global::System.Text.Encoding.UTF8.GetBytes(value);
+                    fixed (byte* __bytePtr0 = __bytes0)
+                    {
+                        ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->windowName = (global::System.IntPtr) new global::System.IntPtr(__bytePtr0);
+                    }
+                }
+            }
+
+            public bool UseNewWindowHandle
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->useNewWindowHandle != 0;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->useNewWindowHandle = (byte) (value ? 1 : 0);
+                }
+            }
+
+            public bool ProcessMessagePump
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->processMessagePump != 0;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->processMessagePump = (byte) (value ? 1 : 0);
+                }
+            }
+
+            public bool WriteMiniDumps
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->writeMiniDumps != 0;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->writeMiniDumps = (byte) (value ? 1 : 0);
+                }
+            }
+
+            public bool Unk1
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk1 != 0;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->unk1 = (byte) (value ? 1 : 0);
+                }
+            }
+
+            public bool Unk2
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk2 != 0;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->unk2 = (byte) (value ? 1 : 0);
+                }
+            }
+
+            public string CommandLine
+            {
+                get
+                {
+                    if (((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->commandLine == global::System.IntPtr.Zero)
+                        return default(string);
+                    var __retPtr = (byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->commandLine;
+                    int __length = 0;
+                    while (*(__retPtr++) != 0) __length += sizeof(byte);
+                    return global::System.Text.Encoding.UTF8.GetString((byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->commandLine, __length);
+                }
+
+                set
+                {
+                    byte[] __bytes0 = global::System.Text.Encoding.UTF8.GetBytes(value);
+                    fixed (byte* __bytePtr0 = __bytes0)
+                    {
+                        ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->commandLine = (global::System.IntPtr) new global::System.IntPtr(__bytePtr0);
+                    }
+                }
+            }
+
+            public int Argc
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->argc;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->argc = value;
+                }
+            }
+
+            public sbyte** Argv
+            {
+                get
+                {
+                    return (sbyte**) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->argv;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->argv = (global::System.IntPtr) value;
+                }
+            }
+
+            public string ConfigFile
+            {
+                get
+                {
+                    if (((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->configFile == global::System.IntPtr.Zero)
+                        return default(string);
+                    var __retPtr = (byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->configFile;
+                    int __length = 0;
+                    while (*(__retPtr++) != 0) __length += sizeof(byte);
+                    return global::System.Text.Encoding.UTF8.GetString((byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->configFile, __length);
+                }
+
+                set
+                {
+                    byte[] __bytes0 = global::System.Text.Encoding.UTF8.GetBytes(value);
+                    fixed (byte* __bytePtr0 = __bytes0)
+                    {
+                        ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->configFile = (global::System.IntPtr) new global::System.IntPtr(__bytePtr0);
+                    }
+                }
+            }
+
+            public string Unk3
+            {
+                get
+                {
+                    if (((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk3 == global::System.IntPtr.Zero)
+                        return default(string);
+                    var __retPtr = (byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk3;
+                    int __length = 0;
+                    while (*(__retPtr++) != 0) __length += sizeof(byte);
+                    return global::System.Text.Encoding.UTF8.GetString((byte*) ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk3, __length);
+                }
+
+                set
+                {
+                    byte[] __bytes0 = global::System.Text.Encoding.UTF8.GetBytes(value);
+                    fixed (byte* __bytePtr0 = __bytes0)
+                    {
+                        ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->unk3 = (global::System.IntPtr) new global::System.IntPtr(__bytePtr0);
+                    }
+                }
+            }
+
+            public float FrameRateLimit
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->frameRateLimit;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->frameRateLimit = value;
+                }
+            }
+
+            public bool Unk4
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk4 != 0;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->unk4 = (byte) (value ? 1 : 0);
+                }
+            }
+
+            public bool Unk5
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->unk5 != 0;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->unk5 = (byte) (value ? 1 : 0);
+                }
+            }
+
+            public uint LostFocusCallback
+            {
+                get
+                {
+                    return ((global::UtinniCore.Utinni.StartupData.__Internal*) __Instance)->lostFocusCallback;
+                }
+
+                set
+                {
+                    ((global::UtinniCore.Utinni.StartupData.__Internal*)__Instance)->lostFocusCallback = value;
+                }
+            }
+        }
+
+        public unsafe partial class Client : IDisposable
+        {
+            [StructLayout(LayoutKind.Explicit, Size = 0)]
+            public partial struct __Internal
+            {
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="??0Client@utinni@@QAE@ABV01@@Z")]
+                internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?setHwnd@Client@utinni@@SAXPAX@Z")]
+                internal static extern void SetHwnd(global::System.IntPtr newHwnd);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?setHInstance@Client@utinni@@SAXPAX@Z")]
+                internal static extern void SetHInstance(global::System.IntPtr newHInstance);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?setSize@Client@utinni@@SAXHH@Z")]
+                internal static extern void SetSize(int width, int height);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?suspendInput@Client@utinni@@SAXXZ")]
+                internal static extern void SuspendInput();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?resumeInput@Client@utinni@@SAXXZ")]
+                internal static extern void ResumeInput();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?detour@Client@utinni@@SAXXZ")]
+                internal static extern void Detour();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getIsEditorChild@Client@utinni@@SA_NXZ")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool GetIsEditorChild();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?setIsEditorChild@Client@utinni@@SAX_N@Z")]
+                internal static extern void SetIsEditorChild(bool value);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getWidth@Client@utinni@@SAHXZ")]
+                internal static extern int GetWidth();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getHeight@Client@utinni@@SAHXZ")]
+                internal static extern int GetHeight();
+            }
+
+            public global::System.IntPtr __Instance { get; protected set; }
+
+            internal static readonly global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Client> NativeToManagedMap = new global::System.Collections.Concurrent.ConcurrentDictionary<IntPtr, global::UtinniCore.Utinni.Client>();
+
+            protected bool __ownsNativeInstance;
+
+            internal static global::UtinniCore.Utinni.Client __CreateInstance(global::System.IntPtr native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.Client(native.ToPointer(), skipVTables);
+            }
+
+            internal static global::UtinniCore.Utinni.Client __CreateInstance(global::UtinniCore.Utinni.Client.__Internal native, bool skipVTables = false)
+            {
+                return new global::UtinniCore.Utinni.Client(native, skipVTables);
+            }
+
+            private static void* __CopyValue(global::UtinniCore.Utinni.Client.__Internal native)
+            {
+                var ret = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.Client.__Internal));
+                *(global::UtinniCore.Utinni.Client.__Internal*) ret = native;
+                return ret.ToPointer();
+            }
+
+            private Client(global::UtinniCore.Utinni.Client.__Internal native, bool skipVTables = false)
+                : this(__CopyValue(native), skipVTables)
+            {
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            protected Client(void* native, bool skipVTables = false)
+            {
+                if (native == null)
+                    return;
+                __Instance = new global::System.IntPtr(native);
+            }
+
+            public Client()
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.Client.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+            }
+
+            public Client(global::UtinniCore.Utinni.Client _0)
+            {
+                __Instance = Marshal.AllocHGlobal(sizeof(global::UtinniCore.Utinni.Client.__Internal));
+                __ownsNativeInstance = true;
+                NativeToManagedMap[__Instance] = this;
+                *((global::UtinniCore.Utinni.Client.__Internal*) __Instance) = *((global::UtinniCore.Utinni.Client.__Internal*) _0.__Instance);
+            }
+
+            public void Dispose()
+            {
+                Dispose(disposing: true);
+            }
+
+            public virtual void Dispose(bool disposing)
+            {
+                if (__Instance == IntPtr.Zero)
+                    return;
+                global::UtinniCore.Utinni.Client __dummy;
+                NativeToManagedMap.TryRemove(__Instance, out __dummy);
+                if (__ownsNativeInstance)
+                    Marshal.FreeHGlobal(__Instance);
+                __Instance = IntPtr.Zero;
+            }
+
+            public static void SetHwnd(global::System.IntPtr newHwnd)
+            {
+                __Internal.SetHwnd(newHwnd);
+            }
+
+            public static void SetHInstance(global::System.IntPtr newHInstance)
+            {
+                __Internal.SetHInstance(newHInstance);
+            }
+
+            public static void SetSize(int width, int height)
+            {
+                __Internal.SetSize(width, height);
+            }
+
+            public static void SuspendInput()
+            {
+                __Internal.SuspendInput();
+            }
+
+            public static void ResumeInput()
+            {
+                __Internal.ResumeInput();
+            }
+
+            public static void Detour()
+            {
+                __Internal.Detour();
+            }
+
+            public static bool IsEditorChild
+            {
+                get
+                {
+                    var __ret = __Internal.GetIsEditorChild();
+                    return __ret;
+                }
+
+                set
+                {
+                    __Internal.SetIsEditorChild(value);
+                }
+            }
+
+            public static int Width
+            {
+                get
+                {
+                    var __ret = __Internal.GetWidth();
+                    return __ret;
+                }
+            }
+
+            public static int Height
+            {
+                get
+                {
+                    var __ret = __Internal.GetHeight();
+                    return __ret;
+                }
             }
         }
     }
@@ -6880,5 +7073,51 @@ namespace UtinniCore
     {
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.ThisCall)]
         internal unsafe delegate void Action_IntPtr_int(global::System.IntPtr __instance, int arg1);
+    }
+}
+
+namespace Std
+{
+    namespace Pair
+    {
+        [StructLayout(LayoutKind.Explicit, Size = 16)]
+        public unsafe partial struct __Internalc__N_std_S_pair__1K____N_utinni_S_WorldSnapshotReaderWriter_S_Node
+        {
+            [FieldOffset(0)]
+            internal long first;
+
+            [FieldOffset(8)]
+            internal global::System.IntPtr second;
+        }
+
+        [StructLayout(LayoutKind.Explicit, Size = 36)]
+        public unsafe partial struct __Internalc__N_std_S_pair__1__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C___N_INI_S_Value
+        {
+            [FieldOffset(0)]
+            internal global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C first;
+
+            [FieldOffset(24)]
+            internal global::UtinniCore.INI.Value.__Internal second;
+        }
+
+        [StructLayout(LayoutKind.Explicit, Size = 28)]
+        public unsafe partial struct __Internalc__N_std_S_pair__1__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C____N_INI_S_Section
+        {
+            [FieldOffset(0)]
+            internal global::Std.BasicString.__Internalc__N_std_S_basic_string__C___N_std_S_char_traits__C___N_std_S_allocator__C first;
+
+            [FieldOffset(24)]
+            internal global::System.IntPtr second;
+        }
+
+        [StructLayout(LayoutKind.Explicit, Size = 24)]
+        public unsafe partial struct __Internalc__N_std_S_pair__1__N_INI_S_Value_S0_
+        {
+            [FieldOffset(0)]
+            internal global::UtinniCore.INI.Value.__Internal first;
+
+            [FieldOffset(12)]
+            internal global::UtinniCore.INI.Value.__Internal second;
+        }
     }
 }

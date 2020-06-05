@@ -424,6 +424,14 @@ namespace Std
 
 namespace Std
 {
+}
+
+namespace Std
+{
+}
+
+namespace Std
+{
     namespace Map
     {
         [StructLayout(LayoutKind.Explicit, Size = 8)]
