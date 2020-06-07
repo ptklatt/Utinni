@@ -12,8 +12,6 @@ using pOpenFile = bool(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, co
 using pSaveFile = bool(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, const char* filename);
 using pClear = void(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis);
 
-using pClearPreloadList = char(__cdecl*)(DWORD, DWORD, DWORD);
-
 using pGetObjectTemplateName = const char* (__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, int objectTemplateNameIndex);
 
 using pNodeCount = int(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis);
@@ -27,8 +25,6 @@ using pRemoveNode = void(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, 
 pOpenFile openFile = (pOpenFile)0x00B97D90;
 pSaveFile saveFile = (pSaveFile)0x00B98120;
 pClear clear = (pClear)0x00B98290;
-
-pClearPreloadList clearPreloadList = (pClearPreloadList)0x00404D50;
 
 pGetObjectTemplateName getObjectTemplateName = (pGetObjectTemplateName)0x00B98720;
 
@@ -62,6 +58,8 @@ namespace swg::worldsnapshot
 using pLoad = void(__cdecl*)(const char* name);
 using pUnload = void(__cdecl*)();
 
+using pClearPreloadList = char(__cdecl*)(DWORD, DWORD, DWORD);
+
 using pCreateObject = DWORD(__cdecl*)(utinni::WorldSnapshotReaderWriter* pReader, utinni::WorldSnapshotReaderWriter::Node* pNode, DWORD result);
 using pAddObject = void(__cdecl*)(DWORD object, DWORD node);
 
@@ -69,6 +67,8 @@ using pDetailLevelChanged = void(__cdecl*)();
 
 pLoad load = (pLoad)0x0059C380;
 pUnload unload = (pUnload)0x0059C1D0;
+
+pClearPreloadList clearPreloadList = (pClearPreloadList)0x00404D50;
 
 pCreateObject createObject = (pCreateObject)0x0059BBA0;
 pAddObject addObject = (pAddObject)0x0059BF20;
@@ -83,11 +83,6 @@ WorldSnapshotReaderWriter* WorldSnapshotReaderWriter::get() { return (WorldSnaps
 void WorldSnapshotReaderWriter::clear()
 {
     swg::worldSnapshotReaderWriter::clear(this);
-}
-
-void WorldSnapshotReaderWriter::clearPreloadList(DWORD unk1, DWORD unk2, DWORD unk3)
-{
-    swg::worldSnapshotReaderWriter::clearPreloadList(unk1, unk2, unk3);
 }
 
 const char* WorldSnapshotReaderWriter::getObjectTemplateName(int objectTemplateNameIndex)
@@ -170,6 +165,7 @@ void WorldSnapshotReaderWriter::Node::removeNodeFull() // WIP - Messy IDA pseudo
     {
         DWORD nodeSpatialSubdivisionHandle1 = getNodeSpatialSubdivisionHandle();
         DWORD nodeSpatialSubdivisionHandle2 = nodeSpatialSubdivisionHandle1;
+
         if (nodeSpatialSubdivisionHandle1)
         {
             DWORD nodeSpatialSubdivisionHandle3 = *(DWORD*)(nodeSpatialSubdivisionHandle1 + 4);
@@ -190,7 +186,14 @@ void WorldSnapshotReaderWriter::Node::removeNodeFull() // WIP - Messy IDA pseudo
         }
         setNodeSpatialSubdivisionHandle(0);
 
-        Network::getObjectById(id)->remove();
+        Object* nodeObject = Network::getObjectById(id);
+
+        // Need to nullptr check because only loaded objects are non null, ie in range or previously 'seen'
+        // and the loop goes through all nodes in the entire .WS
+        if (nodeObject != nullptr)
+        {
+            nodeObject->remove(); 
+        }
     }
 }
 
@@ -209,12 +212,14 @@ void WorldSnapshotReaderWriter::Node::setNodeSpatialSubdivisionHandle(DWORD hand
     swg::worldSnapshotReaderWriter::node::setNodeSpatialSubdivisionHandle(this, handle);
 }
 
-void WorldSnapshot::load(const char* name)
+void WorldSnapshot::load(const std::string& name)
 {
-    if (name == nullptr)
+    if (name.empty())
         return;
 
-    swg::worldsnapshot::load(name);
+    memory::nopAddress(0x0059C3F3, 6); // Removes the grabbing of current .trn name to allow the loading of any .ws
+
+    swg::worldsnapshot::load(name.c_str());
 }
 
 void WorldSnapshot::unload() // WIP - Messy IDA pseudo code
@@ -235,9 +240,9 @@ void WorldSnapshot::unload() // WIP - Messy IDA pseudo code
 
     auto readerWriter = WorldSnapshotReaderWriter::get();
 
-    readerWriter->clearPreloadList(v0, v0, v1);
+    WorldSnapshotReaderWriter::clearPreloadList(v0, v0, v1);
 
-    for (i = 0; i < WorldSnapshotReaderWriter::get()->getNodeCount(); ++i)
+    for (i = 0; i < readerWriter->getNodeCount(); ++i)
     {
         readerWriter->getNodeByIndex(i)->removeNodeFull();
     }
@@ -255,13 +260,24 @@ void WorldSnapshot::unload() // WIP - Messy IDA pseudo code
     memory::write<DWORD>(0x1913E1C, memory::read<DWORD>(0x1913E18));
 
     readerWriter->clear();
-
 }
 
 void WorldSnapshot::reload()
 {
     unload();
+
     load(GroundScene::get()->getName());
+}
+
+void WorldSnapshotReaderWriter::clearPreloadList(DWORD unk1, DWORD unk2, DWORD unk3)
+{
+    swg::worldsnapshot::clearPreloadList(unk1, unk2, unk3);
+}
+
+void WorldSnapshotReaderWriter::saveFile()
+{
+    CreateDirectory((utility::getWorkingDirectory() + "/snapshot/").c_str(), nullptr);
+    swg::worldSnapshotReaderWriter::saveFile(this, ("snapshot/" + GroundScene::get()->getName() + ".ws").c_str());
 }
 
 bool WorldSnapshot::getPreloadSnapshot()

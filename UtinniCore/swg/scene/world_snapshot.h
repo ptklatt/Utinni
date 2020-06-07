@@ -53,8 +53,6 @@ public:
     Node* getNodeByIndex(int nodeId);
 
     Node* addNode(int nodeId, int parentNodeId, const char* objectFilename, int cellId, const swg::math::Transform& transform, float radius, unsigned int pobCrc);
-
-
 };
 }
 
@@ -63,7 +61,7 @@ namespace utinni
 class UTINNI_API WorldSnapshot
 {
 public:
-    static void load(const char* name);
+    static void load(const std::string& name);
     static void unload();
     static void reload();
 
