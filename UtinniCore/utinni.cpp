@@ -9,6 +9,7 @@
 #include "swg/game/game.h"
 #include "swg/graphics/graphics.h"
 #include "swg/scene/ground_scene.h"
+#include "swg/ui/cui_manager.h"
 
 #pragma comment(lib, "mscoree.lib")
 
@@ -108,6 +109,15 @@ void loadCoreDotNet()
     }
 }
 
+void detourGame()
+{
+    utinni::Client::detour();
+    utinni::Game::detour();
+    utinni::GroundScene::detour();
+    utinni::Graphics::detour();
+    utinni::CuiManager::detour();
+}
+
 void main()
 {
     char dllPathbuffer[MAX_PATH];
@@ -139,10 +149,7 @@ void main()
 
     utinni::Client::setIsEditorChild(ini.getBool("UtinniCore", "isEditorChild"));
 
-    utinni::Client::detour();
-    utinni::Game::detour();
-    utinni::GroundScene::detour();
-    utinni::Graphics::detour();
+    detourGame();
 
     loadCoreDotNet();
 }

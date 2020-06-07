@@ -4,8 +4,11 @@
 
 namespace memory
 {
+extern DWORD findPattern(DWORD startAddress, DWORD fileSize, const char* pattern, const char* mask);
+extern DWORD FindPattern(const char* moduleName, const char* pattern, const char* mask);
+
 template<typename T>
-T read(DWORD address)
+extern T read(DWORD address)
 {
     if (address > 0)
     {
@@ -15,7 +18,7 @@ T read(DWORD address)
 }
 
 template<typename T>
-T read(DWORD address, int offsetOfAddrResult)
+extern T read(DWORD address, int offsetOfAddrResult)
 {
     const int resultAddress = *(int*)address;
     if (resultAddress > 0)
@@ -26,7 +29,7 @@ T read(DWORD address, int offsetOfAddrResult)
 }
 
 template<typename T>
-void write(DWORD address, T value)
+extern void write(DWORD address, T value)
 {
     if (address > 0)
     {
@@ -35,7 +38,7 @@ void write(DWORD address, T value)
 }
 
 template<typename T>
-void write(int address, int offsetOfAddrResult, T value)
+extern void write(int address, int offsetOfAddrResult, T value)
 {
     const int resultAddress = *(int*)address;
     if (resultAddress > 0)
@@ -44,16 +47,16 @@ void write(int address, int offsetOfAddrResult, T value)
     }
 }
 
-void write(DWORD address, void* value, int length);
-void set(DWORD address, DWORD value, int size);
+extern void write(DWORD address, void* value, int length);
+extern void set(DWORD address, DWORD value, int size);
 
-void patchAddress(DWORD address, DWORD value);
-void nopAddress(DWORD address, int nopCount);
+extern void patchAddress(DWORD address, DWORD value);
+extern void nopAddress(DWORD address, int nopCount);
 
-void createJMP(PBYTE address, DWORD jumpToAddress, DWORD overrideLength);
+extern void createJMP(PBYTE address, DWORD jumpToAddress, DWORD overrideLength);
 
-DWORD getAddress(DWORD baseAddress, int ptrDepth);
-DWORD getAddress(DWORD baseAddress, std::vector<int>& offsets);
+extern DWORD getAddress(DWORD baseAddress, int ptrDepth);
+extern DWORD getAddress(DWORD baseAddress, std::vector<int>& offsets);
 
 }
 

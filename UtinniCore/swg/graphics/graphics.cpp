@@ -2,9 +2,12 @@
 #include "swg/scene/ground_scene.h"
 #include "swg/client/client.h"
 #include "swg/ui/cui_manager.h"
+#include "directx9.h"
 
 namespace swg::graphics
 {
+using pInstall = bool(__cdecl*)();
+
 using pUpdate = void(__cdecl*)(float elapsedTime);
 using pBeginScene = void(__cdecl*)();
 using pEndScene = void(__cdecl*)();
@@ -20,6 +23,8 @@ using pResize = void(__cdecl*)(int width, int height);
 using pFlushResources = void(__cdecl*)(bool reset);
 
 using pTextureListReloadTextures = void(__cdecl*)();
+
+pInstall install = (pInstall)0x007548A0;
 
 pUpdate update = (pUpdate)0x00755700; 
 pBeginScene beginScene = (pBeginScene)0x00755730; 
@@ -104,6 +109,15 @@ void Graphics::addPrePresentCallback(void(*func)())
 void Graphics::addPostPresentCallback(void(*func)())
 {
     postPresentCallback.emplace_back(func);
+}
+
+bool __cdecl hkInstall()
+{
+    bool result = swg::graphics::install();
+
+    directX::detour();
+
+    return result;
 }
 
 void __cdecl hkUpdate(float elapsedTime)
@@ -201,12 +215,14 @@ void __cdecl hkPresent()
 
 void Graphics::detour()
 {
-    swg::graphics::update = (swg::graphics::pUpdate)Detour::Create((LPVOID)swg::graphics::update, hkUpdate, DETOUR_TYPE_PUSH_RET);
-    swg::graphics::beginScene = (swg::graphics::pBeginScene)Detour::Create((LPVOID)swg::graphics::beginScene, hkBeginScene, DETOUR_TYPE_JMP, 5);
-    swg::graphics::endScene = (swg::graphics::pEndScene)Detour::Create((LPVOID)swg::graphics::endScene, hkEndScene, DETOUR_TYPE_JMP, 5);
+    swg::graphics::install = (swg::graphics::pInstall)Detour::Create(swg::graphics::install, hkInstall, DETOUR_TYPE_PUSH_RET);
 
-    swg::graphics::presentWindow = (swg::graphics::pPresentWindow)Detour::Create((LPVOID)swg::graphics::presentWindow, hkPresentWindow, DETOUR_TYPE_JMP, 5);
-    swg::graphics::present = (swg::graphics::pPresent)Detour::Create((LPVOID)0x00755800, hkPresent, DETOUR_TYPE_JMP, 5);
+    swg::graphics::update = (swg::graphics::pUpdate)Detour::Create(swg::graphics::update, hkUpdate, DETOUR_TYPE_PUSH_RET);
+    swg::graphics::beginScene = (swg::graphics::pBeginScene)Detour::Create(swg::graphics::beginScene, hkBeginScene, DETOUR_TYPE_JMP, 5);
+    swg::graphics::endScene = (swg::graphics::pEndScene)Detour::Create(swg::graphics::endScene, hkEndScene, DETOUR_TYPE_JMP, 5);
+
+    swg::graphics::presentWindow = (swg::graphics::pPresentWindow)Detour::Create(swg::graphics::presentWindow, hkPresentWindow, DETOUR_TYPE_JMP, 5);
+    swg::graphics::present = (swg::graphics::pPresent)Detour::Create(swg::graphics::present, hkPresent, DETOUR_TYPE_JMP, 5);
 }
 
 void Graphics::useHardwareCursor(bool value)
@@ -243,5 +259,6 @@ void Graphics::reloadTextures()
 {
     swg::graphics::textureListReloadTextures();
 }
+
 }
 

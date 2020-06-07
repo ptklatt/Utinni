@@ -1,7 +1,42 @@
 #include "memory.h"
+#include <TlHelp32.h>
+#include <Psapi.h>
 
 namespace memory
 {
+
+DWORD findPattern(DWORD startAddress, DWORD fileSize, const char* pattern, const char* mask)
+{
+	 DWORD pos = 0;
+	 unsigned int searchLength = strlen(mask) - 1;
+	 for (DWORD returnAddress = startAddress; returnAddress < startAddress + fileSize; returnAddress++) 
+	 {
+		  if (*(PBYTE)returnAddress == ((PBYTE)pattern)[pos] || mask[pos] == '?')
+		  {
+				if (mask[pos + 1] == '\0')
+				{
+					 return returnAddress - searchLength;
+				}
+
+				pos++;
+		  }
+		  else
+		  {
+				pos = 0;
+		  }
+	 }
+	 return 0;
+}
+
+DWORD FindPattern(const char* moduleName, const char* pattern, const char* mask)
+{
+	 HINSTANCE moduleHandle = GetModuleHandle(moduleName);
+	 MODULEINFO moduleInfo;
+	 GetModuleInformation(GetCurrentProcess(), moduleHandle, &moduleInfo, sizeof(MODULEINFO));
+
+	 return findPattern((DWORD)moduleHandle, moduleInfo.SizeOfImage, pattern, mask);
+}
+
 void copy(DWORD address, void* value, int length)
 {
 	 const PVOID addr = reinterpret_cast<PVOID>(address);

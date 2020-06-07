@@ -9,6 +9,10 @@ class UTINNI_API CuiManager
 public:
     static void setSize(int width, int height);
     static void togglePointer(bool isOn);
+    static bool isRenderingUi();
+    static bool hasObjectUnderCursor();
+
+    static void detour();
 };
 
 class UTINNI_API UiManager

@@ -38,7 +38,6 @@ void Game::addMainLoopCallback(void(*func)())
     mainLoopCallbacks.emplace_back(func);
 }
 
-
 int getMainLoopCount()
 {
     return memory::read<int>(0x1908830); // Ptr to the main loop count
