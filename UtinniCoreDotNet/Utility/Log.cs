@@ -32,7 +32,6 @@ namespace UtinniCoreDotNet.Utility
             }
             else
             {
-
                 return text;
             }
         }
@@ -55,6 +54,26 @@ namespace UtinniCoreDotNet.Utility
         public static void Info(string text)
         {
             log.Info(FormatText(text));
+        }
+
+        public static void CriticalSimple(string text)
+        {
+            log.Critical(text);
+        }
+
+        public static void DebugSimple(string text)
+        {
+            log.Debug(text);
+        }
+
+        public static void ErrorSimple(string text)
+        {
+            log.Error(text);
+        }
+
+        public static void InfoSimple(string text)
+        {
+            log.Info(text);
         }
     }
 }
