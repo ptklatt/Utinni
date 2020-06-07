@@ -83,7 +83,7 @@ void __fastcall hkDrawLoop(GroundScene* pThis, DWORD EDX)
     }
 }
 
-void GroundScene::addUpdateLoopCallback(void(*func)(GroundScene* pThis, float time))
+void GroundScene::addUpdateLoopCallback(void(*func)(GroundScene* pThis, float elapsedTime))
 {
     updateLoopCallbacks.emplace_back(func);
 }

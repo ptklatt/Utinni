@@ -55,7 +55,7 @@ public:
 
     static void addPreDrawLoopCallback(void(*func)(GroundScene* pThis));
     static void addPostDrawLoopCallback(void(*func)(GroundScene* pThis));
-    static void addUpdateLoopCallback(void(*func)(GroundScene* pThis, float time));
+    static void addUpdateLoopCallback(void(*func)(GroundScene* pThis, float elapsedTime));
 
     static void detour();
     static void removeDetour();

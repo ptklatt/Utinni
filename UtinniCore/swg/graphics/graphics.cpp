@@ -38,23 +38,119 @@ pFlushResources flushResources = (pFlushResources)0x00755520;
 pTextureListReloadTextures textureListReloadTextures = (pTextureListReloadTextures)0x00764B70;
 }
 
+
+static std::vector<void(*)(float elapsedTime)> preUpdateCallback;
+static std::vector<void(*)(float elapsedTime)> postUpdateCallback;
+
+static std::vector<void(*)()> preBeginSceneCallback;
+static std::vector<void(*)()> postBeginSceneCallback;
+
+static std::vector<void(*)()> preEndSceneCallback;
+static std::vector<void(*)()> postEndSceneCallback;
+
+static std::vector<void(*)(HWND hwnd, int width, int height)> prePresentWindowCallback;
+static std::vector<void(*)(HWND hwnd, int width, int height)> postPresentWindowCallback;
+
+static std::vector<void(*)()> prePresentCallback;
+static std::vector<void(*)()> postPresentCallback;
+
 namespace utinni
 {
+void Graphics::addPreUpdateLoopCallback(void(*func)(float elapsedTime))
+{
+    preUpdateCallback.emplace_back(func);
+}
+
+void Graphics::addPostUpdateLoopCallback(void(*func)(float elapsedTime))
+{
+    postUpdateCallback.emplace_back(func);
+}
+
+void Graphics::addPreBeginSceneCallback(void(*func)())
+{
+    preBeginSceneCallback.emplace_back(func);
+}
+
+void Graphics::addPostBeginSceneCallback(void(*func)())
+{
+    postBeginSceneCallback.emplace_back(func);
+}
+
+void Graphics::addPreEndSceneCallback(void(*func)())
+{
+    preEndSceneCallback.emplace_back(func);
+}
+
+void Graphics::addPostEndSceneCallback(void(*func)())
+{
+    postEndSceneCallback.emplace_back(func);
+}
+
+void Graphics::addPrePresentWindowCallback(void(*func)(HWND hwnd, int width, int height))
+{
+    prePresentWindowCallback.emplace_back(func);
+}
+
+void Graphics::addPostPresentWindowCallback(void(*func)(HWND hwnd, int width, int height))
+{
+    postPresentWindowCallback.emplace_back(func);
+}
+
+void Graphics::addPrePresentCallback(void(*func)())
+{
+    prePresentCallback.emplace_back(func);
+}
+
+void Graphics::addPostPresentCallback(void(*func)())
+{
+    postPresentCallback.emplace_back(func);
+}
+
 void __cdecl hkUpdate(float elapsedTime)
 {
+    for (const auto& func : preUpdateCallback)
+    {
+        func(elapsedTime);
+    }
+
     swg::graphics::update(elapsedTime);
+
+    for (const auto& func : postUpdateCallback)
+    {
+        func(elapsedTime);
+    }
 }
 
 void __cdecl hkBeginScene()
 {
+    for (const auto& func : preBeginSceneCallback)
+    {
+        func();
+    }
+
     swg::graphics::beginScene();
+
+    for (const auto& func : postBeginSceneCallback)
+    {
+        func();
+    }
 }
 
 int oldWidth = 0;
 int oldHeight = 0;
 void __cdecl hkEndScene()
 {
+    for (const auto& func : preEndSceneCallback)
+    {
+        func();
+    }
+
     swg::graphics::endScene();
+
+    for (const auto& func : postEndSceneCallback)
+    {
+        func();
+    }
 
     RECT rect;
     if (Client::getIsEditorChild() && GetWindowRect(Client::getHwnd(), &rect))
@@ -75,12 +171,32 @@ void __cdecl hkEndScene()
 
 void __cdecl hkPresentWindow(HWND hwnd, int width, int height)
 {
+    for (const auto& func : prePresentWindowCallback)
+    {
+        func(hwnd, width, height);
+    }
+
     swg::graphics::presentWindow(hwnd, width, height);
+
+    for (const auto& func : postPresentWindowCallback)
+    {
+        func(hwnd, width, height);
+    }
 }
 
 void __cdecl hkPresent()
 {
+    for (const auto& func : prePresentCallback)
+    {
+        func();
+    }
+
     swg::graphics::present();
+
+    for (const auto& func : postPresentCallback)
+    {
+        func();
+    }
 }
 
 void Graphics::detour()
