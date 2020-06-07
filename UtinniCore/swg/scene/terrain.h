@@ -13,6 +13,6 @@ public:
     float getTimeOfDay();
     int getWeatherIndex();
     void setWeatherIndex(int weatherIndex);
-    const char* getPath();
+    const char* getFilename();
 };
 };

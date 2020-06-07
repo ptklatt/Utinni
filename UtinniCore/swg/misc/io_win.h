@@ -28,8 +28,8 @@ public:
     int unk02;
     int localX;
     int localY;
-    int& x;
-    int& y;
+    int* x;
+    int* y;
 };
 }
 

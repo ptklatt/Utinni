@@ -19,6 +19,7 @@ namespace UtinniCoreDotNetGen
                 driver.ParserOptions.TargetTriple = "i686-pc-win32-msvc"; // Generates x86 EntryPoints
 
                 // Needed for spdlog to work
+                driver.ParserOptions.UnityBuild = true;
                 driver.ParserOptions.EnableRTTI = true;
                 driver.ParserOptions.AddDefines("SPDLOG_NO_EXCEPTIONS");
                 driver.ParserOptions.AddDefines("FMT_EXCEPTIONS=0");
@@ -45,6 +46,8 @@ namespace UtinniCoreDotNetGen
                 module.Headers.Add("swg\\game\\game.h");
                 module.Headers.Add("swg\\graphics\\graphics.h");
                 module.Headers.Add("swg\\misc\\swg_math.h");
+                module.Headers.Add("swg\\scene\\ground_scene.h");
+                module.Headers.Add("swg\\scene\\terrain.h");
                 module.Headers.Add("swg\\scene\\world_snapshot.h");
                 module.Headers.Add("swg\\ui\\cui_manager.h");
 

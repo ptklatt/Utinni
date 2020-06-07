@@ -31,12 +31,21 @@ void showLastErrorMessageBox()
     MessageBox(0, message.c_str(), "Error", MB_OK);
 }
 
-std::string ws2s(const std::wstring& wstr)
+std::string getWorkingDirectory()
 {
-    if (wstr.empty()) return std::string();
-    int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), nullptr, 0, nullptr, nullptr);
-    std::string str(size_needed, 0);
-    WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &str[0], size_needed, nullptr, nullptr);
+    char buffer[FILENAME_MAX];
+    GetCurrentDirectory(FILENAME_MAX, buffer);
+    return buffer;
+}
+
+std::string wstring_to_string(const std::wstring& wstr)
+{
+    if (wstr.empty()) 
+        return std::string();
+
+    int strSize = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), nullptr, 0, nullptr, nullptr);
+    std::string str(strSize, 0);
+    WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &str[0], strSize, nullptr, nullptr);
     return str;
 }
 }

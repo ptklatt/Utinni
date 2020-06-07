@@ -51,12 +51,18 @@ public:
     uint32_t unk17;
 
     static GroundScene* get();
-    const char* getName();
+    std::string getName();
+
+    static void addPreDrawLoopCallback(void(*func)(GroundScene* pThis));
+    static void addPostDrawLoopCallback(void(*func)(GroundScene* pThis));
+    static void addUpdateLoopCallback(void(*func)(GroundScene* pThis, float time));
 
     static void detour();
     static void removeDetour();
 
     Camera* getCurrentCamera();
+
+    void reloadTerrain();
 };
 
 }

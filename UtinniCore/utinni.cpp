@@ -8,6 +8,7 @@
 #include "swg/client/client.h"
 #include "swg/game/game.h"
 #include "swg/graphics/graphics.h"
+#include "swg/scene/ground_scene.h"
 
 #pragma comment(lib, "mscoree.lib")
 
@@ -122,6 +123,7 @@ void main()
 
     spdlog::set_pattern("[%D][%H:%M:%S] [%l] %! %v");
     spdlog::flush_on(spdlog::level::info);
+    //spdlog::flush_every(std::chrono::seconds(2));
 
     auto file_logger = spdlog::basic_logger_mt("UtinniLog", path + "utinni.log");
     spdlog::set_default_logger(file_logger);
@@ -132,6 +134,7 @@ void main()
 
     utinni::Client::detour();
     utinni::Game::detour();
+    utinni::GroundScene::detour();
     utinni::Graphics::detour();
 
     loadCoreDotNet();

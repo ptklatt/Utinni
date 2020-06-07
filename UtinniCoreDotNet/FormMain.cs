@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using UtinniCore.Delegates;
+using UtinniCore.Utinni;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI;
 using UtinniCoreDotNet.Utility;
@@ -60,7 +62,8 @@ namespace UtinniCoreDotNet
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(UtinniCore.Utinni.utinni.GetConfig().GetString("Launcher", "swgClientName"));
         }
+
+
     }
 }

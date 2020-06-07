@@ -9,6 +9,8 @@ class Camera;
 class UTINNI_API Game
 {
 public:
+    static void addMainLoopCallback(void(*func)());
+
     static void detour();
     static void quit();
 

@@ -69,7 +69,7 @@ const char* ClientObject::getGameObjectTypeStringIdKey()
 
 const char* ClientObject::getGameObjectTypeName()
 {
-    return utility::ws2s(std::wstring(*swg::clientObject::getGameObjectTypeName(this))).c_str();
+    return utility::wstring_to_string(std::wstring(*swg::clientObject::getGameObjectTypeName(this))).c_str();
 }
 
 DWORD ClientObject::getCreatureObject()

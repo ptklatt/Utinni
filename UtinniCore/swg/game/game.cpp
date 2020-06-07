@@ -29,26 +29,43 @@ pIsViewFirstPerson isViewFirstPerson = (pIsViewFirstPerson)0x00425C10;
 pIsHudSceneTypeSpace isHudSceneTypeSpace = (pIsHudSceneTypeSpace)0x00426170;
 }
 
+static std::vector<void(*)()> mainLoopCallbacks;
+
 namespace utinni
 {
+void Game::addMainLoopCallback(void(*func)())
+{
+    mainLoopCallbacks.emplace_back(func);
+}
+
+
 int getMainLoopCount()
 {
     return memory::read<int>(0x1908830); // Ptr to the main loop count
 }
 
-void __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
+int __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
 {
+    int result;
+
     RECT rect;
     if (Client::getIsEditorChild() && GetWindowRect(Client::getHwnd(), &rect))
     {
         int newWidth = rect.right - rect.left;
         int newHeight = rect.bottom - rect.top;
-        swg::game::mainLoop(false, Client::getHwnd(), newWidth, newHeight);
+        result = swg::game::mainLoop(false, Client::getHwnd(), newWidth, newHeight);
     }
     else
     {
-        swg::game::mainLoop(presentToWindow, hwnd, width, height);
+        result = swg::game::mainLoop(presentToWindow, hwnd, width, height);
     }
+
+    for (const auto& func : mainLoopCallbacks)
+    {
+        func();
+    }
+
+    return result;
 }
 
 void Game::detour()

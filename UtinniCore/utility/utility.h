@@ -9,5 +9,7 @@ extern void showMessageBox(const std::string& text);
 extern void showMessageBoxEmpty();
 extern void showLastErrorMessageBox();
 
-extern std::string ws2s(const std::wstring& wstr);
+extern std::string getWorkingDirectory();
+
+extern std::string wstring_to_string(const std::wstring& wstr);
 }
