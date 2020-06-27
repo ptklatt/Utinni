@@ -2,8 +2,10 @@
 
 namespace swg::utility
 {
+using pAllocateMemory = DWORD(__cdecl*)(size_t size);
 using pCalculateCrc = unsigned int(__cdecl*)(const char* str);
 
+pAllocateMemory allocateMemory = (pAllocateMemory)0x00AC15C0;
 pCalculateCrc calculateCrc = (pCalculateCrc)0x00AA4790;
 
 }
@@ -12,16 +14,7 @@ namespace utinni
 {
 DWORD allocateMemory(size_t size)
 {
-    uint32_t _size = size;
-    DWORD pCallAllocteMem = 0x00AC15C0;
-    DWORD pAllocatedMem;
-    __asm
-    {
-        push _size
-        call pCallAllocteMem
-        mov pAllocatedMem, eax
-    }
-    return pAllocatedMem;
+    return swg::utility::allocateMemory(size);
 }
 
 unsigned int calculateCrc(const char* string)
