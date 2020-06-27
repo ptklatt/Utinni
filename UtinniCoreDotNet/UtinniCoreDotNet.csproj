@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Callbacks\GameCallbacks.cs" />
+    <Compile Include="Callbacks\GroundSceneCallbacks.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +78,7 @@
     <Compile Include="UI\CollapsiblePanel.Designer.cs">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UndoRedo\ICommand.cs" />
     <Compile Include="Utility\Log.cs" />
   </ItemGroup>
   <ItemGroup>

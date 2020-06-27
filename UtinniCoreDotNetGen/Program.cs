@@ -44,6 +44,7 @@ namespace UtinniCoreDotNetGen
 
                 module.Headers.Add("swg\\client\\client.h");
                 module.Headers.Add("swg\\game\\game.h");
+                module.Headers.Add("swg\\graphics\\directx9.h");
                 module.Headers.Add("swg\\graphics\\graphics.h");
                 module.Headers.Add("swg\\misc\\swg_math.h");
                 module.Headers.Add("swg\\scene\\ground_scene.h");
@@ -65,8 +66,6 @@ namespace UtinniCoreDotNetGen
                 ctx.IgnoreHeadersWithName("spdlog");
                 ctx.IgnoreHeadersWithName("detourxs");
                 ctx.IgnoreHeadersWithName("ADE32");
-
-                //ctx.IgnoreHeadersWithName("utility");
             }
 
             public void Postprocess(Driver driver, ASTContext ctx)

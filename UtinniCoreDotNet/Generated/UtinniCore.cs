@@ -3641,6 +3641,16 @@ namespace UtinniCore
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getPlayer@Game@utinni@@SAPAVObject@2@XZ")]
+                internal static extern global::System.IntPtr GetPlayer();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getPlayerCreatureObject@Game@utinni@@SAPAVObject@2@XZ")]
+                internal static extern global::System.IntPtr GetPlayerCreatureObject();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
                     EntryPoint="?getCamera@Game@utinni@@SAPAVCamera@2@XZ")]
                 internal static extern global::System.IntPtr GetCamera();
 
@@ -3743,6 +3753,34 @@ namespace UtinniCore
                 }
             }
 
+            public static global::UtinniCore.Utinni.Object Player
+            {
+                get
+                {
+                    var __ret = __Internal.GetPlayer();
+                    global::UtinniCore.Utinni.Object __result0;
+                    if (__ret == IntPtr.Zero) __result0 = null;
+                    else if (global::UtinniCore.Utinni.Object.NativeToManagedMap.ContainsKey(__ret))
+                        __result0 = (global::UtinniCore.Utinni.Object) global::UtinniCore.Utinni.Object.NativeToManagedMap[__ret];
+                    else __result0 = global::UtinniCore.Utinni.Object.__CreateInstance(__ret);
+                    return __result0;
+                }
+            }
+
+            public static global::UtinniCore.Utinni.Object PlayerCreatureObject
+            {
+                get
+                {
+                    var __ret = __Internal.GetPlayerCreatureObject();
+                    global::UtinniCore.Utinni.Object __result0;
+                    if (__ret == IntPtr.Zero) __result0 = null;
+                    else if (global::UtinniCore.Utinni.Object.NativeToManagedMap.ContainsKey(__ret))
+                        __result0 = (global::UtinniCore.Utinni.Object) global::UtinniCore.Utinni.Object.NativeToManagedMap[__ret];
+                    else __result0 = global::UtinniCore.Utinni.Object.__CreateInstance(__ret);
+                    return __result0;
+                }
+            }
+
             public static global::UtinniCore.Utinni.Camera Camera
             {
                 get
@@ -3773,6 +3811,35 @@ namespace UtinniCore
         }
     }
 
+    namespace DirectX
+    {
+        public unsafe partial class directx9
+        {
+            public partial struct __Internal
+            {
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?detour@directX@@YAXXZ")]
+                internal static extern void Detour();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?toggleWireframe@directX@@YAXXZ")]
+                internal static extern void ToggleWireframe();
+            }
+
+            public static void Detour()
+            {
+                __Internal.Detour();
+            }
+
+            public static void ToggleWireframe()
+            {
+                __Internal.ToggleWireframe();
+            }
+        }
+    }
+
     namespace Utinni
     {
         public unsafe partial class Graphics : IDisposable
@@ -3784,6 +3851,46 @@ namespace UtinniCore
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
                     EntryPoint="??0Graphics@utinni@@QAE@ABV01@@Z")]
                 internal static extern global::System.IntPtr cctor(global::System.IntPtr __instance, global::System.IntPtr _0);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?addPreUpdateLoopCallback@Graphics@utinni@@SAXP6AXM@Z@Z")]
+                internal static extern void AddPreUpdateLoopCallback(global::System.IntPtr func);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?addPostUpdateLoopCallback@Graphics@utinni@@SAXP6AXM@Z@Z")]
+                internal static extern void AddPostUpdateLoopCallback(global::System.IntPtr func);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?addPreBeginSceneCallback@Graphics@utinni@@SAXP6AXXZ@Z")]
+                internal static extern void AddPreBeginSceneCallback(global::System.IntPtr func);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?addPostBeginSceneCallback@Graphics@utinni@@SAXP6AXXZ@Z")]
+                internal static extern void AddPostBeginSceneCallback(global::System.IntPtr func);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?addPreEndSceneCallback@Graphics@utinni@@SAXP6AXXZ@Z")]
+                internal static extern void AddPreEndSceneCallback(global::System.IntPtr func);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?addPostEndSceneCallback@Graphics@utinni@@SAXP6AXXZ@Z")]
+                internal static extern void AddPostEndSceneCallback(global::System.IntPtr func);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?addPrePresentCallback@Graphics@utinni@@SAXP6AXXZ@Z")]
+                internal static extern void AddPrePresentCallback(global::System.IntPtr func);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?addPostPresentCallback@Graphics@utinni@@SAXP6AXXZ@Z")]
+                internal static extern void AddPostPresentCallback(global::System.IntPtr func);
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
@@ -3892,6 +3999,54 @@ namespace UtinniCore
                 if (__ownsNativeInstance)
                     Marshal.FreeHGlobal(__Instance);
                 __Instance = IntPtr.Zero;
+            }
+
+            public static void AddPreUpdateLoopCallback(global::UtinniCore.Delegates.Action_float func)
+            {
+                var __arg0 = func == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func);
+                __Internal.AddPreUpdateLoopCallback(__arg0);
+            }
+
+            public static void AddPostUpdateLoopCallback(global::UtinniCore.Delegates.Action_float func)
+            {
+                var __arg0 = func == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func);
+                __Internal.AddPostUpdateLoopCallback(__arg0);
+            }
+
+            public static void AddPreBeginSceneCallback(global::UtinniCore.Delegates.Action_ func)
+            {
+                var __arg0 = func == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func);
+                __Internal.AddPreBeginSceneCallback(__arg0);
+            }
+
+            public static void AddPostBeginSceneCallback(global::UtinniCore.Delegates.Action_ func)
+            {
+                var __arg0 = func == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func);
+                __Internal.AddPostBeginSceneCallback(__arg0);
+            }
+
+            public static void AddPreEndSceneCallback(global::UtinniCore.Delegates.Action_ func)
+            {
+                var __arg0 = func == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func);
+                __Internal.AddPreEndSceneCallback(__arg0);
+            }
+
+            public static void AddPostEndSceneCallback(global::UtinniCore.Delegates.Action_ func)
+            {
+                var __arg0 = func == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func);
+                __Internal.AddPostEndSceneCallback(__arg0);
+            }
+
+            public static void AddPrePresentCallback(global::UtinniCore.Delegates.Action_ func)
+            {
+                var __arg0 = func == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func);
+                __Internal.AddPrePresentCallback(__arg0);
+            }
+
+            public static void AddPostPresentCallback(global::UtinniCore.Delegates.Action_ func)
+            {
+                var __arg0 = func == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func);
+                __Internal.AddPostPresentCallback(__arg0);
             }
 
             public static void Detour()
@@ -12228,8 +12383,8 @@ namespace UtinniCore
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?createNewNode@WorldSnapshot@utinni@@SAXPBDAAUTransform@math@swg@@@Z")]
-                internal static extern void CreateNewNode([MarshalAs(UnmanagedType.LPUTF8Str)] string objectFilename, global::System.IntPtr transform);
+                    EntryPoint="?createNewNode@WorldSnapshot@utinni@@SAPAVNode@WorldSnapshotReaderWriter@2@PBDAAUTransform@math@swg@@@Z")]
+                internal static extern global::System.IntPtr CreateNewNode([MarshalAs(UnmanagedType.LPUTF8Str)] string objectFilename, global::System.IntPtr transform);
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
@@ -12340,12 +12495,18 @@ namespace UtinniCore
                 __Internal.DetailLevelChanged();
             }
 
-            public static void CreateNewNode(string objectFilename, global::UtinniCore.Swg.Math.Transform transform)
+            public static global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node CreateNewNode(string objectFilename, global::UtinniCore.Swg.Math.Transform transform)
             {
                 if (ReferenceEquals(transform, null))
                     throw new global::System.ArgumentNullException("transform", "Cannot be null because it is a C++ reference (&).");
                 var __arg1 = transform.__Instance;
-                __Internal.CreateNewNode(objectFilename, __arg1);
+                var __ret = __Internal.CreateNewNode(objectFilename, __arg1);
+                global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node) global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__CreateInstance(__ret);
+                return __result0;
             }
 
             public static void RemoveNode(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node pNode)
@@ -12391,6 +12552,23 @@ namespace UtinniCore
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
                     EntryPoint="?togglePointer@CuiManager@utinni@@SAX_N@Z")]
                 internal static extern void TogglePointer(bool isOn);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?detour@CuiManager@utinni@@SAXXZ")]
+                internal static extern void Detour();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?isRenderingUi@CuiManager@utinni@@SA_NXZ")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool IsRenderingUi();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?hasObjectUnderCursor@CuiManager@utinni@@SA_NXZ")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool HasObjectUnderCursor();
             }
 
             public global::System.IntPtr __Instance { get; protected set; }
@@ -12469,6 +12647,29 @@ namespace UtinniCore
             public static void TogglePointer(bool isOn)
             {
                 __Internal.TogglePointer(isOn);
+            }
+
+            public static void Detour()
+            {
+                __Internal.Detour();
+            }
+
+            public static bool IsRenderingUi
+            {
+                get
+                {
+                    var __ret = __Internal.IsRenderingUi();
+                    return __ret;
+                }
+            }
+
+            public static bool HasObjectUnderCursor
+            {
+                get
+                {
+                    var __ret = __Internal.HasObjectUnderCursor();
+                    return __ret;
+                }
             }
         }
 
@@ -12587,6 +12788,16 @@ namespace UtinniCore
             {
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?findPattern@memory@@YAKKKPBD0@Z")]
+                internal static extern uint FindPattern(uint startAddress, uint fileSize, [MarshalAs(UnmanagedType.LPUTF8Str)] string pattern, [MarshalAs(UnmanagedType.LPUTF8Str)] string mask);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?FindPattern@memory@@YAKPBD00@Z")]
+                internal static extern uint FindPattern([MarshalAs(UnmanagedType.LPUTF8Str)] string moduleName, [MarshalAs(UnmanagedType.LPUTF8Str)] string pattern, [MarshalAs(UnmanagedType.LPUTF8Str)] string mask);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
                     EntryPoint="?write@memory@@YAXKPAXH@Z")]
                 internal static extern void Write(uint address, global::System.IntPtr value, int length);
 
@@ -12614,6 +12825,18 @@ namespace UtinniCore
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
                     EntryPoint="?getAddress@memory@@YAKKH@Z")]
                 internal static extern uint GetAddress(uint baseAddress, int ptrDepth);
+            }
+
+            public static uint FindPattern(uint startAddress, uint fileSize, string pattern, string mask)
+            {
+                var __ret = __Internal.FindPattern(startAddress, fileSize, pattern, mask);
+                return __ret;
+            }
+
+            public static uint FindPattern(string moduleName, string pattern, string mask)
+            {
+                var __ret = __Internal.FindPattern(moduleName, pattern, mask);
+                return __ret;
             }
 
             public static void Write(uint address, global::System.IntPtr value, int length)
@@ -13321,10 +13544,13 @@ namespace UtinniCore
         public unsafe delegate void Action_();
 
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public unsafe delegate void Action_float(float elapsedTime);
+
+        [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
         public unsafe delegate void Action_IntPtr(global::System.IntPtr pThis);
 
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public unsafe delegate void Action_IntPtr_float(global::System.IntPtr pThis, float time);
+        public unsafe delegate void Action_IntPtr_float(global::System.IntPtr pThis, float elapsedTime);
     }
 }
 
