@@ -49,11 +49,13 @@ public:
     int getNodeCount();
     int getNodeCountTotal();
 
+    Node* getNodeById(int id);
     Node* getNodeByNetworkId(int64_t networkId);
     Node* getNodeByIndex(int nodeId);
 
     Node* addNode(int nodeId, int parentNodeId, const char* objectFilename, int cellId, const swg::math::Transform& transform, float radius, unsigned int pobCrc);
 };
+
 }
 
 namespace utinni
@@ -70,7 +72,7 @@ public:
 
     static void detailLevelChanged();
 
-    static void createNewNode(const char* objectFilename, swg::math::Transform& transform);
+    static WorldSnapshotReaderWriter::Node* createNewNode(const char* objectFilename, swg::math::Transform& transform);
     static void removeNode(WorldSnapshotReaderWriter::Node* pNode);
 };
 }

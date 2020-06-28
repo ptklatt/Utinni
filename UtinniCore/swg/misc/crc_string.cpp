@@ -18,9 +18,9 @@ PersistentCrcString* PersistentCrcString::ctor(const char* str)
     return swg::crcString::persistentCrcString_ctor(allocateMemory(sizeof(PersistentCrcString)), str, true);
 }
 
-#pragma optimize( "", off )
 ConstCharCrcString* ConstCharCrcString::ctor(const char* str)
 {
     return swg::crcString::constCharCrcString_ctor(allocateMemory(sizeof(ConstCharCrcString)), str);
 }
+
 }

@@ -30,7 +30,7 @@ Object* Network::getObjectById(const int64_t& id)
 
 int64_t Network::cast(int id)
 {
-    DWORD networkId;
+    DWORD networkId; // This is broken
     return swg::network::cast(&networkId, id, (id >> 32));;
 }
 

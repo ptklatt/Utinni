@@ -198,6 +198,9 @@ void __cdecl hkPresentWindow(HWND hwnd, int width, int height)
     }
 }
 
+
+
+
 void __cdecl hkPresent()
 {
     for (const auto& func : prePresentCallback)

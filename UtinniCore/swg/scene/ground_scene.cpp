@@ -1,5 +1,6 @@
 #include "ground_scene.h"
 #include "terrain.h"
+#include "world_snapshot.h"
 
 
 namespace swg::groundScene
@@ -102,6 +103,8 @@ void GroundScene::detour()
 {
     swg::groundScene::draw = (swg::groundScene::pDraw)Detour::Create(swg::groundScene::draw, hkDrawLoop, DETOUR_TYPE_PUSH_RET);
     swg::groundScene::update = (swg::groundScene::pUpdate)Detour::Create(swg::groundScene::update, hkUpdateLoop, DETOUR_TYPE_PUSH_RET);
+
+    WorldSnapshot::setPreloadSnapshot(false);
 }
 
 void GroundScene::removeDetour()
