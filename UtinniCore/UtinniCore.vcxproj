@@ -156,6 +156,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
   <ItemGroup>
     <ClCompile Include="..\external\DetourXS\ADE32.cpp" />
     <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
+    <ClCompile Include="swg\ui\imgui_implementation.cpp" />
     <ClCompile Include="swg\misc\config.cpp" />
     <ClCompile Include="swg\graphics\directx9.cpp" />
     <ClCompile Include="utility\log.cpp" />
@@ -183,6 +184,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\scene\world_snapshot.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="swg\ui\imgui_implementation.h" />
     <ClInclude Include="swg\misc\config.h" />
     <ClInclude Include="swg\graphics\directx9.h" />
     <ClInclude Include="utility\log.h" />

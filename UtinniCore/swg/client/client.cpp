@@ -17,20 +17,20 @@ pWndProc wndProc = (pWndProc)0x00AA0970; // SWG's WndProc
 
 }
 
-bool isEditorChild = false;
+bool enableEditorMode = false;
 HWND hwnd = nullptr;
 HINSTANCE hInstance = nullptr;
 
 namespace utinni
 {
-void Client::setIsEditorChild(bool value)
+void Client::setEditorMode(bool enable)
 {
-    isEditorChild = value;
+    enableEditorMode = enable;
 }
 
-bool Client::getIsEditorChild()
+bool Client::getEditorMode()
 {
-    return isEditorChild;
+    return enableEditorMode;
 }
 
 void Client::setHwnd(void* newHwnd)
@@ -57,7 +57,7 @@ void Client::suspendInput()
 {
     if (Game::isRunning())
     {
-        SetFocus(NULL);
+        SetFocus(nullptr);
         Graphics::showMouseCursor(false);
         DirectInput::suspend();
     }
@@ -75,7 +75,7 @@ void Client::resumeInput()
 
 int __cdecl hkSetupStartInstall(StartupData* pStartupData)
 {
-    if (Client::getIsEditorChild())
+    if (Client::getEditorMode())
     {
         pStartupData->createOwnWindow = false;
         pStartupData->hInstance = nullptr;
@@ -90,7 +90,7 @@ int __cdecl hkSetupStartInstall(StartupData* pStartupData)
 
 LRESULT CALLBACK hkWndProc(HWND Hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    if (Client::getIsEditorChild())
+    if (Client::getEditorMode())
     {
     }
     return CallWindowProc((WNDPROC)swg::client::wndProc, Hwnd, msg, wParam, lParam);
@@ -98,7 +98,7 @@ LRESULT CALLBACK hkWndProc(HWND Hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 int __cdecl hkMainLoop(HINSTANCE hInstance, int unk1, int unk2)
 {
-    if (Client::getIsEditorChild())
+    if (Client::getEditorMode())
     {
         while (Client::getHInstance() == nullptr)
         {

@@ -17,7 +17,8 @@ const static IniValue values[] = {
     { "Launcher", "swgClientName", ""},
 
     // UtinniCore settings
-    { "UtinniCore", "isEditorChild", false},
+    { "UtinniCore", "enableEditorMode", false},
+    { "UtinniCore", "enableInternalUi", false},
     { "UtinniCore", "useSwgOverrideCfg", false},
     { "UtinniCore", "autoLoadScene", false},
 

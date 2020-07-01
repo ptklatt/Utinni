@@ -10,6 +10,7 @@
 #include "swg/graphics/graphics.h"
 #include "swg/scene/ground_scene.h"
 #include "swg/ui/cui_manager.h"
+#include "swg/ui/imgui_implementation.h"
 #include "swg/misc/config.h"
 
 #pragma comment(lib, "mscoree.lib")
@@ -150,7 +151,8 @@ void main()
 
     spdlog::info("Process: " + std::to_string(_getpid()));
 
-    utinni::Client::setIsEditorChild(ini.getBool("UtinniCore", "isEditorChild"));
+    utinni::Client::setEditorMode(ini.getBool("UtinniCore", "enableEditorMode"));
+    imgui_implementation::enableInternalUi(ini.getBool("UtinniCore", "enableInternalUi"));
 
     detourGame();
 

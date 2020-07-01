@@ -167,7 +167,7 @@ void __cdecl hkEndScene()
     }
 
     RECT rect;
-    if (Client::getIsEditorChild() && GetWindowRect(Client::getHwnd(), &rect))
+    if (Client::getEditorMode() && GetWindowRect(Client::getHwnd(), &rect))
     {
         int newWidth = rect.right - rect.left;
         int newHeight = rect.bottom - rect.top;

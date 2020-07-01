@@ -36,8 +36,8 @@ struct StartupData
 class UTINNI_API Client
 {
 public:
-    static void setIsEditorChild(bool value);
-    static bool getIsEditorChild();
+    static void setEditorMode(bool enable);
+    static bool getEditorMode();
 
     static void setHwnd(void* newHwnd);
     static HWND getHwnd();

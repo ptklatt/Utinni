@@ -1,13 +1,11 @@
 #include "directx9.h"
-#include "utinni.h"
-
 #include <d3d9.h>
+#include "utinni.h"
+#include "swg/ui/imgui_implementation.h"
 #include "swg/ui/cui_manager.h"
 
 namespace directX
 {
-bool enableWireframe = false;
-
 LPDIRECT3DDEVICE9 pDevice = nullptr;
 DWORD* vtbl = nullptr;
 
@@ -174,7 +172,12 @@ HRESULT __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 
 HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion)
 {
+	 imgui_implementation::render();
+	 
     HRESULT result = present(pDevice, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion);
+
+	 imgui_implementation::setup(pDevice);
+
     return result;
 }
 
@@ -184,6 +187,7 @@ HRESULT __stdcall hkReset(LPDIRECT3DDEVICE9 pDevice, D3DPRESENT_PARAMETERS* pPre
     return result;
 }
 
+bool enableWireframe = false;
 HRESULT __stdcall hkDrawIndexedPrimitive(LPDIRECT3DDEVICE9 pDevice, D3DPRIMITIVETYPE type, int baseVertexIndex, unsigned int minVertexIndex, unsigned int numVertices, unsigned int startIndex, unsigned int primitiveCount)
 {
     if (pDevice != nullptr && ((enableWireframe && utinni::CuiManager::isRenderingUi()) || !enableWireframe))
