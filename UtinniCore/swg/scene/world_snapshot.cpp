@@ -135,8 +135,19 @@ void WorldSnapshotReaderWriter::Node::removeNode()
             }
         }
     }
-    else
+    else 
     {
+        // ToDo check if removeNodeFull can replace the below remove obj
+
+        Object* nodeObject = Network::getObjectById(id);
+
+        // Need to nullptr check because only loaded objects are non null, ie in range or previously 'seen'
+        // and the loop goes through all nodes in the entire .WS
+        if (nodeObject != nullptr)
+        {
+            nodeObject->remove();
+        }
+
         Node* pParentNode = get()->getNodeByNetworkId(parentId);
         for (int i = 0; i < pParentNode->children->size(); ++i)
         {
@@ -146,12 +157,9 @@ void WorldSnapshotReaderWriter::Node::removeNode()
                 break;
             }
         }
-
     }
 
-    Network::getObjectById(id)->remove();
-
-    swg::worldSnapshotReaderWriter::removeNode(get(), id);
+    swg::worldSnapshotReaderWriter::removeNode(WorldSnapshotReaderWriter::get(), id);
 }
 
 void WorldSnapshotReaderWriter::Node::removeNodeFull() // WIP - Messy IDA pseudo code
@@ -214,6 +222,11 @@ DWORD WorldSnapshotReaderWriter::Node::getNodeSpatialSubdivisionHandle()
 void WorldSnapshotReaderWriter::Node::setNodeSpatialSubdivisionHandle(DWORD handle)
 {
     swg::worldSnapshotReaderWriter::node::setNodeSpatialSubdivisionHandle(this, handle);
+}
+
+const char* WorldSnapshotReaderWriter::Node::getObjectTemplateName()
+{
+    return WorldSnapshotReaderWriter::get()->getObjectTemplateName(objectTemplateNameIndex);
 }
 
 void WorldSnapshot::load(const std::string& name)
@@ -401,6 +414,37 @@ WorldSnapshotReaderWriter::Node* WorldSnapshot::createNewNode(const char* object
     }
 
     return pNode;
+}
+
+void WorldSnapshot::recreateNode(WorldSnapshotReaderWriter::Node* oldNode)
+{
+    // See if the following is needed: ClientObject* cobj = ObjectTemplate::createObject(objectFilename)->getClientObject();
+
+    const auto reader = WorldSnapshotReaderWriter::get();
+
+    reader->addNode(oldNode->id, oldNode->parentId, oldNode->getObjectTemplateName(), oldNode->cellIndex, oldNode->transform, oldNode->radius, oldNode->pobCRC);
+
+    for (int i = 0; i < oldNode->children->size(); ++i)
+    {
+        auto childNode = oldNode->children->at(i);
+        reader->addNode(childNode->id, childNode->parentId, childNode->getObjectTemplateName(), childNode->cellIndex, childNode->transform, childNode->radius, childNode->pobCRC);
+    }
+
+    WorldSnapshotReaderWriter::Node* pNode;
+    if (oldNode->parentNode == nullptr)
+    {
+        pNode = reader->nodeList->back();
+    }
+    else
+    {
+        pNode = oldNode->parentNode->children->back();
+    }
+
+    Object* obj = createObject(pNode);
+    if (obj)
+    {
+        obj->addToWorld();
+    }
 }
 
 void WorldSnapshot::removeNode(WorldSnapshotReaderWriter::Node* pNode)

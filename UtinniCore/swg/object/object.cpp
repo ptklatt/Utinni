@@ -3,6 +3,7 @@
 #include "swg/appearance/appearance.h"
 #include "swg/misc/swg_math.h"
 #include "swg/misc/swg_utility.h"
+#include "swg/misc/network.h"
 
 namespace swg::objectTemplateList
 {
@@ -88,7 +89,6 @@ using pSetAppearanceByFilename = void(__thiscall*)(utinni::Object* pThis, const 
 
 using pAddNotification = void(__thiscall*)(utinni::Object* pThis, DWORD notification, bool allowInWorld);
 
-using pCachedNetworkIdGetObject = utinni::Object * (__thiscall*)(DWORD pThis);
 
 using pGetParentCell = DWORD(__thiscall*)(utinni::Object* pThis);
 
@@ -130,7 +130,6 @@ pSetAppearanceByFilename setAppearanceByFilename = (pSetAppearanceByFilename)0x0
 
 pAddNotification addNotification = (pAddNotification)0x00B225A0;
 
-pCachedNetworkIdGetObject cachedNetworkIdGetObject = (pCachedNetworkIdGetObject)0x00B30160;
 
 pGetParentCell getParentCell = (pGetParentCell)0x00B22C00;
 
@@ -211,12 +210,12 @@ Object* Object::ctor()
     return swg::object::ctor((Object*)allocateMemory(160));
 }
 
-Object* Object::getObjectById(DWORD networkIdPointer)
+Object* Object::getObjectById(DWORD pCachedNetworkId)
 {
-    if (!networkIdPointer)
+    if (pCachedNetworkId == 0)
         return nullptr;
 
-    return swg::object::cachedNetworkIdGetObject(networkIdPointer);
+    return Network::getCachedObjectById(pCachedNetworkId);
 }
 
 void Object::remove()

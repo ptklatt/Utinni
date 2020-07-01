@@ -31,6 +31,8 @@ public:
         int64_t getNodeNetworkId();
         DWORD getNodeSpatialSubdivisionHandle();
         void setNodeSpatialSubdivisionHandle(DWORD handle);
+
+        const char* getObjectTemplateName();
     };
 
     std::vector<Node*>* nodeList;
@@ -73,6 +75,7 @@ public:
     static void detailLevelChanged();
 
     static WorldSnapshotReaderWriter::Node* createNewNode(const char* objectFilename, swg::math::Transform& transform);
+    static void recreateNode(WorldSnapshotReaderWriter::Node* oldNode);
     static void removeNode(WorldSnapshotReaderWriter::Node* pNode);
 };
 }
