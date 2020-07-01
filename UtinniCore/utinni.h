@@ -19,7 +19,7 @@ namespace utinni
 {
 UTINNI_API extern const std::string& getPath();
 UTINNI_API extern const std::string& getSwgCfgFilename();
-UTINNI_API extern const UtINI& getConfig();
+UTINNI_API extern UtINI& getConfig();
 
  
 };

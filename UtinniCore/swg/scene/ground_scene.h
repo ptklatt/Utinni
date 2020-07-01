@@ -51,6 +51,7 @@ public:
     uint32_t unk17;
 
     static GroundScene* get();
+    static GroundScene* ctor(const char* terrainFilename, const char* avatarObjectFilename);
     std::string getName();
 
     static void addPreDrawLoopCallback(void(*func)(GroundScene* pThis));

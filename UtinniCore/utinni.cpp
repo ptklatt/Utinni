@@ -10,6 +10,7 @@
 #include "swg/graphics/graphics.h"
 #include "swg/scene/ground_scene.h"
 #include "swg/ui/cui_manager.h"
+#include "swg/misc/config.h"
 
 #pragma comment(lib, "mscoree.lib")
 
@@ -111,6 +112,8 @@ void loadCoreDotNet()
 
 void detourGame()
 {
+    swg::config::detour();
+
     utinni::Client::detour();
     utinni::Game::detour();
     utinni::GroundScene::detour();
@@ -187,7 +190,7 @@ const std::string& getSwgCfgFilename()
     return swgOverrideCfgFilename;
 }
 
-const UtINI& getConfig()
+UtINI& getConfig()
 {
     return ini;
 }

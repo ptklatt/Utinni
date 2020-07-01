@@ -18,6 +18,8 @@ const static IniValue values[] = {
 
     // UtinniCore settings
     { "UtinniCore", "isEditorChild", false},
+    { "UtinniCore", "useSwgOverrideCfg", false},
+    { "UtinniCore", "autoLoadScene", false},
 
     // Log settings
     { "Log", "writeClassName", false},
