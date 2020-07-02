@@ -2995,7 +2995,7 @@ namespace UtinniCore
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?getConfig@utinni@@YAABVUtINI@1@XZ")]
+                    EntryPoint="?getConfig@utinni@@YAAAVUtINI@1@XZ")]
                 internal static extern global::System.IntPtr GetConfig();
             }
 
@@ -3454,14 +3454,14 @@ namespace UtinniCore
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?getIsEditorChild@Client@utinni@@SA_NXZ")]
+                    EntryPoint="?getEditorMode@Client@utinni@@SA_NXZ")]
                 [return: MarshalAs(UnmanagedType.I1)]
-                internal static extern bool GetIsEditorChild();
+                internal static extern bool GetEditorMode();
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
-                    EntryPoint="?setIsEditorChild@Client@utinni@@SAX_N@Z")]
-                internal static extern void SetIsEditorChild(bool value);
+                    EntryPoint="?setEditorMode@Client@utinni@@SAX_N@Z")]
+                internal static extern void SetEditorMode(bool enable);
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
@@ -3572,17 +3572,17 @@ namespace UtinniCore
                 __Internal.Detour();
             }
 
-            public static bool IsEditorChild
+            public static bool EditorMode
             {
                 get
                 {
-                    var __ret = __Internal.GetIsEditorChild();
+                    var __ret = __Internal.GetEditorMode();
                     return __ret;
                 }
 
                 set
                 {
-                    __Internal.SetIsEditorChild(value);
+                    __Internal.SetEditorMode(value);
                 }
             }
 
@@ -3635,6 +3635,21 @@ namespace UtinniCore
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?loadScene@Game@utinni@@SAXXZ")]
+                internal static extern void LoadScene();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?loadScene@Game@utinni@@SAXPBD0@Z")]
+                internal static extern void LoadScene([MarshalAs(UnmanagedType.LPUTF8Str)] string terrainFilename, [MarshalAs(UnmanagedType.LPUTF8Str)] string avatarObjectFilename);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?cleanupScene@Game@utinni@@SAXXZ")]
+                internal static extern void CleanupScene();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
                     EntryPoint="?isRunning@Game@utinni@@SA_NXZ")]
                 [return: MarshalAs(UnmanagedType.I1)]
                 internal static extern bool IsRunning();
@@ -3648,6 +3663,16 @@ namespace UtinniCore
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
                     EntryPoint="?getPlayerCreatureObject@Game@utinni@@SAPAVObject@2@XZ")]
                 internal static extern global::System.IntPtr GetPlayerCreatureObject();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getPlayerLookAtTargetObjectNetworkId@Game@utinni@@SAKXZ")]
+                internal static extern uint GetPlayerLookAtTargetObjectNetworkId();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?getPlayerLookAtTargetObject@Game@utinni@@SAPAVObject@2@XZ")]
+                internal static extern global::System.IntPtr GetPlayerLookAtTargetObject();
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
@@ -3744,6 +3769,21 @@ namespace UtinniCore
                 __Internal.Quit();
             }
 
+            public static void LoadScene()
+            {
+                __Internal.LoadScene();
+            }
+
+            public static void LoadScene(string terrainFilename, string avatarObjectFilename)
+            {
+                __Internal.LoadScene(terrainFilename, avatarObjectFilename);
+            }
+
+            public static void CleanupScene()
+            {
+                __Internal.CleanupScene();
+            }
+
             public static bool IsRunning
             {
                 get
@@ -3772,6 +3812,29 @@ namespace UtinniCore
                 get
                 {
                     var __ret = __Internal.GetPlayerCreatureObject();
+                    global::UtinniCore.Utinni.Object __result0;
+                    if (__ret == IntPtr.Zero) __result0 = null;
+                    else if (global::UtinniCore.Utinni.Object.NativeToManagedMap.ContainsKey(__ret))
+                        __result0 = (global::UtinniCore.Utinni.Object) global::UtinniCore.Utinni.Object.NativeToManagedMap[__ret];
+                    else __result0 = global::UtinniCore.Utinni.Object.__CreateInstance(__ret);
+                    return __result0;
+                }
+            }
+
+            public static uint PlayerLookAtTargetObjectNetworkId
+            {
+                get
+                {
+                    var __ret = __Internal.GetPlayerLookAtTargetObjectNetworkId();
+                    return __ret;
+                }
+            }
+
+            public static global::UtinniCore.Utinni.Object PlayerLookAtTargetObject
+            {
+                get
+                {
+                    var __ret = __Internal.GetPlayerLookAtTargetObject();
                     global::UtinniCore.Utinni.Object __result0;
                     if (__ret == IntPtr.Zero) __result0 = null;
                     else if (global::UtinniCore.Utinni.Object.NativeToManagedMap.ContainsKey(__ret))
@@ -10940,6 +11003,11 @@ namespace UtinniCore
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?ctor@GroundScene@utinni@@SAPAV12@PBD0@Z")]
+                internal static extern global::System.IntPtr Ctor([MarshalAs(UnmanagedType.LPUTF8Str)] string terrainFilename, [MarshalAs(UnmanagedType.LPUTF8Str)] string avatarObjectFilename);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
                     EntryPoint="?addPreDrawLoopCallback@GroundScene@utinni@@SAXP6AXPAV12@@Z@Z")]
                 internal static extern void AddPreDrawLoopCallback(global::System.IntPtr func);
 
@@ -11033,6 +11101,17 @@ namespace UtinniCore
             public static global::UtinniCore.Utinni.GroundScene Get()
             {
                 var __ret = __Internal.Get();
+                global::UtinniCore.Utinni.GroundScene __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.Utinni.GroundScene.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.Utinni.GroundScene) global::UtinniCore.Utinni.GroundScene.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.Utinni.GroundScene.__CreateInstance(__ret);
+                return __result0;
+            }
+
+            public static global::UtinniCore.Utinni.GroundScene Ctor(string terrainFilename, string avatarObjectFilename)
+            {
+                var __ret = __Internal.Ctor(terrainFilename, avatarObjectFilename);
                 global::UtinniCore.Utinni.GroundScene __result0;
                 if (__ret == IntPtr.Zero) __result0 = null;
                 else if (global::UtinniCore.Utinni.GroundScene.NativeToManagedMap.ContainsKey(__ret))
@@ -11821,6 +11900,11 @@ namespace UtinniCore
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                    EntryPoint="?getNodeById@WorldSnapshotReaderWriter@utinni@@QAEPAVNode@12@H@Z")]
+                internal static extern global::System.IntPtr GetNodeById(global::System.IntPtr __instance, int id);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
                     EntryPoint="?getNodeByNetworkId@WorldSnapshotReaderWriter@utinni@@QAEPAVNode@12@_J@Z")]
                 internal static extern global::System.IntPtr GetNodeByNetworkId(global::System.IntPtr __instance, long networkId);
 
@@ -11923,6 +12007,11 @@ namespace UtinniCore
                     [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
                         EntryPoint="?setNodeSpatialSubdivisionHandle@Node@WorldSnapshotReaderWriter@utinni@@QAEXK@Z")]
                     internal static extern void SetNodeSpatialSubdivisionHandle(global::System.IntPtr __instance, uint handle);
+
+                    [SuppressUnmanagedCodeSecurity]
+                    [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.ThisCall,
+                        EntryPoint="?getObjectTemplateName@Node@WorldSnapshotReaderWriter@utinni@@QAEPBDXZ")]
+                    internal static extern global::System.IntPtr GetObjectTemplateName(global::System.IntPtr __instance);
                 }
 
                 public global::System.IntPtr __Instance { get; protected set; }
@@ -12189,6 +12278,20 @@ namespace UtinniCore
                         __Internal.SetNodeSpatialSubdivisionHandle(__Instance, value);
                     }
                 }
+
+                public string ObjectTemplateName
+                {
+                    get
+                    {
+                        var __ret = __Internal.GetObjectTemplateName(__Instance);
+                        if (__ret == global::System.IntPtr.Zero)
+                            return default(string);
+                        var __retPtr = (byte*) __ret;
+                        int __length = 0;
+                        while (*(__retPtr++) != 0) __length += sizeof(byte);
+                        return global::System.Text.Encoding.UTF8.GetString((byte*) __ret, __length);
+                    }
+                }
             }
 
             public global::System.IntPtr __Instance { get; protected set; }
@@ -12278,6 +12381,17 @@ namespace UtinniCore
                 int __length = 0;
                 while (*(__retPtr++) != 0) __length += sizeof(byte);
                 return global::System.Text.Encoding.UTF8.GetString((byte*) __ret, __length);
+            }
+
+            public global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node GetNodeById(int id)
+            {
+                var __ret = __Internal.GetNodeById(__Instance, id);
+                global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node __result0;
+                if (__ret == IntPtr.Zero) __result0 = null;
+                else if (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap.ContainsKey(__ret))
+                    __result0 = (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node) global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap[__ret];
+                else __result0 = global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__CreateInstance(__ret);
+                return __result0;
             }
 
             public global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node GetNodeByNetworkId(long networkId)
@@ -12385,6 +12499,11 @@ namespace UtinniCore
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
                     EntryPoint="?createNewNode@WorldSnapshot@utinni@@SAPAVNode@WorldSnapshotReaderWriter@2@PBDAAUTransform@math@swg@@@Z")]
                 internal static extern global::System.IntPtr CreateNewNode([MarshalAs(UnmanagedType.LPUTF8Str)] string objectFilename, global::System.IntPtr transform);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?recreateNode@WorldSnapshot@utinni@@SAXPAVNode@WorldSnapshotReaderWriter@2@@Z")]
+                internal static extern void RecreateNode(global::System.IntPtr oldNode);
 
                 [SuppressUnmanagedCodeSecurity]
                 [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
@@ -12507,6 +12626,12 @@ namespace UtinniCore
                     __result0 = (global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node) global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.NativeToManagedMap[__ret];
                 else __result0 = global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node.__CreateInstance(__ret);
                 return __result0;
+            }
+
+            public static void RecreateNode(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node oldNode)
+            {
+                var __arg0 = ReferenceEquals(oldNode, null) ? global::System.IntPtr.Zero : oldNode.__Instance;
+                __Internal.RecreateNode(__arg0);
             }
 
             public static void RemoveNode(global::UtinniCore.Utinni.WorldSnapshotReaderWriter.Node pNode)
@@ -12776,6 +12901,58 @@ namespace UtinniCore
                     __result0 = (global::UtinniCore.Utinni.UiManager) global::UtinniCore.Utinni.UiManager.NativeToManagedMap[__ret];
                 else __result0 = global::UtinniCore.Utinni.UiManager.__CreateInstance(__ret);
                 return __result0;
+            }
+        }
+    }
+
+    namespace ImguiImplementation
+    {
+        public unsafe partial class imgui_implementation
+        {
+            public partial struct __Internal
+            {
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?enableInternalUi@imgui_implementation@@YAX_N@Z")]
+                internal static extern void EnableInternalUi(bool enable);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?render@imgui_implementation@@YAXXZ")]
+                internal static extern void Render();
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?addRenderCallback@imgui_implementation@@YAXP6AXXZ@Z")]
+                internal static extern void AddRenderCallback(global::System.IntPtr func);
+
+                [SuppressUnmanagedCodeSecurity]
+                [DllImport("UtinniCore", CallingConvention = global::System.Runtime.InteropServices.CallingConvention.Cdecl,
+                    EntryPoint="?isInternalUiHovered@imgui_implementation@@YA_NXZ")]
+                [return: MarshalAs(UnmanagedType.I1)]
+                internal static extern bool IsInternalUiHovered();
+            }
+
+            public static void EnableInternalUi(bool enable)
+            {
+                __Internal.EnableInternalUi(enable);
+            }
+
+            public static void Render()
+            {
+                __Internal.Render();
+            }
+
+            public static void AddRenderCallback(global::UtinniCore.Delegates.Action_ func)
+            {
+                var __arg0 = func == null ? global::System.IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func);
+                __Internal.AddRenderCallback(__arg0);
+            }
+
+            public static bool IsInternalUiHovered()
+            {
+                var __ret = __Internal.IsInternalUiHovered();
+                return __ret;
             }
         }
     }

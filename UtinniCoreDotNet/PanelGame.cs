@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using UtinniCore.ImguiImplementation;
 using UtinniCore.Utinni;
+using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet
 {
@@ -21,6 +23,7 @@ namespace UtinniCoreDotNet
         }
 
         public bool HasFocus;
+        private bool isCursorVisible; 
 
         public PanelGame()
         {
@@ -33,6 +36,7 @@ namespace UtinniCoreDotNet
 
             MouseEnter += PanelGame_MouseEnter;
             MouseLeave += PanelGame_MouseLeave;
+            MouseMove += PanelGame_MouseMove;
             MouseHover += PanelGame_MouseHover;
             MouseUp += PanelGame_MouseUp;
             MouseDown += PanelGame_MouseDown;
@@ -58,6 +62,7 @@ namespace UtinniCoreDotNet
 
         private void PanelGame_MouseEnter(object sender, EventArgs e)
         {
+            isCursorVisible = false;
             Client.ResumeInput();
             Cursor.Hide();
             HasFocus = true;
@@ -65,6 +70,7 @@ namespace UtinniCoreDotNet
 
         private void PanelGame_MouseLeave(object sender, EventArgs e)
         {
+            isCursorVisible = true;
             Client.SuspendInput();
             Cursor.Show();
             HasFocus = false;
@@ -72,8 +78,24 @@ namespace UtinniCoreDotNet
 
         private void PanelGame_MouseHover(object sender, EventArgs e)
         {
-
+          
         }
+
+
+        private void PanelGame_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (imgui_implementation.IsInternalUiHovered() && !isCursorVisible)
+            {
+                isCursorVisible = true;
+                Cursor.Show();
+            }
+            else if (!imgui_implementation.IsInternalUiHovered() && isCursorVisible)
+            {
+                isCursorVisible = false;
+                Cursor.Hide();
+            }
+        }
+
 
         private void PanelGame_MouseUp(object sender, MouseEventArgs e)
         {

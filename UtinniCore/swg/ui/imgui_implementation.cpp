@@ -3,9 +3,10 @@
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx9.h"
 #include <vector>
+#include "swg/graphics/graphics.h"
+#include "swg/misc/direct_input.h"
 
 #pragma comment(lib, "imgui/lib/imgui.lib")
-
 
 namespace imgui_implementation
 {
@@ -125,6 +126,8 @@ bool isSetup = false;
 	  isSetup = true;
  }
 
+ static bool imguiHasHover = false;
+ bool gameInputSuspended = false;
  void render()
  {
 	  if (isSetup && enableImgui)
@@ -146,6 +149,22 @@ bool isSetup = false;
 				 func();
 			}
 
+			imguiHasHover = ImGui::IsAnyWindowHovered();
+			if (imguiHasHover && !gameInputSuspended)
+			{
+				 gameInputSuspended = true;
+				 utinni::DirectInput::suspend();
+				 utinni::Graphics::showMouseCursor(false);
+				 SetCursor(LoadCursor(nullptr, IDC_ARROW));
+			}
+			else if (!imguiHasHover && gameInputSuspended)
+			{
+				 gameInputSuspended = false;
+				 utinni::DirectInput::resume();
+				 utinni::Graphics::showMouseCursor(true);
+				 SetCursor(nullptr);
+			}
+
 			ImGui::End();
 
 			ImGui::EndFrame();
@@ -158,5 +177,10 @@ void addRenderCallback(void(*func)())
  {
 	  renderCallbacks.emplace_back(func);
  }
+
+bool isInternalUiHovered()
+{
+	 return imguiHasHover;
+}
 
 }
