@@ -16,7 +16,7 @@
 
 #include "UtINI/utini.h"
 
-// ToDo Current issue is, it doesn't seem to reliably attach and it seems to detect the first available VS instance, if multiple are open
+// ToDo Current issues: It doesn't seem to reliably attach and it seems to detect the first available VS instance, if multiple are open
 EnvDTE::Process* findVisualStudioProcess(DWORD targetPID)
 {
     CoInitialize(nullptr);
@@ -202,7 +202,7 @@ void loadDll()
             }
 
             // Attach the debugger before we inject, only do this in RelWithDbgInfo or Debug configuration 
-            #ifdef RELDBG || _DEBUG
+            #if defined RELDBG  || defined  _DEBUG 
             // ToDo add an .ini setting to enable or disable it, commented out for now until there is a setting
             //attachToVisualStudio(procInfo.dwProcessId);
             #endif
