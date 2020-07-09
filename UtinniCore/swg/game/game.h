@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utinni.h"
+#include "swg/misc/repository.h"
 
 namespace utinni
 {
@@ -20,6 +21,8 @@ public:
     static void loadScene();
     static void loadScene(const char* terrainFilename, const char* avatarObjectFilename = "object/creature/player/shared_human_male.iff");
     static void cleanupScene();
+
+    static Repository* getRepository();
 
     static Object* getPlayer();
     static Object* getPlayerCreatureObject();

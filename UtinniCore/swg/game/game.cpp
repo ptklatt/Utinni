@@ -41,9 +41,11 @@ pIsHudSceneTypeSpace isHudSceneTypeSpace = (pIsHudSceneTypeSpace)0x00426170;
 }
 
 static std::vector<void(*)()> mainLoopCallbacks;
+static utinni::Repository repository;
 
 namespace utinni
 {
+
 void Game::addMainLoopCallback(void(*func)())
 {
     mainLoopCallbacks.emplace_back(func);
@@ -99,6 +101,12 @@ void __cdecl hkInstall(int application)
 {
     swg::game::install(application);
 
+
+    repository = Repository();
+
+    auto snapshots = repository.getDirectoryFilenames("snapshot");
+
+
     if (getConfig().getBool("UtinniCore", "autoLoadScene"))
     {
         Game::loadScene();
@@ -109,6 +117,7 @@ void Game::detour()
 {
     if (getMainLoopCount() == 0) // Checks the Games main loop count, if 0, we're in the 'suspended' startup entry point loop
     {
+        utility::showMessageBox("");
         swg::game::mainLoop = (swg::game::pMainLoop)Detour::Create(swg::game::mainLoop, hkMainLoop, DETOUR_TYPE_PUSH_RET);
         swg::game::install = (swg::game::pInstall)Detour::Create(swg::game::install, hkInstall, DETOUR_TYPE_PUSH_RET);
     }
@@ -141,6 +150,11 @@ void Game::loadScene(const char* terrainFilename, const char* avatarObjectFilena
 void Game::cleanupScene()
 {
     swg::game::cleanupScene();
+}
+
+Repository* Game::getRepository()
+{
+    return &repository;
 }
 
 Object* Game::getPlayer()
