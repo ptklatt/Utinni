@@ -5,7 +5,75 @@
 #include <stdexcept>
 #include <filesystem>
 
+// import EnvDTE to allow the auto attaching of VisualStudio to the created process
+#include <atlbase.h>
+#include <cassert>
+#pragma warning(disable : 4278)
+#pragma warning(disable : 4146)
+#import "libid:80cc9f66-e7d8-4ddd-85b6-d9e6cd0e93e2" version("16.0") lcid("0") raw_interfaces_only named_guids
+#pragma warning(default : 4146)
+#pragma warning(default : 4278)
+
 #include "UtINI/utini.h"
+
+// ToDo Current issue is, it doesn't seem to reliably attach and it seems to detect the first available VS instance, if multiple are open
+EnvDTE::Process* findVisualStudioProcess(DWORD targetPID)
+{
+    CoInitialize(nullptr);
+
+    CLSID Clsid;
+    CLSIDFromProgID(L"VisualStudio.DTE", &Clsid);
+
+    HRESULT hr;
+
+    IUnknown* unk;
+    hr = GetActiveObject(Clsid, nullptr, &unk);
+    assert(SUCCEEDED(hr));
+
+    EnvDTE::_DTE* dteInterface;
+    hr = unk->QueryInterface(&dteInterface);
+    assert(SUCCEEDED(hr));
+
+    EnvDTE::Debugger* debugger;
+    hr = dteInterface->get_Debugger(&debugger);
+    assert(SUCCEEDED(hr));
+
+    EnvDTE::Processes* processes;
+    hr = debugger->get_LocalProcesses(&processes);
+    long count = 0;
+    assert(SUCCEEDED(hr));
+
+    hr = processes->get_Count(&count);
+    for (int i = 0; i < count; i++)
+    {
+        EnvDTE::Process* process;
+        hr = processes->Item(variant_t(i), &process);
+        if (FAILED(hr))
+            continue;
+
+        long pid;
+        hr = process->get_ProcessID(&pid);
+        assert(SUCCEEDED(hr));
+        if (pid == targetPID)
+        {
+            return process;
+        }
+    }
+
+    return nullptr;
+}
+
+void attachToVisualStudio(DWORD targetPID)
+{
+    EnvDTE::Process* process = findVisualStudioProcess(targetPID);
+
+    if (process != nullptr)
+    {
+        process->Attach();
+    }
+
+    CoUninitialize();
+}
 
 void inject(PROCESS_INFORMATION procInfo)
 {
@@ -133,12 +201,19 @@ void loadDll()
                 throw std::runtime_error("Timed out trying to reach the entry point");
             }
 
+            // Attach the debugger before we inject, only do this in RelWithDbgInfo or Debug configuration 
+            #ifdef RELDBG || _DEBUG
+            // ToDo add an .ini setting to enable or disable it, commented out for now until there is a setting
+            //attachToVisualStudio(procInfo.dwProcessId);
+            #endif
+
             // inject DLL
             inject(procInfo);
 
             SuspendThread(procInfo.hThread);
             WriteProcessMemory(hProcess, entry, oep, 2, nullptr); // Restore original entry point
             ResumeThread(procInfo.hThread);
+
         }
         catch (...)
         {
