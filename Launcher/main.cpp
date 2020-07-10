@@ -5,33 +5,100 @@
 #include <stdexcept>
 #include <filesystem>
 
-// import EnvDTE to allow the auto attaching of VisualStudio to the created process
+// Import EnvDTE to allow the auto attaching of VisualStudio to the created process
+#if defined RELDBG  || defined  _DEBUG 
 #include <atlbase.h>
 #include <cassert>
 #pragma warning(disable : 4278)
 #pragma warning(disable : 4146)
-#import "libid:80cc9f66-e7d8-4ddd-85b6-d9e6cd0e93e2" version("16.0") lcid("0") raw_interfaces_only named_guids
+#import "libid:80cc9f66-e7d8-4ddd-85b6-d9e6cd0e93e2" version("8.0") lcid("0") raw_interfaces_only named_guids
 #pragma warning(default : 4146)
 #pragma warning(default : 4278)
+#endif
 
 #include "UtINI/utini.h"
 
-// ToDo Current issues: It doesn't seem to reliably attach and it seems to detect the first available VS instance, if multiple are open
+DWORD getParentPID()
+{
+    const DWORD PID = GetCurrentProcessId();
+    DWORD parentPID = 0;
+
+    PROCESSENTRY32 pe32;
+    pe32.dwSize = sizeof(pe32);
+
+    const HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (hSnapshot == INVALID_HANDLE_VALUE || !Process32First(hSnapshot, &pe32))
+        return 0;
+
+    do 
+    {
+        if (pe32.th32ProcessID == PID) 
+        {
+            parentPID = pe32.th32ParentProcessID;
+            break;
+        }
+    } while (Process32Next(hSnapshot, &pe32));
+
+    CloseHandle(hSnapshot);
+    return parentPID;
+}
+
+// ToDo Current issues: It doesn't seem to reliably attach
 EnvDTE::Process* findVisualStudioProcess(DWORD targetPID)
 {
     CoInitialize(nullptr);
 
-    CLSID Clsid;
-    CLSIDFromProgID(L"VisualStudio.DTE", &Clsid);
+    CLSID clsId;
+    CLSIDFromProgID(L"VisualStudio.DTE", &clsId); // Generic get of Visual Studio, without needing to specify the version
 
     HRESULT hr;
 
-    IUnknown* unk;
-    hr = GetActiveObject(Clsid, nullptr, &unk);
+    // Gets the Running Object Table, which contains all display names of current processes
+    CComPtr<IRunningObjectTable> pROT;
+    hr = GetRunningObjectTable(0, &pROT);
     assert(SUCCEEDED(hr));
 
+    IEnumMoniker* enumMoniker;
+    pROT->EnumRunning(&enumMoniker);
+
+    DWORD fetched;
+    CComPtr<IMoniker> pMoniker;
+
+    IUnknown* pObj;
+    while (enumMoniker->Next(1, &pMoniker, &fetched) == 0)
+    {
+        IBindCtx* bindCtx;
+        CreateBindCtx(0, &bindCtx);
+
+        LPOLESTR pRunningObjectName;
+        pMoniker[0].GetDisplayName(bindCtx, nullptr, &pRunningObjectName);
+
+        // Following is needed to turn LPOLESTR to std::string, else we can't do any checks on it
+        USES_CONVERSION;
+        std::string runningObjectName = W2A(pRunningObjectName);
+
+        // Conver tthe parentPID to string to be able to compare it with the runningObjectName
+        std::string parentPID = std::to_string(getParentPID());
+        if (parentPID.size() > runningObjectName.size())
+            continue;
+
+        // Check if the running object is Visual Studio and if the PID matches the parent of the current Visual Studio that is attached to the Launcher
+        if (runningObjectName._Starts_with("!VisualStudio.DTE") && std::equal(parentPID.rbegin(), parentPID.rend(), runningObjectName.rbegin()))
+        {
+            // Grabs the object from the Running Object Table so that we can get the DTE from it
+            hr = pROT->GetObjectA(pMoniker, &pObj);
+            assert(SUCCEEDED(hr));
+            break;
+        }
+        else
+        {
+            continue; // Continue to loop through until we find the current instance of Visual Studio
+        }
+
+    }
+
     EnvDTE::_DTE* dteInterface;
-    hr = unk->QueryInterface(&dteInterface);
+    hr = pObj->QueryInterface(&dteInterface);
     assert(SUCCEEDED(hr));
 
     EnvDTE::Debugger* debugger;
@@ -43,6 +110,7 @@ EnvDTE::Process* findVisualStudioProcess(DWORD targetPID)
     long count = 0;
     assert(SUCCEEDED(hr));
 
+    // Goes through all the current DTE processes that matches the PID we got from CreateProcess, which we'll then attach the DTE to-
     hr = processes->get_Count(&count);
     for (int i = 0; i < count; i++)
     {
@@ -59,7 +127,6 @@ EnvDTE::Process* findVisualStudioProcess(DWORD targetPID)
             return process;
         }
     }
-
     return nullptr;
 }
 
@@ -213,7 +280,6 @@ void loadDll()
             SuspendThread(procInfo.hThread);
             WriteProcessMemory(hProcess, entry, oep, 2, nullptr); // Restore original entry point
             ResumeThread(procInfo.hThread);
-
         }
         catch (...)
         {
