@@ -48,9 +48,6 @@ EnvDTE::Process* findVisualStudioProcess(DWORD targetPID)
 {
     CoInitialize(nullptr);
 
-    CLSID clsId;
-    CLSIDFromProgID(L"VisualStudio.DTE", &clsId); // Generic get of Visual Studio, without needing to specify the version
-
     HRESULT hr;
 
     // Gets the Running Object Table, which contains all display names of current processes
@@ -94,7 +91,6 @@ EnvDTE::Process* findVisualStudioProcess(DWORD targetPID)
         {
             continue; // Continue to loop through until we find the current instance of Visual Studio
         }
-
     }
 
     EnvDTE::_DTE* dteInterface;
@@ -221,14 +217,19 @@ std::string getSwgClientFilename()
     return swgClientPath + swgClientName;
 }
 
-void loadDll()
+void loadDll(const std::string& cmdLine)
 {
     STARTUPINFOA StartupInfo = { 0 };
     StartupInfo.cb = sizeof(StartupInfo);
     PROCESS_INFORMATION procInfo;
 
+
+    MessageBoxA(0, cmdLine.c_str(), "", MB_OK);
+
+    //const char* tit = "-- -- -s ClientGame groundScene=terrain/lok.trn";
+
     const std::string swgClientFilename = getSwgClientFilename();
-    if (CreateProcess(swgClientFilename.c_str(), nullptr, nullptr, nullptr, false, CREATE_SUSPENDED, nullptr, swgClientPath.c_str(), &StartupInfo, &procInfo))
+    if (CreateProcess(swgClientFilename.c_str(), const_cast<char*>(cmdLine.c_str()), nullptr, nullptr, false, CREATE_SUSPENDED, nullptr, swgClientPath.c_str(), &StartupInfo, &procInfo))
     {
         const HANDLE hProcess(procInfo.hProcess);
 
@@ -304,9 +305,16 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-int main()
+int main(int argc, char* argv[])
 {
-    loadDll();
+    std::string argsCombined;
+
+    for (int i = 1; i < argc; ++i)
+    {
+        argsCombined.append(" " + std::string(argv[i]));
+    }
+
+    loadDll(argsCombined);
     return 0;
 }
 
