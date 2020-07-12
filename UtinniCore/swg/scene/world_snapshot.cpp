@@ -1,9 +1,11 @@
 #include "world_snapshot.h"
+#include <filesystem>
 #include "ground_scene.h"
 #include "swg/appearance/appearance.h"
 #include "swg/misc/network.h"
 #include "swg/object/object.h"
 #include "swg/object/client_object.h"
+#include "swg/game/game.h"
 
 namespace swg::worldSnapshotReaderWriter
 {
@@ -18,7 +20,7 @@ using pNodeCountTotal = int(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThi
 
 using pGetNodeByNetworkId = utinni::WorldSnapshotReaderWriter::Node* (__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, DWORD networkId);
 using pGetNodeByIndex = utinni::WorldSnapshotReaderWriter::Node* (__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, int nodeId);
-using pAddNode = utinni::WorldSnapshotReaderWriter::Node* (__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, int nodeId, int parentNodeId, const utinni::CrcString& objectFilenameCrcString, int cellId, const swg::math::Transform& transform, float radius, unsigned int pobCrc);
+using pAddNode = DWORD (__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, int nodeId, int parentNodeId, const utinni::CrcString& objectFilenameCrcString, int cellId, const swg::math::Transform& transform, float radius, unsigned int pobCrc);
 using pRemoveNode = void(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, int nodeId);
 
 pOpenFile openFile = (pOpenFile)0x00B97D90;
@@ -109,14 +111,28 @@ WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByNetworkId(i
     return swg::worldSnapshotReaderWriter::getNodeByNetworkId(this, networkId);
 }
 
-WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByIndex(int nodeId)
+WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeAt(int index)
 {
-    return swg::worldSnapshotReaderWriter::getNodeByIndex(this, nodeId);
+    return swg::worldSnapshotReaderWriter::getNodeByIndex(this, index);
 }
 
 WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::addNode(int nodeId, int parentNodeId, const char* objectFilename, int cellId, const swg::math::Transform& transform, float radius, unsigned int pobCrc)
 {
-    return swg::worldSnapshotReaderWriter::addNode(this, nodeId, parentNodeId, *ConstCharCrcString::ctor(objectFilename), cellId, transform, radius, pobCrc);;
+    // For some reason, the ptr is wrong if parentNodeId is 0 and it's actually 'result - 4' to get the accurate pointer
+
+    DWORD pNode;
+    if (parentNodeId == 0)
+    {
+        pNode = swg::worldSnapshotReaderWriter::addNode(this, nodeId, parentNodeId, *ConstCharCrcString::ctor(objectFilename), cellId, transform, radius, pobCrc) - 4;  // That's why we subtract 4 here
+    }
+    else
+    {
+        pNode = swg::worldSnapshotReaderWriter::addNode(this, nodeId, parentNodeId, *ConstCharCrcString::ctor(objectFilename), cellId, transform, radius, pobCrc); // If it's added to a parentNode, it seems fine
+    }
+
+    // Upon further testing, the ptr returned isn't reliable, unsure why
+    // return memory::read<Node*>(pNode);
+    return nullptr;
 }
 
 void WorldSnapshotReaderWriter::Node::removeNode()
@@ -229,6 +245,16 @@ const char* WorldSnapshotReaderWriter::Node::getObjectTemplateName()
     return WorldSnapshotReaderWriter::get()->getObjectTemplateName(objectTemplateNameIndex);
 }
 
+int WorldSnapshotReaderWriter::Node::getChildCount()
+{
+    return children->size();
+}
+
+WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::Node::getChildAt(int index)
+{
+    return children->at(index);
+}
+
 void WorldSnapshot::load(const std::string& name)
 {
     if (name.empty())
@@ -261,7 +287,7 @@ void WorldSnapshot::unload() // WIP - Messy IDA pseudo code
 
     for (i = 0; i < readerWriter->getNodeCount(); ++i)
     {
-        readerWriter->getNodeByIndex(i)->removeNodeFull();
+        readerWriter->getNodeAt(i)->removeNodeFull();
     }
 
     using pUnkVoid1 = int(__thiscall*)(DWORD);
@@ -312,10 +338,10 @@ void WorldSnapshot::detailLevelChanged()
     swg::worldsnapshot::detailLevelChanged();
 }
 
+static int highestId = 0;
 int getHighestIdFromNode(int currentHighestId, const WorldSnapshotReaderWriter::Node* node)
 {
     int result = max(currentHighestId, node->id);
-
     if (node->children && !node->children->empty())
     {
         for (const WorldSnapshotReaderWriter::Node* childNode : *node->children)
@@ -327,17 +353,22 @@ int getHighestIdFromNode(int currentHighestId, const WorldSnapshotReaderWriter::
     return result;
 }
 
-int generateHighestId()
+int WorldSnapshot::generateHighestId()
 {
     int newId = 0;
-
-    const auto reader = WorldSnapshotReaderWriter::get();
-
-    for (int i = 0; i < reader->getNodeCount(); ++i)
+    auto snapshotFilenames = Game::getRepository()->getDirectoryFilenames("snapshot");
+    for (const auto& filename : snapshotFilenames)
     {
-        newId = getHighestIdFromNode(newId, reader->getNodeByIndex(i));
+        swg::worldSnapshotReaderWriter::openFile(WorldSnapshotReaderWriter::get(), std::filesystem::path(filename).filename().replace_extension("").string().c_str());
+
+        const auto reader = WorldSnapshotReaderWriter::get();
+        for (int i = 0; i < reader->getNodeCount(); ++i)
+        {
+            newId = getHighestIdFromNode(newId, reader->nodeList->at(i));
+        }
     }
 
+    highestId = newId;
     return newId;
 }
 
@@ -347,26 +378,34 @@ Object* createObject(WorldSnapshotReaderWriter::Node* pNode)
     return (Object*)swg::worldsnapshot::createObject(WorldSnapshotReaderWriter::get(), pNode, errorCode);
 }
 
-int highestId = 0;
-WorldSnapshotReaderWriter::Node* WorldSnapshot::createNewNode(const char* objectFilename, swg::math::Transform& transform)
+bool WorldSnapshot::isValidObject(const char* objectFilename)
 {
     if (strstr(objectFilename, "/base/"))
-        return nullptr;
+        return false;
 
     ClientObject* cobj = ObjectTemplate::createObject(objectFilename)->getClientObject();
 
     if (cobj == 0 || cobj->getCreatureObject() != 0 || cobj->getShipObject() != 0 || (cobj != 0 && cobj->getTangibleObject() == 0 && cobj->getStaticObject() == 0))
-        return nullptr;
+        return false;
 
-    highestId++;
-    const int id = highestId;
+    cobj->remove();
+    cobj = nullptr;
+
+    return true;
+}
+
+WorldSnapshotReaderWriter::Node* WorldSnapshot::createAddNode(const char* objectFilename, swg::math::Transform& transform)
+{
+    if (!isValidObject(objectFilename))
+        return nullptr;
 
     const auto reader = WorldSnapshotReaderWriter::get();
 
     WorldSnapshotReaderWriter::Node* pParentNode = nullptr;
 
+    // Temporary check to get parent, make this better
     int parentNodeId = 0;
-    Camera* pCamera = GroundScene::get()->getCurrentCamera();
+    Camera* pCamera = GroundScene::get()->getCurrentCamera(); // If camera is outside of the POB and the new node to be created is inside, it crashes as parentObject is nullptr
     if (pCamera->parentObject != nullptr)
     {
         pParentNode = reader->getNodeByNetworkId(pCamera->parentObject->networkId);
@@ -379,6 +418,7 @@ WorldSnapshotReaderWriter::Node* WorldSnapshot::createNewNode(const char* object
     if (pCamera->parentObject != nullptr && pParentNode == nullptr)
         return nullptr;
 
+    // Check if the object contains cells
     int pobCrc = 0;
     int pobCellCount = 0;
     const char* pobFilename = ObjectTemplateList::getObjectTemplateByFilename(objectFilename)->getPortalLayoutFilename();
@@ -389,14 +429,18 @@ WorldSnapshotReaderWriter::Node* WorldSnapshot::createNewNode(const char* object
         pobCellCount = pPob->getCellCount() - 1;
     }
 
+    highestId++;
+    const int id = highestId;
     reader->addNode(id, parentNodeId, objectFilename, 0, transform, 512, pobCrc); // ToDo Make radius a customizable variable
 
+    // If the object contains cells, create them
     for (int i = 0; i < pobCellCount; ++i)
     {
         highestId = id + i + 1;
         reader->addNode(highestId, id, "object/cell/shared_cell.iff", i + 1, swg::math::Transform::getIdentity(), 0, 0);
     }
 
+    // Workaround to the unreliable ptr return of reader->addNode
     WorldSnapshotReaderWriter::Node* pNode;
     if (pParentNode == nullptr)
     {
@@ -416,28 +460,16 @@ WorldSnapshotReaderWriter::Node* WorldSnapshot::createNewNode(const char* object
     return pNode;
 }
 
-void WorldSnapshot::recreateNode(WorldSnapshotReaderWriter::Node* oldNode)
+Object* WorldSnapshot::addNode(WorldSnapshotReaderWriter::Node* pNode)
 {
-    // See if the following is needed: ClientObject* cobj = ObjectTemplate::createObject(objectFilename)->getClientObject();
-
     const auto reader = WorldSnapshotReaderWriter::get();
 
-    reader->addNode(oldNode->id, oldNode->parentId, oldNode->getObjectTemplateName(), oldNode->cellIndex, oldNode->transform, oldNode->radius, oldNode->pobCRC);
+    reader->addNode(pNode->id, pNode->parentId, pNode->getObjectTemplateName(), pNode->cellIndex, pNode->transform, pNode->radius, pNode->pobCRC);
 
-    for (int i = 0; i < oldNode->children->size(); ++i)
+    for (int i = 0; i < pNode->children->size(); ++i)
     {
-        auto childNode = oldNode->children->at(i);
+        auto childNode = pNode->children->at(i);
         reader->addNode(childNode->id, childNode->parentId, childNode->getObjectTemplateName(), childNode->cellIndex, childNode->transform, childNode->radius, childNode->pobCRC);
-    }
-
-    WorldSnapshotReaderWriter::Node* pNode;
-    if (oldNode->parentNode == nullptr)
-    {
-        pNode = reader->nodeList->back();
-    }
-    else
-    {
-        pNode = oldNode->parentNode->children->back();
     }
 
     Object* obj = createObject(pNode);
@@ -445,6 +477,8 @@ void WorldSnapshot::recreateNode(WorldSnapshotReaderWriter::Node* oldNode)
     {
         obj->addToWorld();
     }
+
+    return obj;
 }
 
 void WorldSnapshot::removeNode(WorldSnapshotReaderWriter::Node* pNode)

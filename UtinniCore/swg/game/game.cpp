@@ -4,6 +4,7 @@
 #include "swg/misc/config.h"
 #include "swg/object/object.h"
 #include "swg/scene/ground_scene.h"
+#include "swg/scene/world_snapshot.h"
 
 namespace swg::game
 {
@@ -100,13 +101,8 @@ int __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
 void __cdecl hkInstall(int application)
 {
     swg::game::install(application);
-
-
     repository = Repository();
-
-    auto snapshots = repository.getDirectoryFilenames("snapshot");
-
-
+    WorldSnapshot::generateHighestId();
     if (getConfig().getBool("UtinniCore", "autoLoadScene"))
     {
         Game::loadScene();

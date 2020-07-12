@@ -2,6 +2,7 @@
 
 #include "utinni.h"
 #include "swg/misc/swg_math.h"
+#include "swg/object/object.h"
 
 namespace utinni
 {
@@ -33,6 +34,9 @@ public:
         void setNodeSpatialSubdivisionHandle(DWORD handle);
 
         const char* getObjectTemplateName();
+
+        int getChildCount();
+        Node* getChildAt(int index);
     };
 
     std::vector<Node*>* nodeList;
@@ -53,7 +57,7 @@ public:
 
     Node* getNodeById(int id);
     Node* getNodeByNetworkId(int64_t networkId);
-    Node* getNodeByIndex(int nodeId);
+    Node* getNodeAt(int index);
 
     Node* addNode(int nodeId, int parentNodeId, const char* objectFilename, int cellId, const swg::math::Transform& transform, float radius, unsigned int pobCrc);
 };
@@ -74,8 +78,12 @@ public:
 
     static void detailLevelChanged();
 
-    static WorldSnapshotReaderWriter::Node* createNewNode(const char* objectFilename, swg::math::Transform& transform);
-    static void recreateNode(WorldSnapshotReaderWriter::Node* oldNode);
+    static int generateHighestId();
+
+    static bool isValidObject(const char* objectFilename);
+    static WorldSnapshotReaderWriter::Node* createAddNode(const char* objectFilename, swg::math::Transform& transform);
+
+    static Object* addNode(WorldSnapshotReaderWriter::Node* pNode);
     static void removeNode(WorldSnapshotReaderWriter::Node* pNode);
 };
 }
