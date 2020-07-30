@@ -298,7 +298,7 @@ Matrix4x4::Matrix4x4(const Transform& transform)
 {
     for (int i = 0; i < 3; ++i)
     {
-        for (int j = 0; j < 4; ++i)
+        for (int j = 0; j < 4; ++j)
         {
             matrix[i][j] = transform.matrix[i][j];
             matrix[i][j] = transform.matrix[i][j];
@@ -317,7 +317,7 @@ Matrix4x4::Matrix4x4(const Matrix4x4& matrix4x4)
 {
     for (int i = 0; i < 4; ++i)
     {
-        for (int j = 0; j < 4; ++i)
+        for (int j = 0; j < 4; ++j)
         {
             matrix[i][j] = matrix4x4.matrix[i][j];
             matrix[i][j] = matrix4x4.matrix[i][j];
