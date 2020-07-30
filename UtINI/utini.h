@@ -24,11 +24,15 @@ public:
     bool getBool(const char* sectionName, const char* valueName);
     int getInt(const char* sectionName, const char* valueName);
     float getFloat(const char* sectionName, const char* valueName);
+    INI::Array getArray(const char* sectionName, const char* valueName);
+    INI::Map getMap(const char* sectionName, const char* valueName);
 
     void setValue(const char* sectionName, const char* valueName, const INI::Value& value);
     void setString(const char* sectionName, const char* valueName, const char* value);
     void setBool(const char* sectionName, const char* valueName, bool value);
     void setInt(const char* sectionName, const char* valueName, int value);
     void setFloat(const char* sectionName, const char* valueName, float value);
+    void setArray(const char* sectionName, const char* valueName, const INI::Array& value);
+    void setMap(const char* sectionName, const char* valueName, const INI::Map& value);
 };
 }

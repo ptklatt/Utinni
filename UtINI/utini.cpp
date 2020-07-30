@@ -101,6 +101,16 @@ float UtINI::getFloat(const char* sectionName, const char* valueName)
     return ini.GetSection(sectionName)->GetValue(valueName).AsDouble();
 }
 
+INI::Array UtINI::getArray(const char* sectionName, const char* valueName)
+{
+    return ini.GetSection(sectionName)->GetValue(valueName).AsArray();
+}
+
+INI::Map UtINI::getMap(const char* sectionName, const char* valueName)
+{
+    return ini.GetSection(sectionName)->GetValue(valueName).AsMap();
+}
+
 void UtINI::setValue(const char* sectionName, const char* valueName, const INI::Value& value)
 {
     ini.GetSection(sectionName)->SetValue(valueName, value);
@@ -122,6 +132,16 @@ void UtINI::setInt(const char* sectionName, const char* valueName, int value)
 }
 
 void UtINI::setFloat(const char* sectionName, const char* valueName, float value)
+{
+    ini.GetSection(sectionName)->SetValue(valueName, value);
+}
+
+void UtINI::setArray(const char* sectionName, const char* valueName, const INI::Array& value)
+{
+    ini.GetSection(sectionName)->SetValue(valueName, value);
+}
+
+void UtINI::setMap(const char* sectionName, const char* valueName, const INI::Map& value)
 {
     ini.GetSection(sectionName)->SetValue(valueName, value);
 }
