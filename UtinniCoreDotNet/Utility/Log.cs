@@ -56,6 +56,11 @@ namespace UtinniCoreDotNet.Utility
             log.Info(FormatText(text));
         }
 
+        public static void Warning(string text)
+        {
+            log.Warning(FormatText(text));
+        }
+
         public static void CriticalSimple(string text)
         {
             log.Critical(text);
@@ -74,6 +79,11 @@ namespace UtinniCoreDotNet.Utility
         public static void InfoSimple(string text)
         {
             log.Info(text);
+        }
+
+        public static void WarningSimple(string text)
+        {
+            log.Warning(text);
         }
     }
 }
