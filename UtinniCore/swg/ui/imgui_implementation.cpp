@@ -2,22 +2,31 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx9.h"
+#include "ImGuizmo/ImGuizmo.h"
 #include <vector>
 #include "swg/graphics/graphics.h"
 #include "swg/misc/direct_input.h"
+#include "swg/scene/world_snapshot.h"
+#include "swg/game/game.h"
+#include "swg/scene/ground_scene.h"
+#include "swg/misc/swg_utility.h"
+#include "swg/misc/network.h"
 
 #pragma comment(lib, "imgui/lib/imgui.lib")
+
+using namespace utinni;
+using namespace swg::math;
 
 namespace imgui_implementation
 {
 
 static std::vector<void(*)()> renderCallbacks;
 
-bool enableImgui;
+bool enableUi;
 
 void enableInternalUi(bool enable)
 {
-	 enableImgui = enable;
+	 enableUi = enable;
 }
 
 WNDPROC originalWndProcHandler = nullptr;
@@ -130,38 +139,44 @@ bool isSetup = false;
  bool gameInputSuspended = false;
  void render()
  {
-	  if (isSetup && enableImgui)
+	  if (isSetup)
 	  {
 			ImGui_ImplDX9_NewFrame();
 			ImGui_ImplWin32_NewFrame();
 			ImGui::NewFrame();
 
-			ImGui::Begin("Tests", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse); // ImVec2(250, 300), 0.9f,  ImGuiWindowFlags_NoResize |
+			if (enableUi)
 			{
-				 if (ImGui::Button("Test"))
+				 ImGui::Begin("Tests", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse); // ImVec2(250, 300), 0.9f,  ImGuiWindowFlags_NoResize |
 				 {
+					  if (ImGui::Button("Test"))
+					  {
+							//WorldSnapshot::createAddNode("object/tangible/furniture/elegant/shared_chair_s01.iff", utinni::Game::getPlayer()->objectToParent);
 
+					  }
+				 }
+
+				 for (const auto& func : renderCallbacks) // ToDo add an additional callback to host controls in the future main ImGui window
+				 {
+					  func();
 				 }
 			}
 
-			for (const auto& func : renderCallbacks) // ToDo add an additional callback to host controls in the future main ImGui window
-			{
-				 func();
-			}
+			imgui::gizmo::draw();
 
 			imguiHasHover = ImGui::IsAnyWindowHovered();
 			if (imguiHasHover && !gameInputSuspended)
 			{
 				 gameInputSuspended = true;
-				 utinni::DirectInput::suspend();
-				 utinni::Graphics::showMouseCursor(false);
+				 DirectInput::suspend();
+				 Graphics::showMouseCursor(false);
 				 SetCursor(LoadCursor(nullptr, IDC_ARROW));
 			}
 			else if (!imguiHasHover && gameInputSuspended)
 			{
 				 gameInputSuspended = false;
-				 utinni::DirectInput::resume();
-				 utinni::Graphics::showMouseCursor(true);
+				 DirectInput::resume();
+				 Graphics::showMouseCursor(true);
 				 SetCursor(nullptr);
 			}
 
@@ -183,4 +198,81 @@ bool isInternalUiHovered()
 	 return imguiHasHover;
 }
 
+}
+
+namespace imgui::gizmo
+{
+bool isEnabled = false;
+bool gizmoHasMouseHover = false;
+
+Object* object = nullptr;
+
+void enable(Object* obj)
+{
+	 object = obj;
+	 isEnabled = true;
+}
+
+void disable()
+{
+	 isEnabled = false;
+	 object = nullptr;
+}
+
+
+void editTransform(const float* cameraView, float* cameraProjection, float* matrix)
+{
+	 static ImGuizmo::OPERATION mCurrentGizmoOperation(ImGuizmo::TRANSLATE);
+	 static ImGuizmo::MODE mCurrentGizmoMode(ImGuizmo::LOCAL);
+	 static bool useSnap = false;
+	 static float snap[3] = { 1.f, 1.f, 1.f };
+	 static float bounds[] = { -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f };
+	 static float boundsSnap[] = { 0.1f, 0.1f, 0.1f };
+	 static bool boundSizing = false;
+	 static bool boundSizingSnap = false;
+
+	 if (ImGui::IsKeyPressed(0x51)) { mCurrentGizmoOperation = ImGuizmo::TRANSLATE; } // q
+	 if (ImGui::IsKeyPressed(0x45)) { mCurrentGizmoOperation = ImGuizmo::ROTATE; } // e
+	 if (ImGui::IsKeyPressed(0x5A)) { useSnap = !useSnap; } // z
+
+	 ImGuizmo::Manipulate(cameraView, cameraProjection, mCurrentGizmoOperation, mCurrentGizmoMode, matrix, nullptr, useSnap ? &snap[0] : nullptr, boundSizing ? bounds : nullptr, boundSizingSnap ? boundsSnap : nullptr);
+}
+
+void draw()
+{
+	 if (object == nullptr || !isEnabled)
+		  return;
+
+	 Camera* camera = GroundScene::get()->getCurrentCamera();
+
+	 // Set up the Matrices for the gizmo
+	 Transform w2c;
+	 w2c.invert(*camera->getTransform_o2w());
+	 const Matrix4x4 view = Matrix4x4(w2c);
+	 const Matrix4x4 objectMatrix = Matrix4x4(*object->getTransform_o2w());
+
+	 float* viewMatrix = &Matrix4x4().matrix[0][0];
+	 float* projMatrix = &Matrix4x4().matrix[0][0];
+	 float* objMatrix = &Matrix4x4().matrix[0][0];
+
+    Matrix4x4::transpose(&view.matrix[0][0], viewMatrix);
+    Matrix4x4::transpose(&camera->projectionMatrix.matrix[0][0], projMatrix);
+    Matrix4x4::transpose(&objectMatrix.matrix[0][0], objMatrix);
+
+	 // Enable and draw the gizmo
+	 ImGuizmo::SetRect(0, 0, Graphics::getCurrentRenderTargetWidth(), Graphics::getCurrentRenderTargetHeight());
+	 ImGuizmo::BeginFrame();
+	 ImGuizmo::Enable(true);
+	 editTransform(viewMatrix, projMatrix, objMatrix);
+
+	 // Pass the updated matrix back to the object
+	 float* updatedObjMatrix = &Matrix4x4().matrix[0][0];
+	 Matrix4x4::transpose(objMatrix, updatedObjMatrix);
+
+	 Vector oldPos = object->getTransform_o2w()->getPosition();
+	 object->setTransform_o2w(*(Transform*)updatedObjMatrix);
+	 object->positionAndRotationChanged(false, oldPos);
+
+	 // ToDo Add a callback or something for UndoRedo and a comparison function, if there has been a change?
+}
 }
