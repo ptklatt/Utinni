@@ -70,7 +70,7 @@ int __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
     {
         int newWidth = rect.right - rect.left;
         int newHeight = rect.bottom - rect.top;
-        result = swg::game::mainLoop(false, Client::getHwnd(), newWidth, newHeight);
+        result = swg::game::mainLoop(false, Client::getHwnd(), newWidth, newHeight); // ToDo fix random crash with getHwnd on load Scene?
     }
     else
     {
@@ -113,7 +113,7 @@ void Game::detour()
 {
     if (getMainLoopCount() == 0) // Checks the Games main loop count, if 0, we're in the 'suspended' startup entry point loop
     {
-        utility::showMessageBox("");
+        //utility::showMessageBox("");
         swg::game::mainLoop = (swg::game::pMainLoop)Detour::Create(swg::game::mainLoop, hkMainLoop, DETOUR_TYPE_PUSH_RET);
         swg::game::install = (swg::game::pInstall)Detour::Create(swg::game::install, hkInstall, DETOUR_TYPE_PUSH_RET);
     }
