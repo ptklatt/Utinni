@@ -5,22 +5,24 @@
 
 namespace utinni
 {
-    class Object;
+class Object;
 }
 
 namespace imgui_implementation
 {
-extern void enableInternalUi(bool enable);
+UTINNI_API extern void enableInternalUi(bool enable);
 extern void setup(IDirect3DDevice9* pDevice);
 extern void render();
-extern void addRenderCallback(void(*func)());
+UTINNI_API extern void addRenderCallback(void(*func)());
 UTINNI_API extern bool isInternalUiHovered();
 
 }
 
 namespace imgui::gizmo
 {
-void enable(utinni::Object* obj);
-void disable();
+UTINNI_API extern void enable(utinni::Object* obj);
+UTINNI_API extern void disable();
+UTINNI_API extern bool isEnabled();
+UTINNI_API extern bool hasMouseHover();
 void draw();
 }

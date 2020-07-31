@@ -1,7 +1,6 @@
 #include "repository.h"
 #include "tree_file.h"
 
-
 namespace utinni
 {
 static std::vector<std::string> filenames;

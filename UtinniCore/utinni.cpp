@@ -12,6 +12,11 @@
 #include "swg/ui/cui_manager.h"
 #include "swg/ui/imgui_implementation.h"
 #include "swg/misc/config.h"
+#include "swg/misc/tree_file.h"
+#include "swg/ui/cui_chat_window.h"
+#include "swg/ui/cui_radial_menu.h"
+#include "swg/ui/cui_hud.h"
+#include "swg/ui/cui_menu.h"
 
 #pragma comment(lib, "mscoree.lib")
 
@@ -32,20 +37,20 @@ void startCLR()
 
     // Get information about the installed .NET
     hr = CLRCreateInstance(CLSID_CLRMetaHost, IID_ICLRMetaHost, (LPVOID*)&pClrMetaHost);
-    if (hr == S_OK)
+    if (SUCCEEDED(hr))
     {
         // Get the runtime information for this version of .NET
         hr = pClrMetaHost->GetRuntime(L"v4.0.30319", IID_PPV_ARGS(&pClrRuntimeInfo));
-        if (hr == S_OK)
+        if (SUCCEEDED(hr))
         {
             // Check if the CLR can be loaded
             BOOL isLoadable;
             hr = pClrRuntimeInfo->IsLoadable(&isLoadable);
-            if ((hr == S_OK) && isLoadable)
+            if ((SUCCEEDED(hr)) && isLoadable)
             {
                 // Load the CLR into the process and get a ptr for the interface
                 hr = pClrRuntimeInfo->GetInterface(CLSID_CLRRuntimeHost, IID_PPV_ARGS(&pClrRuntimeHost));
-                if (hr == S_OK)
+                if (SUCCEEDED(hr))
                 {
                     // Start the CLR
                     pClrRuntimeHost->Start();
@@ -115,11 +120,16 @@ void detourGame()
 {
     swg::config::detour();
 
+    utinni::treefile::detour();
     utinni::Client::detour();
     utinni::Game::detour();
     utinni::GroundScene::detour();
     utinni::Graphics::detour();
+    utinni::CuiChatWindow::detour();
     utinni::CuiManager::detour();
+    utinni::cuiHud::detour();
+    utinni::cuiMenu::detour();
+    utinni::cuiRadialMenuManager::detour();
 }
 
 void main()
@@ -156,7 +166,10 @@ void main()
 
     detourGame();
 
+    // ToDo Add C++ plugin load before C# plugin load
+
     loadCoreDotNet();
+
 }
 
 void detatch()
@@ -198,6 +211,5 @@ UtINI& getConfig()
 }
 
   
-
 
 }

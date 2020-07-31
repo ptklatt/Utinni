@@ -36,6 +36,7 @@ int __cdecl hkLoadOverrideConfig()
         delete[] data;
         pFile = (**(int(__thiscall***)(DWORD, DWORD))pFile)(pFile, 1);
     }
+
     return result;
 }
 

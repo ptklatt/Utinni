@@ -202,7 +202,7 @@ bool isInternalUiHovered()
 
 namespace imgui::gizmo
 {
-bool isEnabled = false;
+bool enabled = false;
 bool gizmoHasMouseHover = false;
 
 Object* object = nullptr;
@@ -210,15 +210,24 @@ Object* object = nullptr;
 void enable(Object* obj)
 {
 	 object = obj;
-	 isEnabled = true;
+	 enabled = true;
 }
 
 void disable()
 {
-	 isEnabled = false;
+	 enabled = false;
 	 object = nullptr;
 }
 
+bool isEnabled()
+{
+	 return enabled;
+}
+
+bool hasMouseHover()
+{
+	 return gizmoHasMouseHover;
+}
 
 void editTransform(const float* cameraView, float* cameraProjection, float* matrix)
 {
@@ -240,7 +249,7 @@ void editTransform(const float* cameraView, float* cameraProjection, float* matr
 
 void draw()
 {
-	 if (object == nullptr || !isEnabled)
+	 if (object == nullptr || !enabled)
 		  return;
 
 	 Camera* camera = GroundScene::get()->getCurrentCamera();
@@ -273,6 +282,6 @@ void draw()
 	 object->setTransform_o2w(*(Transform*)updatedObjMatrix);
 	 object->positionAndRotationChanged(false, oldPos);
 
-	 // ToDo Add a callback or something for UndoRedo and a comparison function, if there has been a change?
+	 // ToDo Add a callback or something for UndoRedo and a comparison function, if there has been a change? Callback is also needed to update WS, etc nodes
 }
 }
