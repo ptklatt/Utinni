@@ -13,7 +13,7 @@ namespace utinni
 {
 bool __fastcall hkActionPerformAction(DWORD pThis, DWORD EDX, DWORD val1, DWORD val2)
 {
-    if (imgui::gizmo::isEnabled())
+    if (imgui::gizmo::hasMouseHover())
     {
         return false;
     }

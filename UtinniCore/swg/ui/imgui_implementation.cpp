@@ -274,6 +274,8 @@ void draw()
 	 ImGuizmo::Enable(true);
 	 editTransform(viewMatrix, projMatrix, objMatrix);
 
+	 gizmoHasMouseHover = ImGuizmo::IsOver();
+
 	 // Pass the updated matrix back to the object
 	 float* updatedObjMatrix = &Matrix4x4().matrix[0][0];
 	 Matrix4x4::transpose(objMatrix, updatedObjMatrix);
