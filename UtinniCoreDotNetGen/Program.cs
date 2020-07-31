@@ -27,6 +27,7 @@ namespace UtinniCoreDotNetGen
                 var options = driver.Options;
                 options.GeneratorKind = GeneratorKind.CSharp;
                 options.OutputDir = slnDir + "UtinniCoreDotNet\\Generated\\";
+                options.GenerateDebugOutput = false;
 
                 options.SystemModule.SymbolsLibraryName = "UtinniCore-Symbols";
 
@@ -39,7 +40,7 @@ namespace UtinniCoreDotNetGen
                 module.IncludeDirs.Add(slnDir + targetProjName); // ToDo make this a loop to grab all the subfolders
 
                 // Headers
-
+                module.Headers.Add("utinni.h");
                 module.Headers.Add("utility\\log.h");
 
                 module.Headers.Add("swg\\client\\client.h");
@@ -51,6 +52,7 @@ namespace UtinniCoreDotNetGen
                 module.Headers.Add("swg\\scene\\terrain.h");
                 module.Headers.Add("swg\\scene\\world_snapshot.h");
                 module.Headers.Add("swg\\ui\\cui_manager.h");
+                module.Headers.Add("swg\\ui\\imgui_implementation.h");
 
                 // Library
                 module.LibraryDirs.Add(slnDir + "bin\\" + buildMode + "\\");
