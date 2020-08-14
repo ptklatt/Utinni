@@ -166,7 +166,6 @@ void inject(PROCESS_INFORMATION procInfo)
 }
 
 std::string swgClientPath;
-
 std::string getSwgClientFilename()
 {
     char curDirBuffer[MAX_PATH];
@@ -222,11 +221,6 @@ void loadDll(const std::string& cmdLine)
     STARTUPINFOA StartupInfo = { 0 };
     StartupInfo.cb = sizeof(StartupInfo);
     PROCESS_INFORMATION procInfo;
-
-
-    MessageBoxA(0, cmdLine.c_str(), "", MB_OK);
-
-    //const char* tit = "-- -- -s ClientGame groundScene=terrain/lok.trn";
 
     const std::string swgClientFilename = getSwgClientFilename();
     if (CreateProcess(swgClientFilename.c_str(), const_cast<char*>(cmdLine.c_str()), nullptr, nullptr, false, CREATE_SUSPENDED, nullptr, swgClientPath.c_str(), &StartupInfo, &procInfo))
@@ -292,6 +286,8 @@ void loadDll(const std::string& cmdLine)
     {
         throw std::runtime_error("Unable to load the specified executable");
     }
+
+
 }
 
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -311,6 +307,10 @@ int main(int argc, char* argv[])
 
     for (int i = 1; i < argc; ++i)
     {
+        // Syntax for passing swg configs is as follows: '--' marks the start of args, -s marks the start of a section followed by variables separated by whitespace
+        // Inside the .cfg, sections are marked by being wrapped in brackets, ie [ClientGame]
+        // Example: -- -s SectionName1 variable1=true variable2=false -s SectionName2 variable1=true variable2=false
+        // Real world example: -- -s ClientGame loginClientID=Local groundScene=terrain/lok.trn
         argsCombined.append(" " + std::string(argv[i]));
     }
 
