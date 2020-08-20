@@ -28,22 +28,26 @@ void DirectInput::resume()
 
 int __cdecl hkSetupInstall(HINSTANCE hInstance, HWND hwnd, DWORD menuKey, DWORD unk)
 {
-    HWND result = Client::getHwnd();
-    HWND topWindow;
-    do
+    HWND result = hwnd;
+    if (Client::getEditorMode())
     {
-        topWindow = GetParent(result);
-        if (topWindow)
+        result = Client::getHwnd();
+        HWND topWindow;
+        do
         {
-            result = topWindow;
-        }
-    } while (topWindow);
+            topWindow = GetParent(result);
+            if (topWindow)
+            {
+                result = topWindow;
+            }
+        } while (topWindow);
 
-    // Create the main cursor and write its pointer to the global SWG Cursor address
-    memory::write<HCURSOR>(0x0193C5E0, LoadCursor(nullptr, IDC_ARROW)); // SWG's HCURSOR address
+        // Create the main cursor and write its pointer to the global SWG Cursor address
+        memory::write<HCURSOR>(0x0193C5E0, LoadCursor(nullptr, IDC_ARROW)); // SWG's HCURSOR address
 
-    Graphics::useHardwareCursor(false); // Turning this to false makes the game render its own cursor
-
+        Graphics::useHardwareCursor(false); // Turning this to false makes the game render its own cursor
+    }
+    
     return swg::directInput::setupInstall(hInstance, result, menuKey, unk);
 }
 
