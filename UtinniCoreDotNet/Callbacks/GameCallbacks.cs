@@ -7,9 +7,11 @@ namespace UtinniCoreDotNet.Callbacks
     {
         private static Queue<Action> mainLoopCallQueue = new Queue<Action>();
 
+        private static UtinniCore.Delegates.Action_ dequeueMainLoopCallsAction;
         public static void Initialize()
-        {
-            UtinniCore.Utinni.Game.AddMainLoopCallback(DequeueMainLoopCalls);
+        { 
+            dequeueMainLoopCallsAction = DequeueMainLoopCalls; // Storing this in a variable is somehow needed to prevent corruption on WinForms resize. Very odd bug that I still don't fully understand.
+            UtinniCore.Utinni.Game.AddMainLoopCallback(dequeueMainLoopCallsAction);
         }
 
         public static void AddMainLoopCall(Action call)
@@ -21,8 +23,8 @@ namespace UtinniCoreDotNet.Callbacks
         {
             while (mainLoopCallQueue.Count > 0)
             {
-                var call = mainLoopCallQueue.Dequeue();
-                call();
+                var func = mainLoopCallQueue.Dequeue();
+                func();
             }
         }
     }
