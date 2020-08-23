@@ -9,11 +9,17 @@ namespace UtinniCoreDotNet.Callbacks
         private static Queue<Action> preDrawLoopCallQueue = new Queue<Action>();
         private static Queue<Action> postDrawLoopCallQueue = new Queue<Action>();
 
+        private static UtinniCore.Delegates.Action_IntPtr_float dequeueUpdateLoopCallsAction;
+        private static UtinniCore.Delegates.Action_IntPtr dequeuePreDrawLoopCallsAction;
+        private static UtinniCore.Delegates.Action_IntPtr dequeuePostDrawLoopCallsAction;
         public static void Initialize()
         {
-            UtinniCore.Utinni.GroundScene.AddUpdateLoopCallback(DequeueUpdateLoopCalls);
-            UtinniCore.Utinni.GroundScene.AddPreDrawLoopCallback(DequeuePreDrawLoopCalls);
-            UtinniCore.Utinni.GroundScene.AddPostDrawLoopCallback(DequeuePostDrawLoopCalls);
+            dequeueUpdateLoopCallsAction = DequeueUpdateLoopCalls;
+            dequeuePreDrawLoopCallsAction = DequeuePreDrawLoopCalls;
+            dequeuePostDrawLoopCallsAction = DequeuePostDrawLoopCalls;
+            UtinniCore.Utinni.GroundScene.AddUpdateLoopCallback(dequeueUpdateLoopCallsAction);
+            UtinniCore.Utinni.GroundScene.AddPreDrawLoopCallback(dequeuePreDrawLoopCallsAction);
+            UtinniCore.Utinni.GroundScene.AddPostDrawLoopCallback(dequeuePostDrawLoopCallsAction);
         }
 
         public static void AddUpdateLoopCall(Action call)
@@ -35,8 +41,8 @@ namespace UtinniCoreDotNet.Callbacks
         {
             while (updateLoopCallQueue.Count > 0)
             {
-                var call = updateLoopCallQueue.Dequeue();
-                call();
+                var func = updateLoopCallQueue.Dequeue();
+                func();
             }
         }
 
@@ -44,8 +50,8 @@ namespace UtinniCoreDotNet.Callbacks
         {
             while (preDrawLoopCallQueue.Count > 0)
             {
-                var call = preDrawLoopCallQueue.Dequeue();
-                call();
+                var func = preDrawLoopCallQueue.Dequeue();
+                func();
             }
         }
 
@@ -53,8 +59,8 @@ namespace UtinniCoreDotNet.Callbacks
         {
             while (preDrawLoopCallQueue.Count > 0)
             {
-                var call = preDrawLoopCallQueue.Dequeue();
-                call();
+                var func = preDrawLoopCallQueue.Dequeue();
+                func();
             }
         }
     }
