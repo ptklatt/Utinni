@@ -6,11 +6,8 @@ namespace UtinniCoreDotNet.PluginFramework
     public partial class EditorPluginBase : UserControl, IEditorPlugin
     {
         public PluginInformation Information { get; set; }
-
-        public UserControl GetControl()
-        {
-            return this;
-        }
+        public EventHandler<AddUndoCommandEventArgs> AddUndoCommand { get; set; }
+        public UserControl GetControl() { return this; }
 
         private const int width = 434;
 
