@@ -172,6 +172,18 @@ void __cdecl hkEndScene()
         int newWidth = rect.right - rect.left;
         int newHeight = rect.bottom - rect.top;
 
+        // There is a crash on resize if width or height is 0, this happens in particular on WinForm's minimize
+        if (newWidth == 0 || newHeight == 0)
+        {
+            // Needs to be blocked else there is a Present crash after WinForms sizes above 0 again
+            directX::blockPresent(true); 
+            return;
+        }
+        else
+        {
+            directX::blockPresent(false);
+        }
+
         if (newWidth != oldWidth || newHeight != oldHeight)
         {
             oldWidth = newWidth;
@@ -197,9 +209,6 @@ void __cdecl hkPresentWindow(HWND hwnd, int width, int height)
         func(hwnd, width, height);
     }
 }
-
-
-
 
 void __cdecl hkPresent()
 {

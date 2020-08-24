@@ -5,12 +5,13 @@
 #include "swg/object/object.h"
 #include "swg/scene/ground_scene.h"
 #include "swg/scene/world_snapshot.h"
+#include "swg/graphics/directx9.h"
 
 namespace swg::game
 {
 using pInstall = void(__cdecl*)(int applicationType);
 using pQuit = void(__cdecl*)();
-using pMainLoop = int(__cdecl*)(bool presentToWindow, HWND hwnd, int width, int height);
+using pMainLoop = void(__cdecl*)(bool presentToWindow, HWND hwnd, int width, int height);
 
 using pSetupScene = void(__cdecl*)(utinni::GroundScene* newScene);
 using pCleanupScene = void(__cdecl*)();
@@ -61,20 +62,19 @@ bool loadNewScene = false;
 bool sceneCleaned = false;
 const char* sceneToLoadTerrainFilename;
 const char* sceneToLoadAvatarObjectFilename;
-int __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
+void __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
 {
-    int result;
-
     RECT rect;
     if (Client::getEditorMode() && GetWindowRect(Client::getHwnd(), &rect))
     {
         int newWidth = rect.right - rect.left;
         int newHeight = rect.bottom - rect.top;
-        result = swg::game::mainLoop(false, Client::getHwnd(), newWidth, newHeight); // ToDo fix random crash with getHwnd on load Scene?
+
+        swg::game::mainLoop(false, Client::getHwnd(), newWidth, newHeight); // ToDo fix random crash with getHwnd on load Scene?
     }
     else
     {
-        result = swg::game::mainLoop(presentToWindow, hwnd, width, height);
+        swg::game::mainLoop(presentToWindow, hwnd, width, height);
     }
 
     for (const auto& func : mainLoopCallbacks)
@@ -94,8 +94,6 @@ int __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
         Game::cleanupScene();
         sceneCleaned = true;
     }
-
-    return result;
 }
 
 void __cdecl hkInstall(int application)

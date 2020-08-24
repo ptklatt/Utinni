@@ -3,11 +3,16 @@
 #include "utinni.h"
 #include "swg/ui/imgui_implementation.h"
 #include "swg/ui/cui_manager.h"
+#include <imgui/imgui_impl_dx9.h>
 
 namespace directX
 {
 LPDIRECT3DDEVICE9 pDevice = nullptr;
 DWORD* vtbl = nullptr;
+DWORD dllBaseAddress = 0;
+
+static bool blockPresentCall = false;
+static bool isPresenting = false;
 
 using pBeginScene = HRESULT(__stdcall*)(LPDIRECT3DDEVICE9 pDevice);
 using pEndScene = HRESULT(__stdcall*)(LPDIRECT3DDEVICE9 pDevice);
@@ -154,7 +159,6 @@ enum D3DInformation
 void setDevice()
 {
     pDevice = (LPDIRECT3DDEVICE9)memory::findPattern((DWORD)GetModuleHandle("d3d9.dll"), 0x128000, "\xC7\x06\x00\x00\x00\x00\x89\x86\x00\x00\x00\x00\x89\x86", "xx????xx????xx");
-
     memcpy(&vtbl, (void*)(((DWORD)pDevice) + 2), 4);
 }
 
@@ -173,17 +177,29 @@ HRESULT __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion)
 {
 	 imgui_implementation::render();
-	 
-    HRESULT result = present(pDevice, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion);
+	 HRESULT result = 0;
+
+	 // Workaround for WinForms crashes on maximize and minimize/restore, something breaks inside of Present when either occur.
+    // ToDo: Find better solution in the future
+	 if (!blockPresentCall)
+	 {
+		  isPresenting = true;
+		  result = present(pDevice, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion);
+	 }
+	 else
+	 {
+		  isPresenting = false;
+	 }
 
 	 imgui_implementation::setup(pDevice);
-
     return result;
 }
 
 HRESULT __stdcall hkReset(LPDIRECT3DDEVICE9 pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters)
 {
+	 ImGui_ImplDX9_InvalidateDeviceObjects();
     HRESULT result = reset(pDevice, pPresentationParameters);
+	 ImGui_ImplDX9_CreateDeviceObjects();
     return result;
 }
 
@@ -250,6 +266,16 @@ void detour()
 void toggleWireframe()
 {
     enableWireframe = !enableWireframe;
+}
+
+void blockPresent(bool value)
+{
+	 blockPresentCall = value;
+}
+
+bool isPresentBlocked()
+{
+	 return !isPresenting;
 }
 
 }

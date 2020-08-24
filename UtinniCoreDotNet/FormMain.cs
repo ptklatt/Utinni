@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Drawing;
+using System.Collections.Generic;
+using System.Security.Permissions;
+using System.Threading;
 using System.Windows.Forms;
-using UtinniCore.Delegates;
-using UtinniCore.Utinni;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI;
+using UtinniCoreDotNet.UndoRedo;
 using UtinniCoreDotNet.Utility;
+using Point = System.Drawing.Point;
 
 namespace UtinniCoreDotNet
 {
@@ -13,6 +15,37 @@ namespace UtinniCoreDotNet
     {
         private PanelGame game;
         private PluginLoader pluginLoader;
+
+        private Stack<IUndoCommand> undoCommands = new Stack<IUndoCommand>();
+        private Stack<IUndoCommand> redoCommands = new Stack<IUndoCommand>();
+
+        private const int WM_SYSCOMMAND = 0x0112;
+        private const int SC_MINIMIZE = 0xF020;
+        private const int SC_RESTORE = 0xF120;
+        private const int SC_MAXIMIZE = 0xF030;
+
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_SYSCOMMAND)
+            {
+                int command = m.WParam.ToInt32() & 0xFFF0;
+
+                if (command == SC_MINIMIZE || command == SC_RESTORE || command == SC_MAXIMIZE)
+                {
+                    UtinniCore.DirectX.directx9.BlockPresent(true);
+
+                    // Due to SWG's thread and this one not being in sync, we need to wait until Present is actually blocked.
+                    // ToDo: Find better solution in the future
+                    while (!UtinniCore.DirectX.directx9.IsPresentBlocked())
+                    {
+                        Thread.Sleep(1);
+                    }
+
+                }
+            }
+            base.WndProc(ref m);
+        }
 
         public FormMain(PluginLoader pluginLoader)
         {
@@ -26,6 +59,8 @@ namespace UtinniCoreDotNet
                 IEditorPlugin editorPlugin = (IEditorPlugin)plugin;
                 if (editorPlugin != null)
                 {
+                    editorPlugin.AddUndoCommand += (sender, args) => { undoCommands.Push(args.UndoCommand); };
+
                     Log.Info("Editor Plugin: [" + editorPlugin.Information.Name + "] loaded");
                     flpnlPlugins.Controls.Add(new CollapsiblePanel(editorPlugin.GetControl(), editorPlugin.Information.Name));
                 }
@@ -33,6 +68,15 @@ namespace UtinniCoreDotNet
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
+
+        }
+
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized || WindowState == FormWindowState.Normal || WindowState == FormWindowState.Maximized)
+            {
+                UtinniCore.DirectX.directx9.BlockPresent(false); // Restore Present, which we blocked in the WndProc catch
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) // ToDo figure out how to handle this inside PanelGame potentially
@@ -60,10 +104,54 @@ namespace UtinniCoreDotNet
 
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        public void Undo()
         {
+            if (redoCommands.Count == 0)
+                return;
+
+            IUndoCommand cmd = undoCommands.Pop();
+            cmd.Undo();
+            undoCommands.Push(cmd);
         }
 
+        public void Redo()
+        {
+            if (undoCommands.Count == 0)
+                return;
 
+            IUndoCommand cmd = redoCommands.Pop();
+            cmd.Execute();
+            redoCommands.Push(cmd);
+        }
+
+        private void tsbtnUndo_Click(object sender, EventArgs e)
+        {
+            //Undo();
+            //GameCallbacks.AddMainLoopCall(() => WorldSnapshot.CreateAddNode("object/tangible/furniture/technical/shared_chair_s01.iff", Game.Player.ObjectToParent));
+
+            //GroundSceneCallbacks.AddUpdateLoopCall(() =>
+            //{
+            //    WorldSnapshotReaderWriter.Node node = WorldSnapshot.CreateAddNode("object/tangible/furniture/elegant/shared_chair_s01.iff", Game.Player.ObjectToParent);
+
+            //    if (node != null)
+            //    {
+            //        undoCommands.Push(new AddWorldSnapshotNodeCommand(node));
+            //    }
+            //});
+
+            
+        }
+
+        private void tsbtnRedo_Click(object sender, EventArgs e)
+        {
+            //Redo();
+
+            //GameCallbacks.AddMainLoopCall(() => WorldSnapshot.CreateNewNode1());
+            //GameCallbacks.AddMainLoopCall(() => WorldSnapshot.Load("endor"));
+
+
+            //GroundSceneCallbacks.AddUpdateLoopCall(() => UtinniCore.Utinni.Graphics.ReloadTextures());
+
+        }
     }
 }

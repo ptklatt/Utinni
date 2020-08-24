@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using UtinniCore.ImguiImplementation;
 using UtinniCore.Utinni;
-using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet
 {
@@ -16,9 +15,7 @@ namespace UtinniCoreDotNet
         protected override void WndProc(ref Message m)
         {
             IntPtr swgWndProc = new IntPtr(0x00AA0970);
-
             CallWindowProc(swgWndProc, m.HWnd, m.Msg, m.WParam, m.LParam); // Call and handle SWG's WndProc
-
             base.WndProc(ref m);
         }
 
@@ -40,7 +37,7 @@ namespace UtinniCoreDotNet
             MouseHover += PanelGame_MouseHover;
             MouseUp += PanelGame_MouseUp;
             MouseDown += PanelGame_MouseDown;
-            
+
             Client.SetHwnd(Handle);
             Client.SetHInstance(Process.GetCurrentProcess().Handle);
         }

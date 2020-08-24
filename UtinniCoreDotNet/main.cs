@@ -22,7 +22,7 @@ namespace UtinniCoreDotNet
 
                 // Load plugins from the /Plugins/ directory
                 PluginLoader pluginLoader = new PluginLoader();
-
+                
                 GameCallbacks.Initialize();
                 GroundSceneCallbacks.Initialize();
 

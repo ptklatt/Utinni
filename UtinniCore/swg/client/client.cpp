@@ -93,6 +93,7 @@ LRESULT CALLBACK hkWndProc(HWND Hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     if (Client::getEditorMode())
     {
     }
+
     return CallWindowProc((WNDPROC)swg::client::wndProc, Hwnd, msg, wParam, lParam);
 }
 
@@ -117,6 +118,7 @@ void Client::detour()
 {
     swg::client::setupStartDataInstall = (swg::client::pSetupInstall)Detour::Create((LPVOID)swg::client::setupStartDataInstall, hkSetupStartInstall, DETOUR_TYPE_PUSH_RET);
     swg::client::clientMain = (swg::client::pMainLoop)Detour::Create((LPVOID)swg::client::clientMain, hkMainLoop, DETOUR_TYPE_PUSH_RET);
+    //swg::client::wndProc = (swg::client::pWndProc)Detour::Create((LPVOID)swg::client::wndProc, hkWndProc, DETOUR_TYPE_PUSH_RET);
 
     DirectInput::detour();
 }
