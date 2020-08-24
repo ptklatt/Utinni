@@ -1,5 +1,5 @@
 #include "cui_menu.h"
-#include "swg/ui/imgui_implementation.h"
+#include "swg/ui/imgui_impl.h"
 #include "swg/object/client_object.h"
 
 namespace swg::cuiMenu

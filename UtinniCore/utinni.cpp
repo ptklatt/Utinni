@@ -10,7 +10,7 @@
 #include "swg/graphics/graphics.h"
 #include "swg/scene/ground_scene.h"
 #include "swg/ui/cui_manager.h"
-#include "swg/ui/imgui_implementation.h"
+#include "swg/ui/imgui_impl.h"
 #include "swg/misc/config.h"
 #include "swg/misc/tree_file.h"
 #include "swg/ui/cui_chat_window.h"
@@ -162,7 +162,7 @@ void main()
     spdlog::info("Process: " + std::to_string(_getpid()));
 
     utinni::Client::setEditorMode(ini.getBool("UtinniCore", "enableEditorMode"));
-    imgui_implementation::enableInternalUi(ini.getBool("UtinniCore", "enableInternalUi"));
+    imgui_impl::enableInternalUi(ini.getBool("UtinniCore", "enableInternalUi"));
 
     detourGame();
 

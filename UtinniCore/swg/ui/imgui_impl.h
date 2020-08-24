@@ -8,7 +8,7 @@ namespace utinni
 class Object;
 }
 
-namespace imgui_implementation
+namespace imgui_impl
 {
 UTINNI_API extern void enableInternalUi(bool enable);
 extern void setup(IDirect3DDevice9* pDevice);

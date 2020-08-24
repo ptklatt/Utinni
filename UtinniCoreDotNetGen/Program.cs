@@ -52,7 +52,7 @@ namespace UtinniCoreDotNetGen
                 module.Headers.Add("swg\\scene\\terrain.h");
                 module.Headers.Add("swg\\scene\\world_snapshot.h");
                 module.Headers.Add("swg\\ui\\cui_manager.h");
-                module.Headers.Add("swg\\ui\\imgui_implementation.h");
+                module.Headers.Add("swg\\ui\\imgui_impl.h");
 
                 // Library
                 module.LibraryDirs.Add(slnDir + "bin\\" + buildMode + "\\");

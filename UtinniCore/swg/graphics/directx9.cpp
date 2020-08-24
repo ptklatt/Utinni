@@ -1,9 +1,9 @@
 #include "directx9.h"
 #include <d3d9.h>
-#include "utinni.h"
-#include "swg/ui/imgui_implementation.h"
-#include "swg/ui/cui_manager.h"
 #include <imgui/imgui_impl_dx9.h>
+#include "utinni.h"
+#include "swg/ui/imgui_impl.h"
+#include "swg/ui/cui_manager.h"
 
 namespace directX
 {
@@ -176,7 +176,7 @@ HRESULT __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 
 HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion)
 {
-	 imgui_implementation::render();
+	 imgui_impl::render();
 	 HRESULT result = 0;
 
 	 // Workaround for WinForms crashes on maximize and minimize/restore, something breaks inside of Present when either occur.
@@ -191,7 +191,7 @@ HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, 
 		  isPresenting = false;
 	 }
 
-	 imgui_implementation::setup(pDevice);
+	 imgui_impl::setup(pDevice);
     return result;
 }
 

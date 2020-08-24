@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using UtinniCore.ImguiImplementation;
+using UtinniCore.ImguiImpl;
 using UtinniCore.Utinni;
 
 namespace UtinniCoreDotNet
@@ -81,12 +81,12 @@ namespace UtinniCoreDotNet
 
         private void PanelGame_MouseMove(object sender, MouseEventArgs e)
         {
-            if (imgui_implementation.IsInternalUiHovered() && !isCursorVisible)
+            if (imgui_impl.IsInternalUiHovered() && !isCursorVisible)
             {
                 isCursorVisible = true;
                 Cursor.Show();
             }
-            else if (!imgui_implementation.IsInternalUiHovered() && isCursorVisible)
+            else if (!imgui_impl.IsInternalUiHovered() && isCursorVisible)
             {
                 isCursorVisible = false;
                 Cursor.Hide();

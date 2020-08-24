@@ -1,4 +1,4 @@
-#include "imgui_implementation.h"
+#include "imgui_impl.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx9.h"
@@ -6,18 +6,16 @@
 #include <vector>
 #include "swg/graphics/graphics.h"
 #include "swg/misc/direct_input.h"
-#include "swg/scene/world_snapshot.h"
-#include "swg/game/game.h"
 #include "swg/scene/ground_scene.h"
-#include "swg/misc/swg_utility.h"
 #include "swg/misc/network.h"
+#include "command_parser.h"
 
 #pragma comment(lib, "imgui/lib/imgui.lib")
 
 using namespace utinni;
 using namespace swg::math;
 
-namespace imgui_implementation
+namespace imgui_impl
 {
 
 static std::vector<void(*)()> renderCallbacks;
@@ -153,6 +151,11 @@ bool isSetup = false;
 					  {
 							//WorldSnapshot::createAddNode("object/tangible/furniture/elegant/shared_chair_s01.iff", utinni::Game::getPlayer()->objectToParent);
 
+							CommandParser::CommandData cmdData;
+
+							//auto tit = swg_new<CommandParser>(cmdData, nullptr);
+
+							//auto tit = swg_new<CommandParser>();
 					  }
 				 }
 

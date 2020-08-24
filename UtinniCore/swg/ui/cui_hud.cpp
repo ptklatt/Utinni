@@ -1,5 +1,5 @@
 #include "cui_hud.h"
-#include "swg/ui/imgui_implementation.h"
+#include "swg/ui/imgui_impl.h"
 
 namespace swg::cuiHud
 {
