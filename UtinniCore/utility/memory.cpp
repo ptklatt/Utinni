@@ -5,11 +5,11 @@
 namespace memory
 {
 
-DWORD findPattern(DWORD startAddress, DWORD fileSize, const char* pattern, const char* mask)
+swgptr findPattern(swgptr startAddress, size_t length, const char* pattern, const char* mask)
 {
-	 DWORD pos = 0;
-	 unsigned int searchLength = strlen(mask) - 1;
-	 for (DWORD returnAddress = startAddress; returnAddress < startAddress + fileSize; returnAddress++) 
+	 swgptr pos = 0;
+    const size_t searchLength = strlen(mask) - 1;
+	 for (swgptr returnAddress = startAddress; returnAddress < startAddress + length; returnAddress++)
 	 {
 		  if (*(PBYTE)returnAddress == ((PBYTE)pattern)[pos] || mask[pos] == '?')
 		  {
@@ -17,7 +17,6 @@ DWORD findPattern(DWORD startAddress, DWORD fileSize, const char* pattern, const
 				{
 					 return returnAddress - searchLength;
 				}
-
 				pos++;
 		  }
 		  else
@@ -28,82 +27,83 @@ DWORD findPattern(DWORD startAddress, DWORD fileSize, const char* pattern, const
 	 return 0;
 }
 
-DWORD FindPattern(const char* moduleName, const char* pattern, const char* mask)
+swgptr findPattern(const char* moduleName, const char* pattern, const char* mask)
 {
 	 HINSTANCE moduleHandle = GetModuleHandle(moduleName);
 	 MODULEINFO moduleInfo;
 	 GetModuleInformation(GetCurrentProcess(), moduleHandle, &moduleInfo, sizeof(MODULEINFO));
 
-	 return findPattern((DWORD)moduleHandle, moduleInfo.SizeOfImage, pattern, mask);
+	 return findPattern((swgptr)moduleHandle, moduleInfo.SizeOfImage, pattern, mask);
 }
 
-void copy(DWORD address, void* value, int length)
+void copy(swgptr pDest, swgptr pSource, size_t length)
 {
-	 const PVOID addr = reinterpret_cast<PVOID>(address);
 	 DWORD oldProtect;
 	 DWORD newProtect;
+
+	 const LPVOID addr = (LPVOID)pDest;
 	 VirtualProtect(addr, length, PAGE_EXECUTE_READWRITE, &oldProtect);
-	 memcpy(addr, value, length);
+	 memcpy(addr, (LPVOID)pSource, length);
 	 VirtualProtect(addr, length, oldProtect, &newProtect);
 }
 
-void write(DWORD address, void* value, int length)
+void write(swgptr address, swgptr value, int length)
 {
 	 copy(address, value, length);
 }
 
-void set(DWORD address, DWORD value, int size)
+void set(swgptr pDest, swgptr value, size_t length)
 {
-	 const PVOID addr = reinterpret_cast<PVOID>(address);
 	 DWORD oldProtect;
 	 DWORD newProtect;
-	 VirtualProtect(addr, size, PAGE_EXECUTE_READWRITE, &oldProtect);
-	 memset(addr, value, size);
-	 VirtualProtect(addr, size, oldProtect, &newProtect);
+
+	 const LPVOID addr = (LPVOID)pDest;
+	 VirtualProtect(addr, length, PAGE_EXECUTE_READWRITE, &oldProtect);
+	 memset(addr, value, length);
+	 VirtualProtect(addr, length, oldProtect, &newProtect);
 }
 
-void patchAddress(DWORD address, DWORD value)
+void patchAddress(swgptr address, swgptr value)
 {
-	 set(address, value, 4);
+	 set(address, value, 4); // ToDo check if this works right, doesn't it need write or copy vs set?
 }
 
-void nopAddress(DWORD address, int nopCount)
+void nopAddress(swgptr address, int nopCount) 
 {
 	 set(address, 0x90, nopCount); // 0x90 = NOP
 }
 
-void createJMP(PBYTE address, DWORD jumpToAddress, DWORD overrideLength)
+void createJMP(swgptr address, swgptr jumpToAddress, size_t overrideLength)
 {
 	 DWORD oldProtect;
 	 DWORD newProtect;
-	 DWORD relativeAddress;
-	 VirtualProtect(address, overrideLength, PAGE_EXECUTE_READWRITE, &oldProtect);
-	 relativeAddress = (DWORD)(jumpToAddress - (DWORD)address) - 5;
-	 *address = 0xE9; // 0xE9 = JMP
-	 *((DWORD*)(address + 0x1)) = relativeAddress;
-	 for (DWORD x = 0x5; x < overrideLength; x++)
+
+    VirtualProtect((LPVOID)address, overrideLength, PAGE_EXECUTE_READWRITE, &oldProtect);
+	 write<char>(address, 0xE9); // 0xE9 = JMP
+	 write<swgptr>(address + 0x1, (jumpToAddress - address) - 5); 
+	 for (swgptr i = 0x5; i < overrideLength; i++)
 	 {
-		  *(address + x) = 0x90; // 0x90 = NOP
+		  write<char>(address + i, 0x90); // 0x90 = NOP
 	 }
-	 VirtualProtect(address, overrideLength, oldProtect, &newProtect);
+	 VirtualProtect((LPVOID)address, overrideLength, oldProtect, &newProtect);
 }
 
-DWORD getAddress(DWORD baseAddress, int ptrDepth)
+swgptr getAddress(swgptr baseAddress, int ptrDepth)
 {
-	 DWORD address = *(DWORD*)(baseAddress);
+	 swgptr address = read<swgptr>(baseAddress);
 	 for (int i = 0; i < ptrDepth; ++i)
 	 {
-		  address = *(DWORD*)address;
+		  address = read<swgptr>(address);
 	 }
 	 return address;
 }
 
-DWORD getAddress(DWORD baseAddress, std::vector<int>& offsets)
+swgptr getAddress(swgptr baseAddress, std::vector<int>& offsets)
 {
-	 DWORD address = *(DWORD*)(baseAddress);
-	 for (unsigned long offset : offsets)
+	 swgptr address = read<swgptr>(baseAddress);
+	 for (swgptr offset : offsets)
 	 {
-		  address = *(DWORD*)(address + offset);
+		  address = read<swgptr>(address + offset);
 	 }
 	 return address;
 }

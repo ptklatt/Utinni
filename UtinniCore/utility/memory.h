@@ -4,11 +4,11 @@
 
 namespace memory
 {
-extern DWORD findPattern(DWORD startAddress, DWORD fileSize, const char* pattern, const char* mask);
-extern DWORD FindPattern(const char* moduleName, const char* pattern, const char* mask);
+extern swgptr findPattern(swgptr startAddress, size_t length, const char* pattern, const char* mask);
+extern swgptr findPattern(const char* moduleName, const char* pattern, const char* mask);
 
 template<typename T>
-extern T read(DWORD address)
+extern T read(swgptr address)
 {
     if (address > 0)
     {
@@ -18,9 +18,9 @@ extern T read(DWORD address)
 }
 
 template<typename T>
-extern T read(DWORD address, int offsetOfAddrResult)
+extern T read(swgptr address, int offsetOfAddrResult)
 {
-    const DWORD resultAddress = *(DWORD*)address;
+    const swgptr resultAddress = read<swgptr>(address);
     if (resultAddress > 0)
     {
         return *(T*)(resultAddress + offsetOfAddrResult);
@@ -29,7 +29,7 @@ extern T read(DWORD address, int offsetOfAddrResult)
 }
 
 template<typename T>
-extern void write(DWORD address, T value)
+extern void write(swgptr address, T value)
 {
     if (address > 0)
     {
@@ -38,25 +38,25 @@ extern void write(DWORD address, T value)
 }
 
 template<typename T>
-extern void write(DWORD address, int offsetOfAddrResult, T value)
+extern void write(swgptr address, int offsetOfAddrResult, T value)
 {
-    const DWORD resultAddress = *(DWORD*)address;
+    const swgptr resultAddress = read<swgptr>(address);
     if (resultAddress > 0)
     {
         *(T*)(resultAddress + offsetOfAddrResult) = value;
     }
 }
 
-extern void write(DWORD address, void* value, int length);
-extern void set(DWORD address, DWORD value, int size);
+extern void write(swgptr address, swgptr value, int length);
+extern void set(swgptr pDest, swgptr value, size_t length);
 
-extern void patchAddress(DWORD address, DWORD value);
-extern void nopAddress(DWORD address, int nopCount);
+extern void patchAddress(swgptr address, swgptr value);
+extern void nopAddress(swgptr address, int nopCount);
 
-extern void createJMP(PBYTE address, DWORD jumpToAddress, DWORD overrideLength);
+extern void createJMP(swgptr address, swgptr jumpToAddress, size_t overrideLength);
 
-extern DWORD getAddress(DWORD baseAddress, int ptrDepth);
-extern DWORD getAddress(DWORD baseAddress, std::vector<int>& offsets);
+extern swgptr getAddress(swgptr baseAddress, int ptrDepth);
+extern swgptr getAddress(swgptr baseAddress, std::vector<int>& offsets);
 
 }
 

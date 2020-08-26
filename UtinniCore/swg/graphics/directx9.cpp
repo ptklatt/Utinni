@@ -158,7 +158,7 @@ enum D3DInformation
 
 void setDevice()
 {
-    pDevice = (LPDIRECT3DDEVICE9)memory::findPattern((DWORD)GetModuleHandle("d3d9.dll"), 0x128000, "\xC7\x06\x00\x00\x00\x00\x89\x86\x00\x00\x00\x00\x89\x86", "xx????xx????xx");
+    pDevice = (LPDIRECT3DDEVICE9)memory::findPattern((swgptr)GetModuleHandle("d3d9.dll"), 0x128000, "\xC7\x06\x00\x00\x00\x00\x89\x86\x00\x00\x00\x00\x89\x86", "xx????xx????xx");
     memcpy(&vtbl, (void*)(((DWORD)pDevice) + 2), 4);
 }
 

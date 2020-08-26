@@ -9,11 +9,13 @@
 
 #include "UtINI/utini.h"
 
+using swgptr = uint32_t;
+
 #include "utility/log.h"
 #include "utility/memory.h"
 #include "utility/utility.h"
 
-#define UTINNI_API  __declspec(dllexport)
+#define UTINNI_API __declspec(dllexport)
 
 namespace utinni
 {

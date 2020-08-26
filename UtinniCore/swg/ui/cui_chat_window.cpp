@@ -58,6 +58,6 @@ void CuiChatWindow::detour()
 {
     swg::cuiChatWindow::ctor = (swg::cuiChatWindow::pCtor)Detour::Create(swg::cuiChatWindow::ctor, hkCtor, DETOUR_TYPE_PUSH_RET);
 
-    memory::createJMP((PBYTE)0x00F36797, (DWORD)midCtor, 6); // Mid CuiChatWindow::ctor detour
+    memory::createJMP(0x00F36797, (swgptr)midCtor, 6); // Mid CuiChatWindow::ctor detour
 }
 }
