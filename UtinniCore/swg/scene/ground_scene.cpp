@@ -1,24 +1,24 @@
 #include "ground_scene.h"
 #include "terrain.h"
 #include "world_snapshot.h"
-#include "swg/misc/swg_utility.h"
+#include "swg/misc/swg_memory.h"
 
 
 namespace swg::groundScene
 {
-using pGroundScene_ctor = utinni::GroundScene* (__thiscall*)(DWORD allocAddress, const char* terrainFilename, const char* avatarObjectFilename, DWORD customPlayer); // Offline scene ctor
+using pCtor = utinni::GroundScene* (__thiscall*)(void* pThis, const char* terrainFilename, const char* avatarObjectFilename, DWORD customPlayer); // Offline scene ctor
 using pReloadTerrain = void(__thiscall*)(utinni::GroundScene* pThis);
 using pChangeCamera = int(__thiscall*)(utinni::GroundScene* pThis, int, float);
 using pGetCurrentCamera = utinni::Camera* (__thiscall*)(utinni::GroundScene* pThis);
 
 using pDraw = void(__thiscall*)(utinni::GroundScene* pThis);
 using pUpdate = void(__thiscall*)(utinni::GroundScene* pThis, float time);
-using pHandleInputMapUpdate = void(__thiscall*)(DWORD pThis);
-using pHandleInputMapEvent = void(__thiscall*)(DWORD pThis, DWORD ioEvent);
+using pHandleInputMapUpdate = void(__thiscall*)(utinni::GroundScene* pThis);
+using pHandleInputMapEvent = void(__thiscall*)(utinni::GroundScene* pThis, DWORD ioEvent);
 
 using pInit = void(__thiscall*)(utinni::GroundScene* pThis, const char* terrain, utinni::Object* playerObj, float time);
 
-pGroundScene_ctor ctor = (pGroundScene_ctor)0x00519830; // Offline scene ctor
+pCtor ctor = (pCtor)0x00519830; // Offline scene ctor
 pReloadTerrain reloadTerrain = (pReloadTerrain)0x0051A4F0;
 pChangeCamera changeCamera = (pChangeCamera)0x0051A350;
 pGetCurrentCamera getCurrentCamera = (pGetCurrentCamera)0x0051A4D0;
@@ -44,7 +44,7 @@ GroundScene* GroundScene::get() // Static GroundScene Pointer
 
 GroundScene* GroundScene::ctor(const char* terrainFilename, const char* avatarObjectFilename)
 {
-    return swg::groundScene::ctor(utinni::allocateMemory(0xF4), terrainFilename, avatarObjectFilename, 0);
+    return swg::groundScene::ctor(utinni::allocate(0xF4), terrainFilename, avatarObjectFilename, 0);
 }
 
 std::string GroundScene::getName()

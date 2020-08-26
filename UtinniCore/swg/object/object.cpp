@@ -2,8 +2,9 @@
 #include "object.h"
 #include "swg/appearance/appearance.h"
 #include "swg/misc/swg_math.h"
-#include "swg/misc/swg_utility.h"
 #include "swg/misc/network.h"
+#include "swg/misc/swg_memory.h"
+#include "swg/misc/swg_utility.h"
 
 namespace swg::objectTemplateList
 {
@@ -14,7 +15,7 @@ using pGetObjectTemplateByCrc = utinni::SharedObjectTemplate* (__cdecl*)(unsigne
 using pReloadObject = DWORD(__cdecl*)(DWORD iff);
 
 using pGetCrcStringByName = utinni::ConstCharCrcString(__cdecl*)(utinni::ConstCharCrcString* result, const char* name);
-using pGetCrcStringByCrc = DWORD(__cdecl*)(DWORD result, unsigned int crc);
+using pGetCrcStringByCrc = DWORD(__cdecl*)(void* result, unsigned int crc);
 
 pGetObjectTemplateByFilename getObjectTemplateByFilename = (pGetObjectTemplateByFilename)0x00B28700;
 pGetObjectTemplateByIff getObjectTemplateByIff = (pGetObjectTemplateByIff)0x00B28720;
@@ -59,7 +60,7 @@ pGetInteriorLayoutFilename getInteriorLayoutFilename = (pGetInteriorLayoutFilena
 
 namespace swg::object
 {
-using pCtor = utinni::Object * (__thiscall*)(utinni::Object* pThis);
+using pCtor = utinni::Object* (__thiscall*)(utinni::Object* pThis);
 
 using pDisallowDelete = void(__cdecl*)(bool disallowDelete);
 
@@ -157,17 +158,17 @@ utinni::SharedObjectTemplate* ObjectTemplateList::getObjectTemplateByIff(DWORD i
 
 ConstCharCrcString getCrcStringByCrc(unsigned int crc)
 {
-    return *(ConstCharCrcString*)swg::objectTemplateList::getCrcStringByCrc(allocateMemory(sizeof(ConstCharCrcString)), crc);
+    return *(ConstCharCrcString*)swg::objectTemplateList::getCrcStringByCrc(allocate(sizeof(ConstCharCrcString)), crc);
 }
 
 ConstCharCrcString ObjectTemplateList::getCrcStringByName(const char* name)
 {
-    return *(ConstCharCrcString*)swg::objectTemplateList::getCrcStringByCrc(allocateMemory(sizeof(ConstCharCrcString)), calculateCrc(name));
+    return *(ConstCharCrcString*)swg::objectTemplateList::getCrcStringByCrc(allocate(sizeof(ConstCharCrcString)), calculateCrc(name));
 }
 
 DWORD ObjectTemplateList::getCrcStringByNameAsDWORD(const char* name)
 {
-    return swg::objectTemplateList::getCrcStringByCrc(allocateMemory(sizeof(ConstCharCrcString)), calculateCrc(name));
+    return swg::objectTemplateList::getCrcStringByCrc(allocate(sizeof(ConstCharCrcString)), calculateCrc(name));
 }
 
 Object* ObjectTemplate::createObject(const char* filename)
@@ -207,7 +208,7 @@ const char* SharedBuildingObjectTemplate::getInteriorLayoutFilename()
 
 Object* Object::ctor()
 {
-    return swg::object::ctor((Object*)allocateMemory(160));
+    return swg::object::ctor((Object*)allocate(160));
 }
 
 Object* Object::getObjectById(DWORD pCachedNetworkId)
