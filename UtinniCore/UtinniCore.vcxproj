@@ -167,6 +167,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\misc\config.cpp" />
     <ClCompile Include="swg\graphics\directx9.cpp" />
     <ClCompile Include="swg\misc\tree_file.cpp" />
+    <ClCompile Include="swg\misc\swg_memory.cpp" />
     <ClCompile Include="utility\log.cpp" />
     <ClCompile Include="swg\misc\direct_input.cpp" />
     <ClCompile Include="swg\ui\cui_manager.cpp" />
@@ -190,6 +191,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="utility\utility.cpp" />
     <ClCompile Include="utility\memory.cpp" />
     <ClCompile Include="swg\scene\world_snapshot.cpp" />
+    <ClCompile Include="swg\misc\swg_string.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="swg\ui\cui_menu.h" />
@@ -202,6 +204,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClInclude Include="swg\misc\config.h" />
     <ClInclude Include="swg\graphics\directx9.h" />
     <ClInclude Include="swg\misc\tree_file.h" />
+    <ClInclude Include="swg\misc\swg_memory.h" />
     <ClInclude Include="utility\log.h" />
     <ClInclude Include="swg\misc\direct_input.h" />
     <ClInclude Include="swg\ui\cui_manager.h" />
@@ -225,6 +228,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClInclude Include="utility\memory.h" />
     <ClInclude Include="utinni.h" />
     <ClInclude Include="swg\scene\world_snapshot.h" />
+    <ClInclude Include="swg\misc\swg_string.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UtINI\UtINI.vcxproj">

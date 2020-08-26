@@ -7,11 +7,11 @@ namespace utinni
 {
 struct NewPlaceholder {};
 
-extern void* allocate(size_t size);
-extern void* allocateString(size_t size);
+UTINNI_API extern void* allocate(size_t size);
+UTINNI_API extern void* allocateString(size_t size);
 
-extern void deallocate(void* address, size_t size);
-extern void deallocateString(void* address, size_t size);
+UTINNI_API extern void deallocate(void* address, size_t size);
+UTINNI_API extern void deallocateString(void* address, size_t size);
  
 }
 
@@ -22,7 +22,7 @@ inline void operator delete(void*, utinni::NewPlaceholder, void*) { }
 namespace utinni
 {
 template<class Type, class... Args>
-Type* swg_new(Args&&...args)
+UTINNI_API Type* swg_new(Args&&...args)
 {
     return new (NewPlaceholder(), allocate(sizeof(Type))) Type(std::forward<Args>(args)...);
 }

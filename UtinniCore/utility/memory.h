@@ -20,7 +20,7 @@ extern T read(DWORD address)
 template<typename T>
 extern T read(DWORD address, int offsetOfAddrResult)
 {
-    const int resultAddress = *(int*)address;
+    const DWORD resultAddress = *(DWORD*)address;
     if (resultAddress > 0)
     {
         return *(T*)(resultAddress + offsetOfAddrResult);
@@ -38,9 +38,9 @@ extern void write(DWORD address, T value)
 }
 
 template<typename T>
-extern void write(int address, int offsetOfAddrResult, T value)
+extern void write(DWORD address, int offsetOfAddrResult, T value)
 {
-    const int resultAddress = *(int*)address;
+    const DWORD resultAddress = *(DWORD*)address;
     if (resultAddress > 0)
     {
         *(T*)(resultAddress + offsetOfAddrResult) = value;
