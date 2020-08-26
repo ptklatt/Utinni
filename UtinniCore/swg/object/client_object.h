@@ -43,17 +43,17 @@ public:
 	 float unk21;
 	 bool unk22;
 
-	 void setParentCell(DWORD pCell);
+	 void setParentCell(swgptr pCell);
 	 void beginBaselines();
 	 void endBaselines();
 	 int getGameObjectType();
 	 const char* getGameObjectTypeStringIdKey();
 	 const char* getGameObjectTypeName();
 
-	 DWORD getCreatureObject();
-	 DWORD getShipObject();
-	 DWORD getStaticObject();
-	 DWORD getTangibleObject();
+	 swgptr getCreatureObject();
+	 swgptr getShipObject();
+	 swgptr getStaticObject();
+	 swgptr getTangibleObject();
 };
 
 }

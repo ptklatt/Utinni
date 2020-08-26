@@ -25,16 +25,16 @@ int __cdecl hkLoadOverrideConfig()
 {
     const int result = loadOverrideConfig();
 
-    DWORD pFile = utinni::treeFileOpen((utinni::getPath() + utinni::getSwgCfgFilename()).c_str(), 1, true);
+    swgptr pFile = utinni::treeFileOpen((utinni::getPath() + utinni::getSwgCfgFilename()).c_str(), 1, true);
 
     if (utinni::getConfig().getBool("UtinniCore", "useSwgOverrideCfg") && pFile != 0)
     {
         // ToDo clean this IDA pseudo paste up
-        int length = (*(int(__thiscall**)(int))(*(DWORD*)pFile + 8))(pFile);
-        byte* data = (byte*)(*(int(__thiscall**)(int))(*(DWORD*)pFile + 36))(pFile);
+        int length = (*(int(__thiscall**)(int))(*(swgptr*)pFile + 8))(pFile);
+        byte* data = (byte*)(*(int(__thiscall**)(int))(*(swgptr*)pFile + 36))(pFile);
         loadConfigFileBuffer(data, length);
         delete[] data;
-        pFile = (**(int(__thiscall***)(DWORD, DWORD))pFile)(pFile, 1);
+        pFile = (**(int(__thiscall***)(swgptr, swgptr))pFile)(pFile, 1);
     }
 
     return result;

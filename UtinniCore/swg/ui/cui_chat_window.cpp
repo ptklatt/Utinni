@@ -5,7 +5,7 @@
 
 namespace swg::cuiChatWindow
 {
-using pCtor = DWORD (__thiscall*)(DWORD pThis, DWORD uiPage, DWORD unk1, DWORD unk2, DWORD unk3);
+using pCtor = swgptr(__thiscall*)(swgptr pThis, swgptr uiPage, DWORD unk1, DWORD unk2, DWORD unk3);
 
 pCtor ctor = (pCtor)0x00F364B0;
 }
@@ -20,17 +20,17 @@ void CuiChatWindow::addCommandParser(CommandParser* commandParser)
     commandParsers.emplace_back(commandParser);
 }
 
-DWORD __fastcall hkCtor(DWORD pThis, void* useless, DWORD uiPage, DWORD unk1, DWORD unk2, DWORD unk3)
+swgptr __fastcall hkCtor(swgptr pThis, DWORD EDX, swgptr uiPage, DWORD unk1, DWORD unk2, DWORD unk3)
 {
     commandParsers.emplace_back(swg_new<UtinniCommandParser>()); 
     return swg::cuiChatWindow::ctor(pThis, uiPage, unk1, unk2, unk3);
 }
 
 CommandParser* mainCommandParser;
-DWORD return_midCtor = 0x00F3679D;
+swgptr return_midCtor = 0x00F3679D;
 __declspec(naked) void midCtor()
 {
-    DWORD pMainCommandParser;
+    swgptr pMainCommandParser;
     __asm
     {
         mov pMainCommandParser, edx

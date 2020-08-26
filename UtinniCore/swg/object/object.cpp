@@ -9,13 +9,13 @@
 namespace swg::objectTemplateList
 {
 using pGetObjectTemplateByFilename = utinni::SharedObjectTemplate* (__cdecl*)(const char* filename);
-using pGetObjectTemplateByIff = utinni::SharedObjectTemplate* (__cdecl*)(DWORD iff);
+using pGetObjectTemplateByIff = utinni::SharedObjectTemplate* (__cdecl*)(swgptr iff);
 using pGetObjectTemplateByCrc = utinni::SharedObjectTemplate* (__cdecl*)(unsigned int crc);
 
-using pReloadObject = DWORD(__cdecl*)(DWORD iff);
+using pReloadObject = swgptr(__cdecl*)(swgptr iff);
 
 using pGetCrcStringByName = utinni::ConstCharCrcString(__cdecl*)(utinni::ConstCharCrcString* result, const char* name);
-using pGetCrcStringByCrc = DWORD(__cdecl*)(void* result, unsigned int crc);
+using pGetCrcStringByCrc = swgptr(__cdecl*)(void* result, unsigned int crc);
 
 pGetObjectTemplateByFilename getObjectTemplateByFilename = (pGetObjectTemplateByFilename)0x00B28700;
 pGetObjectTemplateByIff getObjectTemplateByIff = (pGetObjectTemplateByIff)0x00B28720;
@@ -88,10 +88,10 @@ using pSetAppearance = void(__thiscall*)(utinni::Object* pThis, utinni::Appearan
 using pGetAppearanceFilename = const char* (__thiscall*)(utinni::Object* pThis);
 using pSetAppearanceByFilename = void(__thiscall*)(utinni::Object* pThis, const char* filename);
 
-using pAddNotification = void(__thiscall*)(utinni::Object* pThis, DWORD notification, bool allowInWorld);
+using pAddNotification = void(__thiscall*)(utinni::Object* pThis, swgptr notification, bool allowInWorld);
 
 
-using pGetParentCell = DWORD(__thiscall*)(utinni::Object* pThis);
+using pGetParentCell = swgptr(__thiscall*)(utinni::Object* pThis);
 
 using pSetObjectToWorldDirty = void(__thiscall*)(utinni::Object* pThis, bool isDirty);
 
@@ -151,7 +151,7 @@ utinni::SharedObjectTemplate* ObjectTemplateList::getObjectTemplateByFilename(co
     return swg::objectTemplateList::getObjectTemplateByFilename(filename);
 }
 
-utinni::SharedObjectTemplate* ObjectTemplateList::getObjectTemplateByIff(DWORD iff)
+utinni::SharedObjectTemplate* ObjectTemplateList::getObjectTemplateByIff(swgptr iff)
 {
     return swg::objectTemplateList::getObjectTemplateByIff(iff);
 }
@@ -166,7 +166,7 @@ ConstCharCrcString ObjectTemplateList::getCrcStringByName(const char* name)
     return *(ConstCharCrcString*)swg::objectTemplateList::getCrcStringByCrc(allocate(sizeof(ConstCharCrcString)), calculateCrc(name));
 }
 
-DWORD ObjectTemplateList::getCrcStringByNameAsDWORD(const char* name)
+swgptr ObjectTemplateList::getCrcStringByNameAsPtr(const char* name)
 {
     return swg::objectTemplateList::getCrcStringByCrc(allocate(sizeof(ConstCharCrcString)), calculateCrc(name));
 }
@@ -211,7 +211,7 @@ Object* Object::ctor()
     return swg::object::ctor((Object*)allocate(160));
 }
 
-Object* Object::getObjectById(DWORD pCachedNetworkId)
+Object* Object::getObjectById(swgptr pCachedNetworkId)
 {
     if (pCachedNetworkId == 0)
         return nullptr;
@@ -239,7 +239,7 @@ const swg::math::Vector Object::rotate_o2w(const swg::math::Vector* o2w, const s
     return swg::object::rotate_o2w(this, 0, o2w, pointInSpace);
 }
 
-void Object::addNotification(DWORD notification, bool allowWhenInWorld)
+void Object::addNotification(swgptr notification, bool allowWhenInWorld)
 {
     swg::object::addNotification(this, notification, allowWhenInWorld);
 }
@@ -259,7 +259,7 @@ void Object::setAppearance(Appearance* appearance)
     swg::object::setAppearance(this, appearance);
 }
 
-DWORD Object::getParentCell()
+swgptr Object::getParentCell()
 {
     return swg::object::getParentCell(this);
 }

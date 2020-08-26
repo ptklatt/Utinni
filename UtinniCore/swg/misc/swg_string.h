@@ -68,7 +68,7 @@ private:
             begin[i] = value[i];
         }
 
-        memory::write<char16_t>((DWORD)end, 0); // Ensure the end is zero'd
+        memory::write<char16_t>((swgptr)end, 0); // Ensure the end is zero'd
     }
 
     template<typename TCharRhs>

@@ -26,7 +26,7 @@ public:
 
     static Object* getPlayer();
     static Object* getPlayerCreatureObject();
-    static DWORD getPlayerLookAtTargetObjectNetworkId();
+    static swgptr getPlayerLookAtTargetObjectNetworkId();
     static Object* getPlayerLookAtTargetObject();
 
     static Camera* getCamera();

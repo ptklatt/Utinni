@@ -41,16 +41,16 @@ class UTINNI_API ObjectTemplateList
 {
 public:
     static SharedObjectTemplate* getObjectTemplateByFilename(const char* filename);
-    static SharedObjectTemplate* getObjectTemplateByIff(DWORD iff);
+    static SharedObjectTemplate* getObjectTemplateByIff(swgptr iff);
     static const ConstCharCrcString getCrcStringByCrc(unsigned int crc);
     static ConstCharCrcString getCrcStringByName(const char* name);
-    static DWORD getCrcStringByNameAsDWORD(const char* name);
+    static swgptr getCrcStringByNameAsPtr(const char* name);
 };
 
 class UTINNI_API Object
 {
 public:
-    DWORD* vtbl;
+    swgptr vtbl;
     uint32_t unk01;
     uint32_t unk02;
     uint32_t unk03;
@@ -63,24 +63,24 @@ public:
     uint32_t unk07;
     Object* parentObject;
     uint32_t unk08;
-    DWORD* dpvsObjects;
+    swgptr dpvsObjects;
     int rotations;
     swg::math::Vector scale;
     swg::math::Transform objectToParent;
     swg::math::Transform* objectToWorld;
     uint32_t unk09;
-    DWORD* container;
-    DWORD* CollisionProperty;
-    DWORD* SpatialSubdivisionHandle;
+    swgptr container;
+    swgptr CollisionProperty;
+    swgptr SpatialSubdivisionHandle;
     uint8_t unk10; // might not need
     uint8_t unk11; // might not need
     uint8_t unk12; // might not need
     uint8_t unk13;
     uint32_t unk14;
-    DWORD containedBy;
+    swgptr containedBy;
 
     static Object* ctor();
-    static Object* getObjectById(DWORD networkIdPointer);
+    static Object* getObjectById(swgptr networkIdPointer);
 
     void remove();
 
@@ -91,8 +91,8 @@ public:
     void addToWorld();
     void removeFromWorld();
     void setAppearance(Appearance* appearance);
-    DWORD getParentCell();
-    void addNotification(DWORD notification, bool allowWhenInWorld);
+    swgptr getParentCell();
+    void addNotification(swgptr notification, bool allowWhenInWorld);
 
     void setObjectToWorldDirty(bool isDirty);
 
@@ -106,13 +106,13 @@ public:
 
 struct AutoVariableBase
 {
-    DWORD* vtbl;
+    swgptr vtbl;
 };
 
 struct AutoDeltaVariableBase : AutoVariableBase
 {
     unsigned short index;
-    DWORD* parent;
+    swgptr parent;
 };
 
 template <typename T>
@@ -125,7 +125,7 @@ struct AutoDeltaVariable : AutoDeltaVariableBase
 template <typename T>
 struct AutoDeltaVariableCallback : AutoDeltaVariable<T>
 {
-    DWORD callback;
+    swgptr callback;
     Object* sourceObject;
 };
 

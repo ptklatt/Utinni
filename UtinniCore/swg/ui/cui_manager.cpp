@@ -4,7 +4,7 @@
 
 namespace swg::cuiManager
 {
-using pRender = void(__thiscall*)(DWORD* pThis);
+using pRender = void(__thiscall*)(swgptr pThis);
 using pFindObjectUnderCursor = utinni::Object* (__cdecl*)(utinni::Camera* camera, math::Vector* worldStart, math::Vector* worldEnd, utinni::Object* player);
 
 using pSetSize = void(__cdecl*)(int width, int height);
@@ -59,7 +59,7 @@ bool CuiManager::hasObjectUnderCursor()
     return utinni::hasObjectUnderCursor;
 }
 
-void __fastcall hkRender(DWORD* pThis, void* useless)
+void __fastcall hkRender(swgptr pThis, void* useless)
 {
     isRenderingUi = true;
     swg::cuiManager::render(pThis);

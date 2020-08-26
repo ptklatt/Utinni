@@ -30,7 +30,7 @@ struct StartupData
 
     bool unk4; //0x0038 
     bool unk5;
-    DWORD lostFocusCallback;
+    swgptr lostFocusCallback;
 };
 
 class UTINNI_API Client

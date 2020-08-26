@@ -3,7 +3,7 @@
 
 namespace swg::treefile
 {
-using pSearchTree = DWORD(__thiscall*)(DWORD pThis, int priority, const char* treeFilename);
+using pSearchTree = swgptr(__thiscall*)(swgptr pThis, int priority, const char* treeFilename);
 
 pSearchTree searchTree = (pSearchTree)0xA992E0;
 }
@@ -23,7 +23,7 @@ std::vector<std::string> getAllFilenames()
     return result;
 }
 
-DWORD __fastcall hkSearchTree(DWORD pThis, DWORD EDX, int priority, const char* treeFilename)
+swgptr __fastcall hkSearchTree(swgptr pThis, DWORD EDX, int priority, const char* treeFilename)
 {
     swg::treefile::searchTree(pThis, priority, treeFilename);
 

@@ -4,7 +4,7 @@
 
 namespace swg::cuiMenu
 {
-using pInfoTypesFindDefaultCursor = DWORD(__cdecl*)(utinni::ClientObject* obj);
+using pInfoTypesFindDefaultCursor = swgptr(__cdecl*)(utinni::ClientObject* obj);
 
 pInfoTypesFindDefaultCursor infoTypesFindDefaultCursor = (pInfoTypesFindDefaultCursor)0x00A08EE0;
 
@@ -12,7 +12,7 @@ pInfoTypesFindDefaultCursor infoTypesFindDefaultCursor = (pInfoTypesFindDefaultC
 
 namespace utinni
 {
-DWORD __cdecl hkInfoTypesFindDefaultCursor(ClientObject* obj)
+swgptr __cdecl hkInfoTypesFindDefaultCursor(ClientObject* obj)
 {
     if (imgui::gizmo::isEnabled())
     {

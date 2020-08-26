@@ -6,7 +6,7 @@
 
 namespace swg::groundScene
 {
-using pCtor = utinni::GroundScene* (__thiscall*)(void* pThis, const char* terrainFilename, const char* avatarObjectFilename, DWORD customPlayer); // Offline scene ctor
+using pCtor = utinni::GroundScene* (__thiscall*)(void* pThis, const char* terrainFilename, const char* avatarObjectFilename, swgptr customPlayer); // Offline scene ctor
 using pReloadTerrain = void(__thiscall*)(utinni::GroundScene* pThis);
 using pChangeCamera = int(__thiscall*)(utinni::GroundScene* pThis, int, float);
 using pGetCurrentCamera = utinni::Camera* (__thiscall*)(utinni::GroundScene* pThis);
@@ -14,7 +14,7 @@ using pGetCurrentCamera = utinni::Camera* (__thiscall*)(utinni::GroundScene* pTh
 using pDraw = void(__thiscall*)(utinni::GroundScene* pThis);
 using pUpdate = void(__thiscall*)(utinni::GroundScene* pThis, float time);
 using pHandleInputMapUpdate = void(__thiscall*)(utinni::GroundScene* pThis);
-using pHandleInputMapEvent = void(__thiscall*)(utinni::GroundScene* pThis, DWORD ioEvent);
+using pHandleInputMapEvent = void(__thiscall*)(utinni::GroundScene* pThis, swgptr ioEvent);
 
 using pInit = void(__thiscall*)(utinni::GroundScene* pThis, const char* terrain, utinni::Object* playerObj, float time);
 

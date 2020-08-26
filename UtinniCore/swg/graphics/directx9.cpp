@@ -8,8 +8,8 @@
 namespace directX
 {
 LPDIRECT3DDEVICE9 pDevice = nullptr;
-DWORD* vtbl = nullptr;
-DWORD dllBaseAddress = 0;
+swgptr* vtbl = nullptr;
+swgptr dllBaseAddress = 0;
 
 static bool blockPresentCall = false;
 static bool isPresenting = false;
@@ -159,7 +159,7 @@ enum D3DInformation
 void setDevice()
 {
     pDevice = (LPDIRECT3DDEVICE9)memory::findPattern((swgptr)GetModuleHandle("d3d9.dll"), 0x128000, "\xC7\x06\x00\x00\x00\x00\x89\x86\x00\x00\x00\x00\x89\x86", "xx????xx????xx");
-    memcpy(&vtbl, (void*)(((DWORD)pDevice) + 2), 4);
+    memcpy(&vtbl, (void*)(((swgptr)pDevice) + 2), 4);
 }
 
 HRESULT __stdcall hkBeginScene(LPDIRECT3DDEVICE9 pDevice)
@@ -241,25 +241,25 @@ void detour()
 {
     setDevice();
 
-    DWORD BeginSceneAddress = Detour::CheckPointer(vtbl[d3di_BeginScene_Index]);
+	 swgptr BeginSceneAddress = Detour::CheckPointer(vtbl[d3di_BeginScene_Index]);
     beginScene = (pBeginScene)Detour::Create((LPVOID)BeginSceneAddress, hkBeginScene, DETOUR_TYPE_PUSH_RET);
 
-    DWORD EndSceneAddress = Detour::CheckPointer(vtbl[d3di_EndScene_Index]);
+	 swgptr EndSceneAddress = Detour::CheckPointer(vtbl[d3di_EndScene_Index]);
     endScene = (pBeginScene)Detour::Create((LPVOID)EndSceneAddress, hkEndScene, DETOUR_TYPE_PUSH_RET);
 
-    DWORD PresentAddress = Detour::CheckPointer(vtbl[d3di_Present_Index]);
+	 swgptr PresentAddress = Detour::CheckPointer(vtbl[d3di_Present_Index]);
     present = (pPresent)Detour::Create((LPVOID)PresentAddress, hkPresent, DETOUR_TYPE_PUSH_RET);
 
-    DWORD ResetAddress = Detour::CheckPointer(vtbl[d3di_Reset_Index]);
+	 swgptr ResetAddress = Detour::CheckPointer(vtbl[d3di_Reset_Index]);
     reset = (pReset)Detour::Create((LPVOID)ResetAddress, hkReset, DETOUR_TYPE_PUSH_RET);
 
-    DWORD DrawIndexedPrimitiveAddress = Detour::CheckPointer(vtbl[d3di_DrawIndexedPrimitive_Index]);
+	 swgptr DrawIndexedPrimitiveAddress = Detour::CheckPointer(vtbl[d3di_DrawIndexedPrimitive_Index]);
     drawIndexedPrimitive = (pDrawIndexedPrimitive)Detour::Create((LPVOID)DrawIndexedPrimitiveAddress, hkDrawIndexedPrimitive, DETOUR_TYPE_PUSH_RET);
 
-    DWORD SetRenderTargetAddress = Detour::CheckPointer(vtbl[d3di_SetRenderTarget_Index]);
+	 swgptr SetRenderTargetAddress = Detour::CheckPointer(vtbl[d3di_SetRenderTarget_Index]);
     setRenderTarget = (pSetRenderTarget)Detour::Create((LPVOID)SetRenderTargetAddress, hkSetRenderTarget, DETOUR_TYPE_PUSH_RET);
 
-    DWORD SetDepthStencilAddress = Detour::CheckPointer(vtbl[d3di_SetDepthStencilSurface_Index]);
+	 swgptr SetDepthStencilAddress = Detour::CheckPointer(vtbl[d3di_SetDepthStencilSurface_Index]);
     setDepthStencil = (pSetDepthStencil)Detour::Create((LPVOID)SetDepthStencilAddress, hkSetDepthStencil, DETOUR_TYPE_PUSH_RET);
 }
 

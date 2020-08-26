@@ -2,7 +2,7 @@
 
 namespace swg::cellProperty
 {
-using pGetParentCell = DWORD(__thiscall*)(utinni::CellProperty* pThis);
+using pGetParentCell = swgptr(__thiscall*)(utinni::CellProperty* pThis);
 using pSetPortalTransitions = void(__cdecl*)(bool enabled);
 
 pGetParentCell getParentCell = (pGetParentCell)0x00B22C00;
@@ -28,7 +28,7 @@ pGetPobByCrcString getPobByCrcString = (pGetPobByCrcString)0x00B497E0;
 
 namespace utinni
 {
-DWORD CellProperty::getParentCell()
+swgptr CellProperty::getParentCell()
 {
     return swg::cellProperty::getParentCell(this);
 }

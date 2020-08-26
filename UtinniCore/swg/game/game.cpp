@@ -161,19 +161,19 @@ Object* Game::getPlayerCreatureObject() // ToDo return CreatureObject*
     return swg::game::getPlayerCreatureObject();
 }
 
-DWORD Game::getPlayerLookAtTargetObjectNetworkId()
+swgptr Game::getPlayerLookAtTargetObjectNetworkId()
 {
     const Object* playerObj = getPlayerCreatureObject();
 
     if (!playerObj)
         return 0;
 
-    return (DWORD)playerObj + 1432;
+    return (swgptr)playerObj + 1432;
 }
 
 Object* Game::getPlayerLookAtTargetObject()
 {
-    const DWORD lookAtId = getPlayerLookAtTargetObjectNetworkId();
+    const swgptr lookAtId = getPlayerLookAtTargetObjectNetworkId();
 
     if (lookAtId == 0)
         return nullptr;

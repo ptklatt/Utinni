@@ -3,7 +3,7 @@
 
 namespace swg::clientObject
 {
-using pSetParentCell = void(__thiscall*)(utinni::ClientObject* pThis, DWORD cell);
+using pSetParentCell = void(__thiscall*)(utinni::ClientObject* pThis, swgptr cell);
 using pBeginBaselines = void(__thiscall*)(utinni::ClientObject* pThis);
 using pEndBaselines = void(__thiscall*)(utinni::ClientObject* pThis);
 
@@ -11,8 +11,8 @@ using pGetGameObjectType = int(__thiscall*)(utinni::ClientObject* pThis);
 using pGetGameObjectTypeStringIdKey = const char** (__thiscall*)(utinni::ClientObject* pThis);
 using pGetGameObjectTypeName = const wchar_t** (__thiscall*)(utinni::ClientObject* pThis);
 
-using pGetStaticObject = DWORD(__thiscall*)(DWORD pThis);
-using pGetTangibleObject = DWORD(__thiscall*)(DWORD pThis);
+using pGetStaticObject = swgptr(__thiscall*)(swgptr pThis);
+using pGetTangibleObject = swgptr(__thiscall*)(swgptr pThis);
 
 pSetParentCell setParentCell = (pSetParentCell)0x00555410;
 pBeginBaselines beginBaselines = (pEndBaselines)0x00555070;
@@ -42,7 +42,7 @@ pRemoveFromWorld removeFromWorld = (pRemoveFromWorld)0x0070DD20;
 
 namespace utinni
 {
-void ClientObject::setParentCell(DWORD pCell)
+void ClientObject::setParentCell(swgptr pCell)
 {
     swg::clientObject::setParentCell(this, pCell);
 }
@@ -72,24 +72,24 @@ const char* ClientObject::getGameObjectTypeName()
     return utility::wstring_to_string(std::wstring(*swg::clientObject::getGameObjectTypeName(this))).c_str();
 }
 
-DWORD ClientObject::getCreatureObject()
+swgptr ClientObject::getCreatureObject()
 {
-    return (*(int(__thiscall**)(ClientObject*))(*(DWORD*)this + 92))(this); // ToDo do this proper via variable
+    return (*(int(__thiscall**)(ClientObject*))(*(swgptr*)this + 92))(this); // ToDo do this proper via variable
 }
 
-DWORD ClientObject::getShipObject()
+swgptr ClientObject::getShipObject()
 {
-    return (*(int(__thiscall**)(ClientObject*))(*(DWORD*)this + 116))(this); // ToDo do this proper via variable
+    return (*(int(__thiscall**)(ClientObject*))(*(swgptr*)this + 116))(this); // ToDo do this proper via variable
 }
 
-DWORD ClientObject::getStaticObject()
+swgptr ClientObject::getStaticObject()
 {
-    return (*(int(__thiscall**)(ClientObject*))(*(DWORD*)this + 100))(this); // ToDo do this proper via variable
+    return (*(int(__thiscall**)(ClientObject*))(*(swgptr*)this + 100))(this); // ToDo do this proper via variable
 }
 
-DWORD ClientObject::getTangibleObject()
+swgptr ClientObject::getTangibleObject()
 {
-    return (*(int(__thiscall**)(ClientObject*))(*(DWORD*)this + 108))(this); // ToDo do this proper via variable
+    return (*(int(__thiscall**)(ClientObject*))(*(swgptr*)this + 108))(this); // ToDo do this proper via variable
 }
 }
 

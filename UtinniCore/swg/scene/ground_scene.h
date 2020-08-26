@@ -11,20 +11,20 @@ class Camera;
 class UTINNI_API GroundScene : public NetworkScene
 {
 public:
-    DWORD* inputMap;
-    DWORD* debugPortalCameraInputMap;
-    DWORD* structurePlacementCameraInputMap;
-    DWORD* freeCameraInputMap;
-    DWORD* mouseCursor;
-    DWORD* lastYawPitch;
-    DWORD* cockpitCamera;
-    DWORD* shipTurretCamera;
-    DWORD* freeChaseCamera;
-    DWORD* freeCamera;
-    DWORD* debugPortalCamera;
-    DWORD* structurePlacementCamera;
-    DWORD* flyByCamera;
-    DWORD* cameras[7];
+    swgptr inputMap;
+    swgptr debugPortalCameraInputMap;
+    swgptr structurePlacementCameraInputMap;
+    swgptr freeCameraInputMap;
+    swgptr mouseCursor;
+    swgptr lastYawPitch;
+    swgptr cockpitCamera;
+    swgptr shipTurretCamera;
+    swgptr freeChaseCamera;
+    swgptr freeCamera;
+    swgptr debugPortalCamera;
+    swgptr structurePlacementCamera;
+    swgptr flyByCamera;
+    swgptr cameras[7];
     int currentView;
     bool disableWorldSnapshot;
     bool unk01;
@@ -38,7 +38,7 @@ public:
     uint32_t unk07;
     uint32_t unk08;
     uint32_t unk09;
-    DWORD* overheadMap;
+    swgptr overheadMap;
     uint32_t unk10;
     uint32_t unk11;
     bool currentMode;

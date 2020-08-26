@@ -15,7 +15,7 @@ enum commands
 class UTINNI_API IoWin
 {
 public:
-    DWORD* vtbl;
+    swgptr vtbl;
     char* name;
     IoWin* ioWin;
 };
@@ -23,7 +23,7 @@ public:
 class UTINNI_API MouseCursor
 {
 public:
-    unsigned int style;
+    uint32_t style;
     bool unk01;
     int unk02;
     int localX;

@@ -18,7 +18,7 @@ struct CollisionInfo
 
 struct Controller
 {
-    DWORD* vtbl;
+    swgptr vtbl;
     uint32_t unk01;
     uint32_t unk02;
     Object* ownerObject;
@@ -26,7 +26,7 @@ struct Controller
 
 struct DataResource
 {
-    DWORD* vtbl;
+    swgptr vtbl;
     PersistentCrcString name;
     int referenceCount;
 };
@@ -35,7 +35,7 @@ struct StringId
 {
     std::string stringTable;
     std::string text;
-    unsigned int textIndex;
+    uint32_t textIndex;
 };
 
 

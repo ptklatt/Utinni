@@ -18,22 +18,22 @@ struct UTINNI_API Hardpoint
 class UTINNI_API AppearanceTemplate
 {
 public:
-    DWORD* vtbl;
+    swgptr vtbl;
     int referenceCount;
     PersistentCrcString* const m_crcName;
-    DWORD* unk01;
-    DWORD* unk02;
+    swgptr unk01;
+    swgptr unk02;
     std::vector<Hardpoint*, std::allocator<Hardpoint*>>* hardpoints;
     char* floorName;
-    DWORD* unk03;
+    swgptr unk03;
 };
 
 class UTINNI_API Appearance
 {
 public:
-    DWORD* vtbl;
+    swgptr vtbl;
     AppearanceTemplate* appearanceTemplate;
-    DWORD* extent;
+    swgptr extent;
     Object* ownerObject;
     int renderedFrameCount;
     swg::math::Vector scale;
@@ -46,7 +46,7 @@ public:
 class UTINNI_API CellProperty
 {
 public:
-    DWORD getParentCell();
+    swgptr getParentCell();
     static void setPortalTransitions(bool enabled);
 };
 

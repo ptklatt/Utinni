@@ -22,7 +22,7 @@ public:
         int pobCRC;
         Node* parentNode;
         std::vector<Node*>* children;
-        DWORD* pSpatialSubdivisionHandle;
+        swgptr pSpatialSubdivisionHandle;
         float distanceSquaredTo;
         bool isInWorld;
 
@@ -30,12 +30,12 @@ public:
         void removeNodeFull();
 
         int64_t getNodeNetworkId();
-        DWORD getNodeSpatialSubdivisionHandle();
-        void setNodeSpatialSubdivisionHandle(DWORD handle);
+        swgptr getNodeSpatialSubdivisionHandle();
+        void setNodeSpatialSubdivisionHandle(swgptr handle);
 
-        const char* getObjectTemplateName();
+        const char* getObjectTemplateName() const;
 
-        int getChildCount();
+        int getChildCount() const;
         Node* getChildAt(int index);
     };
 

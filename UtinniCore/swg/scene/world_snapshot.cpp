@@ -18,9 +18,9 @@ using pGetObjectTemplateName = const char* (__thiscall*)(utinni::WorldSnapshotRe
 using pNodeCount = int(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis);
 using pNodeCountTotal = int(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis);
 
-using pGetNodeByNetworkId = utinni::WorldSnapshotReaderWriter::Node* (__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, DWORD networkId);
+using pGetNodeByNetworkId = utinni::WorldSnapshotReaderWriter::Node* (__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, swgptr networkId);
 using pGetNodeByIndex = utinni::WorldSnapshotReaderWriter::Node* (__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, int nodeId);
-using pAddNode = DWORD (__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, int nodeId, int parentNodeId, const utinni::CrcString& objectFilenameCrcString, int cellId, const swg::math::Transform& transform, float radius, unsigned int pobCrc);
+using pAddNode = swgptr(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, int nodeId, int parentNodeId, const utinni::CrcString& objectFilenameCrcString, int cellId, const swg::math::Transform& transform, float radius, unsigned int pobCrc);
 using pRemoveNode = void(__thiscall*)(utinni::WorldSnapshotReaderWriter* pThis, int nodeId);
 
 pOpenFile openFile = (pOpenFile)0x00B97D90;
@@ -41,7 +41,7 @@ namespace node
 {
 using pGetNodeNetworkId = int(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis);
 using pGetNodeSpatialSubdivisionHandle = DWORD(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis);
-using pSetNodeSpatialSubdivisionHandle = void(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis, DWORD handle);
+using pSetNodeSpatialSubdivisionHandle = void(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis, swgptr handle);
 
 using pNodeRemoveFromWorld = void(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis);
 
@@ -61,8 +61,8 @@ using pUnload = void(__cdecl*)();
 
 using pClearPreloadList = char(__cdecl*)(DWORD, DWORD, DWORD);
 
-using pCreateObject = DWORD(__cdecl*)(utinni::WorldSnapshotReaderWriter* pReader, utinni::WorldSnapshotReaderWriter::Node* pNode, DWORD result);
-using pAddObject = void(__cdecl*)(DWORD object, DWORD node);
+using pCreateObject = swgptr(__cdecl*)(utinni::WorldSnapshotReaderWriter* pReader, utinni::WorldSnapshotReaderWriter::Node* pNode, swgptr result);
+using pAddObject = void(__cdecl*)(swgptr pObject, swgptr pNode);
 
 using pDetailLevelChanged = void(__cdecl*)();
 
@@ -120,7 +120,7 @@ WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::addNode(int nodeId, 
 {
     // For some reason, the ptr is wrong if parentNodeId is 0 and it's actually 'result - 4' to get the accurate pointer
 
-    DWORD pNode;
+    swgptr pNode;
     if (parentNodeId == 0)
     {
         pNode = swg::worldSnapshotReaderWriter::addNode(this, nodeId, parentNodeId, *ConstCharCrcString::ctor(objectFilename), cellId, transform, radius, pobCrc) - 4;  // That's why we subtract 4 here
@@ -180,8 +180,8 @@ void WorldSnapshotReaderWriter::Node::removeNode()
 
 void WorldSnapshotReaderWriter::Node::removeNodeFull() // WIP - Messy IDA pseudo code
 {
-    using Void1 = int(__thiscall*)(DWORD, int);
-    using Void2 = int(__thiscall*)(DWORD);
+    using Void1 = int(__thiscall*)(swgptr, int);
+    using Void2 = int(__thiscall*)(swgptr);
     using Void3 = void(__cdecl*)();
 
     Void1 void1 = (Void1)0x005A25A0;
@@ -191,25 +191,25 @@ void WorldSnapshotReaderWriter::Node::removeNodeFull() // WIP - Messy IDA pseudo
 
     if (getNodeSpatialSubdivisionHandle())
     {
-        DWORD nodeSpatialSubdivisionHandle1 = getNodeSpatialSubdivisionHandle();
-        DWORD nodeSpatialSubdivisionHandle2 = nodeSpatialSubdivisionHandle1;
+        swgptr nodeSpatialSubdivisionHandle1 = getNodeSpatialSubdivisionHandle();
+        swgptr nodeSpatialSubdivisionHandle2 = nodeSpatialSubdivisionHandle1;
 
         if (nodeSpatialSubdivisionHandle1)
         {
-            DWORD nodeSpatialSubdivisionHandle3 = *(DWORD*)(nodeSpatialSubdivisionHandle1 + 4);
+            swgptr nodeSpatialSubdivisionHandle3 = *(swgptr*)(nodeSpatialSubdivisionHandle1 + 4);
             if (nodeSpatialSubdivisionHandle3)
             {
                 void1(nodeSpatialSubdivisionHandle3, nodeSpatialSubdivisionHandle1);
-                DWORD nodeSpatialSubdivisionHandle4 = nodeSpatialSubdivisionHandle2;
+                swgptr nodeSpatialSubdivisionHandle4 = nodeSpatialSubdivisionHandle2;
 
                 if (!(*(byte*)(0x19BB7DC) & 1))
                 {
                     *(byte*)(0x19BB7DC) |= 1u;
 
-                    call1(memory::read<DWORD>(0x19BB7E0));
+                    call1(memory::read<swgptr>(0x19BB7E0));
                     void5();
                 }
-                void2(memory::read<DWORD>(0x19BB7E0), (int)&nodeSpatialSubdivisionHandle4);
+                void2(memory::read<swgptr>(0x19BB7E0), (int)&nodeSpatialSubdivisionHandle4);
             }
         }
         setNodeSpatialSubdivisionHandle(0);
@@ -230,22 +230,22 @@ int64_t WorldSnapshotReaderWriter::Node::getNodeNetworkId()
     return Network::cast(id);
 }
 
-DWORD WorldSnapshotReaderWriter::Node::getNodeSpatialSubdivisionHandle()
+swgptr WorldSnapshotReaderWriter::Node::getNodeSpatialSubdivisionHandle()
 {
     return swg::worldSnapshotReaderWriter::node::getNodeSpatialSubdivisionHandle(this);
 }
 
-void WorldSnapshotReaderWriter::Node::setNodeSpatialSubdivisionHandle(DWORD handle)
+void WorldSnapshotReaderWriter::Node::setNodeSpatialSubdivisionHandle(swgptr handle)
 {
     swg::worldSnapshotReaderWriter::node::setNodeSpatialSubdivisionHandle(this, handle);
 }
 
-const char* WorldSnapshotReaderWriter::Node::getObjectTemplateName()
+const char* WorldSnapshotReaderWriter::Node::getObjectTemplateName() const
 {
     return WorldSnapshotReaderWriter::get()->getObjectTemplateName(objectTemplateNameIndex);
 }
 
-int WorldSnapshotReaderWriter::Node::getChildCount()
+int WorldSnapshotReaderWriter::Node::getChildCount() const
 {
     return children->size();
 }
@@ -267,16 +267,16 @@ void WorldSnapshot::load(const std::string& name)
 
 void WorldSnapshot::unload() // WIP - Messy IDA pseudo code
 {
-    DWORD  v0 = memory::read<DWORD>(0x1913E08);
-    DWORD  v1 = memory::read<DWORD>(0x1913E04);
+    swgptr v0 = memory::read<swgptr>(0x1913E08);
+    swgptr v1 = memory::read<swgptr>(0x1913E04);
     int  i = 0;
     if (((BYTE*)v0 - (BYTE*)v1) >> 2)
     {
         do // Still doesn't do anything
         {
-            (*(void(__thiscall**)(DWORD))(**((DWORD**)v1 + i) + 8))(*((DWORD*)v1 + i));
-            v0 = memory::read<DWORD>(0x1913E08);
-            v1 = memory::read<DWORD>(0x1913E04);
+            (*(void(__thiscall**)(swgptr))(**((swgptr**)v1 + i) + 8))(*((swgptr*)v1 + i));
+            v0 = memory::read<swgptr>(0x1913E08);
+            v1 = memory::read<swgptr>(0x1913E04);
             ++i;
         } while (i < ((BYTE*)v0 - (BYTE*)v1) >> 2);
     }
@@ -290,7 +290,7 @@ void WorldSnapshot::unload() // WIP - Messy IDA pseudo code
         readerWriter->getNodeAt(i)->removeNodeFull();
     }
 
-    using pUnkVoid1 = int(__thiscall*)(DWORD);
+    using pUnkVoid1 = int(__thiscall*)(swgptr);
     pUnkVoid1 unkVoid1 = (pUnkVoid1)0x005A2570;
 
     for (int j = memory::read<int>(0x1913E4C); j != memory::read<int>(0x1913E50); ++j)
@@ -298,9 +298,9 @@ void WorldSnapshot::unload() // WIP - Messy IDA pseudo code
         unkVoid1(j);
     }
 
-    memory::write<DWORD>(0x1913E40, memory::read<DWORD>(0x1913E3C));
-    memory::write<DWORD>(0x1913E28, memory::read<DWORD>(0x1913E24));
-    memory::write<DWORD>(0x1913E1C, memory::read<DWORD>(0x1913E18));
+    memory::write<swgptr>(0x1913E40, memory::read<swgptr>(0x1913E3C));
+    memory::write<swgptr>(0x1913E28, memory::read<swgptr>(0x1913E24));
+    memory::write<swgptr>(0x1913E1C, memory::read<swgptr>(0x1913E18));
 
     readerWriter->clear();
 }

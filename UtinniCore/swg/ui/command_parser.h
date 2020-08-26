@@ -19,7 +19,7 @@ public:
         const char* helpInfo;
     };
 
-    //DWORD vtbl;
+    //swgptr vtbl;
     const swg::WString command;
     size_t argCount;
     swg::WString args;
@@ -29,7 +29,7 @@ public:
     CommandParser* parentParser;
     CommandParser* delegate;
 
-    std::set<CommandParser*, DWORD>* subCommands;
+    std::set<CommandParser*, swgptr>* subCommands;
 
     // Dummy virtual functions for the vtable that's to be overwritten by SWG's ctor
     virtual ~CommandParser();

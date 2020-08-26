@@ -8,9 +8,9 @@ namespace utinni
 class UTINNI_API Network
 {
 public:
-    static DWORD getManger();
+    static swgptr getManger();
     static Object* getObjectById(const int64_t& id);
-    static Object* getCachedObjectById(DWORD pCachedNetworkId);
+    static Object* getCachedObjectById(swgptr pCachedNetworkId);
 
     static int64_t cast(int id);
 };

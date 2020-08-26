@@ -6,13 +6,13 @@ namespace utinni
 {
 struct UTINNI_API CrcString
 {
-    DWORD* vtbl;
+    swgptr vtbl;
     unsigned int crc;
 };
 
 struct UTINNI_API PersistentCrcString : CrcString
 {
-    DWORD* unk01;
+    swgptr unk01;
     char* buffer;
 
     static PersistentCrcString* ctor(const char* str);
