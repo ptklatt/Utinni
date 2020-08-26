@@ -1,5 +1,6 @@
 #include "cui_manager.h"
 #include "swg/camera/camera.h"
+#include "swg/misc/swg_string.h"
 
 namespace swg::cuiManager
 {
@@ -17,11 +18,19 @@ pTogglePointer togglePointer = (pTogglePointer)0x00881940;
     
 }
 
-namespace swg::uimanager
+namespace swg::uiManager
 {
 using pDrawCursor = void(__thiscall*)(utinni::UiManager* pThis, bool value);
 
 pDrawCursor drawCursor = (pDrawCursor)0x010E8410;
+
+}
+
+namespace swg::systemMessageManager
+{
+using pSendMessage = void(__cdecl*)(const swg::WString& message, bool chatOnly);
+
+pSendMessage sendMessage = (pSendMessage)0x008AC250;
 
 }
 
@@ -79,7 +88,11 @@ UiManager* UiManager::get()
 
 void UiManager::drawCursor(bool value)
 {
-    swg::uimanager::drawCursor(this, value);
+    swg::uiManager::drawCursor(this, value);
 }
 
+void SystemMessageManager::sendMessage(const char* message, bool chatOnly)
+{
+    swg::systemMessageManager::sendMessage(swg::WString(message), chatOnly);
+}
 }

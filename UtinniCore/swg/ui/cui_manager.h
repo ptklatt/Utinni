@@ -22,6 +22,11 @@ public:
     void drawCursor(bool value);
 };
 
+class UTINNI_API SystemMessageManager
+{
+public:
+    static void sendMessage(const char* message, bool chatOnly);
+};
 
 }
 
