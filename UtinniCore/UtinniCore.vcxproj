@@ -168,6 +168,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\graphics\directx9.cpp" />
     <ClCompile Include="swg\misc\tree_file.cpp" />
     <ClCompile Include="swg\misc\swg_memory.cpp" />
+    <ClCompile Include="swg\ui\utinni_command_parser.cpp" />
     <ClCompile Include="utility\log.cpp" />
     <ClCompile Include="swg\misc\direct_input.cpp" />
     <ClCompile Include="swg\ui\cui_manager.cpp" />
@@ -205,6 +206,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClInclude Include="swg\graphics\directx9.h" />
     <ClInclude Include="swg\misc\tree_file.h" />
     <ClInclude Include="swg\misc\swg_memory.h" />
+    <ClInclude Include="swg\ui\utinni_command_parser.h" />
     <ClInclude Include="utility\log.h" />
     <ClInclude Include="swg\misc\direct_input.h" />
     <ClInclude Include="swg\ui\cui_manager.h" />
