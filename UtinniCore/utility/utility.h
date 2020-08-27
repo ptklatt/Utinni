@@ -4,17 +4,17 @@
 
 namespace utility
 {
-extern void showMessageBox(const std::string& title, const std::string& text);
-extern void showMessageBox(const std::string& text);
-extern void showMessageBoxEmpty();
-extern void showLastErrorMessageBox();
+UTINNI_API extern void showMessageBox(const std::string& title, const std::string& text);
+UTINNI_API extern void showMessageBox(const std::string& text);
+UTINNI_API extern void showMessageBoxEmpty();
+UTINNI_API extern void showLastErrorMessageBox();
 
-extern std::string getWorkingDirectory();
+UTINNI_API extern std::string getWorkingDirectory();
 
-extern std::string wstring_to_string(const std::wstring& wstr);
+UTINNI_API extern std::string wstring_to_string(const std::wstring& wstr);
 
 template<typename TChar>
-extern size_t stringLength(TChar* value)
+UTINNI_API extern size_t stringLength(TChar* value)
 {
     size_t i = 0;
     while (value[i] != 0)
