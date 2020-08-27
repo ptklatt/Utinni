@@ -68,9 +68,17 @@ void patchAddress(swgptr address, swgptr value)
 	 set(address, value, 4); // ToDo check if this works right, doesn't it need write or copy vs set?
 }
 
-void nopAddress(swgptr address, int nopCount) 
+std::tuple<swgptr, std::vector<char>> nopAddress(swgptr address, int nopCount)
 {
+	 // Not the most efficient. ToDo improve in the future
+	 std::vector<char> originalBytes((const char*)address, (const char*)address + nopCount);
 	 set(address, 0x90, nopCount); // 0x90 = NOP
+	 return std::tuple<swgptr, std::vector<char>>(address, originalBytes);
+}
+
+void restoreBytes(const std::tuple <swgptr, std::vector<char>>& originalBytes)
+{
+	 copy(std::get<0>(originalBytes), (swgptr)std::get<1>(originalBytes).data(), std::get<1>(originalBytes).size());
 }
 
 void createJMP(swgptr address, swgptr jumpToAddress, size_t overrideLength)

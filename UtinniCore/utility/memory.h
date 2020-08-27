@@ -47,11 +47,13 @@ UTINNI_API extern void write(swgptr address, int offsetOfAddrResult, T value)
     }
 }
 
+UTINNI_API extern void copy(swgptr pDest, swgptr pSource, size_t length);
 UTINNI_API extern void write(swgptr address, swgptr value, int length);
 UTINNI_API extern void set(swgptr pDest, swgptr value, size_t length);
 
 UTINNI_API extern void patchAddress(swgptr address, swgptr value);
-UTINNI_API extern void nopAddress(swgptr address, int nopCount);
+UTINNI_API extern std::tuple<swgptr, std::vector<char>> nopAddress(swgptr address, int nopCount);
+UTINNI_API extern void restoreBytes(const std::tuple <swgptr, std::vector<char>>& originalBytes);
 
 UTINNI_API extern void createJMP(swgptr address, swgptr jumpToAddress, size_t overrideLength);
 
