@@ -18,6 +18,8 @@
 
 #include "UtINI/utini.h"
 
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") // Disables the popping up of the console
+
 DWORD getParentPID()
 {
     const DWORD PID = GetCurrentProcessId();
@@ -72,7 +74,7 @@ EnvDTE::Process* findVisualStudioProcess(DWORD targetPID)
 
         // Following is needed to turn LPOLESTR to std::string, else we can't do any checks on it
         USES_CONVERSION;
-        std::string runningObjectName = W2A(pRunningObjectName);
+        std::string runningObjectName = ( ((_lpw = pRunningObjectName) == NULL) ? NULL : ( (_convert = (static_cast<int>(wcslen(_lpw))+1), (_convert>INT_MAX/2) ? NULL : ATLW2AHELPER((LPSTR) malloc(_convert*sizeof(WCHAR)), _lpw, _convert*sizeof(WCHAR), _acp))));
 
         // Conver tthe parentPID to string to be able to compare it with the runningObjectName
         std::string parentPID = std::to_string(getParentPID());
@@ -106,7 +108,7 @@ EnvDTE::Process* findVisualStudioProcess(DWORD targetPID)
     long count = 0;
     assert(SUCCEEDED(hr));
 
-    // Goes through all the current DTE processes that matches the PID we got from CreateProcess, which we'll then attach the DTE to-
+    // Goes through all the current DTE processes that matches the PID we got from CreateProcess, which we'll then attach the DTE to
     hr = processes->get_Count(&count);
     for (int i = 0; i < count; i++)
     {
@@ -164,7 +166,6 @@ void inject(PROCESS_INFORMATION procInfo)
     if (hDll == 0x00000000)
         throw std::runtime_error("[ERROR] LoadLibraryA couldn't inject dll.");
 }
-
 std::string swgClientPath;
 std::string getSwgClientFilename()
 {
@@ -215,7 +216,6 @@ std::string getSwgClientFilename()
 
     return swgClientPath + swgClientName;
 }
-
 void loadDll(const std::string& cmdLine)
 {
     STARTUPINFOA StartupInfo = { 0 };
