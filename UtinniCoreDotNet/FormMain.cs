@@ -106,52 +106,42 @@ namespace UtinniCoreDotNet
 
         public void Undo()
         {
-            if (redoCommands.Count == 0)
+            if (undoCommands.Count == 0)
                 return;
 
             IUndoCommand cmd = undoCommands.Pop();
             cmd.Undo();
-            undoCommands.Push(cmd);
+            redoCommands.Push(cmd);
         }
 
         public void Redo()
         {
-            if (undoCommands.Count == 0)
+            if (redoCommands.Count == 0)
                 return;
 
             IUndoCommand cmd = redoCommands.Pop();
             cmd.Execute();
-            redoCommands.Push(cmd);
+            undoCommands.Push(cmd);
         }
 
         private void tsbtnUndo_Click(object sender, EventArgs e)
         {
-            //Undo();
-            //GameCallbacks.AddMainLoopCall(() => WorldSnapshot.CreateAddNode("object/tangible/furniture/technical/shared_chair_s01.iff", Game.Player.ObjectToParent));
-
-            //GroundSceneCallbacks.AddUpdateLoopCall(() =>
-            //{
-            //    WorldSnapshotReaderWriter.Node node = WorldSnapshot.CreateAddNode("object/tangible/furniture/elegant/shared_chair_s01.iff", Game.Player.ObjectToParent);
-
-            //    if (node != null)
-            //    {
-            //        undoCommands.Push(new AddWorldSnapshotNodeCommand(node));
-            //    }
-            //});
-
-            
+            Undo();
         }
 
         private void tsbtnRedo_Click(object sender, EventArgs e)
         {
-            //Redo();
+            Redo();
+        }
 
-            //GameCallbacks.AddMainLoopCall(() => WorldSnapshot.CreateNewNode1());
-            //GameCallbacks.AddMainLoopCall(() => WorldSnapshot.Load("endor"));
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            
+        }
 
-
-            //GroundSceneCallbacks.AddUpdateLoopCall(() => UtinniCore.Utinni.Graphics.ReloadTextures());
-
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }
