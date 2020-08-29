@@ -90,7 +90,7 @@
     <Compile Include="UI\CollapsiblePanel.Designer.cs">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UndoRedo\ICommand.cs" />
+    <Compile Include="UndoRedo\IUndoCommand.cs" />
     <Compile Include="Utility\Log.cs" />
   </ItemGroup>
   <ItemGroup>
