@@ -37,6 +37,7 @@ public:
 
         int getChildCount() const;
         Node* getChildAt(int index);
+        Node* getLastChild();
     };
 
     std::vector<Node*>* nodeList;
@@ -58,6 +59,7 @@ public:
     Node* getNodeById(int id);
     Node* getNodeByNetworkId(int64_t networkId);
     Node* getNodeAt(int index);
+    Node* getLastNode();
 
     Node* addNode(int nodeId, int parentNodeId, const char* objectFilename, int cellId, const swg::math::Transform& transform, float radius, unsigned int pobCrc);
 };

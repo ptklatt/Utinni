@@ -103,7 +103,19 @@ int WorldSnapshotReaderWriter::getNodeCountTotal()
 
 WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeById(int id)
 {
-    return swg::worldSnapshotReaderWriter::getNodeByNetworkId(this, id);
+    Node* result = nullptr;
+
+    for (int i = 0; i < nodeList->size(); ++i)
+    {
+        Node* node = nodeList->at(i);
+        if (node->id == id)
+        {
+            result = node;
+            break;
+        }
+    }
+    
+    return result;
 }
 
 WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByNetworkId(int64_t networkId)
@@ -114,6 +126,11 @@ WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByNetworkId(i
 WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeAt(int index)
 {
     return swg::worldSnapshotReaderWriter::getNodeByIndex(this, index);
+}
+
+WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getLastNode()
+{
+    return nodeList->back();
 }
 
 WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::addNode(int nodeId, int parentNodeId, const char* objectFilename, int cellId, const swg::math::Transform& transform, float radius, unsigned int pobCrc)
@@ -155,15 +172,6 @@ void WorldSnapshotReaderWriter::Node::removeNode()
     {
         // ToDo check if removeNodeFull can replace the below remove obj
 
-        Object* nodeObject = Network::getObjectById(id);
-
-        // Need to nullptr check because only loaded objects are non null, ie in range or previously 'seen'
-        // and the loop goes through all nodes in the entire .WS
-        if (nodeObject != nullptr)
-        {
-            nodeObject->remove();
-        }
-
         Node* pParentNode = get()->getNodeByNetworkId(parentId);
         for (int i = 0; i < pParentNode->children->size(); ++i)
         {
@@ -173,6 +181,15 @@ void WorldSnapshotReaderWriter::Node::removeNode()
                 break;
             }
         }
+    }
+
+    Object* nodeObject = Network::getObjectById(id);
+
+    // Need to nullptr check because only loaded objects are non null, ie in range or previously 'seen'
+    // and the loop goes through all nodes in the entire .WS
+    if (nodeObject != nullptr)
+    {
+        nodeObject->remove();
     }
 
     swg::worldSnapshotReaderWriter::removeNode(WorldSnapshotReaderWriter::get(), id);
@@ -253,6 +270,11 @@ int WorldSnapshotReaderWriter::Node::getChildCount() const
 WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::Node::getChildAt(int index)
 {
     return children->at(index);
+}
+
+WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::Node::getLastChild()
+{
+    return children->back();
 }
 
 void WorldSnapshot::load(const std::string& name)
@@ -466,10 +488,19 @@ Object* WorldSnapshot::addNode(WorldSnapshotReaderWriter::Node* pNode)
 
     reader->addNode(pNode->id, pNode->parentId, pNode->getObjectTemplateName(), pNode->cellIndex, pNode->transform, pNode->radius, pNode->pobCRC);
 
-    for (int i = 0; i < pNode->children->size(); ++i)
+    WorldSnapshotReaderWriter::Node* pParentNode = nullptr;
+    if (pNode->parentId > 0)
     {
-        auto childNode = pNode->children->at(i);
-        reader->addNode(childNode->id, childNode->parentId, childNode->getObjectTemplateName(), childNode->cellIndex, childNode->transform, childNode->radius, childNode->pobCRC);
+        pParentNode = reader->getNodeById(pNode->parentId);
+    }
+
+    if (pNode->children != nullptr)
+    {
+        for (int i = 0; i < pNode->children->size(); ++i)
+        {
+            auto childNode = pNode->children->at(i);
+            reader->addNode(childNode->id, childNode->parentId, childNode->getObjectTemplateName(), childNode->cellIndex, childNode->transform, childNode->radius, childNode->pobCRC);
+        }
     }
 
     Object* obj = createObject(pNode);
