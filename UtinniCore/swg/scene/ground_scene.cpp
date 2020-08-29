@@ -63,7 +63,7 @@ std::string GroundScene::getName()
     return terrainPath.substr(i, length);
 }
 
-void GroundScene::addPreDrawLoopCallback(void(*func)(GroundScene * pThis))
+void GroundScene::addPreDrawLoopCallback(void(*func)(GroundScene* pThis))
 {
     preDrawLoopCallbacks.emplace_back(func);
 

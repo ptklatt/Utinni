@@ -9,6 +9,8 @@
 #include "swg/scene/ground_scene.h"
 #include "swg/misc/network.h"
 #include "command_parser.h"
+#include "cui_manager.h"
+#include "cui_chat_window.h"
 
 #pragma comment(lib, "imgui/lib/imgui.lib")
 
@@ -165,7 +167,7 @@ bool isSetup = false;
 				 }
 			}
 
-			imgui::gizmo::draw();
+			imgui_gizmo::draw();
 
 			imguiHasHover = ImGui::IsAnyWindowHovered();
 			if (imguiHasHover && !gameInputSuspended)
@@ -203,7 +205,7 @@ bool isInternalUiHovered()
 
 }
 
-namespace imgui::gizmo
+namespace imgui_gizmo
 {
 bool enabled = false;
 bool gizmoHasMouseHover = false;

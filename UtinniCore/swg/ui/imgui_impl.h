@@ -18,7 +18,7 @@ UTINNI_API extern bool isInternalUiHovered();
 
 }
 
-namespace imgui::gizmo
+namespace imgui_gizmo
 {
 UTINNI_API extern void enable(utinni::Object* obj);
 UTINNI_API extern void disable();

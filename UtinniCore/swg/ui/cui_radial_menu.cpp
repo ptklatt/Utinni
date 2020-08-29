@@ -15,7 +15,7 @@ namespace utinni
 {
 void __cdecl hkUpdate()
 {
-    if (imgui::gizmo::isEnabled())
+    if (imgui_gizmo::isEnabled())
     {
         swg::cuiRadialMenuManager::clear();
     }

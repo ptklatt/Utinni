@@ -157,6 +157,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="..\external\DetourXS\ADE32.cpp" />
     <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
     <ClCompile Include="..\external\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="swg\object\creature_object.cpp" />
     <ClCompile Include="swg\ui\cui_menu.cpp" />
     <ClCompile Include="swg\ui\cui_hud.cpp" />
     <ClCompile Include="swg\ui\cui_radial_menu.cpp" />
@@ -195,6 +196,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\misc\swg_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="swg\object\creature_object.h" />
     <ClInclude Include="swg\ui\cui_menu.h" />
     <ClInclude Include="swg\ui\cui_hud.h" />
     <ClInclude Include="swg\ui\cui_radial_menu.h" />

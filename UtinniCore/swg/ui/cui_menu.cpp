@@ -14,7 +14,7 @@ namespace utinni
 {
 swgptr __cdecl hkInfoTypesFindDefaultCursor(ClientObject* obj)
 {
-    if (imgui::gizmo::isEnabled())
+    if (imgui_gizmo::isEnabled())
     {
         return 0;
     }

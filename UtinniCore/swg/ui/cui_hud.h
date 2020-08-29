@@ -4,5 +4,6 @@
 
 namespace utinni::cuiHud
 {
+
 void detour();
 }

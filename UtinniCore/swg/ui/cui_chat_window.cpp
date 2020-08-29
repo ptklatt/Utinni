@@ -69,7 +69,7 @@ void CuiChatWindow::sendMessage(const char* msg, bool addToChatHistory)
     const auto origBytes4 = memory::nopAddress(0x0091427D, 5);
     const auto origBytes5 = memory::nopAddress(0x009142E4, 5);
 
-    memory::set(0x0091428c, 0x75, 1);
+    memory::set(0x0091428C, 0x75, 1);
 
     swg::cuiConsoleHelper::sendInput(pCuiConsoleHelper, swg::WString(msg), 0, addToChatHistory);
 
@@ -81,7 +81,7 @@ void CuiChatWindow::sendMessage(const char* msg, bool addToChatHistory)
     memory::restoreBytes(origBytes4);
     memory::restoreBytes(origBytes5);
 
-    memory::set(0x0091428c, 0x74, 1);
+    memory::set(0x0091428C, 0x74, 1);
 }
 
 swgptr __fastcall hkCtor(swgptr pThis, DWORD EDX, swgptr uiPage, DWORD unk1, DWORD unk2, DWORD unk3)

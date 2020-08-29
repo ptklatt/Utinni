@@ -17,6 +17,7 @@
 #include "swg/ui/cui_radial_menu.h"
 #include "swg/ui/cui_hud.h"
 #include "swg/ui/cui_menu.h"
+#include "swg/object/creature_object.h"
 
 #pragma comment(lib, "mscoree.lib")
 
@@ -130,6 +131,7 @@ void detourGame()
     utinni::cuiHud::detour();
     utinni::cuiMenu::detour();
     utinni::cuiRadialMenuManager::detour();
+    utinni::creatureObject::detour();
 }
 
 void main()
