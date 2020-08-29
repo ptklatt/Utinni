@@ -6,13 +6,11 @@ namespace UtinniCoreDotNet.Commands
 {
     public class AddWorldSnapshotNodeCommand : IUndoCommand
     {
-        private readonly WorldSnapshotReaderWriter.Node nodeCopy;
-        private bool inititalExecute; // bool is used as a workaround for the limitations of using the original game code to handle adding nodes
+        private WorldSnapshotReaderWriter.Node nodeCopy;
 
         public AddWorldSnapshotNodeCommand(WorldSnapshotReaderWriter.Node node) // Node needs to already be created and added and passed to this ctor
         {
             nodeCopy = new WorldSnapshotReaderWriter.Node(node);
-            inititalExecute = true;
         }
 
         public string GetText()
@@ -22,9 +20,6 @@ namespace UtinniCoreDotNet.Commands
 
         public void Execute()
         {
-            if (inititalExecute) // As the node is already created and added before the first time this command is triggered, we skip
-                return;
-
             GroundSceneCallbacks.AddUpdateLoopCall(() =>
             {
                 WorldSnapshot.AddNode(nodeCopy);
@@ -36,10 +31,15 @@ namespace UtinniCoreDotNet.Commands
             GroundSceneCallbacks.AddUpdateLoopCall(() =>
             {
                 // As we merely store a copy of the node, we need to fetch the actual node first before removing it
-                WorldSnapshot.RemoveNode(WorldSnapshotReaderWriter.Get().GetNodeByNetworkId(nodeCopy.NodeNetworkId)); 
+                if (nodeCopy.ParentId == 0)
+                {
+                    WorldSnapshot.RemoveNode(WorldSnapshotReaderWriter.Get().LastNode);
+                }
+                else
+                {
+                    WorldSnapshot.RemoveNode(nodeCopy.ParentNode.LastChild);
+                }
             });
-
-            inititalExecute = false; // After the first undo, we enable the redo functionality
         }
 
         public bool Merge(IUndoCommand newCommand)
@@ -67,7 +67,14 @@ namespace UtinniCoreDotNet.Commands
             GroundSceneCallbacks.AddUpdateLoopCall(() =>
             {
                 // As we merely store a copy of the node, we need to fetch the actual node first before removing it
-                WorldSnapshot.RemoveNode(WorldSnapshotReaderWriter.Get().GetNodeByNetworkId(nodeCopy.Id));
+                if (nodeCopy.ParentId == 0)
+                {
+                    WorldSnapshot.RemoveNode(WorldSnapshotReaderWriter.Get().LastNode);
+                }
+                else
+                {
+                    WorldSnapshot.RemoveNode(nodeCopy.ParentNode.LastChild);
+                }
             });
         }
 
@@ -82,11 +89,6 @@ namespace UtinniCoreDotNet.Commands
         public bool Merge(IUndoCommand newCommand)
         {
             return false;
-        }
-
-        public void Unexecute()
-        {
-           
         }
     }
 }

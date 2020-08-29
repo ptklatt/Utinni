@@ -49,7 +49,6 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\WorldSnapshotCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExampleEditorPlugin.cs">
       <SubType>UserControl</SubType>
@@ -70,6 +69,8 @@
       <DependentUpon>ExampleEditorPlugin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

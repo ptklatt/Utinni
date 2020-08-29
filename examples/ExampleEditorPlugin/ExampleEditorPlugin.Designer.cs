@@ -28,32 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnTest = new System.Windows.Forms.Button();
+            this.btnRemoveWsNode = new System.Windows.Forms.Button();
+            this.btnAddWsNode = new System.Windows.Forms.Button();
+            this.lblWsNodeFunctionsExample = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // btnTest
+            // btnRemoveWsNode
             // 
-            this.btnTest.Location = new System.Drawing.Point(342, 84);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(75, 23);
-            this.btnTest.TabIndex = 0;
-            this.btnTest.Text = "Test";
-            this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            this.btnRemoveWsNode.Location = new System.Drawing.Point(6, 47);
+            this.btnRemoveWsNode.Name = "btnRemoveWsNode";
+            this.btnRemoveWsNode.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveWsNode.TabIndex = 1;
+            this.btnRemoveWsNode.Text = "Remove";
+            this.btnRemoveWsNode.UseVisualStyleBackColor = true;
+            this.btnRemoveWsNode.Click += new System.EventHandler(this.btnRemoveWsNode_Click);
+            // 
+            // btnAddWsNode
+            // 
+            this.btnAddWsNode.Location = new System.Drawing.Point(6, 18);
+            this.btnAddWsNode.Name = "btnAddWsNode";
+            this.btnAddWsNode.Size = new System.Drawing.Size(75, 23);
+            this.btnAddWsNode.TabIndex = 2;
+            this.btnAddWsNode.Text = "Add";
+            this.btnAddWsNode.UseVisualStyleBackColor = true;
+            this.btnAddWsNode.Click += new System.EventHandler(this.btnAddWsNode_Click);
+            // 
+            // lblWsNodeFunctionsExample
+            // 
+            this.lblWsNodeFunctionsExample.AutoSize = true;
+            this.lblWsNodeFunctionsExample.Location = new System.Drawing.Point(5, 2);
+            this.lblWsNodeFunctionsExample.Name = "lblWsNodeFunctionsExample";
+            this.lblWsNodeFunctionsExample.Size = new System.Drawing.Size(161, 13);
+            this.lblWsNodeFunctionsExample.TabIndex = 3;
+            this.lblWsNodeFunctionsExample.Text = "World Snapshot Node Functions";
             // 
             // ExampleEditorPlugin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnTest);
+            this.Controls.Add(this.lblWsNodeFunctionsExample);
+            this.Controls.Add(this.btnAddWsNode);
+            this.Controls.Add(this.btnRemoveWsNode);
             this.Name = "ExampleEditorPlugin";
             this.Size = new System.Drawing.Size(434, 155);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.Button btnRemoveWsNode;
+        private System.Windows.Forms.Button btnAddWsNode;
+        private System.Windows.Forms.Label lblWsNodeFunctionsExample;
     }
 }
