@@ -80,6 +80,16 @@ Vector Vector::operator/(float scalar) const
     return Vector(X * multiplier, Y * multiplier, Z * multiplier);
 }
 
+bool Vector::operator==(const Vector& vector) const
+{
+    return (X == vector.X && Y == vector.Y && Z == vector.Z);
+}
+
+bool Vector::operator!=(const Vector& vector) const
+{
+    return (X != vector.X || Y != vector.Y || Z != vector.Z);
+}
+
 bool Vector::normalize()
 {
     return vectorNormalize(this);
@@ -130,15 +140,6 @@ void Transform::setPosition(const Vector& vector)
 Vector Transform::getPosition()
 {
     return { matrix[0][3], matrix[1][3], matrix[2][3] };
-}
-
-Vector Transform::rotate_l2p(const Vector& vector)
-{
-    return Vector(
-        matrix[0][0] * vector.X + matrix[0][1] * vector.Y + matrix[0][2] * vector.Z,
-        matrix[1][0] * vector.X + matrix[1][1] * vector.Y + matrix[1][2] * vector.Z,
-        matrix[2][0] * vector.X + matrix[2][1] * vector.Y + matrix[2][2] * vector.Z);
-
 }
 
 Transform Transform::addPosition(const Transform& transform)
@@ -264,6 +265,30 @@ Vector Transform::rotate_p2w(const Vector& vector)
         matrix[0][0] * vector.X + matrix[1][0] * vector.Y + matrix[2][0] * vector.Z,
         matrix[0][1] * vector.X + matrix[1][1] * vector.Y + matrix[2][1] * vector.Z,
         matrix[0][2] * vector.X + matrix[1][2] * vector.Y + matrix[2][2] * vector.Z };
+}
+
+Vector Transform::rotate_l2p(const Vector& vector)
+{
+    return Vector(
+        matrix[0][0] * vector.X + matrix[0][1] * vector.Y + matrix[0][2] * vector.Z,
+        matrix[1][0] * vector.X + matrix[1][1] * vector.Y + matrix[1][2] * vector.Z,
+        matrix[2][0] * vector.X + matrix[2][1] * vector.Y + matrix[2][2] * vector.Z);
+
+}
+
+bool Transform::isRotationEqual(const Transform& transform)
+{
+    return (matrix[0][0] == transform.matrix[0][0] &&
+            matrix[1][0] == transform.matrix[1][0] &&
+            matrix[2][0] == transform.matrix[2][0] &&
+
+            matrix[0][1] == transform.matrix[0][1] &&
+            matrix[1][1] == transform.matrix[1][1] &&
+            matrix[2][1] == transform.matrix[2][1] &&
+
+            matrix[0][2] == transform.matrix[0][2] &&
+            matrix[1][2] == transform.matrix[1][2] &&
+            matrix[2][2] == transform.matrix[2][2]);
 }
 
 Transform Transform::getIdentity()

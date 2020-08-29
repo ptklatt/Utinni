@@ -34,6 +34,9 @@ struct UTINNI_API Vector
     Vector operator *(float scalar) const;
     Vector operator /(float scalar) const;
 
+    bool operator ==(const Vector& vector) const;
+    bool operator !=(const Vector& vector) const;
+
     bool normalize();
 };
 
@@ -49,19 +52,20 @@ struct UTINNI_API Transform
     void setPosition(const Vector& position);
     Vector getPosition();
 
-    Vector rotate_l2p(const Vector& vector);
-
-    Transform addPosition(const Transform& Transform);
+    Transform addPosition(const Transform& transform);
     Transform addPosition(const Vector& vector);
-    Transform subtractPosition(const Transform& Transform);
+    Transform subtractPosition(const Transform& transform);
     Transform subtractPosition(const Vector& vector);
 
-    void multiply(const Transform& Transform);
+    void multiply(const Transform& transform);
     void multiply(const Transform& left, const Transform& right);
 
-    void invert(const Transform& Transform);
+    void invert(const Transform& transform);
     Vector rotate_o2w(const Vector& vector);
     Vector rotate_p2w(const Vector& vector);
+    Vector rotate_l2p(const Vector& vector);
+
+    bool isRotationEqual(const Transform& transform);
 
     static Transform getIdentity();
 };
