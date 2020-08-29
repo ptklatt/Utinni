@@ -48,6 +48,7 @@ namespace UtinniCoreDotNetGen
                 module.Headers.Add("swg\\graphics\\directx9.h");
                 module.Headers.Add("swg\\graphics\\graphics.h");
                 module.Headers.Add("swg\\misc\\swg_math.h");
+                module.Headers.Add("swg\\object\\creature_object.h");
                 module.Headers.Add("swg\\scene\\ground_scene.h");
                 module.Headers.Add("swg\\scene\\terrain.h");
                 module.Headers.Add("swg\\scene\\world_snapshot.h");
