@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Permissions;
 using System.Threading;
 using System.Windows.Forms;
+using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI;
 using UtinniCoreDotNet.UndoRedo;
@@ -44,6 +45,7 @@ namespace UtinniCoreDotNet
 
                 }
             }
+
             base.WndProc(ref m);
         }
 
@@ -59,7 +61,15 @@ namespace UtinniCoreDotNet
                 IEditorPlugin editorPlugin = (IEditorPlugin)plugin;
                 if (editorPlugin != null)
                 {
-                    editorPlugin.AddUndoCommand += (sender, args) => { undoCommands.Push(args.UndoCommand); };
+                    editorPlugin.AddUndoCommand += (sender, args) =>
+                    {
+                        if (undoCommands.Count > 0 && undoCommands.Peek().Merge(args.UndoCommand))
+                        {
+                            return;
+                        }
+
+                        undoCommands.Push(args.UndoCommand);
+                    };
 
                     Log.Info("Editor Plugin: [" + editorPlugin.Information.Name + "] loaded");
                     flpnlPlugins.Controls.Add(new CollapsiblePanel(editorPlugin.GetControl(), editorPlugin.Information.Name));
@@ -68,6 +78,9 @@ namespace UtinniCoreDotNet
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
+
+            // Initialize callbacks that are purely editor related
+            ImGuiCallbacks.Initialize();
 
         }
 

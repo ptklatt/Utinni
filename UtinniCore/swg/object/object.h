@@ -84,6 +84,7 @@ public:
 
     void remove();
 
+    swg::math::Transform* getTransform();
     swg::math::Transform* getTransform_o2w();
     void setTransform_o2w(swg::math::Transform& object2world);
     const swg::math::Vector rotate_o2w(const swg::math::Vector* o2w, const swg::math::Vector* pointInSpace);

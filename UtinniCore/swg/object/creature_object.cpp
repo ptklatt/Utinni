@@ -9,14 +9,14 @@ using pSetTarget = void(__thiscall*)(swgptr pThis, const int64_t& id);
 pSetTarget setTarget = (pSetTarget)0x00434AB0;
 }
 
-static std::vector<void(*)(utinni::Object* target)> onTargetCallback;
+static std::vector<void(*)(utinni::Object* target)> onTargetCallbacks;
 
 namespace utinni::creatureObject
 {
 
 void addOnTargetCallback(void(*func)(Object* target))
 {
-    onTargetCallback.emplace_back(func);
+    onTargetCallbacks.emplace_back(func);
 }
 
 void __fastcall hkSetTarget(swgptr pThis, DWORD EDX, const int64_t& id)
@@ -25,11 +25,10 @@ void __fastcall hkSetTarget(swgptr pThis, DWORD EDX, const int64_t& id)
 
     Object* obj = Network::getObjectById(id);
 
-    for (const auto& func : onTargetCallback)
+    for (const auto& func : onTargetCallbacks)
     {
         func(obj);
     }
-
 }
 
 void detour()

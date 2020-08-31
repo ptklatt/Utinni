@@ -224,6 +224,18 @@ void Object::remove()
     (**(void(__thiscall***)(Object*, bool))this)(this, true); // ToDo do this proper at some point, taken from IDA pseudo code
 }
 
+swg::math::Transform* Object::getTransform()
+{
+    if (parentObject == nullptr)
+    {
+        return getTransform_o2w();
+    }
+    else
+    {
+        return &objectToParent;
+    }
+}
+
 swg::math::Transform* Object::getTransform_o2w()
 {
     return swg::object::getTransform_o2w(this);

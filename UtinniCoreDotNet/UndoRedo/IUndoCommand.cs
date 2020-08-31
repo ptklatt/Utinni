@@ -8,7 +8,9 @@
         void Execute();
         // Undos the command
         void Undo();
-        // returns true if the merge was successful
+        // allows commands to situationally allow or disallow merging of commands 
+        bool AllowMerge();
+        // Returns true if the merge was successful
         bool Merge(IUndoCommand newCommand);
     }
 }

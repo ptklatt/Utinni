@@ -36,6 +36,7 @@ public:
         const char* getObjectTemplateName() const;
 
         int getChildCount() const;
+        Node* getChildById(int id);
         Node* getChildAt(int index);
         Node* getLastChild();
     };

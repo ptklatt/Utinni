@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Callbacks\GameCallbacks.cs" />
     <Compile Include="Callbacks\GroundSceneCallbacks.cs" />
+    <Compile Include="Callbacks\ImGuiCallbacks.cs" />
     <Compile Include="Callbacks\ObjectCallbacks.cs" />
     <Compile Include="Commands\WorldSnapshotCommands.cs" />
     <Compile Include="FormMain.cs">

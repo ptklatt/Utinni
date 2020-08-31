@@ -267,6 +267,23 @@ int WorldSnapshotReaderWriter::Node::getChildCount() const
     return children->size();
 }
 
+WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::Node::getChildById(int id)
+{
+    Node* result = nullptr;
+
+    for (int i = 0; i < children->size(); ++i)
+    {
+        Node* node = children->at(i);
+        if (node->id == id)
+        {
+            result = node;
+            break;
+        }
+    }
+
+    return result;
+}
+
 WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::Node::getChildAt(int index)
 {
     return children->at(index);

@@ -23,6 +23,7 @@ namespace UtinniCoreDotNet
                 // Load plugins from the /Plugins/ directory
                 PluginLoader pluginLoader = new PluginLoader();
                 
+                // Initialize callbacks that aren't purely editor related
                 GameCallbacks.Initialize();
                 GroundSceneCallbacks.Initialize();
                 ObjectCallbacks.Initialize();

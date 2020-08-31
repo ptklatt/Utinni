@@ -205,8 +205,13 @@ bool isInternalUiHovered()
 
 }
 
+static std::vector<void(*)()> onGizmoPositionChangedCallbacks;
+static std::vector<void(*)()> onGizmoRotationChangedCallbacks;
+
 namespace imgui_gizmo
 {
+static bool recentPositionChange = false;
+static bool recentRotationChange = false;
 bool enabled = false;
 bool gizmoHasMouseHover = false;
 
@@ -229,15 +234,35 @@ bool isEnabled()
 	 return enabled;
 }
 
+bool hasRecentPositionChange()
+{
+	 return recentPositionChange;
+}
+
+bool hasRecentRotationChange()
+{
+	 return recentRotationChange;
+}
+
 bool hasMouseHover()
 {
 	 return gizmoHasMouseHover;
 }
 
+void addOnPositionChangedCallback(void(*func)())
+{
+	 onGizmoPositionChangedCallbacks.emplace_back(func);
+}
+
+void addOnRotationChangedCallback(void(*func)())
+{
+	 onGizmoRotationChangedCallbacks.emplace_back(func);
+}
+
 void editTransform(const float* cameraView, float* cameraProjection, float* matrix)
 {
-	 static ImGuizmo::OPERATION mCurrentGizmoOperation(ImGuizmo::TRANSLATE);
-	 static ImGuizmo::MODE mCurrentGizmoMode(ImGuizmo::LOCAL);
+	 static ImGuizmo::OPERATION crrentGizmoOperation(ImGuizmo::TRANSLATE);
+	 static ImGuizmo::MODE currentGizmoMode(ImGuizmo::LOCAL);
 	 static bool useSnap = false;
 	 static float snap[3] = { 1.f, 1.f, 1.f };
 	 static float bounds[] = { -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f };
@@ -245,17 +270,30 @@ void editTransform(const float* cameraView, float* cameraProjection, float* matr
 	 static bool boundSizing = false;
 	 static bool boundSizingSnap = false;
 
-	 if (ImGui::IsKeyPressed(0x51)) { mCurrentGizmoOperation = ImGuizmo::TRANSLATE; } // q
-	 if (ImGui::IsKeyPressed(0x45)) { mCurrentGizmoOperation = ImGuizmo::ROTATE; } // e
+	 if (ImGui::IsKeyPressed(0x51)) { crrentGizmoOperation = ImGuizmo::TRANSLATE; } // q
+	 if (ImGui::IsKeyPressed(0x45)) { crrentGizmoOperation = ImGuizmo::ROTATE; } // e
 	 if (ImGui::IsKeyPressed(0x5A)) { useSnap = !useSnap; } // z
 
-	 ImGuizmo::Manipulate(cameraView, cameraProjection, mCurrentGizmoOperation, mCurrentGizmoMode, matrix, nullptr, useSnap ? &snap[0] : nullptr, boundSizing ? bounds : nullptr, boundSizingSnap ? boundsSnap : nullptr);
+	 ImGuizmo::Manipulate(cameraView, cameraProjection, crrentGizmoOperation, currentGizmoMode, matrix, nullptr, useSnap ? &snap[0] : nullptr, boundSizing ? bounds : nullptr, boundSizingSnap ? boundsSnap : nullptr);
 }
 
 void draw()
 {
 	 if (object == nullptr || !enabled)
 		  return;
+
+	 if (!ImGui::IsAnyMouseDown())
+	 {
+		  if (recentPositionChange)
+		  {
+				recentPositionChange = false;
+		  }
+
+		  if (recentRotationChange)
+		  {
+				recentRotationChange = false;
+		  }
+	 }
 
 	 Camera* camera = GroundScene::get()->getCurrentCamera();
 
@@ -285,10 +323,27 @@ void draw()
 	 float* updatedObjMatrix = &Matrix4x4().matrix[0][0];
 	 Matrix4x4::transpose(objMatrix, updatedObjMatrix);
 
-	 Vector oldPos = object->getTransform_o2w()->getPosition();
+	 Transform oldTransform = Transform(*object->getTransform_o2w());
+	 Vector oldPos = oldTransform.getPosition();
 	 object->setTransform_o2w(*(Transform*)updatedObjMatrix);
 	 object->positionAndRotationChanged(false, oldPos);
 
-	 // ToDo Add a callback or something for UndoRedo and a comparison function, if there has been a change? Callback is also needed to update WS, etc nodes
+	 if (oldPos != object->getTransform_o2w()->getPosition())
+	 {
+		  for (const auto& func : onGizmoPositionChangedCallbacks)
+		  {
+				func();
+		  }
+		  recentPositionChange = true;
+	 }
+
+	 if (!object->getTransform_o2w()->isRotationEqual(oldTransform))
+	 {
+		  for (const auto& func : onGizmoRotationChangedCallbacks)
+		  {
+				func();
+		  }
+		  recentRotationChange = true;
+	 }
 }
 }

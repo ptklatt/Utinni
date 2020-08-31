@@ -1,6 +1,7 @@
 ﻿using UtinniCore.Utinni;
 using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.UndoRedo;
+using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet.Commands
 {
@@ -42,10 +43,9 @@ namespace UtinniCoreDotNet.Commands
             });
         }
 
-        public bool Merge(IUndoCommand newCommand)
-        {
-            return false;
-        }
+        public bool AllowMerge() { return false; }
+
+        public bool Merge(IUndoCommand newCommand) { return false; }
     }
 
     public class RemoveWorldSnapshotNodeCommand : IUndoCommand
@@ -86,8 +86,148 @@ namespace UtinniCoreDotNet.Commands
             });
         }
 
+        public bool AllowMerge() { return false; }
+
+        public bool Merge(IUndoCommand newCommand) { return false; }
+    }
+
+    public class WorldSnapshotNodePositionChangedCommand : IUndoCommand
+    {
+        private WorldSnapshotReaderWriter.Node nodeCopy;
+        private readonly bool allowMerge;
+
+        public WorldSnapshotNodePositionChangedCommand(WorldSnapshotReaderWriter.Node node, bool allowMerge)
+        {
+            nodeCopy = new WorldSnapshotReaderWriter.Node(node);
+            this.allowMerge = allowMerge;
+        }
+
+        public string GetText()
+        {
+            return "Changed position of WorldSnapshot Node: (" + nodeCopy.Id + ") " + nodeCopy.ObjectTemplateName;
+        }
+
+        private void RestorePreviousPosition()
+        {
+            GroundSceneCallbacks.AddUpdateLoopCall(() =>
+            {
+                var obj = Network.GetObjectById(nodeCopy.Id);
+                obj.Transform.Position = nodeCopy.Transform.Position;
+
+                WorldSnapshotReaderWriter.Node node;
+                if (nodeCopy.ParentId > 0)
+                {
+                    node = nodeCopy.ParentNode.GetChildById(nodeCopy.Id);
+                }
+                else
+                {
+                    node = WorldSnapshotReaderWriter.Get().GetNodeById(nodeCopy.Id);
+                }
+
+                nodeCopy = new WorldSnapshotReaderWriter.Node(node); // Update the nodeCopy to the up to date previous state
+                node.Transform.Position = obj.Transform.Position;
+
+                WorldSnapshot.DetailLevelChanged();
+            });
+        }
+
+        public void Execute()
+        {
+            RestorePreviousPosition();
+        }
+
+        public void Undo()
+        {
+            RestorePreviousPosition();
+        }
+
+        public bool AllowMerge()
+        {
+            return allowMerge;
+        }
+
         public bool Merge(IUndoCommand newCommand)
         {
+            if (newCommand.GetType() == typeof(WorldSnapshotNodePositionChangedCommand))
+            {
+                var cmd = (WorldSnapshotNodePositionChangedCommand)newCommand;
+
+                if (nodeCopy.Id == cmd.nodeCopy.Id && newCommand.AllowMerge())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    public class WorldSnapshotNodeRotationChangedCommand : IUndoCommand
+    {
+        private WorldSnapshotReaderWriter.Node nodeCopy;
+        private readonly bool allowMerge;
+        public WorldSnapshotNodeRotationChangedCommand(WorldSnapshotReaderWriter.Node node, bool allowMerge)
+        {
+            nodeCopy = new WorldSnapshotReaderWriter.Node(node);
+            this.allowMerge = allowMerge;
+        }
+
+        public string GetText()
+        {
+            return "Changed rotation of WorldSnapshot Node: (" + nodeCopy.Id + ") " + nodeCopy.ObjectTemplateName;
+        }
+
+        private void RestorePreviousPosition()
+        {
+            GroundSceneCallbacks.AddUpdateLoopCall(() =>
+            {
+                var obj = Network.GetObjectById(nodeCopy.Id);
+                obj.Transform.CopyRotation(nodeCopy.Transform);
+
+                WorldSnapshotReaderWriter.Node node;
+                if (nodeCopy.ParentId > 0)
+                {
+                    node = nodeCopy.ParentNode.GetChildById(nodeCopy.Id);
+                }
+                else
+                {
+                    node = WorldSnapshotReaderWriter.Get().GetNodeById(nodeCopy.Id);
+                }
+
+                nodeCopy = new WorldSnapshotReaderWriter.Node(node); // Update the nodeCopy to the up to date previous state
+                node.Transform.CopyRotation(obj.Transform);
+
+                WorldSnapshot.DetailLevelChanged();
+            });
+        }
+
+        public void Execute()
+        {
+            RestorePreviousPosition();
+        }
+
+        public void Undo()
+        {
+            RestorePreviousPosition();
+        }
+
+        public bool AllowMerge()
+        {
+            return allowMerge;
+        }
+
+        public bool Merge(IUndoCommand newCommand)
+        {
+            if (newCommand.GetType() == typeof(WorldSnapshotNodeRotationChangedCommand))
+            {
+                var cmd = (WorldSnapshotNodeRotationChangedCommand)newCommand;
+
+                if (nodeCopy.Id == cmd.nodeCopy.Id && newCommand.AllowMerge())
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
     }

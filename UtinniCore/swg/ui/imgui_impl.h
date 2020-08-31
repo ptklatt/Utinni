@@ -23,6 +23,10 @@ namespace imgui_gizmo
 UTINNI_API extern void enable(utinni::Object* obj);
 UTINNI_API extern void disable();
 UTINNI_API extern bool isEnabled();
+UTINNI_API bool hasRecentPositionChange();
+UTINNI_API bool hasRecentRotationChange();
 UTINNI_API extern bool hasMouseHover();
+UTINNI_API extern void addOnPositionChangedCallback(void(*func)());
+UTINNI_API extern void addOnRotationChangedCallback(void(*func)());
 void draw();
 }
