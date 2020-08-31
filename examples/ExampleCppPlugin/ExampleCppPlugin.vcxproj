@@ -16,8 +16,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{AEFED7F6-4BA9-44FC-A353-71A463A82FDE}</ProjectGuid>
-    <RootNamespace>UtinniCore</RootNamespace>
+    <ProjectGuid>{AEDA74D2-32A8-4FC8-9061-A7CC0E716B9E}</ProjectGuid>
+    <RootNamespace>ExampleCppPlugin</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -60,15 +60,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <OutDir>..\..\bin\Debug\Plugins\ExampleCppPlugin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <OutDir>..\..\bin\Release\Plugins\ExampleCppPlugin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDbgInfo|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <OutDir>..\..\bin\RelWithDbgInfo\Plugins\ExampleCppPlugin\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -85,11 +85,6 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent />
-    <PostBuildEvent>
-      <Command>xcopy /E /Y "$(SolutionDir)data" "$(TargetDir)" /d
-$(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -116,11 +111,6 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent />
-    <PostBuildEvent>
-      <Command>xcopy /E /Y "$(SolutionDir)data" "$(TargetDir)" /d
-$(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDbgInfo|Win32'">
     <ClCompile>
@@ -132,7 +122,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
       <PreprocessorDefinitions>SPDLOG_NO_EXCEPTIONS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir);$(SolutionDir)external;$(ProjectDir);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir);$(SolutionDir)UtinniCore;$(SolutionDir)external;$(ProjectDir);</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -144,103 +134,21 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);$(SolutionDir)bin/RelWithDbgInfo/UtinniCore.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin/RelWithDbgInfo/UtinniCore.lib;$(SolutionDir);$(SolutionDir)UtinniCore;$(SolutionDir)external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent />
-    <PostBuildEvent>
-      <Command>xcopy /E /Y "$(SolutionDir)data" "$(TargetDir)" /d
-$(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\external\DetourXS\ADE32.cpp" />
-    <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
-    <ClCompile Include="..\external\ImGuizmo\ImGuizmo.cpp" />
-    <ClCompile Include="swg\object\creature_object.cpp" />
-    <ClCompile Include="plugin_framework\plugin_manager.cpp" />
-    <ClCompile Include="swg\ui\cui_menu.cpp" />
-    <ClCompile Include="swg\ui\cui_hud.cpp" />
-    <ClCompile Include="swg\ui\cui_radial_menu.cpp" />
-    <ClCompile Include="swg\ui\command_parser.cpp" />
-    <ClCompile Include="swg\ui\cui_chat_window.cpp" />
-    <ClCompile Include="swg\misc\repository.cpp" />
-    <ClCompile Include="swg\ui\imgui_impl.cpp" />
-    <ClCompile Include="swg\misc\config.cpp" />
-    <ClCompile Include="swg\graphics\directx9.cpp" />
-    <ClCompile Include="swg\misc\tree_file.cpp" />
-    <ClCompile Include="swg\misc\swg_memory.cpp" />
-    <ClCompile Include="swg\ui\utinni_command_parser.cpp" />
-    <ClCompile Include="utility\log.cpp" />
-    <ClCompile Include="swg\misc\direct_input.cpp" />
-    <ClCompile Include="swg\ui\cui_manager.cpp" />
-    <ClCompile Include="swg\client\client.cpp" />
-    <ClCompile Include="swg\graphics\graphics.cpp" />
-    <ClCompile Include="swg\camera\camera.cpp" />
-    <ClCompile Include="swg\object\client_object.cpp" />
-    <ClCompile Include="swg\appearance\appearance.cpp" />
-    <ClCompile Include="swg\object\object.cpp" />
-    <ClCompile Include="swg\misc\crc_string.cpp" />
-    <ClCompile Include="swg\misc\network.cpp" />
-    <ClCompile Include="swg\misc\io_win.cpp" />
-    <ClCompile Include="swg\scene\scene.cpp" />
-    <ClCompile Include="swg\scene\ground_scene.cpp" />
-    <ClCompile Include="swg\game\game.cpp" />
-    <ClCompile Include="utinni.cpp" />
-    <ClCompile Include="swg\misc\swg_math.cpp" />
-    <ClCompile Include="swg\misc\swg_utility.cpp" />
-    <ClCompile Include="swg\misc\swg_misc.cpp" />
-    <ClCompile Include="swg\scene\terrain.cpp" />
-    <ClCompile Include="utility\utility.cpp" />
-    <ClCompile Include="utility\memory.cpp" />
-    <ClCompile Include="swg\scene\world_snapshot.cpp" />
-    <ClCompile Include="swg\misc\swg_string.cpp" />
+    <ClCompile Include="plugin.cpp" />
+    <ClCompile Include="example_command_parser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="swg\object\creature_object.h" />
-    <ClInclude Include="plugin_framework\plugin_manager.h" />
-    <ClInclude Include="plugin_framework\utinni_plugin.h" />
-    <ClInclude Include="swg\ui\cui_menu.h" />
-    <ClInclude Include="swg\ui\cui_hud.h" />
-    <ClInclude Include="swg\ui\cui_radial_menu.h" />
-    <ClInclude Include="swg\ui\command_parser.h" />
-    <ClInclude Include="swg\ui\cui_chat_window.h" />
-    <ClInclude Include="swg\misc\repository.h" />
-    <ClInclude Include="swg\ui\imgui_impl.h" />
-    <ClInclude Include="swg\misc\config.h" />
-    <ClInclude Include="swg\graphics\directx9.h" />
-    <ClInclude Include="swg\misc\tree_file.h" />
-    <ClInclude Include="swg\misc\swg_memory.h" />
-    <ClInclude Include="swg\ui\utinni_command_parser.h" />
-    <ClInclude Include="utility\log.h" />
-    <ClInclude Include="swg\misc\direct_input.h" />
-    <ClInclude Include="swg\ui\cui_manager.h" />
-    <ClInclude Include="swg\client\client.h" />
-    <ClInclude Include="swg\graphics\graphics.h" />
-    <ClInclude Include="swg\camera\camera.h" />
-    <ClInclude Include="swg\object\client_object.h" />
-    <ClInclude Include="swg\appearance\appearance.h" />
-    <ClInclude Include="swg\object\object.h" />
-    <ClInclude Include="swg\misc\crc_string.h" />
-    <ClInclude Include="swg\misc\network.h" />
-    <ClInclude Include="swg\misc\io_win.h" />
-    <ClInclude Include="swg\scene\scene.h" />
-    <ClInclude Include="swg\scene\ground_scene.h" />
-    <ClInclude Include="swg\game\game.h" />
-    <ClInclude Include="swg\misc\swg_math.h" />
-    <ClInclude Include="swg\misc\swg_utility.h" />
-    <ClInclude Include="swg\misc\swg_misc.h" />
-    <ClInclude Include="swg\scene\terrain.h" />
-    <ClInclude Include="utility\utility.h" />
-    <ClInclude Include="utility\memory.h" />
-    <ClInclude Include="utinni.h" />
-    <ClInclude Include="swg\scene\world_snapshot.h" />
-    <ClInclude Include="swg\misc\swg_string.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UtINI\UtINI.vcxproj">
-      <Project>{5f903813-e62a-49f6-8b3e-0443decadb5d}</Project>
+    <ProjectReference Include="..\..\UtinniCore\UtinniCore.vcxproj">
+      <Project>{aefed7f6-4ba9-44fc-a353-71a463a82fde}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="example_command_parser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

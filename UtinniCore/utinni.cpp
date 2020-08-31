@@ -17,6 +17,7 @@
 #include "swg/ui/cui_radial_menu.h"
 #include "swg/ui/cui_hud.h"
 #include "swg/ui/cui_menu.h"
+#include "plugin_framework/plugin_manager.h"
 #include "swg/object/creature_object.h"
 
 #pragma comment(lib, "mscoree.lib")
@@ -134,6 +135,7 @@ void detourGame()
     utinni::creatureObject::detour();
 }
 
+utinni::PluginManager pluginManager;
 void main()
 {
     char dllPathbuffer[MAX_PATH];
@@ -168,7 +170,7 @@ void main()
 
     detourGame();
 
-    // ToDo Add C++ plugin load before C# plugin load
+    pluginManager.loadPlugins();
 
     loadCoreDotNet();
 
