@@ -40,3 +40,8 @@ struct StringId
 
 
 }
+
+namespace utinni::report
+{
+extern void detour();
+}
