@@ -49,7 +49,7 @@ struct UTINNI_API Transform
     Transform(Vector& position);
 
     void setPosition(float x, float y, float z);
-    void setPosition(const Vector& position);
+    void setPosition(const Vector& vector);
     Vector getPosition();
 
     Transform addPosition(const Transform& transform);
@@ -65,6 +65,7 @@ struct UTINNI_API Transform
     Vector rotate_p2w(const Vector& vector);
     Vector rotate_l2p(const Vector& vector);
 
+    void copyRotation(const Transform& transform);
     bool isRotationEqual(const Transform& transform);
 
     static Transform getIdentity();

@@ -276,6 +276,21 @@ Vector Transform::rotate_l2p(const Vector& vector)
 
 }
 
+void Transform::copyRotation(const Transform& transform)
+{
+    matrix[0][0] = transform.matrix[0][0];
+    matrix[1][0] = transform.matrix[1][0];
+    matrix[2][0] = transform.matrix[2][0];
+
+    matrix[0][1] = transform.matrix[0][1];
+    matrix[1][1] = transform.matrix[1][1];
+    matrix[2][1] = transform.matrix[2][1];
+
+    matrix[0][2] = transform.matrix[0][2];
+    matrix[1][2] = transform.matrix[1][2];
+    matrix[2][2] = transform.matrix[2][2];
+}
+
 bool Transform::isRotationEqual(const Transform& transform)
 {
     return (matrix[0][0] == transform.matrix[0][0] &&
