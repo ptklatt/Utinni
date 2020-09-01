@@ -19,6 +19,7 @@ const static IniValue values[] = {
     // UtinniCore settings
     { "UtinniCore", "enableEditorMode", false},
     { "UtinniCore", "enableInternalUi", false},
+    { "UtinniCore", "enableOfflineScenes", false},
     { "UtinniCore", "useSwgOverrideCfg", false},
     { "UtinniCore", "autoLoadScene", false},
 
