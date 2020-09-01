@@ -48,6 +48,19 @@ UTINNI_API extern void write(swgptr address, int offsetOfAddrResult, T value)
 }
 
 UTINNI_API extern void copy(swgptr pDest, swgptr pSource, size_t length);
+
+template<size_t n>
+UTINNI_API extern void copy(swgptr pDest, const unsigned char(&buffer)[n])
+{
+    copy(pDest, (swgptr)buffer, n);
+}
+
+template<typename T>
+UTINNI_API extern void copy(swgptr pDest, const std::vector<T>& vector)
+{
+    memory::copy(pDest, (swgptr)&vector[0], vector.size() * sizeof(T));
+}
+
 UTINNI_API extern void write(swgptr address, swgptr value, int length);
 UTINNI_API extern void set(swgptr pDest, swgptr value, size_t length);
 
