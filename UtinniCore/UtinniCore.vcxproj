@@ -156,7 +156,9 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
   <ItemGroup>
     <ClCompile Include="..\external\DetourXS\ADE32.cpp" />
     <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
-    <ClCompile Include="..\external\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="..\external\ImGuizmo\ImGuizmo.cpp" /> 
+    <ClCompile Include="clr.cpp" />
+    <ClCompile Include="swg\ui\cui_misc.cpp" />
     <ClCompile Include="swg\object\creature_object.cpp" />
     <ClCompile Include="plugin_framework\plugin_manager.cpp" />
     <ClCompile Include="swg\ui\cui_menu.cpp" />
@@ -197,6 +199,8 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\misc\swg_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="clr.h" />
+    <ClInclude Include="swg\ui\cui_misc.h" />
     <ClInclude Include="swg\object\creature_object.h" />
     <ClInclude Include="plugin_framework\plugin_manager.h" />
     <ClInclude Include="plugin_framework\utinni_plugin.h" />
