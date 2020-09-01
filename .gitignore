@@ -20,3 +20,5 @@ ipch/
 *.lastbuildstate
 /UtinniCoreDotNet/Generated/Std-symbols.cpp
 /UtinniCoreDotNet/Generated/UtinniCore-symbols.cpp
+/UtinniCoreDotNet/Generated/Std.cs
+/UtinniCoreDotNet/Generated/UtinniCore.cs

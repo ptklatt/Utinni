@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{2B
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UtinniCore-Symbols", "UtinniCore-Symbols\UtinniCore-Symbols.vcxproj", "{10EA6136-AAA0-4F1D-8117-07081C785E5B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExampleCppPlugin", "examples\ExampleCppPlugin\ExampleCppPlugin.vcxproj", "{AEDA74D2-32A8-4FC8-9061-A7CC0E716B9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -75,12 +77,19 @@ Global
 		{10EA6136-AAA0-4F1D-8117-07081C785E5B}.Release|x86.Build.0 = Release|Win32
 		{10EA6136-AAA0-4F1D-8117-07081C785E5B}.RelWithDbgInfo|x86.ActiveCfg = RelWithDbgInfo|Win32
 		{10EA6136-AAA0-4F1D-8117-07081C785E5B}.RelWithDbgInfo|x86.Build.0 = RelWithDbgInfo|Win32
+		{AEDA74D2-32A8-4FC8-9061-A7CC0E716B9E}.Debug|x86.ActiveCfg = Debug|Win32
+		{AEDA74D2-32A8-4FC8-9061-A7CC0E716B9E}.Debug|x86.Build.0 = Debug|Win32
+		{AEDA74D2-32A8-4FC8-9061-A7CC0E716B9E}.Release|x86.ActiveCfg = Release|Win32
+		{AEDA74D2-32A8-4FC8-9061-A7CC0E716B9E}.Release|x86.Build.0 = Release|Win32
+		{AEDA74D2-32A8-4FC8-9061-A7CC0E716B9E}.RelWithDbgInfo|x86.ActiveCfg = RelWithDbgInfo|Win32
+		{AEDA74D2-32A8-4FC8-9061-A7CC0E716B9E}.RelWithDbgInfo|x86.Build.0 = RelWithDbgInfo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{03064EFA-5095-4A88-8341-CE1A2C620626} = {2B573C9B-B128-4C71-8425-D42B45589FED}
+		{AEDA74D2-32A8-4FC8-9061-A7CC0E716B9E} = {2B573C9B-B128-4C71-8425-D42B45589FED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {37589E42-20E2-43DA-98B7-0C65B696C260}

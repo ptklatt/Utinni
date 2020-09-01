@@ -38,7 +38,7 @@ namespace UtinniCoreDotNet.PluginFramework
             // Loads all found plugins
             container.ComposeParts(this);
 
-            Log.Info(Plugins.Count() +  " Plugin(s) loaded");
+            Log.Info(Plugins.Count() +  " .NET Plugin(s) loaded");
         }
     }
 }

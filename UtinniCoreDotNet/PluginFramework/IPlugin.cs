@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 
 namespace UtinniCoreDotNet.PluginFramework
 {
@@ -8,14 +7,12 @@ namespace UtinniCoreDotNet.PluginFramework
         public string Name { get; }
         public string Description { get; }
         public string Author { get; }
-        public Version Version { get; }
 
-        public PluginInformation(string name, string desc, string author, Version version)
+        public PluginInformation(string name, string desc, string author)
         {
             Name = name;
             Description = desc;
             Author = author;
-            Version = version;
         }
     }
 
