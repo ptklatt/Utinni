@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Windows.Forms;
 using UtinniCoreDotNet.UndoRedo;
 
 namespace UtinniCoreDotNet.PluginFramework
@@ -17,6 +17,7 @@ namespace UtinniCoreDotNet.PluginFramework
     {
         EventHandler<AddUndoCommandEventArgs> AddUndoCommand { get; set; }
 
-        UserControl GetControl();
+        List<EditorPanelBase> GetStandalonePanels();
+        List<EditorPanelBase> GetSubPanels();
     }
 }

@@ -72,7 +72,17 @@ namespace UtinniCoreDotNet
                     };
 
                     Log.Info("Editor Plugin: [" + editorPlugin.Information.Name + "] loaded");
-                    flpnlPlugins.Controls.Add(new CollapsiblePanel(editorPlugin.GetControl(), editorPlugin.Information.Name));
+
+                    // ToDo implement main panel switching
+
+                    if (editorPlugin.GetSubPanels() != null)
+                    {
+                        foreach (var subPanel in editorPlugin.GetSubPanels())
+                        {
+                            flpnlPlugins.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
+                        }
+                    }
+                   
                 }
             }
 

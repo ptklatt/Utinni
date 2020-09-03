@@ -1,6 +1,6 @@
 ﻿namespace UtinniCoreDotNet.PluginFramework
 {
-    partial class EditorPluginBase
+    partial class EditorPanelBase
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,16 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // UserControl1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "UserControl1";
             this.Size = new System.Drawing.Size(434, 150);
-            this.ResumeLayout(false);
-
         }
 
         #endregion

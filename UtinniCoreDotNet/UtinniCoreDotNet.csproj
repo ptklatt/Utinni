@@ -72,6 +72,12 @@
     </Compile>
     <Compile Include="Generated\StdEdited.cs" />
     <Compile Include="Generated\UtinniCore.cs" />
+    <Compile Include="PluginFramework\EditorPanelBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PluginFramework\EditorPanelBase.Designer.cs">
+      <DependentUpon>EditorPanelBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="PluginFramework\IEditorPlugin.cs" />
     <Compile Include="PluginFramework\IPlugin.cs" />
     <Compile Include="main.cs" />
@@ -79,12 +85,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PluginFramework\PluginLoader.cs" />
-    <Compile Include="PluginFramework\EditorPluginBase.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PluginFramework\EditorPluginBase.Designer.cs">
-      <DependentUpon>EditorPluginBase.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\CollapsiblePanel.cs">
       <SubType>Component</SubType>
@@ -98,9 +98,6 @@
   <ItemGroup>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PluginFramework\EditorPluginBase.resx">
-      <DependentUpon>EditorPluginBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CollapsiblePanel.resx">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>

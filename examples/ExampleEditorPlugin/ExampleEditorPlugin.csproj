@@ -49,13 +49,14 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ExampleEditorPlugin.cs">
+    <Compile Include="ExampleEditorSubPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ExampleEditorPlugin.Designer.cs">
-      <DependentUpon>ExampleEditorPlugin.cs</DependentUpon>
+    <Compile Include="ExampleEditorSubPanel.Designer.cs">
+      <DependentUpon>ExampleEditorSubPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ExampleEditorPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\UtinniCoreDotNet\UtinniCoreDotNet.csproj">
@@ -65,8 +66,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ExampleEditorPlugin.resx">
-      <DependentUpon>ExampleEditorPlugin.cs</DependentUpon>
+    <EmbeddedResource Include="ExampleEditorSubPanel.resx">
+      <DependentUpon>ExampleEditorSubPanel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

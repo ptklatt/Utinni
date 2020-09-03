@@ -1,6 +1,6 @@
 ﻿namespace ExampleEditorPlugin
 {
-    partial class ExampleEditorPlugin
+    partial class ExampleEditorSubPanel
     {
         /// <summary> 
         /// Required designer variable.

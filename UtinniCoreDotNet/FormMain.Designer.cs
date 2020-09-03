@@ -111,11 +111,22 @@
             this.toolStripButton2.Text = "toolStripButton1";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
+            // cmbPanels
+            // 
+            this.cmbPanels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPanels.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbPanels.FormattingEnabled = true;
+            this.cmbPanels.Location = new System.Drawing.Point(0, 34);
+            this.cmbPanels.Name = "cmbPanels";
+            this.cmbPanels.Size = new System.Drawing.Size(446, 21);
+            this.cmbPanels.TabIndex = 6;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1207, 500);
+            this.Controls.Add(this.cmbPanels);
             this.Controls.Add(this.tsMain);
             this.Controls.Add(this.flpnlPlugins);
             this.Controls.Add(this.pnlGame);
