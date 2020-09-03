@@ -38,4 +38,8 @@ bool ExampleCommandParser::performParsing(const int64_t& userId, const std::vect
     return false;
 }
 
+void ExampleCommandParser::create(CommandParser* mainCommandParser)
+{
+    mainCommandParser->addSubCommand(utinni::swg_new<ExampleCommandParser>());
+}
 }

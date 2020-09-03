@@ -9,7 +9,7 @@ class CommandParser;
 class UTINNI_API CuiChatWindow
 {
 public:
-    static void addCommandParser(CommandParser* commandParser);
+    static void addCreateCommandParserCallback(void(*func)(CommandParser* commandParser));
 
     static void writeToAllTabs(const char* str);
     static void writeToCurrentTab(const char* str);

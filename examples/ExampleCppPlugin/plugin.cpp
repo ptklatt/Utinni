@@ -3,9 +3,9 @@
 #include "UtinniCore/utinni.h"
 #include "UtinniCore/plugin_framework/utinni_plugin.h"
 #include "UtinniCore/swg/ui/cui_chat_window.h"
-#include "UtinniCore/swg/misc/swg_memory.h"
 
 #include "example_command_parser.h"
+
 
 class ExampleCppPlugin : public utinni::UtinniPlugin
 {
@@ -21,7 +21,8 @@ public:
     ExampleCppPlugin()
     {
         utinni::log::info("Example Cpp Plugin loaded"); // ToDo not being added to the log
-        utinni::CuiChatWindow::addCommandParser(utinni::swg_new<example::ExampleCommandParser>());
+
+        utinni::CuiChatWindow::addCreateCommandParserCallback(&example::ExampleCommandParser::create);
     }
 
     ~ExampleCppPlugin()
@@ -31,13 +32,13 @@ public:
 
     virtual void init() override
     {
-        utinni::log::info("ExampleCppPlugin init");
     }
 
     virtual const Information& getInformation() const override
     {
         return information;
     }
+
 };
 
 extern "C"

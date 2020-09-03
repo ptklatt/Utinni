@@ -22,14 +22,14 @@ pSendInput sendInput = (pSendInput)0x009141D0;
 
 static swgptr pCuiChatWindow;
 static swgptr pCuiConsoleHelper;
-static std::vector<utinni::CommandParser*> commandParsers;
+static std::vector<void(*)(utinni::CommandParser* mainCommandParser)> addCommandParserCallback;
 
 namespace utinni
 {
 
-void CuiChatWindow::addCommandParser(CommandParser* commandParser)
+void CuiChatWindow::addCreateCommandParserCallback(void(*func)(CommandParser* commandParser))
 {
-    commandParsers.emplace_back(commandParser);
+    addCommandParserCallback.emplace_back(func);
 }
 
 void CuiChatWindow::writeToAllTabs(const char* str) // Accepts color codes by prefixing them with \\, ie "\\#888888 test"
@@ -84,16 +84,23 @@ void CuiChatWindow::sendMessage(const char* msg, bool addToChatHistory)
     memory::set(0x0091428C, 0x74, 1);
 }
 
+CommandParser* mainCommandParser;
 swgptr __fastcall hkCtor(swgptr pThis, DWORD EDX, swgptr uiPage, DWORD unk1, DWORD unk2, DWORD unk3)
 {
-    commandParsers.emplace_back(swg_new<UtinniCommandParser>());
     swgptr result = swg::cuiChatWindow::ctor(pThis, uiPage, unk1, unk2, unk3);
     pCuiChatWindow = pThis;
     pCuiConsoleHelper = memory::read<swgptr>(pThis + 0xBC); // Store the CuiConsoleHelper* for later use
+
+    mainCommandParser->addSubCommand(swg_new<UtinniCommandParser>());
+
+    for (const auto& func : addCommandParserCallback)
+    {
+        func(mainCommandParser);
+    }
+
     return result;
 }
 
-CommandParser* mainCommandParser;
 swgptr return_midCtor = 0x00F3679D;
 __declspec(naked) void midCtor()
 {
@@ -106,11 +113,6 @@ __declspec(naked) void midCtor()
     }
 
     mainCommandParser = (CommandParser*)pMainCommandParser;
-
-    for (CommandParser* commandParser : commandParsers)
-    {
-        mainCommandParser->addSubCommand(commandParser);
-    }
 
     __asm
     {
