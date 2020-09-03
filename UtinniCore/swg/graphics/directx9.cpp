@@ -188,6 +188,7 @@ HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, 
 	 }
 	 else
 	 {
+
 		  isPresenting = false;
 	 }
 
