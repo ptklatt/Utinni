@@ -6,6 +6,7 @@
 #include "swg/scene/ground_scene.h"
 #include "swg/scene/world_snapshot.h"
 #include "swg/graphics/directx9.h"
+#include "swg/ui/imgui_impl.h"
 
 namespace swg::game
 {
@@ -43,6 +44,7 @@ pIsHudSceneTypeSpace isHudSceneTypeSpace = (pIsHudSceneTypeSpace)0x00426170;
 }
 
 static std::vector<void(*)()> mainLoopCallbacks;
+static std::vector<void(*)()> cleanUpSceneCallbacks;
 static utinni::Repository repository;
 
 namespace utinni
@@ -51,6 +53,11 @@ namespace utinni
 void Game::addMainLoopCallback(void(*func)())
 {
     mainLoopCallbacks.emplace_back(func);
+}
+
+void Game::addCleanupSceneCallback(void(*func)())
+{
+    cleanUpSceneCallbacks.emplace_back(func);
 }
 
 int getMainLoopCount()
@@ -107,6 +114,19 @@ void __cdecl hkInstall(int application)
     }
 }
 
+void __cdecl hkCleanupScene()
+{
+    swg::game::cleanupScene();
+
+    imgui_gizmo::disable();
+
+    for (const auto& func : cleanUpSceneCallbacks)
+    {
+        func();
+    }
+
+}
+
 void Game::detour()
 {
     if (getMainLoopCount() == 0) // Checks the Games main loop count, if 0, we're in the 'suspended' startup entry point loop
@@ -114,6 +134,7 @@ void Game::detour()
         //utility::showMessageBox("");
         swg::game::mainLoop = (swg::game::pMainLoop)Detour::Create(swg::game::mainLoop, hkMainLoop, DETOUR_TYPE_PUSH_RET);
         swg::game::install = (swg::game::pInstall)Detour::Create(swg::game::install, hkInstall, DETOUR_TYPE_PUSH_RET);
+        swg::game::cleanupScene = (swg::game::pCleanupScene)Detour::Create(swg::game::cleanupScene, hkCleanupScene, DETOUR_TYPE_PUSH_RET);
     }
 }
 

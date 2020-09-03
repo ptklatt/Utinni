@@ -279,8 +279,10 @@ void editTransform(const float* cameraView, float* cameraProjection, float* matr
 
 void draw()
 {
-	 if (object == nullptr || !enabled)
+	 if (GroundScene::get() == nullptr || object == nullptr || !enabled)
+	 {
 		  return;
+	 }
 
 	 if (!ImGui::IsAnyMouseDown())
 	 {
