@@ -41,6 +41,7 @@ void createDetours()
     utinni::cuiRadialMenuManager::detour();
     utinni::creatureObject::detour();
     utinni::report::detour();
+    utinni::skeletalAppearance::detour();
 }
 
 void createPatches()

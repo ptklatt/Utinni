@@ -32,8 +32,8 @@ pReverseProjectInViewportSpaceFloat reverseProjectInViewportSpaceFloat = (pRever
 
 namespace swg::renderWorldCamera
 {
-using pAddExcludedObject = int(__thiscall*)(utinni::Camera* pThis, utinni::Object* obj);
-using pClearExcludedObjects = int(__thiscall*)(utinni::Camera* pThis);
+using pAddExcludedObject = int(__thiscall*)(const utinni::Camera* pThis, utinni::Object* obj);
+using pClearExcludedObjects = int(__thiscall*)(const utinni::Camera* pThis);
 
 pAddExcludedObject addExcludedObject = (pAddExcludedObject)0x00778FE0;
 pClearExcludedObjects clearExcludedObjects = (pClearExcludedObjects)0x00779130;
@@ -83,18 +83,22 @@ swg::math::Vector Camera::reverseProjectInViewportSpace(float viewPortX, float v
 
 void RenderWorldCamera::addExcludedObject(Object* obj)
 {
-    Camera* camera = Game::getCamera(); // does it need getConstCamera?
-    if (!camera)
+    const Camera* camera = Game::getConstCamera();
+    if (camera == nullptr)
+    {
         return;
+    }
 
     swg::renderWorldCamera::addExcludedObject(camera, obj);
 }
 
 void RenderWorldCamera::clearExcludedObjects()
 {
-    Camera* camera = Game::getCamera(); // does it need getConstCamera?
-    if (!camera)
+    const Camera* camera = Game::getConstCamera();
+    if (camera == nullptr)
+    {
         return;
+    }
 
     swg::renderWorldCamera::clearExcludedObjects(camera);
 }
