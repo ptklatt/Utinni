@@ -158,6 +158,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
     <ClCompile Include="..\external\ImGuizmo\ImGuizmo.cpp" /> 
     <ClCompile Include="clr.cpp" />
+    <ClCompile Include="swg\object\player_object.cpp" />
     <ClCompile Include="swg\scene\render_world.cpp" />
     <ClCompile Include="swg\ui\cui_misc.cpp" />
     <ClCompile Include="swg\object\creature_object.cpp" />
@@ -201,6 +202,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clr.h" />
+    <ClInclude Include="swg\object\player_object.h" />
     <ClInclude Include="swg\scene\render_world.h" />
     <ClInclude Include="swg\ui\cui_misc.h" />
     <ClInclude Include="swg\object\creature_object.h" />
