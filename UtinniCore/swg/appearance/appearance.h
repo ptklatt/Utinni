@@ -41,6 +41,8 @@ public:
     bool useRenderEffectsFlag;
     bool allowShadowBlob;
     swg::math::Transform appearanceToWorld;
+
+    static Appearance* create(const char* filename);
 };
 
 class UTINNI_API CellProperty
@@ -63,5 +65,11 @@ class UTINNI_API PortalPropertyTemplateList
 public:
     static PortalPropertyTemplate* getPobByCrcString(PersistentCrcString* pobCrcString);
 };
+
+namespace skeletalAppearance
+{
+UTINNI_API extern void setRenderSkeleton(bool value);
+extern void detour();
+}
 
 }
