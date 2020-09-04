@@ -10,12 +10,15 @@ using pFindObjectUnderCursor = utinni::Object* (__cdecl*)(utinni::Camera* camera
 using pSetSize = void(__cdecl*)(int width, int height);
 using pTogglePointer = void(__cdecl*)(bool isOn);
 
+using pRestartMusic = void(__cdecl*)(bool notPlaying);
+
 pRender render = (pRender)0x00881210;
 pFindObjectUnderCursor findObjectUnderCursor = (pFindObjectUnderCursor)0x00BD3E20;
 
 pSetSize setSize = (pSetSize)0x00882410;
 pTogglePointer togglePointer = (pTogglePointer)0x00881940;
-    
+
+pRestartMusic restartMusic = (pRestartMusic)0x00881560;
 }
 
 namespace swg::uiManager
@@ -57,6 +60,11 @@ bool CuiManager::isRenderingUi()
 bool CuiManager::hasObjectUnderCursor()
 {
     return utinni::hasObjectUnderCursor;
+}
+
+void CuiManager::restartMusic()
+{
+    swg::cuiManager::restartMusic(true);
 }
 
 void __fastcall hkRender(swgptr pThis, void* useless)

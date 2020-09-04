@@ -60,6 +60,18 @@ __declspec(naked) void midUpdate()
     }
 }
 
+void patchAllowTargetEverything(bool value)
+{
+    if (value)
+    {
+        memory::createJMP(0x00BD3FA3, 0x00BD403D, 5);
+    }
+    else
+    {
+        static constexpr byte originalBytes[] = { 0x8B, 0xCE, 0xE8, 0x76, 0xF9 }; // call client.9C18A0
+        memory::copy(0x00BD3FA3, originalBytes);
+    }
+}
 
 void detour()
 {

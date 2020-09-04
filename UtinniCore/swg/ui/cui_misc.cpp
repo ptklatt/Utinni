@@ -1,8 +1,20 @@
 #include "cui_misc.h"
-#include "utinni.h"
+
+namespace swg::cuiMisc
+{
+using pSwgCuiHudFactoryReloadUi = void(__cdecl*)();
+
+pSwgCuiHudFactoryReloadUi swgCuiHudFactoryReloadUi = (pSwgCuiHudFactoryReloadUi)0x00BAA7E0;
+}
 
 namespace utinni::cuiMisc
 {
+void reloadUi()
+{
+    memory::write<bool>(0x01926138, true); // Todo what is this again?
+    swg::cuiMisc::swgCuiHudFactoryReloadUi();
+}
+
 void patch()
 {
     if (getConfig().getBool("UtinniCore", "enableOfflineScenes"))
@@ -11,7 +23,7 @@ void patch()
         memory::nopAddress(0x00C8D250, 15);
 
         // Enable the Location button inside the ESC menu inside a scene
-        byte locationBtnPatchBuffer[] = { 0x6A, 0x01, // push 1
+        static constexpr byte locationBtnPatchBuffer[] = { 0x6A, 0x01, // push 1
                                           0x51, // push ecx
                                           0x8B, 0xCE, // mov ecx, esi
                                           0xE8, 0x17, 0x43, 0xD4, 0xFF }; // call client.9C18A0

@@ -11,6 +11,7 @@ public:
     static void togglePointer(bool isOn);
     static bool isRenderingUi();
     static bool hasObjectUnderCursor();
+    static void restartMusic();
 
     static void detour();
 };
