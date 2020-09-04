@@ -48,4 +48,10 @@ std::string wstring_to_string(const std::wstring& wstr)
     WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &str[0], strSize, nullptr, nullptr);
     return str;
 }
+
+bool isEmpty(const char* input)
+{
+    return input != nullptr && !input[0];
+}
+
 }

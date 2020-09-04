@@ -5,21 +5,22 @@
 
 namespace utinni
 {
-enum cameraMode : int
-{
-	 cm_FreeChase = 2,
-	 cm_Free = 5
-};
-
-enum cameraProjectionMode
-{
-	 pm_Perspective = 0,
-	 pm_Parallel = 1,
-};
-
 class UTINNI_API Camera : public Object
 {
 public:
+
+	 enum Modes : int
+	 {
+		  cm_FreeChase = 2,
+		  cm_Free = 5
+	 };
+
+	 enum ProjectionModes
+	 {
+		  pm_Perspective = 0,
+		  pm_Parallel = 1,
+	 };
+
 	 swg::math::Matrix4x4 projectionMatrix;
 	 int viewportX;
 	 int viewportY;
@@ -37,7 +38,7 @@ public:
 	 swg::math::Volume frustumVolume;
 	 swg::math::Vector frustumVertex_w[8];
 	 swg::math::Volume frustumVolume_w;
-	 cameraProjectionMode projectionMode;
+	 ProjectionModes projectionMode;
 	 float left;
 	 float top;
 	 float right;

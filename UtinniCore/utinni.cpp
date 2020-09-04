@@ -25,6 +25,8 @@ utinni::PluginManager pluginManager;
 
 void createDetours()
 {
+    utinni::log::info("Creating detours");
+
     swg::config::detour();
 
     utinni::treefile::detour();
@@ -43,6 +45,8 @@ void createDetours()
 
 void createPatches()
 {
+    utinni::log::info("Creating patches");
+
     utinni::cuiMisc::patch();
 }
 
@@ -66,8 +70,10 @@ void main()
     // Patches memory instructions inside the game
     createPatches();
 
+    utinni::log::info("Loading C++ plugins");
     pluginManager.loadPlugins();
 
+    utinni::log::info("Loading .NET plugins");
     // Load the clr and UtinniCoreDotNet
     clr::load();
 }

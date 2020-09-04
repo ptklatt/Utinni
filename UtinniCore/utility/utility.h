@@ -24,4 +24,6 @@ UTINNI_API extern size_t stringLength(TChar* value)
 
     return i;
 }
+
+UTINNI_API extern bool isEmpty(const char* input);
 }

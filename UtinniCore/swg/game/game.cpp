@@ -5,7 +5,6 @@
 #include "swg/object/object.h"
 #include "swg/scene/ground_scene.h"
 #include "swg/scene/world_snapshot.h"
-#include "swg/graphics/directx9.h"
 #include "swg/ui/imgui_impl.h"
 
 namespace swg::game
