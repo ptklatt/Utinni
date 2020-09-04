@@ -62,8 +62,14 @@ public:
     static void removeDetour();
 
     Camera* getCurrentCamera();
+    void toggleFreeCamera();
 
     void reloadTerrain();
+
+    void createObjectAtPlayer(const char* filename);
+    void createAppearanceAtPlayer(const char* filename);
+
+
 };
 
 }

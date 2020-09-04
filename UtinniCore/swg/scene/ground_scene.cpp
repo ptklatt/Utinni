@@ -1,14 +1,17 @@
 #include "ground_scene.h"
 #include "terrain.h"
 #include "world_snapshot.h"
+#include "render_world.h"
 #include "swg/misc/swg_memory.h"
+#include "swg/game/game.h"
+#include "swg/object/client_object.h"
 
 
 namespace swg::groundScene
 {
 using pCtor = utinni::GroundScene* (__thiscall*)(void* pThis, const char* terrainFilename, const char* avatarObjectFilename, swgptr customPlayer); // Offline scene ctor
 using pReloadTerrain = void(__thiscall*)(utinni::GroundScene* pThis);
-using pChangeCamera = int(__thiscall*)(utinni::GroundScene* pThis, int, float);
+using pChangeCamera = int(__thiscall*)(utinni::GroundScene* pThis, utinni::Camera::Modes cameraMode, float);
 using pGetCurrentCamera = utinni::Camera* (__thiscall*)(utinni::GroundScene* pThis);
 
 using pDraw = void(__thiscall*)(utinni::GroundScene* pThis);
@@ -122,9 +125,109 @@ Camera* GroundScene::getCurrentCamera()
     return swg::groundScene::getCurrentCamera(this);
 }
 
+bool isFreeCam;
+void GroundScene::toggleFreeCamera() // ToDo Shitty, do proper
+{
+    isFreeCam = !isFreeCam;
+
+    Camera::Modes cameraMode;
+    if (isFreeCam)
+    {
+        cameraMode = Camera::Modes::cm_Free;
+    }
+    else
+    {
+        cameraMode = Camera::Modes::cm_FreeChase;
+    }
+
+    swg::groundScene::changeCamera(this, cameraMode, 0);
+}
+
 void GroundScene::reloadTerrain()
 {
     swg::groundScene::reloadTerrain(this);
+}
+
+void GroundScene::createObjectAtPlayer(const char* filename)
+{
+    Object* player = Game::getPlayer();
+    if (!player)
+    {
+        return;
+    }
+
+    SharedObjectTemplate* objTemplate = ObjectTemplateList::getObjectTemplateByFilename(filename);
+    if (objTemplate == nullptr)
+    {
+        return;
+    }
+
+    Object* obj = nullptr;
+    const char* pobFilename = objTemplate->getPortalLayoutFilename();
+    if (utility::isEmpty(pobFilename))
+    {
+        obj = ObjectTemplate::createObject(filename);
+    }
+    else
+    {
+        PortalPropertyTemplate* pob = PortalPropertyTemplateList::getPobByCrcString(PersistentCrcString::ctor(pobFilename));
+        obj = Object::ctor();
+
+        obj->addNotification(0x019136E4, false);
+        obj->setAppearance(Appearance::create(pob->getExteriorAppearanceName()));
+        renderWorld::addObjectNotifications(obj);
+    }
+
+    ClientObject* clientObj = (ClientObject*)obj;
+    clientObj->setParentCell(player->getParentCell());
+
+    CellProperty::setPortalTransitions(false);
+    { // ToDO see if this can be removed
+        memcpy((void*)(((int)obj) + 0x50), (void*)(((int)player) + 0x50), 0x30u); // Todo see if it can be replaced
+    }
+    CellProperty::setPortalTransitions(true);
+
+    renderWorld::addObjectNotifications(obj);
+    clientObj->endBaselines();
+
+    obj->addToWorld();
+}
+
+void GroundScene::createAppearanceAtPlayer(const char* filename)
+{
+    Object* player = Game::getPlayer();
+    if (!player)
+    {
+        return;
+    }
+
+    Appearance* appearance;
+    std::string str = filename; // ToDo replace with a 'endsWith' utility function for const char*
+    if (str.substr(str.length() - 4) == ".pob")
+    {
+        PortalPropertyTemplate* pob = PortalPropertyTemplateList::getPobByCrcString(PersistentCrcString::ctor(filename));
+        appearance = Appearance::create(pob->getExteriorAppearanceName());
+    }
+    else
+    {
+        appearance = Appearance::create(filename);
+    }
+
+    if (appearance == nullptr)
+    {
+        return;
+    }
+
+    Object* obj = Object::ctor();
+
+    obj->addNotification(0x019136E4, false);
+    obj->setAppearance(appearance);
+
+    memcpy((void*)(((int)obj) + 0x50), (void*)(((int)player) + 0x50), 0x30u);  // Todo see if it can be replaced
+
+    renderWorld::addObjectNotifications(obj);
+
+    obj->addToWorld();
 }
 }
 
