@@ -31,11 +31,12 @@
             this.btnRemoveWsNode = new System.Windows.Forms.Button();
             this.btnAddWsNode = new System.Windows.Forms.Button();
             this.lblWsNodeFunctionsExample = new System.Windows.Forms.Label();
+            this.lblSnapshotNodePosition = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnRemoveWsNode
             // 
-            this.btnRemoveWsNode.Location = new System.Drawing.Point(6, 47);
+            this.btnRemoveWsNode.Location = new System.Drawing.Point(87, 18);
             this.btnRemoveWsNode.Name = "btnRemoveWsNode";
             this.btnRemoveWsNode.Size = new System.Drawing.Size(75, 23);
             this.btnRemoveWsNode.TabIndex = 1;
@@ -62,14 +63,24 @@
             this.lblWsNodeFunctionsExample.TabIndex = 3;
             this.lblWsNodeFunctionsExample.Text = "World Snapshot Node Functions";
             // 
-            // ExampleEditorPlugin
+            // lblSnapshotNodePosition
+            // 
+            this.lblSnapshotNodePosition.AutoSize = true;
+            this.lblSnapshotNodePosition.Location = new System.Drawing.Point(5, 44);
+            this.lblSnapshotNodePosition.Name = "lblSnapshotNodePosition";
+            this.lblSnapshotNodePosition.Size = new System.Drawing.Size(50, 13);
+            this.lblSnapshotNodePosition.TabIndex = 4;
+            this.lblSnapshotNodePosition.Text = "Position: ";
+            // 
+            // ExampleEditorSubPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblSnapshotNodePosition);
             this.Controls.Add(this.lblWsNodeFunctionsExample);
             this.Controls.Add(this.btnAddWsNode);
             this.Controls.Add(this.btnRemoveWsNode);
-            this.Name = "ExampleEditorPlugin";
+            this.Name = "ExampleEditorSubPanel";
             this.Size = new System.Drawing.Size(434, 155);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -81,5 +92,6 @@
         private System.Windows.Forms.Button btnRemoveWsNode;
         private System.Windows.Forms.Button btnAddWsNode;
         private System.Windows.Forms.Label lblWsNodeFunctionsExample;
+        private System.Windows.Forms.Label lblSnapshotNodePosition;
     }
 }

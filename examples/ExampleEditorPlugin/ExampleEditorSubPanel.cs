@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UtinniCore.Utinni;
 using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.Commands;
@@ -9,15 +10,17 @@ namespace ExampleEditorPlugin
     // SubPanels should inherit EditorPanelBase as it sets up the the correct size automatically.
     public partial class ExampleEditorSubPanel : EditorPanelBase
     {
-        private EventHandler<AddUndoCommandEventArgs> addUndoCommand;
-        public ExampleEditorSubPanel(EventHandler<AddUndoCommandEventArgs> addUndoCommand)
+        private readonly IEditorPlugin editorPlugin;
+        public ExampleEditorSubPanel(IEditorPlugin editorPlugin) : base(editorPlugin.Information.Name)
         {
             InitializeComponent();
-            this.addUndoCommand = addUndoCommand;
+            this.editorPlugin = editorPlugin;
 
             ObjectCallbacks.AddOnTargetCallback(OnTarget);
             ImGuiCallbacks.AddOnPositionChangedCallback(OnPositionChanged);
             ImGuiCallbacks.AddOnRotationChangedCallback(OnRotationChanged);
+
+            Task updateNodePositionLabel = UpdateNodePositionLabel();
         }
 
         private void btnAddWsNode_Click(object sender, EventArgs e)
@@ -28,7 +31,7 @@ namespace ExampleEditorPlugin
 
                 if (node != null)
                 {
-                    addUndoCommand(this, new AddUndoCommandEventArgs(new AddWorldSnapshotNodeCommand(node)));
+                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new AddWorldSnapshotNodeCommand(node)));
                 }
             });
         }
@@ -41,7 +44,7 @@ namespace ExampleEditorPlugin
 
                 if (node != null)
                 {
-                    addUndoCommand(this, new AddUndoCommandEventArgs(new RemoveWorldSnapshotNodeCommand(node)));
+                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new RemoveWorldSnapshotNodeCommand(node)));
                     WorldSnapshot.RemoveNode(node);
                 }
             });
@@ -71,7 +74,7 @@ namespace ExampleEditorPlugin
                 if (node != null)
                 {
                     node.Transform.Position = obj.Transform.Position;
-                    addUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodePositionChangedCommand(node, allowMerge)));
+                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodePositionChangedCommand(node, allowMerge)));
                 }
             });
         }
@@ -87,10 +90,48 @@ namespace ExampleEditorPlugin
                 if (node != null)
                 {
                     node.Transform.CopyRotation(obj.Transform);
-                    addUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodeRotationChangedCommand(node, allowMerge)));
+                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodeRotationChangedCommand(node, allowMerge)));
                 }
             });
         }
 
+        private async Task UpdateNodePositionLabel()
+        {
+            while (true)
+            {
+                await Task.Delay(5);
+                GroundSceneCallbacks.AddUpdateLoopCall(() =>
+                {
+                    string result;
+                    var obj = Game.PlayerLookAtTargetObject;
+                    if (obj == null)
+                    {
+                        result = "Position: 0, 0, 0";
+                    }
+                    else
+                    {
+                        WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeByNetworkId(obj.NetworkId);
+
+                        if (node != null)
+                        {
+                            var pos = node.Transform.Position;
+                            result = String.Format("Position: {0}, {1}, {2}", pos.X, pos.Y, pos.Z);
+                        }
+                        else
+                        {
+                            result = "Position: 0, 0, 0";
+                        }
+                    }
+
+                    if (lblSnapshotNodePosition.Created)
+                    {
+                        BeginInvoke((Action)(() =>
+                        {
+                            lblSnapshotNodePosition.Text = result;
+                        }));
+                    }
+                });
+            }
+        }
     }
 }

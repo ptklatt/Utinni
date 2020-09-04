@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.Utility;
 
@@ -12,7 +13,7 @@ namespace ExampleEditorPlugin
     // FlowLayoutPanel
     public partial class ExampleEditorPlugin : IEditorPlugin
     {
-        private readonly ExampleEditorSubPanel subPanel;
+        private readonly List<EditorPanelBase> subPanels = new List<EditorPanelBase>();
 
         public ExampleEditorPlugin()
         {
@@ -23,16 +24,18 @@ namespace ExampleEditorPlugin
 
             Log.Info("Created: Example Editor Plugin");
 
-            subPanel = new ExampleEditorSubPanel(AddUndoCommand);
+            subPanels.Add(new ExampleEditorSubPanel(this));
         }
 
         public PluginInformation Information { get; }
-        public EventHandler<AddUndoCommandEventArgs> AddUndoCommand { get; set; }
-        public EditorPanelBase GetStandalonePanel() { return null; }
 
-        public EditorPanelBase GetSubPanel()
+        public EventHandler<AddUndoCommandEventArgs> AddUndoCommand { get; set; }
+
+        public List<EditorPanelBase> GetStandalonePanels() { return null; }
+
+        public List<EditorPanelBase> GetSubPanels()
         {
-            return subPanel;
+            return subPanels;
         }
     }
 }
