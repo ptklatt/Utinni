@@ -68,9 +68,9 @@
             this.lblSnapshotNodePosition.AutoSize = true;
             this.lblSnapshotNodePosition.Location = new System.Drawing.Point(5, 44);
             this.lblSnapshotNodePosition.Name = "lblSnapshotNodePosition";
-            this.lblSnapshotNodePosition.Size = new System.Drawing.Size(50, 13);
+            this.lblSnapshotNodePosition.Size = new System.Drawing.Size(80, 13);
             this.lblSnapshotNodePosition.TabIndex = 4;
-            this.lblSnapshotNodePosition.Text = "Position: ";
+            this.lblSnapshotNodePosition.Text = "Position: 0, 0, 0";
             // 
             // ExampleEditorSubPanel
             // 
@@ -81,7 +81,7 @@
             this.Controls.Add(this.btnAddWsNode);
             this.Controls.Add(this.btnRemoveWsNode);
             this.Name = "ExampleEditorSubPanel";
-            this.Size = new System.Drawing.Size(434, 155);
+            this.Size = new System.Drawing.Size(417, 155);
             this.ResumeLayout(false);
             this.PerformLayout();
 

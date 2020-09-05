@@ -1,4 +1,5 @@
-﻿namespace UtinniCoreDotNet.UI
+﻿
+namespace UtinniCoreDotNet.UI
 {
     sealed partial class CollapsiblePanel
     {
@@ -44,7 +45,7 @@
             this.btnExpand.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btnExpand.Location = new System.Drawing.Point(3, 3);
             this.btnExpand.Name = "btnExpand";
-            this.btnExpand.Size = new System.Drawing.Size(225, 21);
+            this.btnExpand.Size = new System.Drawing.Size(440, 21);
             this.btnExpand.TabIndex = 414;
             this.btnExpand.UseVisualStyleBackColor = false;
             this.btnExpand.CheckedChanged += new System.EventHandler(this.btnExpand_CheckedChanged);
@@ -52,7 +53,7 @@
             // CheckboxPanel
             // 
             this.Controls.Add(this.btnExpand);
-            this.Size = new System.Drawing.Size(225, 26);
+            this.Size = new System.Drawing.Size(440, 26);
             this.ResumeLayout(false);
 
         }

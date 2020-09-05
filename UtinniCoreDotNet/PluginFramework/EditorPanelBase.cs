@@ -5,7 +5,12 @@ namespace UtinniCoreDotNet.PluginFramework
     public partial class EditorPanelBase : UserControl
     {
         public readonly string CheckboxPanelText;
-        private const int width = 434;
+        private const int width = 417;
+
+        public EditorPanelBase()
+        {
+            Width = width;
+        }
 
         public EditorPanelBase(string name)
         {

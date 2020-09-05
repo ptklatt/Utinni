@@ -30,13 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.pnlGame = new System.Windows.Forms.Panel();
-            this.flpnlPlugins = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpPlugins = new System.Windows.Forms.FlowLayoutPanel();
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.tsbtnUndo = new System.Windows.Forms.ToolStripButton();
             this.tsbtnRedo = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.cmbPanels = new System.Windows.Forms.ComboBox();
+            this.pnlPlugins = new System.Windows.Forms.Panel();
             this.tsMain.SuspendLayout();
+            this.pnlPlugins.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlGame
@@ -49,14 +52,18 @@
             this.pnlGame.Size = new System.Drawing.Size(742, 460);
             this.pnlGame.TabIndex = 3;
             // 
-            // flpnlPlugins
+            // flpPlugins
             // 
-            this.flpnlPlugins.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.flpnlPlugins.Location = new System.Drawing.Point(0, 28);
-            this.flpnlPlugins.Name = "flpnlPlugins";
-            this.flpnlPlugins.Size = new System.Drawing.Size(446, 460);
-            this.flpnlPlugins.TabIndex = 4;
+            this.flpPlugins.AutoSize = true;
+            this.flpPlugins.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpPlugins.BackColor = System.Drawing.SystemColors.Control;
+            this.flpPlugins.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpPlugins.Location = new System.Drawing.Point(0, 30);
+            this.flpPlugins.MinimumSize = new System.Drawing.Size(420, 0);
+            this.flpPlugins.Name = "flpPlugins";
+            this.flpPlugins.Size = new System.Drawing.Size(420, 0);
+            this.flpPlugins.TabIndex = 4;
+            this.flpPlugins.WrapContents = false;
             // 
             // tsMain
             // 
@@ -116,19 +123,30 @@
             this.cmbPanels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPanels.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbPanels.FormattingEnabled = true;
-            this.cmbPanels.Location = new System.Drawing.Point(0, 34);
+            this.cmbPanels.Location = new System.Drawing.Point(3, 3);
             this.cmbPanels.Name = "cmbPanels";
-            this.cmbPanels.Size = new System.Drawing.Size(446, 21);
+            this.cmbPanels.Size = new System.Drawing.Size(420, 21);
             this.cmbPanels.TabIndex = 6;
+            // 
+            // pnlPlugins
+            // 
+            this.pnlPlugins.AutoScroll = true;
+            this.pnlPlugins.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlPlugins.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlPlugins.Controls.Add(this.flpPlugins);
+            this.pnlPlugins.Controls.Add(this.cmbPanels);
+            this.pnlPlugins.Location = new System.Drawing.Point(0, 34);
+            this.pnlPlugins.Name = "pnlPlugins";
+            this.pnlPlugins.Size = new System.Drawing.Size(446, 433);
+            this.pnlPlugins.TabIndex = 7;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1207, 500);
-            this.Controls.Add(this.cmbPanels);
+            this.Controls.Add(this.pnlPlugins);
             this.Controls.Add(this.tsMain);
-            this.Controls.Add(this.flpnlPlugins);
             this.Controls.Add(this.pnlGame);
             this.Name = "FormMain";
             this.Text = "FormMain";
@@ -137,6 +155,8 @@
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.tsMain.ResumeLayout(false);
             this.tsMain.PerformLayout();
+            this.pnlPlugins.ResumeLayout(false);
+            this.pnlPlugins.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,11 +164,13 @@
 
         #endregion
         private System.Windows.Forms.Panel pnlGame;
-        private System.Windows.Forms.FlowLayoutPanel flpnlPlugins;
         private System.Windows.Forms.ToolStrip tsMain;
         private System.Windows.Forms.ToolStripButton tsbtnUndo;
         private System.Windows.Forms.ToolStripButton tsbtnRedo;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ComboBox cmbPanels;
+        private System.Windows.Forms.Panel pnlPlugins;
+        private System.Windows.Forms.FlowLayoutPanel flpPlugins;
     }
 }

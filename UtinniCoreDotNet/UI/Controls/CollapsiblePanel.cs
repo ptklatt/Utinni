@@ -37,15 +37,16 @@ namespace UtinniCoreDotNet.UI
 
         private readonly UserControl pnlInner;
 
-        public CollapsiblePanel(UserControl innerPanel, string panelText = "")
+        public CollapsiblePanel(UserControl innerPanel, string panelText = "", bool isOpenByDefault = false)
         {
             InitializeComponent();
 
             pnlInner = innerPanel;
             CollapsablePanelText = panelText;
+            Open = isOpenByDefault;
 
-            Width = 440;
-            Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
+            Width = 420;
+            pnlInner.Width = Width - 6;
         }
 
         private void btnExpand_CheckedChanged(object sender, EventArgs e)

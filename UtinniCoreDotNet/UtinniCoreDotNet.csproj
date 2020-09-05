@@ -86,10 +86,11 @@
     </Compile>
     <Compile Include="PluginFramework\PluginLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\CollapsiblePanel.cs">
+    <Compile Include="UI\Colors.cs" />
+    <Compile Include="UI\Controls\CollapsiblePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\CollapsiblePanel.Designer.cs">
+    <Compile Include="UI\Controls\CollapsiblePanel.Designer.cs">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UndoRedo\IUndoCommand.cs" />
@@ -99,7 +100,7 @@
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\CollapsiblePanel.resx">
+    <EmbeddedResource Include="UI\Controls\CollapsiblePanel.resx">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

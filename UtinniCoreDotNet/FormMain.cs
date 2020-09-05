@@ -55,6 +55,8 @@ namespace UtinniCoreDotNet
 
             this.pluginLoader = pluginLoader;
 
+            pnlPlugins.SuspendLayout();
+            flpPlugins.SuspendLayout();
             foreach (var plugin in pluginLoader.Plugins)
             {
                 // If the plugin is an IEditorPlugin, add it as a CollapsiblePanel with the plugins name as text
@@ -79,19 +81,28 @@ namespace UtinniCoreDotNet
                     {
                         foreach (var subPanel in editorPlugin.GetSubPanels())
                         {
-                            flpnlPlugins.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
+                            flpPlugins.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
                         }
                     }
-                   
+
+                    if (editorPlugin.GetStandalonePanels() != null)
+                    {
+                        foreach (var subPanel in editorPlugin.GetStandalonePanels())
+                        {
+                            flpPlugins.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
+                        }
+                    }
+
                 }
             }
+            flpPlugins.ResumeLayout();
+            pnlPlugins.ResumeLayout();
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
 
             // Initialize callbacks that are purely editor related
             ImGuiCallbacks.Initialize();
-
         }
 
         private void FormMain_Resize(object sender, EventArgs e)

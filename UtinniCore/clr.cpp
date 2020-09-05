@@ -80,7 +80,7 @@ void stop()
 void load()
 {
     std::string path = utinni::getPath();
-    int pathSize = MultiByteToWideChar(CP_UTF8, 0, &path[0], (int)path.size(), NULL, 0);
+    int pathSize = MultiByteToWideChar(CP_UTF8, 0, &path[0], (int)path.size(), nullptr, 0);
     std::wstring wPath(pathSize, 0);
     MultiByteToWideChar(CP_UTF8, 0, &path[0], (int)path.size(), &wPath[0], pathSize);
 
@@ -92,7 +92,9 @@ void load()
         DWORD result;
         HRESULT hr = pClrRuntimeHost->ExecuteInDefaultAppDomain(combinedPath.c_str(), L"UtinniCoreDotNet.Startup", L"EntryPoint", netParam, &result);
         if (hr == S_OK)
+        {
             return;
+        }
 
         // If the CLR Runtime Host crashes, shut the game down and release the CLR
         utinni::Game::quit();
