@@ -93,6 +93,15 @@
     <Compile Include="UI\Controls\CollapsiblePanel.Designer.cs">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\UtinniButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\UtinniForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\UtinniForm.Designer.cs">
+      <DependentUpon>UtinniForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UndoRedo\IUndoCommand.cs" />
     <Compile Include="Utility\Log.cs" />
   </ItemGroup>

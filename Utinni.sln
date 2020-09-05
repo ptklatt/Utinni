@@ -15,6 +15,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UtinniCore", "UtinniCore\Ut
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtinniCoreDotNet", "UtinniCoreDotNet\UtinniCoreDotNet.csproj", "{39AB8A43-B916-4C6E-87DD-928B438CAE68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AEFED7F6-4BA9-44FC-A353-71A463A82FDE} = {AEFED7F6-4BA9-44FC-A353-71A463A82FDE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtinniCoreDotNetGen", "UtinniCoreDotNetGen\UtinniCoreDotNetGen.csproj", "{88A2EDD9-FBE1-4D66-A867-6359B31566D3}"
 EndProject
