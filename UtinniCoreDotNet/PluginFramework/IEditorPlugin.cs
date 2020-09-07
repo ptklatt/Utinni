@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using UtinniCoreDotNet.UI.Controls;
 using UtinniCoreDotNet.UndoRedo;
 
 namespace UtinniCoreDotNet.PluginFramework

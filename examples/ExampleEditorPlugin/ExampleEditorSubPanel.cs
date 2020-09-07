@@ -4,6 +4,7 @@ using UtinniCore.Utinni;
 using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.Commands;
 using UtinniCoreDotNet.PluginFramework;
+using UtinniCoreDotNet.UI.Controls;
 
 namespace ExampleEditorPlugin
 {

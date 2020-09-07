@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
-using UtinniCoreDotNet.UI;
 
-namespace UtinniCoreDotNet.PluginFramework
+namespace UtinniCoreDotNet.UI.Controls
 {
     public class SubPanelContainer : FlowLayoutPanel
     {

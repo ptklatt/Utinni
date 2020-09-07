@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace UtinniUiDotNet
+namespace UtinniCoreDotNet.UI
 {
     public static class Colors
     {

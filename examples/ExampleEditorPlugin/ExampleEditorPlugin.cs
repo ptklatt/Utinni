@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UtinniCoreDotNet.PluginFramework;
+using UtinniCoreDotNet.UI.Controls;
 using UtinniCoreDotNet.Utility;
 
 namespace ExampleEditorPlugin

@@ -5,7 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.PluginFramework;
-using UtinniCoreDotNet.UI;
+using UtinniCoreDotNet.UI.Controls;
 using UtinniCoreDotNet.UndoRedo;
 using UtinniCoreDotNet.Utility;
 using Point = System.Drawing.Point;

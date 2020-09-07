@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace UtinniCoreDotNet.UI
+namespace UtinniCoreDotNet.UI.Controls
 {
     public partial class CollapsiblePanel : Panel
     {

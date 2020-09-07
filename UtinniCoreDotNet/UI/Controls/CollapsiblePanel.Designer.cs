@@ -1,5 +1,5 @@
 ﻿
-namespace UtinniCoreDotNet.UI
+namespace UtinniCoreDotNet.UI.Controls
 {
     sealed partial class CollapsiblePanel
     {

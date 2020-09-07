@@ -1,4 +1,4 @@
-﻿namespace UtinniCoreDotNet.PluginFramework
+﻿namespace UtinniCoreDotNet.UI.Controls
 {
     partial class SubPanel
     {

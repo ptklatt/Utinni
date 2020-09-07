@@ -1,6 +1,7 @@
-﻿using System.Drawing;using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
-namespace UtinniUiDotNet.Forms
+namespace UtinniCoreDotNet.UI.Forms
 {
     public partial class UtinniForm : Form
     {

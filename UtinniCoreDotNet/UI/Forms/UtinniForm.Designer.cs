@@ -1,4 +1,4 @@
-﻿namespace UtinniUiDotNet.Forms
+﻿namespace UtinniCoreDotNet.UI.Forms
 {
     partial class UtinniForm
     {

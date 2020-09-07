@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace UtinniUiDotNet.Controls
+namespace UtinniCoreDotNet.UI.Controls
 {
     public class UtinniButton : Button
     {
