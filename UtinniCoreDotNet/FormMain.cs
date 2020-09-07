@@ -18,6 +18,9 @@ namespace UtinniCoreDotNet
         private readonly PluginLoader pluginLoader;
         private readonly UndoRedoManager undoRedoManager;
 
+        private readonly UndoRedoToolStripDropDown tsddUndo;
+        private readonly UndoRedoToolStripDropDown tsddRedo;
+
         private List<SubPanelContainer> subContainers = new List<SubPanelContainer>();
 
         private const int WM_SYSCOMMAND = 0x0112;
@@ -52,13 +55,16 @@ namespace UtinniCoreDotNet
         public FormMain(PluginLoader pluginLoader)
         {
             InitializeComponent();
-            undoRedoManager = new UndoRedoManager();
+            undoRedoManager = new UndoRedoManager(OnAddUndoRedoCommand, OnUndo, OnRedo);
             this.pluginLoader = pluginLoader;
 
             CreatePluginPanels();
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
+
+            tsddUndo = new UndoRedoToolStripDropDown(this, "Undo", tsbtnUndo, undoRedoManager.Undo);
+            tsddRedo = new UndoRedoToolStripDropDown(this, "Redo", tsbtnRedo, undoRedoManager.Redo);
 
             InitializeEditorCallbacks(); // Initialize callbacks that are purely editor related
         }
@@ -96,23 +102,6 @@ namespace UtinniCoreDotNet
 
         }
 
-        private void ToggleFullWindowGame() // ToDo see if there is a way to prevent the flickering on switch
-        {
-            SuspendLayout();
-            if (game.Parent == pnlGame)
-            {
-                pnlGame.Controls.Remove(game);
-                Controls.Add(game);
-                game.BringToFront();
-            }
-            else
-            {
-                Controls.Remove(game);
-                pnlGame.Controls.Add(game);
-            }
-            ResumeLayout();
-        }
-
         private void tsbtnUndo_Click(object sender, EventArgs e)
         {
             undoRedoManager.Undo();
@@ -121,6 +110,24 @@ namespace UtinniCoreDotNet
         private void tsbtnRedo_Click(object sender, EventArgs e)
         {
             undoRedoManager.Redo();
+        }
+
+        private void OnAddUndoRedoCommand()
+        {
+            tsbtnUndo.Enabled = undoRedoManager.UndoCommands.Count > 0;
+            tsbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
+        }
+
+        private void OnUndo()
+        {
+            tsbtnUndo.Enabled = undoRedoManager.UndoCommands.Count > 0;
+            tsbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
+        }
+
+        private void OnRedo()
+        {
+            tsbtnUndo.Enabled = undoRedoManager.UndoCommands.Count > 0;
+            tsbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -132,6 +139,19 @@ namespace UtinniCoreDotNet
 
         }
 
+        private int cmbPanelsPreviousIndex;
+        private void cmbPanels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbPanelsPreviousIndex != cmbPanels.SelectedIndex)
+            {
+                pnlPlugins.Controls.RemoveAt(1); // cmbPanels is index 0, the flp is at index 1
+                pnlPlugins.Controls.Add(subContainers[cmbPanels.SelectedIndex]);
+                cmbPanelsPreviousIndex = cmbPanels.SelectedIndex;
+            }
+            pnlPlugins.Focus(); // 'Hack' to prevent the highlighting of the ComboBox text after a select was made
+            // ToDo see if there is a way to remove the highlight flashing
+        }
+
         private void CreatePluginPanels()
         {
             pnlPlugins.SuspendLayout();
@@ -140,6 +160,7 @@ namespace UtinniCoreDotNet
             subContainers.Add(defaultContainer);
             cmbPanels.Items.Add("Main Controls");
             defaultContainer.SuspendLayout();
+
             foreach (var plugin in pluginLoader.Plugins)
             {
                 // If the plugin is an IEditorPlugin, add it as a CollapsiblePanel with the plugins name as text
@@ -184,17 +205,31 @@ namespace UtinniCoreDotNet
             ImGuiCallbacks.Initialize();
         }
 
-        private int cmbPanelsPreviousIndex;
-        private void cmbPanels_SelectedIndexChanged(object sender, EventArgs e)
+        private void ToggleFullWindowGame() // ToDo see if there is a way to prevent the flickering on switch
         {
-            if (cmbPanelsPreviousIndex != cmbPanels.SelectedIndex)
+            SuspendLayout();
+            if (game.Parent == pnlGame)
             {
-                pnlPlugins.Controls.RemoveAt(1); // cmbPanels is index 0, the flp is at index 1
-                pnlPlugins.Controls.Add(subContainers[cmbPanels.SelectedIndex]);
-                cmbPanelsPreviousIndex = cmbPanels.SelectedIndex;
+                pnlGame.Controls.Remove(game);
+                Controls.Add(game);
+                game.BringToFront();
             }
-            pnlPlugins.Focus(); // 'Hack' to prevent the highlighting of the ComboBox text after a select was made
-            // ToDo see if there is a way to remove the highlight flashing
+            else
+            {
+                Controls.Remove(game);
+                pnlGame.Controls.Add(game);
+            }
+            ResumeLayout();
+        }
+
+        private void tsbtnUndo_DropDownOpening(object sender, EventArgs e)
+        {
+            tsddUndo.Display(undoRedoManager.UndoCommands);
+        }
+
+        private void tsbtnRedo_DropDownOpening(object sender, EventArgs e)
+        {
+            tsddRedo.Display(undoRedoManager.RedoCommands);
         }
     }
 }

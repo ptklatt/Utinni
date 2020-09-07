@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.pnlGame = new System.Windows.Forms.Panel();
             this.tsMain = new System.Windows.Forms.ToolStrip();
-            this.tsbtnUndo = new System.Windows.Forms.ToolStripButton();
-            this.tsbtnRedo = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnUndo = new System.Windows.Forms.ToolStripSplitButton();
+            this.tsbtnRedo = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.cmbPanels = new System.Windows.Forms.ComboBox();
@@ -67,22 +67,26 @@
             // tsbtnUndo
             // 
             this.tsbtnUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbtnUndo.Enabled = false;
             this.tsbtnUndo.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnUndo.Image")));
             this.tsbtnUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnUndo.Name = "tsbtnUndo";
-            this.tsbtnUndo.Size = new System.Drawing.Size(40, 22);
+            this.tsbtnUndo.Size = new System.Drawing.Size(52, 22);
             this.tsbtnUndo.Text = "Undo";
-            this.tsbtnUndo.Click += new System.EventHandler(this.tsbtnUndo_Click);
+            this.tsbtnUndo.ButtonClick += new System.EventHandler(this.tsbtnUndo_Click);
+            this.tsbtnUndo.DropDownOpening += new System.EventHandler(this.tsbtnUndo_DropDownOpening);
             // 
             // tsbtnRedo
             // 
             this.tsbtnRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbtnRedo.Enabled = false;
             this.tsbtnRedo.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnRedo.Image")));
             this.tsbtnRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnRedo.Name = "tsbtnRedo";
-            this.tsbtnRedo.Size = new System.Drawing.Size(38, 22);
+            this.tsbtnRedo.Size = new System.Drawing.Size(50, 22);
             this.tsbtnRedo.Text = "Redo";
-            this.tsbtnRedo.Click += new System.EventHandler(this.tsbtnRedo_Click);
+            this.tsbtnRedo.ButtonClick += new System.EventHandler(this.tsbtnRedo_Click);
+            this.tsbtnRedo.DropDownOpening += new System.EventHandler(this.tsbtnRedo_DropDownOpening);
             // 
             // toolStripButton1
             // 
@@ -150,11 +154,11 @@
         #endregion
         private System.Windows.Forms.Panel pnlGame;
         private System.Windows.Forms.ToolStrip tsMain;
-        private System.Windows.Forms.ToolStripButton tsbtnUndo;
-        private System.Windows.Forms.ToolStripButton tsbtnRedo;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ComboBox cmbPanels;
         private System.Windows.Forms.Panel pnlPlugins;
+        private System.Windows.Forms.ToolStripSplitButton tsbtnUndo;
+        private System.Windows.Forms.ToolStripSplitButton tsbtnRedo;
     }
 }

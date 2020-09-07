@@ -6,50 +6,78 @@ namespace UtinniCoreDotNet.UndoRedo
 {
     public class UndoRedoManager
     {
-        private readonly Stack<IUndoCommand> undoCommands;
-        private readonly Stack<IUndoCommand> redoCommands;
+        private readonly Action addUndoRedoCommandCallback;
+        private readonly Action undoCallback;
+        private readonly Action redoCallback;
 
-        public UndoRedoManager()
+        public readonly Stack<IUndoCommand> UndoCommands;
+        public readonly Stack<IUndoCommand> RedoCommands;
+
+        public UndoRedoManager(Action addUndoRedoCommandCallback, Action undoCallback, Action redoCallback)
         {
-            undoCommands = new Stack<IUndoCommand>();
-            redoCommands = new Stack<IUndoCommand>();
+            UndoCommands = new Stack<IUndoCommand>();
+            RedoCommands = new Stack<IUndoCommand>();
+
+            this.addUndoRedoCommandCallback = addUndoRedoCommandCallback;
+            this.undoCallback = undoCallback;
+            this.redoCallback = redoCallback;
         }
 
         public void AddUndoCommand(IEditorPlugin editorPlugin)
         {
             editorPlugin.AddUndoCommand += (sender, args) =>
             {
-                if (undoCommands.Count > 0 && undoCommands.Peek().Merge(args.UndoCommand))
+                if (UndoCommands.Count > 0 && UndoCommands.Peek().Merge(args.UndoCommand))
                 {
                     return;
                 }
 
-                undoCommands.Push(args.UndoCommand);
+                UndoCommands.Push(args.UndoCommand);
+
+                addUndoRedoCommandCallback();
             };
         }
 
         public void Undo()
         {
-            if (undoCommands.Count == 0)
+            if (UndoCommands.Count == 0)
             {
                 return;
             }
 
-            IUndoCommand cmd = undoCommands.Pop();
+            IUndoCommand cmd = UndoCommands.Pop();
             cmd.Undo();
-            redoCommands.Push(cmd);
+            RedoCommands.Push(cmd);
+            undoCallback();
+        }
+
+        public void Undo(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Undo();
+            }
         }
 
         public void Redo()
         {
-            if (redoCommands.Count == 0)
+            if (RedoCommands.Count == 0)
             {
                 return;
             }
 
-            IUndoCommand cmd = redoCommands.Pop();
+            IUndoCommand cmd = RedoCommands.Pop();
             cmd.Execute();
-            undoCommands.Push(cmd);
+            UndoCommands.Push(cmd);
+            redoCallback();
+        }
+
+        public void Redo(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Redo();
+            }
         }
 
     }

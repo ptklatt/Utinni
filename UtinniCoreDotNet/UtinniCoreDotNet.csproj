@@ -96,6 +96,9 @@
     <Compile Include="UI\Controls\CollapsiblePanel.Designer.cs">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\UndoRedoListDropDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Controls\UtinniButton.cs">
       <SubType>Component</SubType>
     </Compile>
