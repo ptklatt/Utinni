@@ -8,7 +8,7 @@ using UtinniCoreDotNet.PluginFramework;
 namespace ExampleEditorPlugin
 {
     // SubPanels should inherit EditorPanelBase as it sets up the the correct size automatically.
-    public partial class ExampleEditorSubPanel : EditorPanelBase
+    public partial class ExampleEditorSubPanel : SubPanel
     {
         private readonly IEditorPlugin editorPlugin;
         public ExampleEditorSubPanel(IEditorPlugin editorPlugin) : base(editorPlugin.Information.Name)

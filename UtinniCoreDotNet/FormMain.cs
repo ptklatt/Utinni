@@ -18,6 +18,8 @@ namespace UtinniCoreDotNet
         private readonly PluginLoader pluginLoader;
         private readonly UndoRedoManager undoRedoManager;
 
+        private List<SubPanelContainer> subContainers = new List<SubPanelContainer>();
+
         private const int WM_SYSCOMMAND = 0x0112;
         private const int SC_MINIMIZE = 0xF020;
         private const int SC_RESTORE = 0xF120;
@@ -133,7 +135,11 @@ namespace UtinniCoreDotNet
         private void CreatePluginPanels()
         {
             pnlPlugins.SuspendLayout();
-            flpPlugins.SuspendLayout();
+
+            SubPanelContainer defaultContainer = new SubPanelContainer("");
+            subContainers.Add(defaultContainer);
+            cmbPanels.Items.Add("Main Controls");
+            defaultContainer.SuspendLayout();
             foreach (var plugin in pluginLoader.Plugins)
             {
                 // If the plugin is an IEditorPlugin, add it as a CollapsiblePanel with the plugins name as text
@@ -144,33 +150,51 @@ namespace UtinniCoreDotNet
 
                     Log.Info("Editor Plugin: [" + editorPlugin.Information.Name + "] loaded");
 
-                    // ToDo implement main panel switching
-
                     if (editorPlugin.GetSubPanels() != null)
                     {
                         foreach (var subPanel in editorPlugin.GetSubPanels())
                         {
-                            flpPlugins.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
+                            defaultContainer.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
                         }
                     }
 
                     if (editorPlugin.GetStandalonePanels() != null)
                     {
-                        foreach (var subPanel in editorPlugin.GetStandalonePanels())
+                        foreach (var panelContainer in editorPlugin.GetStandalonePanels())
                         {
-                            flpPlugins.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
+                            subContainers.Add(panelContainer);
+                            cmbPanels.Items.Add(editorPlugin.Information.Name + " - " + panelContainer.Text);
                         }
                     }
 
                 }
             }
-            flpPlugins.ResumeLayout();
+            defaultContainer.ResumeLayout();
+
+            cmbPanels.SelectedIndex = 0;
+            cmbPanels.SelectedIndexChanged += cmbPanels_SelectedIndexChanged;
+            pnlPlugins.Controls.Add(defaultContainer);
+
             pnlPlugins.ResumeLayout();
+
         }
 
         private void InitializeEditorCallbacks()
         {
             ImGuiCallbacks.Initialize();
+        }
+
+        private int cmbPanelsPreviousIndex;
+        private void cmbPanels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbPanelsPreviousIndex != cmbPanels.SelectedIndex)
+            {
+                pnlPlugins.Controls.RemoveAt(1); // cmbPanels is index 0, the flp is at index 1
+                pnlPlugins.Controls.Add(subContainers[cmbPanels.SelectedIndex]);
+                cmbPanelsPreviousIndex = cmbPanels.SelectedIndex;
+            }
+            pnlPlugins.Focus(); // 'Hack' to prevent the highlighting of the ComboBox text after a select was made
+            // ToDo see if there is a way to remove the highlight flashing
         }
     }
 }

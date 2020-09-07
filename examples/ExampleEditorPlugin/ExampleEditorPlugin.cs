@@ -13,7 +13,7 @@ namespace ExampleEditorPlugin
     // FlowLayoutPanel
     public partial class ExampleEditorPlugin : IEditorPlugin
     {
-        private readonly List<EditorPanelBase> subPanels = new List<EditorPanelBase>();
+        private readonly List<SubPanel> subPanels = new List<SubPanel>();
 
         public ExampleEditorPlugin()
         {
@@ -31,9 +31,9 @@ namespace ExampleEditorPlugin
 
         public EventHandler<AddUndoCommandEventArgs> AddUndoCommand { get; set; }
 
-        public List<EditorPanelBase> GetStandalonePanels() { return null; }
+        public List<SubPanelContainer> GetStandalonePanels() { return null; }
 
-        public List<EditorPanelBase> GetSubPanels()
+        public List<SubPanel> GetSubPanels()
         {
             return subPanels;
         }

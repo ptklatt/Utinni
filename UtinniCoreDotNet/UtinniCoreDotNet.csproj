@@ -72,11 +72,11 @@
     </Compile>
     <Compile Include="Generated\StdEdited.cs" />
     <Compile Include="Generated\UtinniCore.cs" />
-    <Compile Include="PluginFramework\EditorPanelBase.cs">
+    <Compile Include="PluginFramework\SubPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PluginFramework\EditorPanelBase.Designer.cs">
-      <DependentUpon>EditorPanelBase.cs</DependentUpon>
+    <Compile Include="PluginFramework\SubPanel.Designer.cs">
+      <DependentUpon>SubPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="PluginFramework\IEditorPlugin.cs" />
     <Compile Include="PluginFramework\IPlugin.cs" />
@@ -85,6 +85,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PluginFramework\PluginLoader.cs" />
+    <Compile Include="PluginFramework\SubPanelContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Colors.cs" />
     <Compile Include="UI\Controls\CollapsiblePanel.cs">

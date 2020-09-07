@@ -11,13 +11,12 @@ namespace UtinniCoreDotNet.PluginFramework
         public AddUndoCommandEventArgs(IUndoCommand cmd) { UndoCommand = cmd; }
     }
 
-
     [InheritedExport(typeof(IEditorPlugin))]
     public interface IEditorPlugin : IPlugin
     {
         EventHandler<AddUndoCommandEventArgs> AddUndoCommand { get; set; }
 
-        List<EditorPanelBase> GetStandalonePanels();
-        List<EditorPanelBase> GetSubPanels();
+        List<SubPanelContainer> GetStandalonePanels();
+        List<SubPanel> GetSubPanels();
     }
 }

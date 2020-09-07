@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.pnlGame = new System.Windows.Forms.Panel();
-            this.flpPlugins = new System.Windows.Forms.FlowLayoutPanel();
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.tsbtnUndo = new System.Windows.Forms.ToolStripButton();
             this.tsbtnRedo = new System.Windows.Forms.ToolStripButton();
@@ -51,19 +50,6 @@
             this.pnlGame.Name = "pnlGame";
             this.pnlGame.Size = new System.Drawing.Size(742, 460);
             this.pnlGame.TabIndex = 3;
-            // 
-            // flpPlugins
-            // 
-            this.flpPlugins.AutoSize = true;
-            this.flpPlugins.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flpPlugins.BackColor = System.Drawing.SystemColors.Control;
-            this.flpPlugins.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpPlugins.Location = new System.Drawing.Point(0, 30);
-            this.flpPlugins.MinimumSize = new System.Drawing.Size(420, 0);
-            this.flpPlugins.Name = "flpPlugins";
-            this.flpPlugins.Size = new System.Drawing.Size(420, 0);
-            this.flpPlugins.TabIndex = 4;
-            this.flpPlugins.WrapContents = false;
             // 
             // tsMain
             // 
@@ -127,13 +113,13 @@
             this.cmbPanels.Name = "cmbPanels";
             this.cmbPanels.Size = new System.Drawing.Size(420, 21);
             this.cmbPanels.TabIndex = 6;
+            this.cmbPanels.TabStop = false;
             // 
             // pnlPlugins
             // 
             this.pnlPlugins.AutoScroll = true;
             this.pnlPlugins.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlPlugins.BackColor = System.Drawing.SystemColors.Control;
-            this.pnlPlugins.Controls.Add(this.flpPlugins);
             this.pnlPlugins.Controls.Add(this.cmbPanels);
             this.pnlPlugins.Location = new System.Drawing.Point(0, 34);
             this.pnlPlugins.Name = "pnlPlugins";
@@ -156,7 +142,6 @@
             this.tsMain.ResumeLayout(false);
             this.tsMain.PerformLayout();
             this.pnlPlugins.ResumeLayout(false);
-            this.pnlPlugins.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,6 +156,5 @@
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ComboBox cmbPanels;
         private System.Windows.Forms.Panel pnlPlugins;
-        private System.Windows.Forms.FlowLayoutPanel flpPlugins;
     }
 }

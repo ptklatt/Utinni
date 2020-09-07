@@ -1,6 +1,6 @@
 ﻿namespace UtinniCoreDotNet.PluginFramework
 {
-    partial class EditorPanelBase
+    partial class SubPanel
     {
         /// <summary> 
         /// Required designer variable.
