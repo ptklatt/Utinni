@@ -14,11 +14,9 @@ namespace UtinniCoreDotNet
 {
     public partial class FormMain : Form
     {
-        private PanelGame game;
-        private PluginLoader pluginLoader;
-
-        private Stack<IUndoCommand> undoCommands = new Stack<IUndoCommand>();
-        private Stack<IUndoCommand> redoCommands = new Stack<IUndoCommand>();
+        private readonly PanelGame game;
+        private readonly PluginLoader pluginLoader;
+        private readonly UndoRedoManager undoRedoManager;
 
         private const int WM_SYSCOMMAND = 0x0112;
         private const int SC_MINIMIZE = 0xF020;
@@ -52,57 +50,15 @@ namespace UtinniCoreDotNet
         public FormMain(PluginLoader pluginLoader)
         {
             InitializeComponent();
-
+            undoRedoManager = new UndoRedoManager();
             this.pluginLoader = pluginLoader;
 
-            pnlPlugins.SuspendLayout();
-            flpPlugins.SuspendLayout();
-            foreach (var plugin in pluginLoader.Plugins)
-            {
-                // If the plugin is an IEditorPlugin, add it as a CollapsiblePanel with the plugins name as text
-                IEditorPlugin editorPlugin = (IEditorPlugin)plugin;
-                if (editorPlugin != null)
-                {
-                    editorPlugin.AddUndoCommand += (sender, args) =>
-                    {
-                        if (undoCommands.Count > 0 && undoCommands.Peek().Merge(args.UndoCommand))
-                        {
-                            return;
-                        }
-
-                        undoCommands.Push(args.UndoCommand);
-                    };
-
-                    Log.Info("Editor Plugin: [" + editorPlugin.Information.Name + "] loaded");
-
-                    // ToDo implement main panel switching
-
-                    if (editorPlugin.GetSubPanels() != null)
-                    {
-                        foreach (var subPanel in editorPlugin.GetSubPanels())
-                        {
-                            flpPlugins.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
-                        }
-                    }
-
-                    if (editorPlugin.GetStandalonePanels() != null)
-                    {
-                        foreach (var subPanel in editorPlugin.GetStandalonePanels())
-                        {
-                            flpPlugins.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
-                        }
-                    }
-
-                }
-            }
-            flpPlugins.ResumeLayout();
-            pnlPlugins.ResumeLayout();
+            CreatePluginPanels();
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
 
-            // Initialize callbacks that are purely editor related
-            ImGuiCallbacks.Initialize();
+            InitializeEditorCallbacks(); // Initialize callbacks that are purely editor related
         }
 
         private void FormMain_Resize(object sender, EventArgs e)
@@ -138,44 +94,83 @@ namespace UtinniCoreDotNet
 
         }
 
-        public void Undo()
+        private void ToggleFullWindowGame() // ToDo see if there is a way to prevent the flickering on switch
         {
-            if (undoCommands.Count == 0)
-                return;
-
-            IUndoCommand cmd = undoCommands.Pop();
-            cmd.Undo();
-            redoCommands.Push(cmd);
-        }
-
-        public void Redo()
-        {
-            if (redoCommands.Count == 0)
-                return;
-
-            IUndoCommand cmd = redoCommands.Pop();
-            cmd.Execute();
-            undoCommands.Push(cmd);
+            SuspendLayout();
+            if (game.Parent == pnlGame)
+            {
+                pnlGame.Controls.Remove(game);
+                Controls.Add(game);
+                game.BringToFront();
+            }
+            else
+            {
+                Controls.Remove(game);
+                pnlGame.Controls.Add(game);
+            }
+            ResumeLayout();
         }
 
         private void tsbtnUndo_Click(object sender, EventArgs e)
         {
-            Undo();
+            undoRedoManager.Undo();
         }
 
         private void tsbtnRedo_Click(object sender, EventArgs e)
         {
-            Redo();
+            undoRedoManager.Redo();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-           
+
+        }
+
+        private void CreatePluginPanels()
+        {
+            pnlPlugins.SuspendLayout();
+            flpPlugins.SuspendLayout();
+            foreach (var plugin in pluginLoader.Plugins)
+            {
+                // If the plugin is an IEditorPlugin, add it as a CollapsiblePanel with the plugins name as text
+                IEditorPlugin editorPlugin = (IEditorPlugin)plugin;
+                if (editorPlugin != null)
+                {
+                    undoRedoManager.AddUndoCommand(editorPlugin);
+
+                    Log.Info("Editor Plugin: [" + editorPlugin.Information.Name + "] loaded");
+
+                    // ToDo implement main panel switching
+
+                    if (editorPlugin.GetSubPanels() != null)
+                    {
+                        foreach (var subPanel in editorPlugin.GetSubPanels())
+                        {
+                            flpPlugins.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
+                        }
+                    }
+
+                    if (editorPlugin.GetStandalonePanels() != null)
+                    {
+                        foreach (var subPanel in editorPlugin.GetStandalonePanels())
+                        {
+                            flpPlugins.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
+                        }
+                    }
+
+                }
+            }
+            flpPlugins.ResumeLayout();
+            pnlPlugins.ResumeLayout();
+        }
+
+        private void InitializeEditorCallbacks()
+        {
+            ImGuiCallbacks.Initialize();
         }
     }
 }

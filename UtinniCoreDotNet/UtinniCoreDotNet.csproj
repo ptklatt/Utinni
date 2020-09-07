@@ -103,6 +103,7 @@
       <DependentUpon>UtinniForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UndoRedo\IUndoCommand.cs" />
+    <Compile Include="UndoRedo\UndoRedoManager.cs" />
     <Compile Include="Utility\Log.cs" />
   </ItemGroup>
   <ItemGroup>
