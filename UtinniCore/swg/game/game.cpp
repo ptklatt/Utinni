@@ -66,8 +66,8 @@ int getMainLoopCount()
 
 bool loadNewScene = false;
 bool sceneCleaned = false;
-const char* sceneToLoadTerrainFilename;
-const char* sceneToLoadAvatarObjectFilename;
+std::string sceneToLoadTerrainFilename;
+std::string sceneToLoadAvatarObjectFilename;
 void __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
 {
     RECT rect;
@@ -92,7 +92,7 @@ void __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
     {
         loadNewScene = false;
         sceneCleaned = false;
-        swg::game::setupScene(GroundScene::ctor(sceneToLoadTerrainFilename, sceneToLoadAvatarObjectFilename));
+        swg::game::setupScene(GroundScene::ctor(sceneToLoadTerrainFilename.c_str(), sceneToLoadAvatarObjectFilename.c_str()));
     }
 
     if (loadNewScene)
