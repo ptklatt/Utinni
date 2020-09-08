@@ -42,12 +42,18 @@ pIsViewFirstPerson isViewFirstPerson = (pIsViewFirstPerson)0x00425C10;
 pIsHudSceneTypeSpace isHudSceneTypeSpace = (pIsHudSceneTypeSpace)0x00426170;
 }
 
+static std::vector<void(*)()> installCallbacks;
 static std::vector<void(*)()> mainLoopCallbacks;
 static std::vector<void(*)()> cleanUpSceneCallbacks;
 static utinni::Repository repository;
 
 namespace utinni
 {
+
+void Game::addInstallCallback(void(*func)())
+{
+    installCallbacks.emplace_back(func);
+}
 
 void Game::addMainLoopCallback(void(*func)())
 {
@@ -107,6 +113,12 @@ void __cdecl hkInstall(int application)
     swg::game::install(application);
     repository = Repository();
     WorldSnapshot::generateHighestId();
+
+    for (const auto& func : installCallbacks)
+    {
+        func();
+    }
+
     if (getConfig().getBool("UtinniCore", "autoLoadScene"))
     {
         Game::loadScene();
@@ -123,7 +135,6 @@ void __cdecl hkCleanupScene()
     {
         func();
     }
-
 }
 
 void Game::detour()

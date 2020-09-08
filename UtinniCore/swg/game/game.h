@@ -11,6 +11,7 @@ class Object;
 class UTINNI_API Game
 {
 public:
+    static void addInstallCallback(void(*func)());
     static void addMainLoopCallback(void(*func)());
     static void addCleanupSceneCallback(void(*func)());
 
