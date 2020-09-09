@@ -3,7 +3,7 @@
 
 namespace swg::clientObject
 {
-using pSetParentCell = void(__thiscall*)(utinni::ClientObject* pThis, swgptr cell);
+using pSetParentCell = void(__thiscall*)(utinni::ClientObject* pThis, utinni::CellProperty* cell);
 using pBeginBaselines = void(__thiscall*)(utinni::ClientObject* pThis);
 using pEndBaselines = void(__thiscall*)(utinni::ClientObject* pThis);
 
@@ -42,9 +42,9 @@ pRemoveFromWorld removeFromWorld = (pRemoveFromWorld)0x0070DD20;
 
 namespace utinni
 {
-void ClientObject::setParentCell(swgptr pCell)
+void ClientObject::setParentCell(CellProperty* cell)
 {
-    swg::clientObject::setParentCell(this, pCell);
+    swg::clientObject::setParentCell(this, cell);
 }
 
 void ClientObject::beginBaselines()

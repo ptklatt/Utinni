@@ -91,7 +91,7 @@ using pSetAppearanceByFilename = void(__thiscall*)(utinni::Object* pThis, const 
 using pAddNotification = void(__thiscall*)(utinni::Object* pThis, swgptr notification, bool allowInWorld);
 
 
-using pGetParentCell = swgptr(__thiscall*)(utinni::Object* pThis);
+using pGetParentCell = utinni::CellProperty* (__thiscall*)(utinni::Object* pThis);
 
 using pSetObjectToWorldDirty = void(__thiscall*)(utinni::Object* pThis, bool isDirty);
 
@@ -271,7 +271,7 @@ void Object::setAppearance(Appearance* appearance)
     swg::object::setAppearance(this, appearance);
 }
 
-swgptr Object::getParentCell()
+CellProperty* Object::getParentCell()
 {
     return swg::object::getParentCell(this);
 }

@@ -12,6 +12,7 @@ class Appearance;
 class Object;
 class ClientObject;
 struct Controller;
+struct CellProperty;
 struct ConstCharCrcString;
 
 class UTINNI_API ObjectTemplate : DataResource
@@ -92,7 +93,7 @@ public:
     void addToWorld();
     void removeFromWorld();
     void setAppearance(Appearance* appearance);
-    swgptr getParentCell();
+    CellProperty* getParentCell();
     void addNotification(swgptr notification, bool allowWhenInWorld);
 
     void setObjectToWorldDirty(bool isDirty);

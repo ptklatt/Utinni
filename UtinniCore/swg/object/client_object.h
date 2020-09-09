@@ -43,7 +43,7 @@ public:
 	 float unk21;
 	 bool unk22;
 
-	 void setParentCell(swgptr pCell);
+	 void setParentCell(CellProperty* pCell);
 	 void beginBaselines();
 	 void endBaselines();
 	 int getGameObjectType();
