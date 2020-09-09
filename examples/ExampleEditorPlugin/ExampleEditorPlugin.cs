@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI.Controls;
 using UtinniCoreDotNet.Utility;
@@ -31,6 +32,8 @@ namespace ExampleEditorPlugin
         public PluginInformation Information { get; }
 
         public EventHandler<AddUndoCommandEventArgs> AddUndoCommand { get; set; }
+
+        public List<Form> GetForms() { return null; }
 
         public List<SubPanelContainer> GetStandalonePanels() { return null; }
 

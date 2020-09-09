@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Windows.Forms;
+using UtinniCoreDotNet.Hotkeys;
 using UtinniCoreDotNet.UI.Controls;
 using UtinniCoreDotNet.UndoRedo;
 
@@ -17,6 +19,9 @@ namespace UtinniCoreDotNet.PluginFramework
     {
         EventHandler<AddUndoCommandEventArgs> AddUndoCommand { get; set; }
 
+        HotkeyManager GetHotkeyManager();
+
+        List<Form> GetForms();
         List<SubPanelContainer> GetStandalonePanels();
         List<SubPanel> GetSubPanels();
     }

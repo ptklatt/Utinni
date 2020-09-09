@@ -37,6 +37,7 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.cmbPanels = new System.Windows.Forms.ComboBox();
             this.pnlPlugins = new System.Windows.Forms.Panel();
+            this.tsddbtnWindows = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsMain.SuspendLayout();
             this.pnlPlugins.SuspendLayout();
             this.SuspendLayout();
@@ -57,7 +58,8 @@
             this.tsbtnUndo,
             this.tsbtnRedo,
             this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolStripButton2,
+            this.tsddbtnWindows});
             this.tsMain.Location = new System.Drawing.Point(0, 0);
             this.tsMain.Name = "tsMain";
             this.tsMain.Size = new System.Drawing.Size(1207, 25);
@@ -130,6 +132,15 @@
             this.pnlPlugins.Size = new System.Drawing.Size(446, 433);
             this.pnlPlugins.TabIndex = 7;
             // 
+            // tsddbtnWindows
+            // 
+            this.tsddbtnWindows.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsddbtnWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsddbtnWindows.Image")));
+            this.tsddbtnWindows.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddbtnWindows.Name = "tsddbtnWindows";
+            this.tsddbtnWindows.Size = new System.Drawing.Size(58, 22);
+            this.tsddbtnWindows.Text = "Open...";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -138,6 +149,7 @@
             this.Controls.Add(this.pnlPlugins);
             this.Controls.Add(this.tsMain);
             this.Controls.Add(this.pnlGame);
+            this.KeyPreview = true;
             this.Name = "FormMain";
             this.Text = "FormMain";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
@@ -160,5 +172,6 @@
         private System.Windows.Forms.Panel pnlPlugins;
         private System.Windows.Forms.ToolStripSplitButton tsbtnUndo;
         private System.Windows.Forms.ToolStripSplitButton tsbtnRedo;
+        private System.Windows.Forms.ToolStripDropDownButton tsddbtnWindows;
     }
 }

@@ -58,7 +58,7 @@ namespace UtinniCoreDotNet
             undoRedoManager = new UndoRedoManager(OnAddUndoRedoCommand, OnUndo, OnRedo);
             this.pluginLoader = pluginLoader;
 
-            CreatePluginPanels();
+            CreatePluginUIs();
 
             game = new PanelGame();
             pnlGame.Controls.Add(game);
@@ -152,7 +152,7 @@ namespace UtinniCoreDotNet
             // ToDo see if there is a way to remove the highlight flashing
         }
 
-        private void CreatePluginPanels()
+        private void CreatePluginUIs()
         {
             pnlPlugins.SuspendLayout();
 
@@ -171,15 +171,17 @@ namespace UtinniCoreDotNet
 
                     Log.Info("Editor Plugin: [" + editorPlugin.Information.Name + "] loaded");
 
-                    if (editorPlugin.GetSubPanels() != null)
+                    var subPanels = editorPlugin.GetSubPanels();
+                    if (subPanels != null)
                     {
-                        foreach (var subPanel in editorPlugin.GetSubPanels())
+                        foreach (var subPanel in subPanels)
                         {
                             defaultContainer.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
                         }
                     }
 
-                    if (editorPlugin.GetStandalonePanels() != null)
+                    var standalonePanels = editorPlugin.GetStandalonePanels();
+                    if (standalonePanels != null)
                     {
                         foreach (var panelContainer in editorPlugin.GetStandalonePanels())
                         {
@@ -188,6 +190,20 @@ namespace UtinniCoreDotNet
                         }
                     }
 
+                    var forms = editorPlugin.GetForms();
+                    if (forms != null)
+                    {
+                        foreach (Form form in forms)
+                        {
+                            ToolStripDropDownItem tsddItem = new ToolStripMenuItem(editorPlugin.Information.Name + " - " + form.Text);
+                            tsddItem.Click += (sender, args) =>
+                            {
+                                form.Show(); // ToDo see if there needs to be more logic than just show
+                            };
+
+                            tsddbtnWindows.DropDownItems.Add(tsddItem);
+                        }
+                    }
                 }
             }
             defaultContainer.ResumeLayout();
@@ -231,5 +247,6 @@ namespace UtinniCoreDotNet
         {
             tsddRedo.Display(undoRedoManager.RedoCommands);
         }
+
     }
 }
