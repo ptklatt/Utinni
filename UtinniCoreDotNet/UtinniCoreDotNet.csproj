@@ -72,6 +72,8 @@
     </Compile>
     <Compile Include="Generated\StdEdited.cs" />
     <Compile Include="Generated\UtinniCore.cs" />
+    <Compile Include="Hotkeys\Hotkey.cs" />
+    <Compile Include="Hotkeys\HotkeyManager.cs" />
     <Compile Include="UI\Controls\SubPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -120,6 +122,5 @@
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

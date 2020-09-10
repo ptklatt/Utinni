@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using UtinniCore.ImguiImpl;
 using UtinniCore.Utinni;
+using UtinniCoreDotNet.Hotkeys;
+using UtinniCoreDotNet.PluginFramework;
 
 namespace UtinniCoreDotNet
 {
@@ -20,41 +22,31 @@ namespace UtinniCoreDotNet
         }
 
         public bool HasFocus;
-        private bool isCursorVisible; 
+        private bool isCursorVisible;
 
-        public PanelGame()
+        private readonly PluginLoader pluginLoader;
+
+        public PanelGame(PluginLoader pluginLoader)
         {
             Dock = DockStyle.Fill;
 
             Disposed += PanelGame_Disposed;
 
-            GotFocus += PanelGame_GotFocus;
-            LostFocus += PanelGame_LostFocus;
-
             MouseEnter += PanelGame_MouseEnter;
             MouseLeave += PanelGame_MouseLeave;
             MouseMove += PanelGame_MouseMove;
-            MouseHover += PanelGame_MouseHover;
-            MouseUp += PanelGame_MouseUp;
-            MouseDown += PanelGame_MouseDown;
+
+            KeyDown += PanelGame_KeyDown;
 
             Client.SetHwnd(Handle);
             Client.SetHInstance(Process.GetCurrentProcess().Handle);
+
+            this.pluginLoader = pluginLoader;
         }
 
         private void PanelGame_Disposed(object sender, EventArgs e)
         {
             Game.Quit();
-        }
-
-        private void PanelGame_GotFocus(object sender, EventArgs e)
-        {
-
-        }
-
-        private void PanelGame_LostFocus(object sender, EventArgs e)
-        {
-
         }
 
         private void PanelGame_MouseEnter(object sender, EventArgs e)
@@ -73,12 +65,6 @@ namespace UtinniCoreDotNet
             HasFocus = false;
         }
 
-        private void PanelGame_MouseHover(object sender, EventArgs e)
-        {
-          
-        }
-
-
         private void PanelGame_MouseMove(object sender, MouseEventArgs e)
         {
             if (imgui_impl.IsInternalUiHovered() && !isCursorVisible)
@@ -93,15 +79,21 @@ namespace UtinniCoreDotNet
             }
         }
 
-
-        private void PanelGame_MouseUp(object sender, MouseEventArgs e)
+        private void PanelGame_KeyDown(object sender, KeyEventArgs e)
         {
+            foreach (IPlugin plugin in pluginLoader.Plugins)
+            {
+                IEditorPlugin editorPlugin = (IEditorPlugin)plugin;
+                if (editorPlugin != null)
+                {
+                    HotkeyManager hotkeyManager = editorPlugin.GetHotkeyManager();
 
-        }
-
-        private void PanelGame_MouseDown(object sender, MouseEventArgs e)
-        {
-
+                    if (hotkeyManager != null && hotkeyManager.OnGameFocusOnly)
+                    {
+                        hotkeyManager.ProcessInput(e.Modifiers, e.KeyCode);
+                    }
+                }
+            }
         }
 
     }

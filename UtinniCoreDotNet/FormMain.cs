@@ -4,6 +4,7 @@ using System.Security.Permissions;
 using System.Threading;
 using System.Windows.Forms;
 using UtinniCoreDotNet.Callbacks;
+using UtinniCoreDotNet.Hotkeys;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI.Controls;
 using UtinniCoreDotNet.UndoRedo;
@@ -15,13 +16,15 @@ namespace UtinniCoreDotNet
     public partial class FormMain : Form
     {
         private readonly PanelGame game;
-        private readonly PluginLoader pluginLoader;
         private readonly UndoRedoManager undoRedoManager;
+        private readonly HotkeyManager formHotkeyManager = new HotkeyManager(true);
+
 
         private readonly UndoRedoToolStripDropDown tsddUndo;
         private readonly UndoRedoToolStripDropDown tsddRedo;
 
-        private List<SubPanelContainer> subContainers = new List<SubPanelContainer>();
+        private readonly List<IEditorPlugin> editorPlugins = new List<IEditorPlugin>();
+        private readonly List<SubPanelContainer> subContainers = new List<SubPanelContainer>();
 
         private const int WM_SYSCOMMAND = 0x0112;
         private const int SC_MINIMIZE = 0xF020;
@@ -56,15 +59,27 @@ namespace UtinniCoreDotNet
         {
             InitializeComponent();
             undoRedoManager = new UndoRedoManager(OnAddUndoRedoCommand, OnUndo, OnRedo);
-            this.pluginLoader = pluginLoader;
 
-            CreatePluginUIs();
+            foreach (IPlugin plugin in pluginLoader.Plugins)
+            {
+                IEditorPlugin editorPlugin = (IEditorPlugin) plugin;
+                if (editorPlugin != null)
+                {
+                    editorPlugins.Add(editorPlugin);
+                }
+            }
 
-            game = new PanelGame();
+            CreatePluginControls();
+
+            game = new PanelGame(pluginLoader);
             pnlGame.Controls.Add(game);
 
             tsddUndo = new UndoRedoToolStripDropDown(this, "Undo", tsbtnUndo, undoRedoManager.Undo);
             tsddRedo = new UndoRedoToolStripDropDown(this, "Redo", tsbtnRedo, undoRedoManager.Redo);
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Undo", "Control + Z", undoRedoManager.Undo, false));
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Redo", "Control + Y", undoRedoManager.Redo, false));
+            formHotkeyManager.CreateSettings();
+            formHotkeyManager.Save();
 
             InitializeEditorCallbacks(); // Initialize callbacks that are purely editor related
         }
@@ -77,8 +92,33 @@ namespace UtinniCoreDotNet
             }
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) // ToDo figure out how to handle this inside PanelGame potentially
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            // Handle the form HotkeyManager first
+            if (game.HasFocus && formHotkeyManager.OnGameFocusOnly)
+            {
+                formHotkeyManager.ProcessInput(keyData & Keys.Modifiers, keyData & Keys.KeyCode);
+            }
+
+            // Then handle the each plugins HotkeyManager
+            foreach (IEditorPlugin editorPlugin in editorPlugins)
+            {
+                HotkeyManager hotkeyManager = editorPlugin.GetHotkeyManager();
+                if (hotkeyManager == null)
+                {
+                    continue;
+                }
+
+                if (!hotkeyManager.OnGameFocusOnly)
+                {
+                    hotkeyManager.ProcessInput(keyData & Keys.Modifiers, keyData & Keys.KeyCode);
+                }
+                else if (game.HasFocus && hotkeyManager.OnGameFocusOnly)
+                {
+                    hotkeyManager.ProcessInput(keyData & Keys.Modifiers, keyData & Keys.KeyCode);
+                }
+            }
+
             if (game.HasFocus)
             {
                 if (keyData == Keys.Tab)
@@ -152,7 +192,7 @@ namespace UtinniCoreDotNet
             // ToDo see if there is a way to remove the highlight flashing
         }
 
-        private void CreatePluginUIs()
+        private void CreatePluginControls()
         {
             pnlPlugins.SuspendLayout();
 
@@ -161,48 +201,43 @@ namespace UtinniCoreDotNet
             cmbPanels.Items.Add("Main Controls");
             defaultContainer.SuspendLayout();
 
-            foreach (var plugin in pluginLoader.Plugins)
+            foreach (IEditorPlugin editorPlugin in editorPlugins)
             {
-                // If the plugin is an IEditorPlugin, add it as a CollapsiblePanel with the plugins name as text
-                IEditorPlugin editorPlugin = (IEditorPlugin)plugin;
-                if (editorPlugin != null)
+                undoRedoManager.AddUndoCommand(editorPlugin);
+
+                Log.Info("Editor Plugin: [" + editorPlugin.Information.Name + "] loaded");
+
+                var subPanels = editorPlugin.GetSubPanels();
+                if (subPanels != null)
                 {
-                    undoRedoManager.AddUndoCommand(editorPlugin);
-
-                    Log.Info("Editor Plugin: [" + editorPlugin.Information.Name + "] loaded");
-
-                    var subPanels = editorPlugin.GetSubPanels();
-                    if (subPanels != null)
+                    foreach (var subPanel in subPanels)
                     {
-                        foreach (var subPanel in subPanels)
-                        {
-                            defaultContainer.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
-                        }
+                        defaultContainer.Controls.Add(new CollapsiblePanel(subPanel, subPanel.CheckboxPanelText));
                     }
+                }
 
-                    var standalonePanels = editorPlugin.GetStandalonePanels();
-                    if (standalonePanels != null)
+                var standalonePanels = editorPlugin.GetStandalonePanels();
+                if (standalonePanels != null)
+                {
+                    foreach (var panelContainer in editorPlugin.GetStandalonePanels())
                     {
-                        foreach (var panelContainer in editorPlugin.GetStandalonePanels())
-                        {
-                            subContainers.Add(panelContainer);
-                            cmbPanels.Items.Add(editorPlugin.Information.Name + " - " + panelContainer.Text);
-                        }
+                        subContainers.Add(panelContainer);
+                        cmbPanels.Items.Add(editorPlugin.Information.Name + " - " + panelContainer.Text);
                     }
+                }
 
-                    var forms = editorPlugin.GetForms();
-                    if (forms != null)
+                var forms = editorPlugin.GetForms();
+                if (forms != null)
+                {
+                    foreach (Form form in forms)
                     {
-                        foreach (Form form in forms)
+                        ToolStripDropDownItem tsddItem = new ToolStripMenuItem(editorPlugin.Information.Name + " - " + form.Text);
+                        tsddItem.Click += (sender, args) =>
                         {
-                            ToolStripDropDownItem tsddItem = new ToolStripMenuItem(editorPlugin.Information.Name + " - " + form.Text);
-                            tsddItem.Click += (sender, args) =>
-                            {
-                                form.Show(); // ToDo see if there needs to be more logic than just show
-                            };
+                            form.Show(); // ToDo see if there needs to be more logic than just show
+                        };
 
-                            tsddbtnWindows.DropDownItems.Add(tsddItem);
-                        }
+                        tsddbtnWindows.DropDownItems.Add(tsddItem);
                     }
                 }
             }
@@ -214,11 +249,6 @@ namespace UtinniCoreDotNet
 
             pnlPlugins.ResumeLayout();
 
-        }
-
-        private void InitializeEditorCallbacks()
-        {
-            ImGuiCallbacks.Initialize();
         }
 
         private void ToggleFullWindowGame() // ToDo see if there is a way to prevent the flickering on switch
@@ -246,6 +276,11 @@ namespace UtinniCoreDotNet
         private void tsbtnRedo_DropDownOpening(object sender, EventArgs e)
         {
             tsddRedo.Display(undoRedoManager.RedoCommands);
+        }
+
+        private void InitializeEditorCallbacks()
+        {
+            ImGuiCallbacks.Initialize();
         }
 
     }

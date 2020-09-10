@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using UtinniCoreDotNet.Hotkeys;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI.Controls;
 using UtinniCoreDotNet.Utility;
@@ -32,6 +33,8 @@ namespace ExampleEditorPlugin
         public PluginInformation Information { get; }
 
         public EventHandler<AddUndoCommandEventArgs> AddUndoCommand { get; set; }
+
+        public HotkeyManager GetHotkeyManager() { return null; }
 
         public List<Form> GetForms() { return null; }
 

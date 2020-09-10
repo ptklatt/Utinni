@@ -35,9 +35,9 @@
             this.tsbtnRedo = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.tsddbtnWindows = new System.Windows.Forms.ToolStripDropDownButton();
             this.cmbPanels = new System.Windows.Forms.ComboBox();
             this.pnlPlugins = new System.Windows.Forms.Panel();
-            this.tsddbtnWindows = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsMain.SuspendLayout();
             this.pnlPlugins.SuspendLayout();
             this.SuspendLayout();
@@ -110,6 +110,15 @@
             this.toolStripButton2.Text = "toolStripButton1";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
+            // tsddbtnWindows
+            // 
+            this.tsddbtnWindows.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsddbtnWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsddbtnWindows.Image")));
+            this.tsddbtnWindows.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddbtnWindows.Name = "tsddbtnWindows";
+            this.tsddbtnWindows.Size = new System.Drawing.Size(58, 22);
+            this.tsddbtnWindows.Text = "Open...";
+            // 
             // cmbPanels
             // 
             this.cmbPanels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -131,15 +140,6 @@
             this.pnlPlugins.Name = "pnlPlugins";
             this.pnlPlugins.Size = new System.Drawing.Size(446, 433);
             this.pnlPlugins.TabIndex = 7;
-            // 
-            // tsddbtnWindows
-            // 
-            this.tsddbtnWindows.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsddbtnWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsddbtnWindows.Image")));
-            this.tsddbtnWindows.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsddbtnWindows.Name = "tsddbtnWindows";
-            this.tsddbtnWindows.Size = new System.Drawing.Size(58, 22);
-            this.tsddbtnWindows.Text = "Open...";
             // 
             // FormMain
             // 
