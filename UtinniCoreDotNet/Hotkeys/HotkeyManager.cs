@@ -17,7 +17,7 @@ namespace UtinniCoreDotNet.Hotkeys
         public HotkeyManager(bool onGameFocusOnly)
         {
             OnGameFocusOnly = onGameFocusOnly;
-            ini = new UtINI(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\input.ini");
+            ini = new UtINI(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location) + "\\input.ini");
         }
 
         public void ProcessInput(Keys modifierKeys, Keys key)

@@ -71,6 +71,11 @@ namespace UtinniCoreDotNet.Hotkeys
 
         public string GetKeyComboString()
         {
+            if (ModifierKeys == Keys.None)
+            {
+                return Key.ToString();
+            }
+
             return ModifierKeys + " + " + Key;
         }
 

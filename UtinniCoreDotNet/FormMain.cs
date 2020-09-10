@@ -79,7 +79,7 @@ namespace UtinniCoreDotNet
             formHotkeyManager.Hotkeys.Add(new Hotkey("Undo", "Control + Z", undoRedoManager.Undo, false));
             formHotkeyManager.Hotkeys.Add(new Hotkey("Redo", "Control + Y", undoRedoManager.Redo, false));
             formHotkeyManager.CreateSettings();
-            formHotkeyManager.Save();
+            formHotkeyManager.Load();
 
             InitializeEditorCallbacks(); // Initialize callbacks that are purely editor related
         }
