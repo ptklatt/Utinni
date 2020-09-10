@@ -28,7 +28,7 @@ struct UtINI::Impl
     std::vector<Value> settings;
 };
 
-UtINI::UtINI() { }
+UtINI::UtINI() : pImpl(new Impl) { }
 
 UtINI::UtINI(const std::string& filename) : pImpl(new Impl)
 {
@@ -70,6 +70,12 @@ void UtINI::load() const
             save();
         }
     }
+}
+
+void UtINI::load(const std::string& filename)
+{
+    iniFilename = filename;
+    load();
 }
 
 void UtINI::save() const

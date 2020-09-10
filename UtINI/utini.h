@@ -26,9 +26,6 @@ public:
         std::string valueName;
         std::string value;
         Types type;
-
-        //Value() {}
-        //Value(const char* sectionName, const char* valueName, const char* value, Types type);
     };
 
     UtINI();
@@ -36,6 +33,7 @@ public:
     ~UtINI();
 
     void load() const;
+    void load(const std::string& filename);
     void save() const;
 
     void createUtinniSettings() const;

@@ -62,10 +62,8 @@ void main()
 
     utinni::log::create();
 
-    utinni::UtINI iniTemp(path + "ut.ini");
-    iniTemp.createUtinniSettings();
-    iniTemp.load();
-    ini = iniTemp;
+    ini.createUtinniSettings();
+    ini.load(path + "ut.ini");
 
     utinni::Client::setEditorMode(ini.getBool("UtinniCore", "enableEditorMode"));
     imgui_impl::enableInternalUi(ini.getBool("UtinniCore", "enableInternalUi"));
