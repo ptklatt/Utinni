@@ -5,7 +5,7 @@
 namespace utinni::log
 {
 
-UtINI create()
+void create()
 {
     spdlog::set_level(spdlog::level::debug);
 
@@ -23,7 +23,6 @@ UtINI create()
     auto file_logger = spdlog::basic_logger_mt("UtinniLog", logFilename);
     spdlog::set_default_logger(file_logger);
 
-    return UtINI(std::string(getPath() + "ut.ini").c_str());
 }
 
 void critical(const char* text)

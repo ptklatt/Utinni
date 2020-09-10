@@ -1,50 +1,53 @@
 #include "utini.h"
 
+#include "LeksysINI/iniparser.hpp"
+
 namespace utinni
 {
-struct IniValue
-{
-    std::string sectionName;
-    std::string valueName;
-    INI::Value value;
-};
-
-    // ToDo make a different array that's settable for other plugins
-const static IniValue values[] = {
+const static UtINI::Value utinniSettings[] = {
 
     // Launcher settings
-    { "Launcher", "swgClientName", ""},
-    { "Launcher", "swgClientName", ""},
+    { "Launcher", "swgClientName", "", UtINI::Value::vt_string },
+    { "Launcher", "swgClientName", "", UtINI::Value::vt_string },
 
     // UtinniCore settings
-    { "UtinniCore", "enableEditorMode", false},
-    { "UtinniCore", "enableInternalUi", false},
-    { "UtinniCore", "enableOfflineScenes", false},
-    { "UtinniCore", "useSwgOverrideCfg", false},
-    { "UtinniCore", "autoLoadScene", false},
+    { "UtinniCore", "enableEditorMode", "false", UtINI::Value::vt_bool },
+    { "UtinniCore", "enableInternalUi", "false", UtINI::Value::vt_bool },
+    { "UtinniCore", "enableOfflineScenes", "false", UtINI::Value::vt_bool },
+    { "UtinniCore", "useSwgOverrideCfg", "false", UtINI::Value::vt_bool },
+    { "UtinniCore", "autoLoadScene", "false", UtINI::Value::vt_bool },
 
     // Log settings
-    { "Log", "writeClassName", false},
-    { "Log", "writeFunctionName", false},
+    { "Log", "writeClassName", "false", UtINI::Value::vt_bool },
+    { "Log", "writeFunctionName", "false", UtINI::Value::vt_bool },
 };
 
-UtINI::UtINI() : filename(nullptr)
+struct UtINI::Impl
 {
+    INI::File ini;
+    std::vector<Value> settings;
+};
+
+UtINI::UtINI() { }
+
+UtINI::UtINI(const std::string& filename) : pImpl(new Impl)
+{
+    iniFilename = filename;
 }
 
-UtINI::UtINI(const char* filename) : filename(filename)
+UtINI::~UtINI()
 {
-    load();
+    delete pImpl;
 }
 
-void UtINI::load()
+void UtINI::load() const
 {
-    if (!ini.Load(filename))
+    if (!pImpl->ini.Load(iniFilename))
     {
         // Save the default values to file
-        for (const auto& iniValue : values)
+        for (const auto& iniValue : pImpl->settings)
         {
-            ini.GetSection(iniValue.sectionName)->SetValue(iniValue.valueName, iniValue.value);
+            pImpl->ini.GetSection(iniValue.sectionName)->SetValue(iniValue.valueName, iniValue.value);
         }
 
         save();
@@ -53,11 +56,11 @@ void UtINI::load()
     {
         // Validate the loaded values to make sure all needed values exist, if not, create them
         bool missingValues = false;
-        for (const auto& iniValue : values)
+        for (const auto& iniValue : pImpl->settings)
         {
-            if (ini.GetSection(iniValue.sectionName)->GetValue(iniValue.valueName).AsString().empty())
+            if (pImpl->ini.GetSection(iniValue.sectionName)->GetValue(iniValue.valueName).AsString().empty())
             {
-                ini.GetSection(iniValue.sectionName)->SetValue(iniValue.valueName, iniValue.value);
+                pImpl->ini.GetSection(iniValue.sectionName)->SetValue(iniValue.valueName, iniValue.value);
                 missingValues = true;
             }
         }
@@ -69,81 +72,69 @@ void UtINI::load()
     }
 }
 
-void UtINI::save()
+void UtINI::save() const
 {
-    ini.Save(filename);
+    pImpl->ini.Save(iniFilename);
+}
+
+void UtINI::createUtinniSettings() const
+{
+    for (const Value& value : utinniSettings)
+    {
+        pImpl->settings.emplace_back(value);
+    }
+}
+
+void UtINI::addSetting(const Value& value) const
+{
+    pImpl->settings.emplace_back(value);
+}
+
+void UtINI::addSetting(const char* sectionName, const char* valueName, const char* value, Value::Types type) const
+{
+    Value val = { sectionName, valueName, value, type };
+    pImpl->settings.emplace_back(val);
 }
 
 
-INI::Value UtINI::getValue(const char* sectionName, const char* valueName)
+std::string UtINI::getString(const char* sectionName, const char* valueName) const
 {
-    return ini.GetSection(sectionName)->GetValue(valueName);
+    return pImpl->ini.GetSection(sectionName)->GetValue(valueName).AsString();
 }
 
-const char* UtINI::getString(const char* sectionName, const char* valueName)
+bool UtINI::getBool(const char* sectionName, const char* valueName) const
 {
-    static std::string result; // Temporary hack, fix it up the ini lib
-    result = ini.GetSection(sectionName)->GetValue(valueName).AsString(); 
-    return result.c_str();
+    return pImpl->ini.GetSection(sectionName)->GetValue(valueName).AsBool();
 }
 
-bool UtINI::getBool(const char* sectionName, const char* valueName)
+int UtINI::getInt(const char* sectionName, const char* valueName) const
 {
-    return ini.GetSection(sectionName)->GetValue(valueName).AsBool();
+    return pImpl->ini.GetSection(sectionName)->GetValue(valueName).AsInt();
 }
 
-int UtINI::getInt(const char* sectionName, const char* valueName)
+float UtINI::getFloat(const char* sectionName, const char* valueName) const
 {
-    return ini.GetSection(sectionName)->GetValue(valueName).AsInt();
+    return (float) pImpl->ini.GetSection(sectionName)->GetValue(valueName).AsDouble();
 }
 
-float UtINI::getFloat(const char* sectionName, const char* valueName)
+void UtINI::setString(const char* sectionName, const char* valueName, const char* value) const
 {
-    return ini.GetSection(sectionName)->GetValue(valueName).AsDouble();
+    pImpl->ini.GetSection(sectionName)->SetValue(valueName, value);
 }
 
-INI::Array UtINI::getArray(const char* sectionName, const char* valueName)
+void UtINI::setBool(const char* sectionName, const char* valueName, bool value) const
 {
-    return ini.GetSection(sectionName)->GetValue(valueName).AsArray();
+    pImpl->ini.GetSection(sectionName)->SetValue(valueName, value);
 }
 
-INI::Map UtINI::getMap(const char* sectionName, const char* valueName)
+void UtINI::setInt(const char* sectionName, const char* valueName, int value) const
 {
-    return ini.GetSection(sectionName)->GetValue(valueName).AsMap();
+    pImpl->ini.GetSection(sectionName)->SetValue(valueName, value);
 }
 
-void UtINI::setValue(const char* sectionName, const char* valueName, const INI::Value& value)
+void UtINI::setFloat(const char* sectionName, const char* valueName, float value) const
 {
-    ini.GetSection(sectionName)->SetValue(valueName, value);
+    pImpl->ini.GetSection(sectionName)->SetValue(valueName, value);
 }
 
-void UtINI::setString(const char* sectionName, const char* valueName, const char* value)
-{
-    ini.GetSection(sectionName)->SetValue(valueName, value);
-}
-
-void UtINI::setBool(const char* sectionName, const char* valueName, bool value)
-{
-    ini.GetSection(sectionName)->SetValue(valueName, value);
-}
-
-void UtINI::setInt(const char* sectionName, const char* valueName, int value)
-{
-    ini.GetSection(sectionName)->SetValue(valueName, value);
-}
-
-void UtINI::setFloat(const char* sectionName, const char* valueName, float value)
-{
-    ini.GetSection(sectionName)->SetValue(valueName, value);
-}
-
-void UtINI::setArray(const char* sectionName, const char* valueName, const INI::Array& value)
-{
-    ini.GetSection(sectionName)->SetValue(valueName, value);
-}
-
-void UtINI::setMap(const char* sectionName, const char* valueName, const INI::Map& value)
-{
-    ini.GetSection(sectionName)->SetValue(valueName, value);
-}
 }

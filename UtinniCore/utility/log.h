@@ -4,7 +4,7 @@
 
 namespace utinni::log
 {
-UtINI create();
+void create();
 
 UTINNI_API extern void critical(const char* text);
 UTINNI_API extern void debug(const char* text);

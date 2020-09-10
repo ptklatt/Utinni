@@ -176,7 +176,9 @@ std::string getSwgClientFilename()
     const std::string path = std::string(curDirBuffer);
     std::string iniFilename = path.substr(0, path.find_last_of("\\/")) + "\\ut.ini";
 
-    utinni::UtINI ini(iniFilename.c_str());
+    utinni::UtINI ini(iniFilename);
+    ini.createUtinniSettings();
+    ini.load();
 
     swgClientPath = ini.getString("Launcher", "swgClientPath");
     std::string swgClientName = ini.getString("Launcher", "swgClientName");
@@ -203,8 +205,8 @@ std::string getSwgClientFilename()
             swgClientPath = filename.substr(0, lastSlashPos + 1);
             swgClientName = filename.substr(lastSlashPos + 1);
 
-            ini.setValue("Launcher", "swgClientPath", swgClientPath);
-            ini.setValue("Launcher", "swgClientName", swgClientName);
+            ini.setString("Launcher", "swgClientPath", swgClientPath.c_str());
+            ini.setString("Launcher", "swgClientName", swgClientName.c_str());
 
             ini.save();
         }

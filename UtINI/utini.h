@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LeksysINI/iniparser.hpp"
+#include <string>
 
 #define UTINNI_API  __declspec(dllexport)
 
@@ -8,31 +8,56 @@ namespace utinni
 {
 class UTINNI_API UtINI
 {
-private:
-    const char* filename;
-    INI::File ini;
-
 public:
+    UTINNI_API struct Value
+    {
+        enum Types
+        {
+            vt_iniValue,
+            vt_string,
+            vt_bool,
+            vt_int,
+            vt_float,
+            vt_array,
+            vt_map
+        };
+
+        std::string sectionName;
+        std::string valueName;
+        std::string value;
+        Types type;
+
+        //Value() {}
+        //Value(const char* sectionName, const char* valueName, const char* value, Types type);
+    };
+
     UtINI();
-    UtINI(const char* filename);
+    UtINI(const std::string& filename);
+    ~UtINI();
 
-    void load();
-    void save();
+    void load() const;
+    void save() const;
 
-    INI::Value getValue(const char* sectionName, const char* valueName);
-    const char* getString(const char* sectionName, const char* valueName);
-    bool getBool(const char* sectionName, const char* valueName);
-    int getInt(const char* sectionName, const char* valueName);
-    float getFloat(const char* sectionName, const char* valueName);
-    INI::Array getArray(const char* sectionName, const char* valueName);
-    INI::Map getMap(const char* sectionName, const char* valueName);
+    void createUtinniSettings() const;
+    void addSetting(const Value& value) const;
+    void addSetting(const char* sectionName, const char* valueName, const char* value, Value::Types type) const;
 
-    void setValue(const char* sectionName, const char* valueName, const INI::Value& value);
-    void setString(const char* sectionName, const char* valueName, const char* value);
-    void setBool(const char* sectionName, const char* valueName, bool value);
-    void setInt(const char* sectionName, const char* valueName, int value);
-    void setFloat(const char* sectionName, const char* valueName, float value);
-    void setArray(const char* sectionName, const char* valueName, const INI::Array& value);
-    void setMap(const char* sectionName, const char* valueName, const INI::Map& value);
+    std::string getString(const char* sectionName, const char* valueName) const;
+    bool getBool(const char* sectionName, const char* valueName) const;
+    int getInt(const char* sectionName, const char* valueName) const;
+    float getFloat(const char* sectionName, const char* valueName) const;
+
+    void setString(const char* sectionName, const char* valueName, const char* value) const;
+    void setBool(const char* sectionName, const char* valueName, bool value) const;
+    void setInt(const char* sectionName, const char* valueName, int value) const;
+    void setFloat(const char* sectionName, const char* valueName, float value) const;
+
+private:
+    std::string iniFilename;
+
+    // Need to use PIMPL to hide the std::vector<Value> settings, as cppSharp doesn't play nice with them
+    struct Impl;
+    Impl* pImpl{};
+
 };
 }

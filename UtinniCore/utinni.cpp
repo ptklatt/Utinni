@@ -60,7 +60,12 @@ void main()
     std::string dllPath = std::string(dllPathbuffer);
     path = dllPath.substr(0, dllPath.find_last_of("\\/")) + "\\";
 
-    ini = utinni::log::create();
+    utinni::log::create();
+
+    utinni::UtINI iniTemp(path + "ut.ini");
+    iniTemp.createUtinniSettings();
+    iniTemp.load();
+    ini = iniTemp;
 
     utinni::Client::setEditorMode(ini.getBool("UtinniCore", "enableEditorMode"));
     imgui_impl::enableInternalUi(ini.getBool("UtinniCore", "enableInternalUi"));
