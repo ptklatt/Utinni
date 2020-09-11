@@ -54,11 +54,11 @@ namespace ExampleEditorPlugin
         public void OnTarget()
         {
             var target = Game.PlayerLookAtTargetObject;
-            if (target == null)
+            if (target == null || !chkEnableNodeEditing.Checked)
             {
                 UtinniCore.ImguiGizmo.imgui_impl.Disable();
             }
-            else
+            else if (chkEnableNodeEditing.Checked)
             {
                 UtinniCore.ImguiGizmo.imgui_impl.Enable(target);
             }
@@ -133,6 +133,11 @@ namespace ExampleEditorPlugin
                     }
                 });
             }
+        }
+
+        private void chkEnableNodeEditing_CheckedChanged(object sender, EventArgs e)
+        {
+            OnTarget();
         }
     }
 }

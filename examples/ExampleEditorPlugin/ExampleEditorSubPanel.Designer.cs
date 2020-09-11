@@ -32,6 +32,7 @@
             this.btnAddWsNode = new System.Windows.Forms.Button();
             this.lblWsNodeFunctionsExample = new System.Windows.Forms.Label();
             this.lblSnapshotNodePosition = new System.Windows.Forms.Label();
+            this.chkEnableNodeEditing = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnRemoveWsNode
@@ -72,10 +73,22 @@
             this.lblSnapshotNodePosition.TabIndex = 4;
             this.lblSnapshotNodePosition.Text = "Position: 0, 0, 0";
             // 
+            // chkEnableNodeEditing
+            // 
+            this.chkEnableNodeEditing.AutoSize = true;
+            this.chkEnableNodeEditing.Location = new System.Drawing.Point(8, 78);
+            this.chkEnableNodeEditing.Name = "chkEnableNodeEditing";
+            this.chkEnableNodeEditing.Size = new System.Drawing.Size(122, 17);
+            this.chkEnableNodeEditing.TabIndex = 5;
+            this.chkEnableNodeEditing.Text = "Enable Node editing";
+            this.chkEnableNodeEditing.UseVisualStyleBackColor = true;
+            this.chkEnableNodeEditing.CheckedChanged += new System.EventHandler(this.chkEnableNodeEditing_CheckedChanged);
+            // 
             // ExampleEditorSubPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chkEnableNodeEditing);
             this.Controls.Add(this.lblSnapshotNodePosition);
             this.Controls.Add(this.lblWsNodeFunctionsExample);
             this.Controls.Add(this.btnAddWsNode);
@@ -93,5 +106,6 @@
         private System.Windows.Forms.Button btnAddWsNode;
         private System.Windows.Forms.Label lblWsNodeFunctionsExample;
         private System.Windows.Forms.Label lblSnapshotNodePosition;
+        private System.Windows.Forms.CheckBox chkEnableNodeEditing;
     }
 }
