@@ -24,8 +24,8 @@ namespace UtinniCoreDotNet.UI.Controls
         [Description("Checkbox Panel Autosize"), Category("Data")]
         public bool CollapsablePanelAutosize
         {
-            get { return pnlInner.AutoSize; }
-            set { pnlInner.AutoSize = value; }
+            get { return subPanel.AutoSize; }
+            set { subPanel.AutoSize = value; }
         }
 
         [Description("Checkbox Panel Autosize Mode"), Category("Data")]
@@ -35,27 +35,27 @@ namespace UtinniCoreDotNet.UI.Controls
             set { AutoSizeMode = value; }
         }
 
-        private readonly UserControl pnlInner;
+        private readonly SubPanel subPanel;
 
-        public CollapsiblePanel(UserControl innerPanel, string panelText = "", bool isOpenByDefault = false)
+        public CollapsiblePanel(SubPanel subPanel, string panelText = "")
         {
             InitializeComponent();
 
-            pnlInner = innerPanel;
+            this.subPanel = subPanel;
             CollapsablePanelText = panelText;
-            Open = isOpenByDefault;
+            Open = this.subPanel.IsOpenByDefault;
 
             Width = 420;
-            pnlInner.Width = Width - 6;
+            this.subPanel.Width = Width - 6;
         }
 
         private void btnExpand_CheckedChanged(object sender, EventArgs e)
         {
             if (Open)
             {
-                pnlInner.Location = new Point(3, 24);
-                Controls.Add(pnlInner);
-                Height = pnlInner.Height + 30;
+                subPanel.Location = new Point(3, 24);
+                Controls.Add(subPanel);
+                Height = subPanel.Height + 30;
             }
             else
             {

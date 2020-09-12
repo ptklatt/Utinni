@@ -6,6 +6,7 @@ namespace UtinniCoreDotNet.UI.Controls
     public partial class SubPanel : UserControl
     {
         public readonly string CheckboxPanelText;
+        public readonly bool IsOpenByDefault;
         private const int width = 417;
 
         public SubPanel()
@@ -13,10 +14,11 @@ namespace UtinniCoreDotNet.UI.Controls
             Width = width;
         }
 
-        public SubPanel(string name)
+        public SubPanel(string name, bool isOpenByDefault = false)
         {
             Width = width;
             CheckboxPanelText = name;
+            IsOpenByDefault = isOpenByDefault;
         }
         
         // This is needed because the Visual Studio Designer handles inheritance incorrectly.
