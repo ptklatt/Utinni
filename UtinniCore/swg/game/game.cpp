@@ -44,6 +44,7 @@ pIsHudSceneTypeSpace isHudSceneTypeSpace = (pIsHudSceneTypeSpace)0x00426170;
 
 static std::vector<void(*)()> installCallbacks;
 static std::vector<void(*)()> mainLoopCallbacks;
+static std::vector<void(*)()> setSceneCallbacks;
 static std::vector<void(*)()> cleanUpSceneCallbacks;
 static utinni::Repository repository;
 
@@ -58,6 +59,11 @@ void Game::addInstallCallback(void(*func)())
 void Game::addMainLoopCallback(void(*func)())
 {
     mainLoopCallbacks.emplace_back(func);
+}
+
+void Game::addSetSceneCallback(void(*func)())
+{
+    setSceneCallbacks.emplace_back(func);
 }
 
 void Game::addCleanupSceneCallback(void(*func)())
@@ -125,6 +131,19 @@ void __cdecl hkInstall(int application)
     }
 }
 
+void __cdecl hkSetScene(GroundScene* scene)
+{
+    swg::game::setupScene(scene);
+
+    if (scene != nullptr)
+    {
+        for (const auto& func : setSceneCallbacks)
+        {
+            func();
+        }
+    }
+}
+
 void __cdecl hkCleanupScene()
 {
     swg::game::cleanupScene();
@@ -144,6 +163,7 @@ void Game::detour()
         //utility::showMessageBox("");
         swg::game::mainLoop = (swg::game::pMainLoop)Detour::Create(swg::game::mainLoop, hkMainLoop, DETOUR_TYPE_PUSH_RET);
         swg::game::install = (swg::game::pInstall)Detour::Create(swg::game::install, hkInstall, DETOUR_TYPE_PUSH_RET);
+        swg::game::setupScene = (swg::game::pSetupScene)Detour::Create(swg::game::setupScene, hkSetScene, DETOUR_TYPE_PUSH_RET);
         swg::game::cleanupScene = (swg::game::pCleanupScene)Detour::Create(swg::game::cleanupScene, hkCleanupScene, DETOUR_TYPE_PUSH_RET);
     }
 }

@@ -5,27 +5,43 @@ namespace UtinniCoreDotNet.Callbacks
 {
     public static class GameCallbacks
     {
-        private static List<Action> installCallback = new List<Action>();
-        private static Queue<Action> mainLoopCallQueue = new Queue<Action>();
-        private static Queue<Action> cleanupSceneCallQueue = new Queue<Action>();
+        private static readonly List<Action> installCallback = new List<Action>();
+        private static readonly List<Action> setupSceneCallback = new List<Action>();
+        private static readonly List<Action> cleanupSceneCallback = new List<Action>();
+        private static readonly Queue<Action> mainLoopCallQueue = new Queue<Action>();
 
         private static UtinniCore.Delegates.Action_ callInstallCallbacksAction;
+        private static UtinniCore.Delegates.Action_ callSetupSceneCallbacksAction;
+        private static UtinniCore.Delegates.Action_ callCleanupSceneCallbacksAction;
         private static UtinniCore.Delegates.Action_ dequeueMainLoopCallsAction;
-        private static UtinniCore.Delegates.Action_ dequeueCleanupSceneCallsAction;
         public static void Initialize()
         {
+            // Storing this in a variable is somehow needed to prevent corruption on WinForms resize. Very odd bug that I still don't fully understand.
             callInstallCallbacksAction = CallInstallCallbacks;
-            dequeueMainLoopCallsAction = DequeueMainLoopCalls; // Storing this in a variable is somehow needed to prevent corruption on WinForms resize. Very odd bug that I still don't fully understand.
-            dequeueCleanupSceneCallsAction = DequeueCleanupSceneCalls;
+            callSetupSceneCallbacksAction = CallSetupSceneCallbacks;
+            callCleanupSceneCallbacksAction = CallCleanupSceneCallbacks;
+            dequeueMainLoopCallsAction = DequeueMainLoopCalls;
             UtinniCore.Utinni.Game.AddInstallCallback(callInstallCallbacksAction);
+            UtinniCore.Utinni.Game.AddSetSceneCallback(callSetupSceneCallbacksAction);
+            UtinniCore.Utinni.Game.AddCleanupSceneCallback(callCleanupSceneCallbacksAction);
             UtinniCore.Utinni.Game.AddMainLoopCallback(dequeueMainLoopCallsAction);
-            UtinniCore.Utinni.Game.AddCleanupSceneCallback(dequeueCleanupSceneCallsAction);
         }
 
         public static void AddInstallCallback(Action call)
         {
             installCallback.Add(call);
         }
+
+        public static void AddSetupSceneCall(Action call)
+        {
+            setupSceneCallback.Add(call);
+        }
+
+        public static void AddCleanupSceneCall(Action call)
+        {
+            cleanupSceneCallback.Add(call);
+        }
+
         public static void AddMainLoopCall(Action call)
         {
             mainLoopCallQueue.Enqueue(call);
@@ -40,11 +56,6 @@ namespace UtinniCoreDotNet.Callbacks
             }
         }
 
-        public static void AddCleanupSceneCall(Action call)
-        {
-            cleanupSceneCallQueue.Enqueue(call);
-        }
-
         private static void CallInstallCallbacks()
         {
             foreach (Action callback in installCallback)
@@ -53,12 +64,19 @@ namespace UtinniCoreDotNet.Callbacks
             }
         }
 
-        private static void DequeueCleanupSceneCalls()
+        private static void CallSetupSceneCallbacks()
         {
-            while (cleanupSceneCallQueue.Count > 0)
+            foreach (Action callback in setupSceneCallback)
             {
-                var func = cleanupSceneCallQueue.Dequeue();
-                func();
+                callback();
+            }
+        }
+
+        private static void CallCleanupSceneCallbacks()
+        {
+            foreach (Action callback in cleanupSceneCallback)
+            {
+                callback();
             }
         }
     }
