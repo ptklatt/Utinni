@@ -5,12 +5,15 @@ using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.Commands;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI.Controls;
+using UtinniCoreDotNet.Utility;
 
 namespace ExampleEditorPlugin
 {
     // SubPanels should inherit EditorPanelBase as it sets up the the correct size automatically.
     public partial class ExampleEditorSubPanel : SubPanel
     {
+        private bool enableNodeEditing;
+
         private readonly IEditorPlugin editorPlugin;
         public ExampleEditorSubPanel(IEditorPlugin editorPlugin) : base(editorPlugin.Information.Name)
         {
@@ -54,13 +57,22 @@ namespace ExampleEditorPlugin
         public void OnTarget()
         {
             var target = Game.PlayerLookAtTargetObject;
-            if (target == null || !chkEnableNodeEditing.Checked)
+            if (target == null)
             {
                 UtinniCore.ImguiGizmo.imgui_impl.Disable();
             }
-            else if (chkEnableNodeEditing.Checked)
+            else
             {
-                UtinniCore.ImguiGizmo.imgui_impl.Enable(target);
+                WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeByNetworkId(target.NetworkId);
+
+                if (node == null || !enableNodeEditing)
+                {
+                    UtinniCore.ImguiGizmo.imgui_impl.Disable();
+                }
+                else if (enableNodeEditing)
+                {
+                    UtinniCore.ImguiGizmo.imgui_impl.Enable(target);
+                }
             }
         }
 
@@ -137,6 +149,7 @@ namespace ExampleEditorPlugin
 
         private void chkEnableNodeEditing_CheckedChanged(object sender, EventArgs e)
         {
+            enableNodeEditing = chkEnableNodeEditing.Checked;
             OnTarget();
         }
     }
