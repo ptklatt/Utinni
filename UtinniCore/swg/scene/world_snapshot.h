@@ -49,7 +49,7 @@ public:
     static WorldSnapshotReaderWriter* get();
 
     void clear();
-    static void clearPreloadList(DWORD unk1, DWORD unk2, DWORD unk3);
+    static void clearPreloadList(swgptr unk1, swgptr unk2, swgptr unk3);
     void saveFile();
 
     const char* getObjectTemplateName(int objectTemplateNameIndex);
@@ -85,8 +85,9 @@ public:
 
     static bool isValidObject(const char* objectFilename);
     static WorldSnapshotReaderWriter::Node* createAddNode(const char* objectFilename, swg::math::Transform& transform);
+    static WorldSnapshotReaderWriter::Node* createNodeCopy(WorldSnapshotReaderWriter::Node* originalNode, swg::math::Transform& transform);
 
-    static Object* addNode(WorldSnapshotReaderWriter::Node* pNode);
-    static void removeNode(WorldSnapshotReaderWriter::Node* pNode);
+    static Object* addNode(WorldSnapshotReaderWriter::Node* node);
+    static void removeNode(WorldSnapshotReaderWriter::Node* node);
 };
 }

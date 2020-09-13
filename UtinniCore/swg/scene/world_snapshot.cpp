@@ -40,7 +40,7 @@ pRemoveNode removeNode = (pRemoveNode)0x00B98780;
 namespace node
 {
 using pGetNodeNetworkId = int(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis);
-using pGetNodeSpatialSubdivisionHandle = DWORD(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis);
+using pGetNodeSpatialSubdivisionHandle = swgptr(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis);
 using pSetNodeSpatialSubdivisionHandle = void(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis, swgptr handle);
 
 using pNodeRemoveFromWorld = void(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis);
@@ -59,10 +59,10 @@ namespace swg::worldsnapshot
 using pLoad = void(__cdecl*)(const char* name);
 using pUnload = void(__cdecl*)();
 
-using pClearPreloadList = char(__cdecl*)(DWORD, DWORD, DWORD);
+using pClearPreloadList = char(__cdecl*)(swgptr, swgptr, swgptr);
 
-using pCreateObject = swgptr(__cdecl*)(utinni::WorldSnapshotReaderWriter* pReader, utinni::WorldSnapshotReaderWriter::Node* pNode, swgptr result);
-using pAddObject = void(__cdecl*)(swgptr pObject, swgptr pNode);
+using pCreateObject = swgptr(__cdecl*)(utinni::WorldSnapshotReaderWriter* reader, utinni::WorldSnapshotReaderWriter::Node* node, swgptr result);
+using pAddObject = void(__cdecl*)(swgptr object, swgptr node);
 
 using pDetailLevelChanged = void(__cdecl*)();
 
@@ -137,18 +137,18 @@ WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::addNode(int nodeId, 
 {
     // For some reason, the ptr is wrong if parentNodeId is 0 and it's actually 'result - 4' to get the accurate pointer
 
-    swgptr pNode;
+    swgptr node;
     if (parentNodeId == 0)
     {
-        pNode = swg::worldSnapshotReaderWriter::addNode(this, nodeId, parentNodeId, *ConstCharCrcString::ctor(objectFilename), cellId, transform, radius, pobCrc) - 4;  // That's why we subtract 4 here
+        node = swg::worldSnapshotReaderWriter::addNode(this, nodeId, parentNodeId, *ConstCharCrcString::ctor(objectFilename), cellId, transform, radius, pobCrc) - 4;  // That's why we subtract 4 here
     }
     else
     {
-        pNode = swg::worldSnapshotReaderWriter::addNode(this, nodeId, parentNodeId, *ConstCharCrcString::ctor(objectFilename), cellId, transform, radius, pobCrc); // If it's added to a parentNode, it seems fine
+        node = swg::worldSnapshotReaderWriter::addNode(this, nodeId, parentNodeId, *ConstCharCrcString::ctor(objectFilename), cellId, transform, radius, pobCrc); // If it's added to a parentNode, it seems fine
     }
 
     // Upon further testing, the ptr returned isn't reliable, unsure why
-    // return memory::read<Node*>(pNode);
+    // return memory::read<Node*>(node);
     return nullptr;
 }
 
@@ -297,7 +297,9 @@ WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::Node::getLastChild()
 void WorldSnapshot::load(const std::string& name)
 {
     if (name.empty())
+    {
         return;
+    }
 
     memory::nopAddress(0x0059C3F3, 6); // Removes the grabbing of current .trn name to allow the loading of any .ws
 
@@ -351,7 +353,7 @@ void WorldSnapshot::reload()
     load(GroundScene::get()->getName());
 }
 
-void WorldSnapshotReaderWriter::clearPreloadList(DWORD unk1, DWORD unk2, DWORD unk3)
+void WorldSnapshotReaderWriter::clearPreloadList(swgptr unk1, swgptr unk2, swgptr unk3)
 {
     swg::worldsnapshot::clearPreloadList(unk1, unk2, unk3);
 }
@@ -411,32 +413,40 @@ int WorldSnapshot::generateHighestId()
     return newId;
 }
 
-Object* createObject(WorldSnapshotReaderWriter::Node* pNode)
+Object* createObject(WorldSnapshotReaderWriter::Node* mode)
 {
     DWORD errorCode = 0;
-    return (Object*)swg::worldsnapshot::createObject(WorldSnapshotReaderWriter::get(), pNode, errorCode);
+    return (Object*)swg::worldsnapshot::createObject(WorldSnapshotReaderWriter::get(), mode, errorCode);
 }
 
 bool WorldSnapshot::isValidObject(const char* objectFilename)
 {
     if (strstr(objectFilename, "/base/"))
+    {
         return false;
+    }
 
     ClientObject* cobj = ObjectTemplate::createObject(objectFilename)->getClientObject();
 
     if (cobj == 0 || cobj->getCreatureObject() != 0 || cobj->getShipObject() != 0 || (cobj != 0 && cobj->getTangibleObject() == 0 && cobj->getStaticObject() == 0))
+    {
         return false;
+    }
 
     cobj->remove();
-    cobj = nullptr;
+    cobj = nullptr; // ToDo does this need to be dealloc instead?
 
     return true;
 }
 
+// ToDo move duplicated code in the following functions to shared function
+
 WorldSnapshotReaderWriter::Node* WorldSnapshot::createAddNode(const char* objectFilename, swg::math::Transform& transform)
 {
     if (!isValidObject(objectFilename))
+    {
         return nullptr;
+    }
 
     const auto reader = WorldSnapshotReaderWriter::get();
 
@@ -449,13 +459,17 @@ WorldSnapshotReaderWriter::Node* WorldSnapshot::createAddNode(const char* object
     {
         pParentNode = reader->getNodeByNetworkId(pCamera->parentObject->networkId);
         if (pParentNode == nullptr)
+        {
             return nullptr;
+        }
 
         parentNodeId = pParentNode->id;
     }
 
     if (pCamera->parentObject != nullptr && pParentNode == nullptr)
+    {
         return nullptr;
+    }
 
     // Check if the object contains cells
     int pobCrc = 0;
@@ -480,47 +494,79 @@ WorldSnapshotReaderWriter::Node* WorldSnapshot::createAddNode(const char* object
     }
 
     // Workaround to the unreliable ptr return of reader->addNode
-    WorldSnapshotReaderWriter::Node* pNode;
+    WorldSnapshotReaderWriter::Node* node;
     if (pParentNode == nullptr)
     {
-        pNode = reader->nodeList->back();
+        node = reader->nodeList->back();
     }
     else
     {
-        pNode = pParentNode->children->back();
+        node = pParentNode->children->back();
     }
 
-    Object* obj = createObject(pNode);
+    Object* obj = createObject(node);
     if (obj)
     {
         obj->addToWorld();
     }
 
-    return pNode;
+    return node;
 }
 
-Object* WorldSnapshot::addNode(WorldSnapshotReaderWriter::Node* pNode)
+WorldSnapshotReaderWriter::Node* WorldSnapshot::createNodeCopy(WorldSnapshotReaderWriter::Node* originalNode, swg::math::Transform& transform)
 {
     const auto reader = WorldSnapshotReaderWriter::get();
 
-    reader->addNode(pNode->id, pNode->parentId, pNode->getObjectTemplateName(), pNode->cellIndex, pNode->transform, pNode->radius, pNode->pobCRC);
+    highestId++;
+    const int id = highestId;
+    reader->addNode(id, originalNode->parentId, originalNode->getObjectTemplateName(), originalNode->cellIndex, transform, originalNode->radius, originalNode->pobCRC);
 
-    WorldSnapshotReaderWriter::Node* pParentNode = nullptr;
-    if (pNode->parentId > 0)
+    if (originalNode->children != nullptr)
     {
-        pParentNode = reader->getNodeById(pNode->parentId);
+        for (int i = 0; i < originalNode->children->size(); ++i)
+        {
+            highestId = id + i + 1;
+            const auto childNode = originalNode->children->at(i);
+            reader->addNode(highestId, id, childNode->getObjectTemplateName(), childNode->cellIndex, swg::math::Transform(childNode->transform), childNode->radius, childNode->pobCRC);
+        }
     }
 
-    if (pNode->children != nullptr)
+    // Workaround to the unreliable ptr return of reader->addNode
+    WorldSnapshotReaderWriter::Node* node;
+    if (originalNode->parentNode == nullptr)
     {
-        for (int i = 0; i < pNode->children->size(); ++i)
+        node = reader->nodeList->back();
+    }
+    else
+    {
+        node = originalNode->parentNode->children->back();
+    }
+
+    Object* obj = createObject(node);
+    if (obj)
+    {
+        obj->addToWorld();
+    }
+
+    return node;
+}
+
+Object* WorldSnapshot::addNode(WorldSnapshotReaderWriter::Node* node)
+{
+    const auto reader = WorldSnapshotReaderWriter::get();
+
+    reader->addNode(node->id, node->parentId, node->getObjectTemplateName(), node->cellIndex, node->transform, node->radius, node->pobCRC);
+
+    if (node->children != nullptr)
+    {
+        for (int i = 0; i < node->children->size(); ++i)
         {
-            auto childNode = pNode->children->at(i);
+            const auto childNode = node->children->at(i);
             reader->addNode(childNode->id, childNode->parentId, childNode->getObjectTemplateName(), childNode->cellIndex, childNode->transform, childNode->radius, childNode->pobCRC);
         }
     }
 
-    Object* obj = createObject(pNode);
+    Object* obj = createObject(node);
     if (obj)
     {
         obj->addToWorld();
@@ -529,9 +575,9 @@ Object* WorldSnapshot::addNode(WorldSnapshotReaderWriter::Node* pNode)
     return obj;
 }
 
-void WorldSnapshot::removeNode(WorldSnapshotReaderWriter::Node* pNode)
+void WorldSnapshot::removeNode(WorldSnapshotReaderWriter::Node* node)
 {
-    pNode->removeNode();
+    node->removeNode();
 
     detailLevelChanged(); // Hack to update the .WS
 }

@@ -1,7 +1,6 @@
 ﻿using UtinniCore.Utinni;
 using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.UndoRedo;
-using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet.Commands
 {
