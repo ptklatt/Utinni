@@ -18,7 +18,7 @@ namespace UtinniCoreDotNet
                 initialized = true;
                 Application.EnableVisualStyles();
 
-                Log.LoadConfig();
+                Log.Setup();
 
                 // Load plugins from the /Plugins/ directory
                 PluginLoader pluginLoader = new PluginLoader();

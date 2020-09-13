@@ -11,4 +11,6 @@ UTINNI_API extern void debug(const char* text);
 UTINNI_API extern void error(const char* text);
 UTINNI_API extern void info(const char* text);
 UTINNI_API extern void warning(const char* text);
+
+UTINNI_API extern void addOutputSinkCallback(void(*func)(const char* msg));
 }

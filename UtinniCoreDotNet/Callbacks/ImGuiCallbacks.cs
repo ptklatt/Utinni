@@ -5,8 +5,8 @@ namespace UtinniCoreDotNet.Callbacks
 {
     public static class ImGuiCallbacks
     {
-        private static List<Action> onPositionChangedCallbacks = new List<Action>();
-        private static List<Action> onRotationChangedCallbacks = new List<Action>();
+        private static readonly List<Action> onPositionChangedCallbacks = new List<Action>();
+        private static readonly List<Action> onRotationChangedCallbacks = new List<Action>();
 
         private static UtinniCore.Delegates.Action_ onPositionChangedCallbackAction;
         private static UtinniCore.Delegates.Action_ onRotationChangedCallbackAction;

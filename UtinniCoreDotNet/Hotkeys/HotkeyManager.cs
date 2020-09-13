@@ -22,10 +22,8 @@ namespace UtinniCoreDotNet.Hotkeys
 
         public void ProcessInput(Keys modifierKeys, Keys key)
         {
-            Log.InfoSimple(modifierKeys + " + " + key);
             foreach (Hotkey hotkey in Hotkeys)
             {
-                Log.InfoSimple("Hotkey: " + hotkey.Name + " " + hotkey.GetKeyComboString());
                 if (hotkey.ModifierKeys == modifierKeys && hotkey.Key == key)
                 {
                     hotkey.OnDownCallback();

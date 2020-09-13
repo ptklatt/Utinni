@@ -5,9 +5,9 @@ namespace UtinniCoreDotNet.Callbacks
 {
     public static class ObjectCallbacks
     {
-        private static List<Action> onTargetCallbacks = new List<Action>();
+        private static readonly List<Action> onTargetCallbacks = new List<Action>();
 
-        private static Queue<Action> onTargetCallQueue = new Queue<Action>();
+        private static readonly Queue<Action> onTargetCallQueue = new Queue<Action>();
 
         private static UtinniCore.Delegates.Action_IntPtr dequeueOnTargetCallsAction;
         public static void Initialize()

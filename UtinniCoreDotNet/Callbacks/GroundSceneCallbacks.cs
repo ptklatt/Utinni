@@ -5,9 +5,9 @@ namespace UtinniCoreDotNet.Callbacks
 {
     public static class GroundSceneCallbacks
     {
-        private static Queue<Action> updateLoopCallQueue = new Queue<Action>();
-        private static Queue<Action> preDrawLoopCallQueue = new Queue<Action>();
-        private static Queue<Action> postDrawLoopCallQueue = new Queue<Action>();
+        private static readonly Queue<Action> updateLoopCallQueue = new Queue<Action>();
+        private static readonly Queue<Action> preDrawLoopCallQueue = new Queue<Action>();
+        private static readonly Queue<Action> postDrawLoopCallQueue = new Queue<Action>();
 
         private static UtinniCore.Delegates.Action_IntPtr_float dequeueUpdateLoopCallsAction;
         private static UtinniCore.Delegates.Action_IntPtr dequeuePreDrawLoopCallsAction;

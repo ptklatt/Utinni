@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using UtinniCore.Utinni.Log;
 using static UtinniCore.Utinni.utinni;
 
@@ -9,10 +11,16 @@ namespace UtinniCoreDotNet.Utility
         private static bool writeClassName;
         private static bool writeFunctionName;
 
-        public static void LoadConfig()
+        private static readonly List<Action<string>> outputSinkCallbacks = new List<Action<string>>();
+
+        private static UtinniCore.Delegates.Action_string outputSinkCallbacksAction;
+        public static void Setup()
         {
             writeClassName = GetConfig().GetBool("Log", "writeClassName");
             writeFunctionName = GetConfig().GetBool("Log", "writeFunctionName");
+
+            outputSinkCallbacksAction = CallOutputSinkCallbacks;
+            log.AddOutputSinkCallback(outputSinkCallbacksAction);
         }
 
         private static string FormatText(string text)
@@ -84,6 +92,19 @@ namespace UtinniCoreDotNet.Utility
         public static void WarningSimple(string text)
         {
             log.Warning(text);
+        }
+
+        public static void AddOuputSinkCallback(Action<string> call)
+        {
+            outputSinkCallbacks.Add(call);
+        }
+
+        private static void CallOutputSinkCallbacks(string msg)
+        {
+            foreach (Action<string> callback in outputSinkCallbacks)
+            {
+                callback(msg);
+            }
         }
     }
 }

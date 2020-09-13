@@ -54,6 +54,7 @@ namespace UtinniCoreDotNetGen
                 module.Headers.Add("swg\\scene\\ground_scene.h");
                 module.Headers.Add("swg\\scene\\terrain.h");
                 module.Headers.Add("swg\\scene\\world_snapshot.h");
+                module.Headers.Add("swg\\ui\\cui_chat_window.h");
                 module.Headers.Add("swg\\ui\\cui_hud.h");
                 module.Headers.Add("swg\\ui\\cui_manager.h");
                 module.Headers.Add("swg\\ui\\cui_misc.h");

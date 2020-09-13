@@ -43,9 +43,9 @@ namespace UtinniCoreDotNet.Hotkeys
             int i = keyComboStr.IndexOf('+');
             if (i != -1)
             {
-                string modifiers = keyComboStr.Substring(0, i).Trim();
                 key = keyComboStr.Substring(i + 1).Trim();
 
+                string modifiers = keyComboStr.Substring(0, i).Trim();
                 ModifierKeys = (Keys)Enum.Parse(typeof(Keys), modifiers, true);
             }
             else
