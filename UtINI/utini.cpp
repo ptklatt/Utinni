@@ -102,6 +102,10 @@ void UtINI::addSetting(const char* sectionName, const char* valueName, const cha
     pImpl->settings.emplace_back(val);
 }
 
+void UtINI::DeleteSection(const char* sectionName)
+{
+    pImpl->ini.DeleteSection(sectionName);
+}
 
 std::string UtINI::getString(const char* sectionName, const char* valueName) const
 {

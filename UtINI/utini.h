@@ -40,6 +40,8 @@ public:
     void addSetting(const Value& value) const;
     void addSetting(const char* sectionName, const char* valueName, const char* value, Value::Types type) const;
 
+    void DeleteSection(const char* sectionName);
+
     std::string getString(const char* sectionName, const char* valueName) const;
     bool getBool(const char* sectionName, const char* valueName) const;
     int getInt(const char* sectionName, const char* valueName) const;
