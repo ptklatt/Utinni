@@ -7,6 +7,7 @@ using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.Hotkeys;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI.Controls;
+using UtinniCoreDotNet.UI.Forms;
 using UtinniCoreDotNet.UndoRedo;
 using UtinniCoreDotNet.Utility;
 using Point = System.Drawing.Point;
@@ -283,5 +284,21 @@ namespace UtinniCoreDotNet
             ImGuiCallbacks.Initialize();
         }
 
+        private void tsmiLog_Click(object sender, EventArgs e)
+        {
+            // Check if the log is already open
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form.GetType() == typeof(FormLog))
+                {
+                    form.Activate();
+                    return;
+                }
+            }
+
+            // If not, create a new one
+            FormLog formLog = new FormLog();
+            formLog.Show();
+        }
     }
 }

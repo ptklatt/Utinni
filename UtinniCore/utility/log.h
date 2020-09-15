@@ -13,4 +13,7 @@ UTINNI_API extern void info(const char* text);
 UTINNI_API extern void warning(const char* text);
 
 UTINNI_API extern void addOutputSinkCallback(void(*func)(const char* msg));
+
+UTINNI_API extern int getMessageBufferCount();
+UTINNI_API extern const char* getMessageAt(int i);
 }

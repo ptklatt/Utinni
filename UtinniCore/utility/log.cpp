@@ -2,7 +2,9 @@
 #include "spdlog/spdlog.h"
 #include <spdlog/sinks/basic_file_sink.h>
 
+static std::vector<std::string> logMessageBuffer;
 static std::vector<void(*)(const char* msg)> outputSinkCallbacks;
+
 namespace utinni::log
 {
 class OutputSink : public spdlog::sinks::base_sink<std::mutex>
@@ -19,9 +21,9 @@ protected:
         spdlog::memory_buf_t formatted;
         base_sink<std::mutex>::formatter_->format(msg, formatted);
 
-
         const std::string formattedString = fmt::to_string(formatted);
 
+        logMessageBuffer.emplace_back(formattedString);
         for (const auto& func : outputSinkCallbacks)
         {
             func(formattedString.c_str());
@@ -81,4 +83,15 @@ void addOutputSinkCallback(void(*func)(const char* msg))
 {
     outputSinkCallbacks.emplace_back(func);
 }
+
+int getMessageBufferCount()
+{
+    return logMessageBuffer.size();
+}
+
+const char* getMessageAt(int i)
+{
+    return logMessageBuffer[i].c_str();
+}
+
 }

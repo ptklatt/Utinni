@@ -38,6 +38,7 @@
             this.tsddbtnWindows = new System.Windows.Forms.ToolStripDropDownButton();
             this.cmbPanels = new System.Windows.Forms.ComboBox();
             this.pnlPlugins = new System.Windows.Forms.Panel();
+            this.tsmiLog = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMain.SuspendLayout();
             this.pnlPlugins.SuspendLayout();
             this.SuspendLayout();
@@ -113,6 +114,8 @@
             // tsddbtnWindows
             // 
             this.tsddbtnWindows.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsddbtnWindows.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiLog});
             this.tsddbtnWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsddbtnWindows.Image")));
             this.tsddbtnWindows.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbtnWindows.Name = "tsddbtnWindows";
@@ -140,6 +143,13 @@
             this.pnlPlugins.Name = "pnlPlugins";
             this.pnlPlugins.Size = new System.Drawing.Size(446, 433);
             this.pnlPlugins.TabIndex = 7;
+            // 
+            // tsmiLog
+            // 
+            this.tsmiLog.Name = "tsmiLog";
+            this.tsmiLog.Size = new System.Drawing.Size(180, 22);
+            this.tsmiLog.Text = "Log";
+            this.tsmiLog.Click += new System.EventHandler(this.tsmiLog_Click);
             // 
             // FormMain
             // 
@@ -173,5 +183,6 @@
         private System.Windows.Forms.ToolStripSplitButton tsbtnUndo;
         private System.Windows.Forms.ToolStripSplitButton tsbtnRedo;
         private System.Windows.Forms.ToolStripDropDownButton tsddbtnWindows;
+        private System.Windows.Forms.ToolStripMenuItem tsmiLog;
     }
 }
