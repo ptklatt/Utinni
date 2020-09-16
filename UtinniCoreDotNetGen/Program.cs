@@ -42,6 +42,7 @@ namespace UtinniCoreDotNetGen
                 // Headers
                 module.Headers.Add("utinni.h");
                 module.Headers.Add("utility\\log.h");
+                module.Headers.Add("plugin_framework\\plugin_manager.h");
 
                 module.Headers.Add("swg\\client\\client.h");
                 module.Headers.Add("swg\\game\\game.h");

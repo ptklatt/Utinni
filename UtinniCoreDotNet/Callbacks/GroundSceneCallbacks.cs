@@ -10,8 +10,8 @@ namespace UtinniCoreDotNet.Callbacks
         private static readonly Queue<Action> postDrawLoopCallQueue = new Queue<Action>();
 
         private static UtinniCore.Delegates.Action_IntPtr_float dequeueUpdateLoopCallsAction;
-        private static UtinniCore.Delegates.Action_IntPtr dequeuePreDrawLoopCallsAction;
-        private static UtinniCore.Delegates.Action_IntPtr dequeuePostDrawLoopCallsAction;
+        private static UtinniCore.Delegates.Action_IntPtr_C dequeuePreDrawLoopCallsAction;
+        private static UtinniCore.Delegates.Action_IntPtr_C dequeuePostDrawLoopCallsAction;
         public static void Initialize()
         {
             dequeueUpdateLoopCallsAction = DequeueUpdateLoopCalls;

@@ -119,6 +119,8 @@ UtINI& getConfig()
     return ini;
 }
 
-
-
+PluginManager& getPluginManager()
+{
+    return pluginManager;
+}
 }

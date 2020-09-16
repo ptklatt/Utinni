@@ -9,7 +9,7 @@ namespace UtinniCoreDotNet.Callbacks
 
         private static readonly Queue<Action> onTargetCallQueue = new Queue<Action>();
 
-        private static UtinniCore.Delegates.Action_IntPtr dequeueOnTargetCallsAction;
+        private static UtinniCore.Delegates.Action_IntPtr_C dequeueOnTargetCallsAction;
         public static void Initialize()
         {
             dequeueOnTargetCallsAction = DequeueOnTargetCalls; // Storing this in a variable is somehow needed to prevent corruption on WinForms resize. Very odd bug that I still don't fully understand.

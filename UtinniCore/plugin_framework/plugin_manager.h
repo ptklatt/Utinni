@@ -8,13 +8,23 @@ namespace utinni
 class UTINNI_API PluginManager
 {
 public:
+    UTINNI_API struct PluginConfig
+    {
+        std::string directoryName;
+        bool isEnabled;
+    };
+
     PluginManager();
     ~PluginManager();
 
-    void loadPlugins();
+    void loadPlugins() const;
+
+    int getPluginConfigCount() const;
+    const PluginConfig& getPluginConfigAt(int i);
 
 private:
-    std::vector<UtinniPlugin*> plugins;
+    struct Impl;
+    Impl* pImpl{};
 };
 
 };

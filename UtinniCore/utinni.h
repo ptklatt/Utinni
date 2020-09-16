@@ -19,8 +19,13 @@ using swgptr = uint32_t;
 
 namespace utinni
 {
+class PluginManager;
+}
+
+namespace utinni
+{
 UTINNI_API extern const std::string& getPath();
 UTINNI_API extern const std::string& getSwgCfgFilename();
 UTINNI_API extern UtINI& getConfig();
-
+UTINNI_API extern PluginManager& getPluginManager();
 };
