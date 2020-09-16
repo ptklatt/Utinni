@@ -65,6 +65,4 @@ bool WString::operator==(const char* rhs) const
 {
     return compare<char>(rhs);
 }
-
-
 }

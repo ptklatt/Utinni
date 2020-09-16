@@ -2,6 +2,7 @@
 
 #include "utinni.h"
 #include "swg_memory.h"
+#include "utility/string_utility.h"
 
 // STLPort 4.5.3 wide string implementation that SWG uses
 
@@ -57,7 +58,7 @@ private:
     template<typename TChar>
     void create(const TChar* value)
     {
-        const size_t size = utility::stringLength(value);
+        const size_t size = constCharUtility::length(value);
 
         begin = StringAllocator<char16_t>::allocate(size + 1);
         end = begin + size;

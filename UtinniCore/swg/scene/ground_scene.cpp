@@ -5,6 +5,7 @@
 #include "swg/misc/swg_memory.h"
 #include "swg/game/game.h"
 #include "swg/object/client_object.h"
+#include "utility/string_utility.h"
 
 
 namespace swg::groundScene
@@ -164,7 +165,7 @@ void GroundScene::createObjectAtPlayer(const char* filename)
 
     Object* obj = nullptr;
     const char* pobFilename = objTemplate->getPortalLayoutFilename();
-    if (utility::isEmpty(pobFilename))
+    if (constCharUtility::isEmpty(pobFilename))
     {
         obj = ObjectTemplate::createObject(filename);
     }

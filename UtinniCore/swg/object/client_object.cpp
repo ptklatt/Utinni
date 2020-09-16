@@ -1,5 +1,6 @@
 #include "client_object.h"
 #include "swg/misc/swg_utility.h"
+#include "utility/string_utility.h"
 
 namespace swg::clientObject
 {
@@ -69,7 +70,7 @@ const char* ClientObject::getGameObjectTypeStringIdKey()
 
 const char* ClientObject::getGameObjectTypeName()
 {
-    return utility::wstring_to_string(std::wstring(*swg::clientObject::getGameObjectTypeName(this))).c_str();
+    return stringUtility::toString(std::wstring(*swg::clientObject::getGameObjectTypeName(this))).c_str();
 }
 
 swgptr ClientObject::getCreatureObject()

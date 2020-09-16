@@ -49,9 +49,5 @@ std::string wstring_to_string(const std::wstring& wstr)
     return str;
 }
 
-bool isEmpty(const char* input)
-{
-    return input != nullptr && !input[0];
-}
 
 }
