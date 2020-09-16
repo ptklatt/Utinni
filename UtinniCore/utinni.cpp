@@ -65,7 +65,7 @@ void main()
     ini.createUtinniSettings();
     ini.load(path + "ut.ini");
 
-    utinni::Client::setEditorMode(ini.getBool("UtinniCore", "enableEditorMode"));
+    utinni::Client::setEditorMode(ini.getBool("Editor", "enableEditorMode"));
     imgui_impl::enableInternalUi(ini.getBool("UtinniCore", "enableInternalUi"));
 
     // Adds hooks to functions inside the game

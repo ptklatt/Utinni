@@ -30,8 +30,6 @@ namespace utinni
 
         auto& cfg = getConfig();
 
-        utility::showMessageBoxEmpty();
-
         // Get the [Plugins] load order list from ut.ini
         int i = 0;
         while (true)

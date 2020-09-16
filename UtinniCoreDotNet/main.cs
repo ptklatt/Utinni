@@ -28,7 +28,7 @@ namespace UtinniCoreDotNet
                 GroundSceneCallbacks.Initialize();
                 ObjectCallbacks.Initialize();
 
-                if (UtinniCore.Utinni.utinni.GetConfig().GetBool("UtinniCore", "enableEditorMode"))
+                if (UtinniCore.Utinni.utinni.GetConfig().GetBool("Editor", "enableEditorMode"))
                 { 
                     Application.Run(new FormMain(pluginLoader));
                 }

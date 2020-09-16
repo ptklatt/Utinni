@@ -11,7 +11,6 @@ const static UtINI::Value utinniSettings[] = {
     { "Launcher", "swgClientName", "", UtINI::Value::vt_string },
 
     // UtinniCore settings
-    { "UtinniCore", "enableEditorMode", "false", UtINI::Value::vt_bool },
     { "UtinniCore", "enableInternalUi", "false", UtINI::Value::vt_bool },
     { "UtinniCore", "enableOfflineScenes", "false", UtINI::Value::vt_bool },
     { "UtinniCore", "useSwgOverrideCfg", "false", UtINI::Value::vt_bool },
@@ -20,6 +19,12 @@ const static UtINI::Value utinniSettings[] = {
     // Log settings
     { "Log", "writeClassName", "false", UtINI::Value::vt_bool },
     { "Log", "writeFunctionName", "false", UtINI::Value::vt_bool },
+
+    // Editor settings
+    { "Editor", "enableEditorMode", "false", UtINI::Value::vt_bool },
+    { "Editor", "defaultPluginPanel", "Main Controls", UtINI::Value::vt_string },
+    { "Editor", "autoOpenLogWindow", "false", UtINI::Value::vt_bool },
+
 };
 
 struct UtINI::Impl

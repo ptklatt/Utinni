@@ -31,14 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.pnlGame = new System.Windows.Forms.Panel();
             this.tsMain = new System.Windows.Forms.ToolStrip();
+            this.tsddbtnWindows = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiLog = new System.Windows.Forms.ToolStripMenuItem();
             this.tsbtnUndo = new System.Windows.Forms.ToolStripSplitButton();
             this.tsbtnRedo = new System.Windows.Forms.ToolStripSplitButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.tsddbtnWindows = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsbtnToggleUI = new System.Windows.Forms.ToolStripButton();
             this.cmbPanels = new System.Windows.Forms.ComboBox();
             this.pnlPlugins = new System.Windows.Forms.Panel();
-            this.tsmiLog = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMain.SuspendLayout();
             this.pnlPlugins.SuspendLayout();
             this.SuspendLayout();
@@ -55,17 +54,36 @@
             // 
             // tsMain
             // 
+            this.tsMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsddbtnWindows,
             this.tsbtnUndo,
             this.tsbtnRedo,
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.tsddbtnWindows});
+            this.tsbtnToggleUI});
             this.tsMain.Location = new System.Drawing.Point(0, 0);
             this.tsMain.Name = "tsMain";
+            this.tsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.tsMain.Size = new System.Drawing.Size(1207, 25);
             this.tsMain.TabIndex = 5;
             this.tsMain.Text = "toolStrip1";
+            // 
+            // tsddbtnWindows
+            // 
+            this.tsddbtnWindows.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsddbtnWindows.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiLog});
+            this.tsddbtnWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsddbtnWindows.Image")));
+            this.tsddbtnWindows.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddbtnWindows.Name = "tsddbtnWindows";
+            this.tsddbtnWindows.Size = new System.Drawing.Size(58, 22);
+            this.tsddbtnWindows.Text = "Open...";
+            // 
+            // tsmiLog
+            // 
+            this.tsmiLog.Name = "tsmiLog";
+            this.tsmiLog.Size = new System.Drawing.Size(94, 22);
+            this.tsmiLog.Text = "Log";
+            this.tsmiLog.Click += new System.EventHandler(this.tsmiLog_Click);
             // 
             // tsbtnUndo
             // 
@@ -91,36 +109,16 @@
             this.tsbtnRedo.ButtonClick += new System.EventHandler(this.tsbtnRedo_Click);
             this.tsbtnRedo.DropDownOpening += new System.EventHandler(this.tsbtnRedo_DropDownOpening);
             // 
-            // toolStripButton1
+            // tsbtnToggleUI
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(98, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(98, 22);
-            this.toolStripButton2.Text = "toolStripButton1";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
-            // tsddbtnWindows
-            // 
-            this.tsddbtnWindows.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsddbtnWindows.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiLog});
-            this.tsddbtnWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsddbtnWindows.Image")));
-            this.tsddbtnWindows.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsddbtnWindows.Name = "tsddbtnWindows";
-            this.tsddbtnWindows.Size = new System.Drawing.Size(58, 22);
-            this.tsddbtnWindows.Text = "Open...";
+            this.tsbtnToggleUI.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbtnToggleUI.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbtnToggleUI.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnToggleUI.Image")));
+            this.tsbtnToggleUI.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnToggleUI.Name = "tsbtnToggleUI";
+            this.tsbtnToggleUI.Size = new System.Drawing.Size(60, 22);
+            this.tsbtnToggleUI.Text = "Toggle UI";
+            this.tsbtnToggleUI.Click += new System.EventHandler(this.tsbtnToggleUI_Click);
             // 
             // cmbPanels
             // 
@@ -144,13 +142,6 @@
             this.pnlPlugins.Size = new System.Drawing.Size(446, 433);
             this.pnlPlugins.TabIndex = 7;
             // 
-            // tsmiLog
-            // 
-            this.tsmiLog.Name = "tsmiLog";
-            this.tsmiLog.Size = new System.Drawing.Size(180, 22);
-            this.tsmiLog.Text = "Log";
-            this.tsmiLog.Click += new System.EventHandler(this.tsmiLog_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,8 +152,7 @@
             this.Controls.Add(this.pnlGame);
             this.KeyPreview = true;
             this.Name = "FormMain";
-            this.Text = "FormMain";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
+            this.Text = "Utinni";
             this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.tsMain.ResumeLayout(false);
@@ -176,13 +166,12 @@
         #endregion
         private System.Windows.Forms.Panel pnlGame;
         private System.Windows.Forms.ToolStrip tsMain;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ComboBox cmbPanels;
         private System.Windows.Forms.Panel pnlPlugins;
         private System.Windows.Forms.ToolStripSplitButton tsbtnUndo;
         private System.Windows.Forms.ToolStripSplitButton tsbtnRedo;
         private System.Windows.Forms.ToolStripDropDownButton tsddbtnWindows;
         private System.Windows.Forms.ToolStripMenuItem tsmiLog;
+        private System.Windows.Forms.ToolStripButton tsbtnToggleUI;
     }
 }

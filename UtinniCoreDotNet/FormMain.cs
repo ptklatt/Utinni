@@ -83,6 +83,13 @@ namespace UtinniCoreDotNet
             formHotkeyManager.Load();
 
             InitializeEditorCallbacks(); // Initialize callbacks that are purely editor related
+
+            if (UtinniCore.Utinni.utinni.GetConfig().GetBool("Editor", "autoOpenLogWindow"))
+            {
+                OpenLogWindow();
+                this.BringToFront();
+                this.Focus();
+            }
         }
 
         private void FormMain_Resize(object sender, EventArgs e)
@@ -138,11 +145,6 @@ namespace UtinniCoreDotNet
             Cursor.Position = new Point(thisPos.X + 20, thisPos.Y + 20);
         }
 
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-        }
-
         private void tsbtnUndo_Click(object sender, EventArgs e)
         {
             undoRedoManager.Undo();
@@ -171,15 +173,6 @@ namespace UtinniCoreDotNet
             tsbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private int cmbPanelsPreviousIndex;
         private void cmbPanels_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -202,6 +195,9 @@ namespace UtinniCoreDotNet
             cmbPanels.Items.Add("Main Controls");
             defaultContainer.SuspendLayout();
 
+            string defaultPanelName = UtinniCore.Utinni.utinni.GetConfig().GetString("Editor", "defaultPluginPanel");
+            int defaultPanelIndex = 0;
+
             foreach (IEditorPlugin editorPlugin in editorPlugins)
             {
                 undoRedoManager.AddUndoCommand(editorPlugin);
@@ -223,7 +219,13 @@ namespace UtinniCoreDotNet
                     foreach (var panelContainer in editorPlugin.GetStandalonePanels())
                     {
                         subContainers.Add(panelContainer);
-                        cmbPanels.Items.Add(editorPlugin.Information.Name + " - " + panelContainer.Text);
+                        string cmbText = editorPlugin.Information.Name + " - " + panelContainer.Text;
+                        cmbPanels.Items.Add(cmbText);
+
+                        if (cmbText == defaultPanelName)
+                        {
+                            defaultPanelIndex = cmbPanels.Items.Count - 1;
+                        }
                     }
                 }
 
@@ -244,9 +246,10 @@ namespace UtinniCoreDotNet
             }
             defaultContainer.ResumeLayout();
 
-            cmbPanels.SelectedIndex = 0;
+
+            cmbPanels.SelectedIndex = defaultPanelIndex;
             cmbPanels.SelectedIndexChanged += cmbPanels_SelectedIndexChanged;
-            pnlPlugins.Controls.Add(defaultContainer);
+            pnlPlugins.Controls.Add(subContainers[defaultPanelIndex]);
 
             pnlPlugins.ResumeLayout();
 
@@ -286,6 +289,11 @@ namespace UtinniCoreDotNet
 
         private void tsmiLog_Click(object sender, EventArgs e)
         {
+            OpenLogWindow();
+        }
+
+        private void OpenLogWindow()
+        {
             // Check if the log is already open
             foreach (Form form in Application.OpenForms)
             {
@@ -299,6 +307,11 @@ namespace UtinniCoreDotNet
             // If not, create a new one
             FormLog formLog = new FormLog();
             formLog.Show();
+        }
+
+        private void tsbtnToggleUI_Click(object sender, EventArgs e)
+        {
+            ToggleFullWindowGame();
         }
     }
 }
