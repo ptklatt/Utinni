@@ -104,6 +104,16 @@ public:
     bool operator==(const char16_t* rhs) const;
     bool operator==(const char* rhs) const;
 
+    bool operator!=(const WString& rhs) const;
+    bool operator!=(const wchar_t* rhs) const;
+    bool operator!=(const char16_t* rhs) const;
+    bool operator!=(const char* rhs) const;
+
+    size_t size() const;
+    bool isEmpty() const;
+
+    std::string toString() const;
+
 private:
 
 

@@ -65,4 +65,47 @@ bool WString::operator==(const char* rhs) const
 {
     return compare<char>(rhs);
 }
+
+bool WString::operator!=(const WString& rhs) const
+{
+    return !compare<char16_t>(rhs.begin);
+}
+
+bool WString::operator!=(const wchar_t* rhs) const
+{
+    return !compare<wchar_t>(rhs);
+}
+
+bool WString::operator!=(const char16_t* rhs) const
+{
+    return !compare<char16_t>(rhs);
+}
+
+bool WString::operator!=(const char* rhs) const
+{
+    return !compare<char>(rhs);
+}
+
+size_t WString::size() const
+{
+    return end - begin;
+}
+
+bool WString::isEmpty() const
+{
+    return size() == 0;
+}
+
+std::string WString::toString() const
+{
+    if (isEmpty())
+    {
+        return std::string();
+    }
+
+    const int strSize = WideCharToMultiByte(CP_UTF8, 0, (LPCWCH)begin, (int)size(), nullptr, 0, nullptr, nullptr);
+    std::string result(strSize, 0);
+    WideCharToMultiByte(CP_UTF8, 0, (LPCWCH)begin, (int)size(), &result[0], strSize, nullptr, nullptr);
+    return result;
+}
 }

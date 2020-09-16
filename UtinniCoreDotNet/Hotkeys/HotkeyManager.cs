@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using UtinniCore.Utinni;
-using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet.Hotkeys
 {
@@ -40,7 +39,7 @@ namespace UtinniCoreDotNet.Hotkeys
         {
             foreach (Hotkey hotkey in Hotkeys)
             {
-                ini.AddSetting("Hotkeys", hotkey.Name, hotkey.GetKeyComboString(), UtINI.Value.Types.VtString); // new UtINI.Value("Hotkeys", hotkey.Name, hotkey.GetKeyComboString(), UtINI.Value.Types.VtString)
+                ini.AddSetting("Hotkeys", hotkey.Name, hotkey.GetKeyComboString(), UtINI.Value.Types.VtString);
             }
         }
 
