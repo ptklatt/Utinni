@@ -20,6 +20,11 @@ namespace UtinniCoreDotNet.UI.Forms
             UpdateListboxItems();
         }
 
+        private void FormLog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Log.RemoveOuputSinkCallback(OnOutputSinkCallback);
+        }
+
         private bool UpdateListboxItems() // Returns true if there is a count difference between the listbox and the log message buffer
         {
             int logMsgCount = UtinniCore.Utinni.Log.log.GetMessageBufferCount();
@@ -78,5 +83,6 @@ namespace UtinniCoreDotNet.UI.Forms
                 STAThread.Join();
             }
         }
+
     }
 }

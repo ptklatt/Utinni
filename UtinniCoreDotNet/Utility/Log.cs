@@ -99,6 +99,11 @@ namespace UtinniCoreDotNet.Utility
             outputSinkCallbacks.Add(call);
         }
 
+        public static void RemoveOuputSinkCallback(Action<string> call)
+        {
+            outputSinkCallbacks.Remove(call);
+        }
+
         private static void CallOutputSinkCallbacks(string msg)
         {
             foreach (Action<string> callback in outputSinkCallbacks)

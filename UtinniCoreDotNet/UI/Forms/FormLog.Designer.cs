@@ -53,6 +53,7 @@
             this.Controls.Add(this.lbLog);
             this.Name = "FormLog";
             this.Text = "Log";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormLog_FormClosing);
             this.Load += new System.EventHandler(this.FormLog_Load);
             this.ResumeLayout(false);
 
