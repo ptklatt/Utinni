@@ -77,6 +77,8 @@ void main()
     utinni::log::info("Loading C++ plugins");
     pluginManager.loadPlugins();
 
+    CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+
     utinni::log::info("Loading .NET plugins");
     // Load the clr and UtinniCoreDotNet
     clr::load();

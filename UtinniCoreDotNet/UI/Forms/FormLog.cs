@@ -71,16 +71,7 @@ namespace UtinniCoreDotNet.UI.Forms
                     sb.Append(selectedItem.ToString());
                 }
 
-                // There seems to be an issue with this form seeing the STAThread on main.cs,
-                // this is a workaround. ToDo try and figure out the issue in the future
-                Thread STAThread = new Thread(() =>
-                {
-                    Clipboard.SetText(sb.ToString());
-                });
-
-                STAThread.SetApartmentState(ApartmentState.STA);
-                STAThread.Start();
-                STAThread.Join();
+                Clipboard.SetText(sb.ToString());
             }
         }
 
