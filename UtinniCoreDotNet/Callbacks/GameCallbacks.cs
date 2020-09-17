@@ -47,6 +47,21 @@ namespace UtinniCoreDotNet.Callbacks
             mainLoopCallQueue.Enqueue(call);
         }
 
+        public static void RemoveInstallCallback(Action call)
+        {
+            installCallback.Remove(call);
+        }
+
+        public static void RemoveSetupSceneCall(Action call)
+        {
+            setupSceneCallback.Remove(call);
+        }
+
+        public static void RemoveCleanupSceneCall(Action call)
+        {
+            cleanupSceneCallback.Remove(call);
+        }
+
         private static void DequeueMainLoopCalls()
         {
             while (mainLoopCallQueue.Count > 0)

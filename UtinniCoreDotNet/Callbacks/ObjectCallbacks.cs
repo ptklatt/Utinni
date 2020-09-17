@@ -26,6 +26,11 @@ namespace UtinniCoreDotNet.Callbacks
             onTargetCallbacks.Add(call);
         }
 
+        public static void RemoveOnTargetCallback(Action call)
+        {
+            onTargetCallbacks.Remove(call);
+        }
+
         private static void DequeueOnTargetCalls(IntPtr pTargetObject)
         {
             while (onTargetCallQueue.Count > 0)

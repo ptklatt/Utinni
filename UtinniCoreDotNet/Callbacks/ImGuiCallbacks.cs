@@ -29,6 +29,16 @@ namespace UtinniCoreDotNet.Callbacks
             onRotationChangedCallbacks.Add(call);
         }
 
+        public static void RemoveOnPositionChangedCallback(Action call)
+        {
+            onPositionChangedCallbacks.Remove(call);
+        }
+
+        public static void RemoveOnRotationChangedCallback(Action call)
+        {
+            onRotationChangedCallbacks.Remove(call);
+        }
+
         private static void OnPositionChangedCallback()
         {
             foreach (Action callback in onPositionChangedCallbacks)
