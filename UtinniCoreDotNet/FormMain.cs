@@ -237,8 +237,7 @@ namespace UtinniCoreDotNet
                         ToolStripDropDownItem tsddItem = new ToolStripMenuItem(editorPlugin.Information.Name + " - " + form.GetName());
                         tsddItem.Click += (sender, args) =>
                         {
-                            Form newForm = form.Create();
-                            newForm.Show(); // ToDo instead of having a .Create function, do a Show? Could easily handle a check if it's already open then
+                            form.Create();
                         };
 
                         tsddbtnWindows.DropDownItems.Add(tsddItem);
