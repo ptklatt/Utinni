@@ -13,8 +13,8 @@ using pSetFarPlane = void(__thiscall*)(utinni::Camera* pThis, float farPlane);
 
 using pSetHorizontalFieldOfView = void(__thiscall*)(utinni::Camera* pThis, float fieldOfView);
 
-using pReverseProjectInViewportSpaceInt = const swg::math::Vector(__thiscall*)(utinni::Camera* pThis, int x, int y);
-using pReverseProjectInViewportSpaceFloat = const swg::math::Vector(__thiscall*)(utinni::Camera* pThis, float viewPortX, float viewPortY, float cameraZ);
+using pReverseProjectInViewportSpaceInt = swg::math::Vector*(__thiscall*)(utinni::Camera* pThis, math::Vector& result, int x, int y);
+using pReverseProjectInViewportSpaceFloat = swg::math::Vector*(__thiscall*)(utinni::Camera* pThis, math::Vector& result, float viewPortX, float viewPortY, float cameraZ);
 
 pGetViewportInt getViewportInt = (pGetViewportInt)0x00767DF0;
 pGetViewportFloat getViewportFloat = (pGetViewportFloat)0x00767E40;
@@ -73,12 +73,14 @@ void Camera::setHorizontalFieldOfView(float fieldOfView)
 
 swg::math::Vector Camera::reverseProjectInViewportSpace(int x, int y)
 {
-    return swg::camera::reverseProjectInViewportSpaceInt(this, x, y);
+    swg::math::Vector tmp;
+    return *swg::camera::reverseProjectInViewportSpaceInt(this, tmp, x, y);
 }
 
 swg::math::Vector Camera::reverseProjectInViewportSpace(float viewPortX, float viewPortY, float cameraZ)
 {
-    return swg::camera::reverseProjectInViewportSpaceFloat(this, viewPortX, viewPortY, cameraZ);
+    swg::math::Vector tmp;
+    return *swg::camera::reverseProjectInViewportSpaceFloat(this, tmp, viewPortX, viewPortY, cameraZ);;
 }
 
 void RenderWorldCamera::addExcludedObject(Object* obj)
