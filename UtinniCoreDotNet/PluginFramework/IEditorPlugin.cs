@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Windows.Forms;
 using UtinniCoreDotNet.Hotkeys;
 using UtinniCoreDotNet.UI.Controls;
+using UtinniCoreDotNet.UI.Forms;
 using UtinniCoreDotNet.UndoRedo;
 
 namespace UtinniCoreDotNet.PluginFramework
@@ -21,7 +21,7 @@ namespace UtinniCoreDotNet.PluginFramework
 
         HotkeyManager GetHotkeyManager();
 
-        List<Form> GetForms();
+        List<IEditorForm> GetForms();
         List<SubPanelContainer> GetStandalonePanels();
         List<SubPanel> GetSubPanels();
     }
