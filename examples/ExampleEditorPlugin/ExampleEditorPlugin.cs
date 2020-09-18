@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using UtinniCoreDotNet.Hotkeys;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI.Controls;
+using UtinniCoreDotNet.UI.Forms;
 using UtinniCoreDotNet.Utility;
 
 namespace ExampleEditorPlugin
@@ -36,7 +36,7 @@ namespace ExampleEditorPlugin
 
         public HotkeyManager GetHotkeyManager() { return null; }
 
-        public List<Form> GetForms() { return null; }
+        public List<IEditorForm> GetForms() { return null; }
 
         public List<SubPanelContainer> GetStandalonePanels() { return null; }
 

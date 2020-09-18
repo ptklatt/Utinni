@@ -232,12 +232,13 @@ namespace UtinniCoreDotNet
                 var forms = editorPlugin.GetForms();
                 if (forms != null)
                 {
-                    foreach (Form form in forms)
+                    foreach (IEditorForm form in forms)
                     {
-                        ToolStripDropDownItem tsddItem = new ToolStripMenuItem(editorPlugin.Information.Name + " - " + form.Text);
+                        ToolStripDropDownItem tsddItem = new ToolStripMenuItem(editorPlugin.Information.Name + " - " + form.GetName());
                         tsddItem.Click += (sender, args) =>
                         {
-                            form.Show(); // ToDo see if there needs to be more logic than just show
+                            Form newForm = form.Create();
+                            newForm.Show(); // ToDo instead of having a .Create function, do a Show? Could easily handle a check if it's already open then
                         };
 
                         tsddbtnWindows.DropDownItems.Add(tsddItem);

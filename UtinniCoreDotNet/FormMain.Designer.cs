@@ -81,7 +81,7 @@
             // tsmiLog
             // 
             this.tsmiLog.Name = "tsmiLog";
-            this.tsmiLog.Size = new System.Drawing.Size(94, 22);
+            this.tsmiLog.Size = new System.Drawing.Size(180, 22);
             this.tsmiLog.Text = "Log";
             this.tsmiLog.Click += new System.EventHandler(this.tsmiLog_Click);
             // 

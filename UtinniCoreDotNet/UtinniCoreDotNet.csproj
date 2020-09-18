@@ -74,6 +74,7 @@
     <Compile Include="Generated\UtinniCore.cs" />
     <Compile Include="Hotkeys\Hotkey.cs" />
     <Compile Include="Hotkeys\HotkeyManager.cs" />
+    <Compile Include="UI\Forms\IEditorForm.cs" />
     <Compile Include="UI\Controls\SubPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
