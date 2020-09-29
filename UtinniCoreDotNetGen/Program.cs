@@ -50,6 +50,7 @@ namespace UtinniCoreDotNetGen
                 module.Headers.Add("swg\\graphics\\graphics.h");
                 module.Headers.Add("swg\\misc\\network.h");
                 module.Headers.Add("swg\\misc\\swg_math.h");
+                module.Headers.Add("swg\\object\\client_object.h");
                 module.Headers.Add("swg\\object\\creature_object.h");
                 module.Headers.Add("swg\\object\\player_object.h");
                 module.Headers.Add("swg\\scene\\ground_scene.h");

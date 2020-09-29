@@ -5,7 +5,6 @@
 
 namespace utinni
 {
-
 class UTINNI_API ClientObject : public Object
 {
 public:
@@ -30,7 +29,7 @@ public:
 	 AutoDeltaVariable<int> volume;
 	 //uint32_t unk18;
 	 //uint32_t unk19;
-	 AutoDeltaVariableCallback<std::wstring> name;
+	 AutoDeltaVariableCallback<const char*> name;
 	 AutoDeltaVariable<StringId> nameStringID;
 	 AutoDeltaVariable<StringId> descriptionStringID;
 	 AutoDeltaVariableCallback<float> complexity;
@@ -39,7 +38,7 @@ public:
 	 AutoDeltaVariableCallback<int> bankBalance;
 	 bool isClientcached;
 	 int uniqueID;
-	 std::vector<Object*> nearbyObjects; // unsure if correct
+	 //std::vector<Object*> nearbyObjects; // unsure if correct ToDo implement proper
 	 float unk21;
 	 bool unk22;
 

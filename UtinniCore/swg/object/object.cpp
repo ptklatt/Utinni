@@ -146,12 +146,12 @@ pGetTemplateFilename getTemplateFilename = (pGetTemplateFilename)0x00B23C40;
 
 namespace utinni
 {
-utinni::SharedObjectTemplate* ObjectTemplateList::getObjectTemplateByFilename(const char* filename)
+SharedObjectTemplate* ObjectTemplateList::getObjectTemplateByFilename(const char* filename)
 {
     return swg::objectTemplateList::getObjectTemplateByFilename(filename);
 }
 
-utinni::SharedObjectTemplate* ObjectTemplateList::getObjectTemplateByIff(swgptr iff)
+SharedObjectTemplate* ObjectTemplateList::getObjectTemplateByIff(swgptr iff)
 {
     return swg::objectTemplateList::getObjectTemplateByIff(iff);
 }
