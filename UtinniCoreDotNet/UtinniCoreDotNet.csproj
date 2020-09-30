@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI\GameDragDropEventHandlers.cs" />
     <Compile Include="Callbacks\GameCallbacks.cs" />
     <Compile Include="Callbacks\GroundSceneCallbacks.cs" />
     <Compile Include="Callbacks\ImGuiCallbacks.cs" />

@@ -81,7 +81,7 @@
             // tsmiLog
             // 
             this.tsmiLog.Name = "tsmiLog";
-            this.tsmiLog.Size = new System.Drawing.Size(180, 22);
+            this.tsmiLog.Size = new System.Drawing.Size(94, 22);
             this.tsmiLog.Text = "Log";
             this.tsmiLog.Click += new System.EventHandler(this.tsmiLog_Click);
             // 
@@ -133,6 +133,8 @@
             // 
             // pnlPlugins
             // 
+            this.pnlPlugins.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlPlugins.AutoScroll = true;
             this.pnlPlugins.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlPlugins.BackColor = System.Drawing.SystemColors.Control;

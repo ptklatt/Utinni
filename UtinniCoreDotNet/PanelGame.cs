@@ -6,6 +6,7 @@ using UtinniCore.ImguiImpl;
 using UtinniCore.Utinni;
 using UtinniCoreDotNet.Hotkeys;
 using UtinniCoreDotNet.PluginFramework;
+using UtinniCoreDotNet.UI;
 
 namespace UtinniCoreDotNet
 {
@@ -28,7 +29,8 @@ namespace UtinniCoreDotNet
 
         public PanelGame(PluginLoader pluginLoader)
         {
-            Dock = DockStyle.Fill;
+            base.Dock = DockStyle.Fill;
+            base.AllowDrop = true;
 
             Disposed += PanelGame_Disposed;
 
@@ -37,6 +39,8 @@ namespace UtinniCoreDotNet
             MouseMove += PanelGame_MouseMove;
 
             KeyDown += PanelGame_KeyDown;
+
+            GameDragDropEventHandlers.Initialize(this);
 
             Client.SetHwnd(Handle);
             Client.SetHInstance(Process.GetCurrentProcess().Handle);

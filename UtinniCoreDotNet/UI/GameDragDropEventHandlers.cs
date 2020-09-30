@@ -1,0 +1,18 @@
+﻿using System.Windows.Forms;
+
+namespace UtinniCoreDotNet.UI
+{
+    public static class GameDragDropEventHandlers
+    {
+        public static DragEventHandler OnDragDrop;
+        public static DragEventHandler OnDragEnter;
+        public static DragEventHandler OnDragOver;
+
+        public static void Initialize(PanelGame panelGame)
+        {
+            panelGame.DragDrop += OnDragDrop;
+            panelGame.DragEnter += OnDragEnter;
+            panelGame.DragOver += OnDragOver;
+        }
+    }
+}
