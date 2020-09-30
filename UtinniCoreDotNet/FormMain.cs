@@ -79,6 +79,7 @@ namespace UtinniCoreDotNet
             tsddRedo = new UndoRedoToolStripDropDown(this, "Redo", tsbtnRedo, undoRedoManager.Redo);
             formHotkeyManager.Hotkeys.Add(new Hotkey("Undo", "Control + Z", undoRedoManager.Undo, false));
             formHotkeyManager.Hotkeys.Add(new Hotkey("Redo", "Control + Y", undoRedoManager.Redo, false));
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle UI", "Shift + Oemtilde", ToggleFullWindowGame, false));
             formHotkeyManager.CreateSettings();
             formHotkeyManager.Load();
 

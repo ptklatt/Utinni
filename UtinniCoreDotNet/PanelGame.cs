@@ -7,6 +7,7 @@ using UtinniCore.Utinni;
 using UtinniCoreDotNet.Hotkeys;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI;
+using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet
 {
@@ -53,11 +54,13 @@ namespace UtinniCoreDotNet
             Game.Quit();
         }
 
+        int cursorHideCount; // ToDo Implement proper, hacky workaround when a single Cursor.Show() doesn't show the Cursor
         private void PanelGame_MouseEnter(object sender, EventArgs e)
         {
             isCursorVisible = false;
             Client.ResumeInput();
             Cursor.Hide();
+            cursorHideCount++;
             HasFocus = true;
         }
 
@@ -65,7 +68,13 @@ namespace UtinniCoreDotNet
         {
             isCursorVisible = true;
             Client.SuspendInput();
-            Cursor.Show();
+
+            for (int i = 0; i < cursorHideCount; i++)
+            {
+                Cursor.Show();
+            }
+            cursorHideCount = 0;
+
             HasFocus = false;
         }
 
