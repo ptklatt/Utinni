@@ -237,7 +237,7 @@ namespace UtinniCoreDotNet
                         ToolStripDropDownItem tsddItem = new ToolStripMenuItem(editorPlugin.Information.Name + " - " + form.GetName());
                         tsddItem.Click += (sender, args) =>
                         {
-                            form.Create();
+                            form.Create(editorPlugin);
                         };
 
                         tsddbtnWindows.DropDownItems.Add(tsddItem);
