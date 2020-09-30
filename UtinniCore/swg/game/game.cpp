@@ -1,10 +1,12 @@
 #include "game.h"
 #include "utinni.h";
+#include <imgui/imgui_user.h>
 #include "swg/client/client.h"
 #include "swg/misc/config.h"
-#include "swg/object/object.h"
 #include "swg/scene/ground_scene.h"
 #include "swg/scene/world_snapshot.h"
+#include "swg/object/client_object.h"
+#include "swg/object/object.h"
 #include "swg/ui/imgui_impl.h"
 
 namespace swg::game
@@ -217,7 +219,9 @@ swgptr Game::getPlayerLookAtTargetObjectNetworkId()
     const Object* playerObj = getPlayerCreatureObject();
 
     if (!playerObj)
+    {
         return 0;
+    }
 
     return (swgptr)playerObj + 1432;
 }
@@ -227,7 +231,9 @@ Object* Game::getPlayerLookAtTargetObject()
     const swgptr lookAtId = getPlayerLookAtTargetObjectNetworkId();
 
     if (lookAtId == 0)
+    {
         return nullptr;
+    }
 
     return Object::getObjectById(lookAtId);
 }
@@ -241,7 +247,5 @@ const Camera* Game::getConstCamera()
 {
     return swg::game::getConstCamera();
 }
-
-
 
 }

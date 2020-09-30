@@ -6,6 +6,7 @@
 namespace utinni::cuiHud
 {
 UTINNI_API const swg::math::Vector& getCursorWorldPosition();
+UTINNI_API swg::math::Vector collideCursorWithWorld(int x, int y);
 UTINNI_API void patchAllowTargetEverything(bool value);
 
 void detour();

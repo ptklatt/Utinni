@@ -35,5 +35,6 @@ public:
     static Camera* getCamera();
     static const Camera* getConstCamera();
 
+
 };
 }

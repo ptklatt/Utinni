@@ -53,16 +53,20 @@ GroundScene* GroundScene::ctor(const char* terrainFilename, const char* avatarOb
 
 std::string GroundScene::getName()
 {
-    std::string terrainPath = Terrain::get()->getFilename();
+    const std::string terrainPath = Terrain::get()->getFilename();
 
     if (terrainPath.empty())
+    {
         return "";
+    }
 
     int i = terrainPath.find_first_of('/') + 1;
     const int length = terrainPath.size() - i - 5;
 
     if (length < 0)
+    {
         return "";
+    }
 
     return terrainPath.substr(i, length);
 }
@@ -100,12 +104,13 @@ void GroundScene::addUpdateLoopCallback(void(*func)(GroundScene* pThis, float el
 
 void __fastcall hkUpdateLoop(utinni::GroundScene* pThis, DWORD EDX, float time)
 {
+  
+    swg::groundScene::update(pThis, time);
     for (const auto& func : updateLoopCallbacks)
     {
         func(pThis, time);
     }
 
-    swg::groundScene::update(pThis, time);
 }
 
 void GroundScene::detour()
