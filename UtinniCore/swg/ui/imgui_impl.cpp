@@ -3,14 +3,14 @@
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx9.h"
 #include "ImGuizmo/ImGuizmo.h"
+
 #include <vector>
+
 #include "swg/graphics/graphics.h"
 #include "swg/misc/direct_input.h"
 #include "swg/scene/ground_scene.h"
 #include "swg/misc/network.h"
 #include "command_parser.h"
-#include "cui_manager.h"
-#include "cui_chat_window.h"
 
 #pragma comment(lib, "imgui/lib/imgui.lib")
 
@@ -217,6 +217,9 @@ bool gizmoHasMouseHover = false;
 
 Object* object = nullptr;
 
+static ImGuizmo::OPERATION operationMode(ImGuizmo::TRANSLATE);
+static bool useSnap = false;
+
 void enable(Object* obj)
 {
 	 object = obj;
@@ -259,22 +262,33 @@ void addOnRotationChangedCallback(void(*func)())
 	 onGizmoRotationChangedCallbacks.emplace_back(func);
 }
 
+void toggleOperationMode()
+{
+    if (operationMode != ImGuizmo::TRANSLATE)
+    {
+        operationMode = ImGuizmo::TRANSLATE;
+    }
+	 else
+	 {
+        operationMode = ImGuizmo::ROTATE;
+    }
+}
+
+void toggleSnap()
+{
+	 useSnap = !useSnap;
+}
+
 void editTransform(const float* cameraView, float* cameraProjection, float* matrix)
 {
-	 static ImGuizmo::OPERATION crrentGizmoOperation(ImGuizmo::TRANSLATE);
 	 static ImGuizmo::MODE currentGizmoMode(ImGuizmo::LOCAL);
-	 static bool useSnap = false;
 	 static float snap[3] = { 1.f, 1.f, 1.f };
 	 static float bounds[] = { -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f };
 	 static float boundsSnap[] = { 0.1f, 0.1f, 0.1f };
 	 static bool boundSizing = false;
 	 static bool boundSizingSnap = false;
 
-	 if (ImGui::IsKeyPressed(0x51)) { crrentGizmoOperation = ImGuizmo::TRANSLATE; } // q
-	 if (ImGui::IsKeyPressed(0x45)) { crrentGizmoOperation = ImGuizmo::ROTATE; } // e
-	 if (ImGui::IsKeyPressed(0x5A)) { useSnap = !useSnap; } // z
-
-	 ImGuizmo::Manipulate(cameraView, cameraProjection, crrentGizmoOperation, currentGizmoMode, matrix, nullptr, useSnap ? &snap[0] : nullptr, boundSizing ? bounds : nullptr, boundSizingSnap ? boundsSnap : nullptr);
+	 ImGuizmo::Manipulate(cameraView, cameraProjection, operationMode, currentGizmoMode, matrix, nullptr, useSnap ? &snap[0] : nullptr, boundSizing ? bounds : nullptr, boundSizingSnap ? boundsSnap : nullptr);
 }
 
 void draw()

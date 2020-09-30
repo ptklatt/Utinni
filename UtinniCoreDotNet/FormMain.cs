@@ -80,6 +80,11 @@ namespace UtinniCoreDotNet
             formHotkeyManager.Hotkeys.Add(new Hotkey("Undo", "Control + Z", undoRedoManager.Undo, false));
             formHotkeyManager.Hotkeys.Add(new Hotkey("Redo", "Control + Y", undoRedoManager.Redo, false));
             formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle UI", "Shift + Oemtilde", ToggleFullWindowGame, false));
+
+            // ToDo move these elsewhere
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle Gizmo Operation Mode", "Shift, Control + Q", ToggleGizmoOperationMode, false));
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle Gizmo Snap", "Shift, Control + E", ToggleGizmoSnap, false));
+
             formHotkeyManager.CreateSettings();
             formHotkeyManager.Load();
 
@@ -313,6 +318,16 @@ namespace UtinniCoreDotNet
         private void tsbtnToggleUI_Click(object sender, EventArgs e)
         {
             ToggleFullWindowGame();
+        }
+
+        private void ToggleGizmoOperationMode()
+        {
+            UtinniCore.ImguiGizmo.imgui_impl.ToggleOperationMode();
+        }
+
+        private void ToggleGizmoSnap()
+        {
+            UtinniCore.ImguiGizmo.imgui_impl.ToggleSnap();
         }
     }
 }
