@@ -4,6 +4,7 @@
 #include "swg/camera/camera.h"
 #include "swg/scene/client_world.h"
 #include "swg/scene/ground_scene.h"
+#include "swg/game/game.h"
 
 namespace swg::cuiHud
 {
@@ -36,9 +37,29 @@ bool __fastcall hkActionPerformAction(swgptr pThis, DWORD EDX, DWORD val1, DWORD
     return swg::cuiHud::actionPerformAction(pThis, val1, val2);
 }
 
+bool collideCursorWithWorld(int x, int y, swg::math::Vector& result, Object* excludeObject)
+{
+    Camera* camera = GroundScene::get()->getCurrentCamera();
+    swg::math::Vector worldStart = camera->getTransform_o2w()->getPosition();
+    swg::math::Vector viewDirection = camera->getTransform_o2w()->rotate_l2p(camera->reverseProjectInViewportSpace(x - camera->viewportX, y - camera->viewportY));
+    viewDirection.normalize();
+
+    const float viewDistance = memory::read<float>(0x19488C8); // 0x19488C8 = Static location of view distance
+    swg::math::Vector worldEnd = worldStart + viewDirection * viewDistance;
+
+    static constexpr uint16_t flags = (1 | 128 | 4096); // terrain | child objects | disable portal crossing
+    CollisionInfo collisionResults;
+    auto tit = camera->getParentCell();
+    if (clientWorld::collide(tit, &worldStart, &worldEnd, collisionResults, flags, excludeObject))
+    {
+        result = swg::math::Vector(collisionResults.point);
+        return true;
+    }
+    return false;
+}
 
 static swg::math::Vector cursorWorldPos;
-Object* __cdecl hkGetTarget(utinni::Camera* pCamera, swg::math::Vector* worldStart, swg::math::Vector* worldEnd, Object* obj)
+Object* __cdecl hkGetTarget(Camera* pCamera, swg::math::Vector* worldStart, swg::math::Vector* worldEnd, Object* obj)
 {
     static constexpr uint16_t flags = (1 | 128 | 4096); // terrain | child objects | disable portal crossing
     CollisionInfo collisionResults;
@@ -46,7 +67,6 @@ Object* __cdecl hkGetTarget(utinni::Camera* pCamera, swg::math::Vector* worldSta
     {
         cursorWorldPos = swg::math::Vector(collisionResults.point);
     }
-
     return swg::cuiHud::getTarget(pCamera, worldStart, worldEnd, obj);
 }
 
@@ -82,26 +102,6 @@ __declspec(naked) void midUpdate()
 
 const swg::math::Vector& getCursorWorldPosition()
 {
-    return cursorWorldPos;
-}
-
-swg::math::Vector collideCursorWithWorld(int x, int y)
-{
-    Camera* camera = GroundScene::get()->getCurrentCamera();
-    swg::math::Vector worldStart = camera->getTransform()->getPosition();
-    swg::math::Vector viewDirection = camera->getTransform_o2w()->rotate_l2p(camera->reverseProjectInViewportSpace(x - camera->viewportX, y - camera->viewportY));
-    viewDirection.normalize();
-
-    const float viewDistance = memory::read<float>(0x19488C8); // 0x19488C8 = Static location of view distance
-    swg::math::Vector worldEnd = worldStart + viewDirection * viewDistance;
-
-    Object* obj = nullptr;
-    static constexpr uint16_t flags = (1 | 128 | 4096); // terrain | child objects | disable portal crossing
-    CollisionInfo collisionResults;
-    if (clientWorld::collide(camera->getParentCell(), &worldStart, &worldEnd, collisionResults, flags, obj))
-    {
-        cursorWorldPos = swg::math::Vector(collisionResults.point);
-    }
     return cursorWorldPos;
 }
 
