@@ -36,7 +36,10 @@ namespace UtinniCoreDotNet.Callbacks
             while (onTargetCallQueue.Count > 0)
             {
                 var func = onTargetCallQueue.Dequeue();
-                func(); // ToDo fix being able to set IntPtr to object, etc, to be able to pass it
+                if (func != null)
+                {
+                    func(); // ToDo fix being able to set IntPtr to object, etc, to be able to pass it
+                }
             }
 
             foreach (Action callback in onTargetCallbacks)

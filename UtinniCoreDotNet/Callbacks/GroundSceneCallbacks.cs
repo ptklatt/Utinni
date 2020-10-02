@@ -42,7 +42,10 @@ namespace UtinniCoreDotNet.Callbacks
             while (updateLoopCallQueue.Count > 0)
             {
                 var func = updateLoopCallQueue.Dequeue();
-                func();
+                if (func != null)
+                {
+                    func();
+                }
             }
         }
 
@@ -51,7 +54,10 @@ namespace UtinniCoreDotNet.Callbacks
             while (preDrawLoopCallQueue.Count > 0)
             {
                 var func = preDrawLoopCallQueue.Dequeue();
-                func();
+                if (func != null)
+                {
+                    func();
+                }
             }
         }
 
@@ -60,7 +66,10 @@ namespace UtinniCoreDotNet.Callbacks
             while (preDrawLoopCallQueue.Count > 0)
             {
                 var func = preDrawLoopCallQueue.Dequeue();
-                func();
+                if (func != null)
+                {
+                    func();
+                }
             }
         }
     }

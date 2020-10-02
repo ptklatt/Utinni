@@ -67,7 +67,10 @@ namespace UtinniCoreDotNet.Callbacks
             while (mainLoopCallQueue.Count > 0)
             {
                 var func = mainLoopCallQueue.Dequeue();
-                func();
+                if (func != null)
+                {
+                    func();
+                }
             }
         }
 
