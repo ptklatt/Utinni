@@ -48,6 +48,7 @@ public:
 class UTINNI_API CellProperty
 {
 public:
+    const char* getName();
     swgptr getParentCell();
     static void setPortalTransitions(bool enabled);
 };

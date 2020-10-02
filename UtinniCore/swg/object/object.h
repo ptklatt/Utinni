@@ -93,6 +93,7 @@ public:
     void addToWorld();
     void removeFromWorld();
     void setAppearance(Appearance* appearance);
+
     CellProperty* getParentCell();
     void addNotification(swgptr notification, bool allowWhenInWorld);
 

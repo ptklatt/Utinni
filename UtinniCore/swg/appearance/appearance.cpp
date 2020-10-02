@@ -56,6 +56,11 @@ Appearance* Appearance::create(const char* filename)
     return swg::appearance::createAppearance(filename);
 }
 
+const char* CellProperty::getName()
+{
+    return memory::read<const char*>((swgptr)this + 0x38); // ToDo do a proper struct and grab it from there
+}
+
 swgptr CellProperty::getParentCell()
 {
     return swg::cellProperty::getParentCell(this);

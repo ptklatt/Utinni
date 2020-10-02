@@ -90,7 +90,6 @@ using pSetAppearanceByFilename = void(__thiscall*)(utinni::Object* pThis, const 
 
 using pAddNotification = void(__thiscall*)(utinni::Object* pThis, swgptr notification, bool allowInWorld);
 
-
 using pGetParentCell = utinni::CellProperty* (__thiscall*)(utinni::Object* pThis);
 
 using pSetObjectToWorldDirty = void(__thiscall*)(utinni::Object* pThis, bool isDirty);
@@ -131,7 +130,6 @@ pSetAppearanceByFilename setAppearanceByFilename = (pSetAppearanceByFilename)0x0
 
 pAddNotification addNotification = (pAddNotification)0x00B225A0;
 
-
 pGetParentCell getParentCell = (pGetParentCell)0x00B22C00;
 
 pSetObjectToWorldDirty setObjectToWorldDirty = (pSetObjectToWorldDirty)0x00B24CE0;
@@ -142,7 +140,6 @@ pGetClientObject getClientObject = (pGetClientObject)0x00554BC0;
 
 pGetTemplateFilename getTemplateFilename = (pGetTemplateFilename)0x00B23C40;
 }
-
 
 namespace utinni
 {
@@ -211,12 +208,14 @@ Object* Object::ctor()
     return swg::object::ctor((Object*)allocate(160));
 }
 
-Object* Object::getObjectById(swgptr pCachedNetworkId)
+Object* Object::getObjectById(swgptr cachedNetworkId)
 {
-    if (pCachedNetworkId == 0)
+    if (cachedNetworkId == 0)
+    {
         return nullptr;
+    }
 
-    return Network::getCachedObjectById(pCachedNetworkId);
+    return Network::getCachedObjectById(cachedNetworkId);
 }
 
 void Object::remove()

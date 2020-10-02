@@ -47,7 +47,7 @@ public:
 	 void endBaselines();
 	 int getGameObjectType();
 	 const char* getGameObjectTypeStringIdKey();
-	 const char* getGameObjectTypeName();
+	 std::string getGameObjectTypeName();
 
 	 swgptr getCreatureObject();
 	 swgptr getShipObject();

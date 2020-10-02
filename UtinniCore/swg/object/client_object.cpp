@@ -68,9 +68,9 @@ const char* ClientObject::getGameObjectTypeStringIdKey()
     return *swg::clientObject::getGameObjectTypeStringIdKey(this);
 }
 
-const char* ClientObject::getGameObjectTypeName()
+std::string ClientObject::getGameObjectTypeName()
 {
-    return stringUtility::toString(std::wstring(*swg::clientObject::getGameObjectTypeName(this))).c_str();
+    return std::string(stringUtility::toString(std::wstring(*swg::clientObject::getGameObjectTypeName(this))));
 }
 
 swgptr ClientObject::getCreatureObject()
