@@ -56,9 +56,24 @@ Appearance* Appearance::create(const char* filename)
     return swg::appearance::createAppearance(filename);
 }
 
-const char* CellProperty::getName()
+ClientObject* CellProperty::getParentObject() const
 {
-    return memory::read<const char*>((swgptr)this + 0x38); // ToDo do a proper struct and grab it from there
+    return parentObject;
+}
+
+Object* CellProperty::getAppearanceObject() const
+{
+    return appearanceObject;
+}
+
+int CellProperty::getIndex() const
+{
+    return index;
+}
+
+const char* CellProperty::getName() const
+{
+    return name;
 }
 
 swgptr CellProperty::getParentCell()

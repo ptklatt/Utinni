@@ -149,6 +149,11 @@ void GroundScene::toggleFreeCamera() // ToDo Shitty, do proper
     swg::groundScene::changeCamera(this, cameraMode, 0);
 }
 
+void GroundScene::changeCameraMode(int cameraMode)
+{
+    swg::groundScene::changeCamera(this, (Camera::Modes) cameraMode, 0);
+}
+
 void GroundScene::reloadTerrain()
 {
     swg::groundScene::reloadTerrain(this);

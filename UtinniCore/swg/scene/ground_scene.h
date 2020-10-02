@@ -63,6 +63,7 @@ public:
 
     Camera* getCurrentCamera();
     void toggleFreeCamera();
+    void GroundScene::changeCameraMode(int cameraMode);
 
     void reloadTerrain();
 
