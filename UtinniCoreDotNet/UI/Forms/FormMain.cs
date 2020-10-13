@@ -6,22 +6,24 @@ using System.Windows.Forms;
 using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.Hotkeys;
 using UtinniCoreDotNet.PluginFramework;
+using UtinniCoreDotNet.Properties;
 using UtinniCoreDotNet.UI.Controls;
-using UtinniCoreDotNet.UI.Forms;
+using UtinniCoreDotNet.UI.Theme;
 using UtinniCoreDotNet.UndoRedo;
 using UtinniCoreDotNet.Utility;
 using Point = System.Drawing.Point;
 
-namespace UtinniCoreDotNet
+namespace UtinniCoreDotNet.UI.Forms
 {
-    public partial class FormMain : Form
+    public partial class FormMain : UtinniForm
     {
         private readonly PanelGame game;
         private readonly UndoRedoManager undoRedoManager;
         private readonly HotkeyManager formHotkeyManager = new HotkeyManager(true);
 
-        private readonly UndoRedoToolStripDropDown tsddUndo;
-        private readonly UndoRedoToolStripDropDown tsddRedo;
+        private readonly UtinniTitlebarDropDownButton tbddWindows;
+        private readonly UndoRedoTitlebarButton tbbtnUndo;
+        private readonly UndoRedoTitlebarButton tbbtnRedo;
 
         private readonly List<IEditorPlugin> editorPlugins = new List<IEditorPlugin>();
         private readonly List<SubPanelContainer> subContainers = new List<SubPanelContainer>();
@@ -64,13 +66,26 @@ namespace UtinniCoreDotNet
                 }
             }
 
-            CreatePluginControls();
-
             game = new PanelGame(pluginLoader);
             pnlGame.Controls.Add(game);
 
-            tsddUndo = new UndoRedoToolStripDropDown(this, "Undo", tsbtnUndo, undoRedoManager.Undo);
-            tsddRedo = new UndoRedoToolStripDropDown(this, "Redo", tsbtnRedo, undoRedoManager.Redo);
+            pnlPlugins.BackColor = Colors.Primary();
+            pnlPlugins.ForeColor = Colors.Font();
+
+            tbddWindows = new UtinniTitlebarDropDownButton("Open...");
+
+            CreatePluginControls();
+
+            tbbtnUndo = new UndoRedoTitlebarButton(this, "Undo", Resources.undo, undoRedoManager.Undo);
+            tbbtnRedo = new UndoRedoTitlebarButton(this, "Redo", Resources.redo, undoRedoManager.Redo);
+
+            tbbtnUndo.Click += TbbtnUndo_Click;
+            tbbtnRedo.Click += TbbtnRedo_Click;
+
+            LeftTitleBarButtons.Add(tbddWindows);
+            LeftTitleBarButtons.Add(tbbtnUndo);
+            LeftTitleBarButtons.Add(tbbtnRedo);
+
             formHotkeyManager.Hotkeys.Add(new Hotkey("Undo", "Control + Z", undoRedoManager.Undo, false));
             formHotkeyManager.Hotkeys.Add(new Hotkey("Redo", "Control + Y", undoRedoManager.Redo, false));
             formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle UI", "Shift + Oemtilde", ToggleFullWindowGame, false));
@@ -145,32 +160,46 @@ namespace UtinniCoreDotNet
             Cursor.Position = new Point(thisPos.X + 20, thisPos.Y + 20);
         }
 
-        private void tsbtnUndo_Click(object sender, EventArgs e)
+        private void TbbtnUndo_Click(object sender, EventArgs e)
         {
-            undoRedoManager.Undo();
+            if (tbbtnUndo.IsDropDownClickAreaPressed)
+            {
+                tbbtnUndo.DropDown.Display(undoRedoManager.UndoCommands);
+            }
+            else
+            {
+                undoRedoManager.Undo();
+            }
         }
 
-        private void tsbtnRedo_Click(object sender, EventArgs e)
+        private void TbbtnRedo_Click(object sender, EventArgs e)
         {
-            undoRedoManager.Redo();
+            if (tbbtnRedo.IsDropDownClickAreaPressed)
+            {
+                tbbtnRedo.DropDown.Display(undoRedoManager.RedoCommands);
+            }
+            else
+            {
+                undoRedoManager.Redo();
+            }
         }
 
         private void OnAddUndoRedoCommand()
         {
-            tsbtnUndo.Enabled = undoRedoManager.UndoCommands.Count > 0;
-            tsbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
+            tbbtnUndo.Enabled = undoRedoManager.UndoCommands.Count > 0;
+            tbbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
         }
 
         private void OnUndo()
         {
-            tsbtnUndo.Enabled = undoRedoManager.UndoCommands.Count > 0;
-            tsbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
+            tbbtnUndo.Enabled = undoRedoManager.UndoCommands.Count > 0;
+            tbbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
         }
 
         private void OnRedo()
         {
-            tsbtnUndo.Enabled = undoRedoManager.UndoCommands.Count > 0;
-            tsbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
+            tbbtnUndo.Enabled = undoRedoManager.UndoCommands.Count > 0;
+            tbbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
         }
 
         private int cmbPanelsPreviousIndex;
@@ -240,19 +269,17 @@ namespace UtinniCoreDotNet
                             form.Create(editorPlugin);
                         };
 
-                        tsddbtnWindows.DropDownItems.Add(tsddItem);
+                        tbddWindows.Menu.Items.Add(tsddItem);
                     }
                 }
             }
             defaultContainer.ResumeLayout();
-
 
             cmbPanels.SelectedIndex = defaultPanelIndex;
             cmbPanels.SelectedIndexChanged += cmbPanels_SelectedIndexChanged;
             pnlPlugins.Controls.Add(subContainers[defaultPanelIndex]);
 
             pnlPlugins.ResumeLayout();
-
         }
 
         private void ToggleFullWindowGame() // ToDo see if there is a way to prevent the flickering on switch
@@ -270,16 +297,6 @@ namespace UtinniCoreDotNet
                 pnlGame.Controls.Add(game);
             }
             ResumeLayout();
-        }
-
-        private void tsbtnUndo_DropDownOpening(object sender, EventArgs e)
-        {
-            tsddUndo.Display(undoRedoManager.UndoCommands);
-        }
-
-        private void tsbtnRedo_DropDownOpening(object sender, EventArgs e)
-        {
-            tsddRedo.Display(undoRedoManager.RedoCommands);
         }
 
         private void InitializeEditorCallbacks()

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.PluginFramework;
+using UtinniCoreDotNet.UI.Forms;
 using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet

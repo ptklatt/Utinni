@@ -64,6 +64,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\UndoRedoTitlebarButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Controls\UtinniButtonBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -96,10 +99,10 @@
     <Compile Include="Callbacks\ImGuiCallbacks.cs" />
     <Compile Include="Callbacks\ObjectCallbacks.cs" />
     <Compile Include="Commands\WorldSnapshotCommands.cs" />
-    <Compile Include="UI\FormMain.cs">
+    <Compile Include="UI\Forms\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FormMain.Designer.cs">
+    <Compile Include="UI\Forms\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Generated\StdEdited.cs" />
@@ -162,7 +165,7 @@
     <Compile Include="Utility\Native.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\FormMain.resx">
+    <EmbeddedResource Include="UI\Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
