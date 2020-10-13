@@ -59,6 +59,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniButtonBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniContextMenuStripRenderer.cs" />
+    <Compile Include="UI\Controls\UtinniNumericUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniSlider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniTextbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniTitlebarButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniTitlebarDropDownButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniToggle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniToolbarRenderer.cs" />
     <Compile Include="UI\GameDragDropEventHandlers.cs" />
     <Compile Include="Callbacks\GameCallbacks.cs" />
     <Compile Include="Callbacks\GroundSceneCallbacks.cs" />
@@ -93,7 +124,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Colors.cs" />
+    <Compile Include="UI\Theme\Colors.cs" />
     <Compile Include="UI\Controls\CollapsiblePanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -105,6 +136,12 @@
     </Compile>
     <Compile Include="UI\Controls\UtinniButton.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\FormHotkeyEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\FormHotkeyEditor.Designer.cs">
+      <DependentUpon>FormHotkeyEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\FormLog.cs">
       <SubType>Form</SubType>
@@ -118,6 +155,7 @@
     <Compile Include="UI\Forms\UtinniForm.Designer.cs">
       <DependentUpon>UtinniForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Theme\ThemeUtility.cs" />
     <Compile Include="UndoRedo\IUndoCommand.cs" />
     <Compile Include="UndoRedo\UndoRedoManager.cs" />
     <Compile Include="Utility\Log.cs" />
