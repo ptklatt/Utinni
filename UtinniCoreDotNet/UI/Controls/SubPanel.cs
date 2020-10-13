@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using UtinniCoreDotNet.UI.Theme;
 
 namespace UtinniCoreDotNet.UI.Controls
 {
@@ -12,6 +13,8 @@ namespace UtinniCoreDotNet.UI.Controls
         public SubPanel()
         {
             Width = width;
+            base.BackColor = Colors.Primary();
+            base.ForeColor = Colors.Font();
         }
 
         public SubPanel(string name, bool isOpenByDefault = false)

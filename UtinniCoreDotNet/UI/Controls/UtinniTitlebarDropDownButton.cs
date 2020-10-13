@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using UtinniCoreDotNet.UI.Theme;
@@ -69,6 +70,13 @@ namespace UtinniCoreDotNet.UI.Controls
             {
                 base.OnMouseDown(e);
             }
+        }
+
+        protected override void OnForeColorChanged(EventArgs e)
+        {
+            base.OnForeColorChanged(e);
+            fontPen = new Pen(ForeColor, 1);
+            fontBrush = new SolidBrush(ForeColor);
         }
     }
 }

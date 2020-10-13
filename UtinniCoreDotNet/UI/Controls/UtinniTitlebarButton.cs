@@ -22,7 +22,8 @@ namespace UtinniCoreDotNet.UI.Controls
 
         public UtinniTitlebarButton(Bitmap image, Color hoverBackColor)
         {
-            this.image = image;
+            this.image = ThemeUtility.UpdateImageColor(image, Color.FromArgb(32, 32, 32), Colors.Font());
+            UseDisableColor = false;
             Setup(hoverBackColor);
             UpdateImageForecolor();
 
@@ -41,17 +42,17 @@ namespace UtinniCoreDotNet.UI.Controls
         {
             if (Enabled)
             {
-                image = ThemeUtility.UpdateImageColor(image, Color.FromArgb(32, 32, 32), Colors.Font());
+                image = ThemeUtility.UpdateImageColor(image, Colors.FontDisabled(), Colors.Font());
             }
             else
             {
-                image = ThemeUtility.UpdateImageColor(image, Color.FromArgb(32, 32, 32), Colors.FontDisabled());
+                image = ThemeUtility.UpdateImageColor(image, Colors.Font(), Colors.FontDisabled());
             }
         }
 
         public void SetImage(Bitmap image)
         {
-            this.image = image;
+            this.image = ThemeUtility.UpdateImageColor(image, Color.FromArgb(32, 32, 32), Colors.Font());
             UpdateImageForecolor();
             Invalidate();
         }

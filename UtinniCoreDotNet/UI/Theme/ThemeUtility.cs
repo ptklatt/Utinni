@@ -4,13 +4,13 @@ namespace UtinniCoreDotNet.UI.Theme
 {
     public static class ThemeUtility
     {
-        private static int recolorRange = 5;
+        private static int recolorRange = 15;
         public static Bitmap UpdateImageColor(Bitmap image, Color oldColor, Color newColor)
         {
             Bitmap result = new Bitmap(image);
-            for (int y = 0; y < image.Height; y++)
+            for (int y = 0; y < result.Height; y++)
             {
-                for (int x = 0; x < image.Width; x++)
+                for (int x = 0; x < result.Width; x++)
                 {
                     Color c = result.GetPixel(x, y);
                     if (c.R >= oldColor.R - recolorRange && c.R <= oldColor.R + recolorRange &&

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using UtinniCoreDotNet.UI.Theme;
 
 namespace UtinniCoreDotNet.UI.Controls
 {
@@ -7,6 +8,8 @@ namespace UtinniCoreDotNet.UI.Controls
         public SubPanelContainer(string text)
         {
             InitializeComponent();
+            base.BackColor = Colors.Primary();
+            base.ForeColor = Colors.Font();
             base.Text = text;
         }
 
@@ -25,7 +28,6 @@ namespace UtinniCoreDotNet.UI.Controls
         private void InitializeComponent()
         {
             Location = new System.Drawing.Point(0, 30);
-            BackColor = System.Drawing.SystemColors.Control;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             MinimumSize = new System.Drawing.Size(420, 0);

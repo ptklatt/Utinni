@@ -12,6 +12,9 @@ namespace UtinniCoreDotNet.UI.Controls
         public bool DrawOutline { get; set; } = false;
         private Pen outlinePen;
 
+        [Description("Darken on Disable"), Category("Data")]
+        public bool UseDisableColor { get; set; } = true;
+
         public bool IsHovered;
         public bool IsPressed;
 
@@ -61,7 +64,7 @@ namespace UtinniCoreDotNet.UI.Controls
             {
                 e.Graphics.FillRectangle(pressedBackColorBrush, 0, 0, Width, Height);
             }
-            else if (!Enabled)
+            else if (!Enabled && UseDisableColor)
             {
                 e.Graphics.FillRectangle(disabledBackColorBrush, 0, 0, Width, Height);
             }
