@@ -65,10 +65,10 @@
     <Compile Include="Callbacks\ImGuiCallbacks.cs" />
     <Compile Include="Callbacks\ObjectCallbacks.cs" />
     <Compile Include="Commands\WorldSnapshotCommands.cs" />
-    <Compile Include="FormMain.cs">
+    <Compile Include="UI\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
+    <Compile Include="UI\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Generated\StdEdited.cs" />
@@ -85,7 +85,7 @@
     <Compile Include="PluginFramework\IEditorPlugin.cs" />
     <Compile Include="PluginFramework\IPlugin.cs" />
     <Compile Include="main.cs" />
-    <Compile Include="PanelGame.cs">
+    <Compile Include="UI\Controls\PanelGame.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PluginFramework\PluginLoader.cs" />
@@ -121,9 +121,10 @@
     <Compile Include="UndoRedo\IUndoCommand.cs" />
     <Compile Include="UndoRedo\UndoRedoManager.cs" />
     <Compile Include="Utility\Log.cs" />
+    <Compile Include="Utility\Native.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormMain.resx">
+    <EmbeddedResource Include="UI\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

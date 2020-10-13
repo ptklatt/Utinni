@@ -20,26 +20,20 @@ namespace UtinniCoreDotNet
         private readonly UndoRedoManager undoRedoManager;
         private readonly HotkeyManager formHotkeyManager = new HotkeyManager(true);
 
-
         private readonly UndoRedoToolStripDropDown tsddUndo;
         private readonly UndoRedoToolStripDropDown tsddRedo;
 
         private readonly List<IEditorPlugin> editorPlugins = new List<IEditorPlugin>();
         private readonly List<SubPanelContainer> subContainers = new List<SubPanelContainer>();
 
-        private const int WM_SYSCOMMAND = 0x0112;
-        private const int SC_MINIMIZE = 0xF020;
-        private const int SC_RESTORE = 0xF120;
-        private const int SC_MAXIMIZE = 0xF030;
-
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == WM_SYSCOMMAND)
+            if (m.Msg == Native.WM_SYSCOMMAND)
             {
                 int command = m.WParam.ToInt32() & 0xFFF0;
 
-                if (command == SC_MINIMIZE || command == SC_RESTORE || command == SC_MAXIMIZE)
+                if (command == Native.SC_MINIMIZE || command == Native.SC_RESTORE || command == Native.SC_MAXIMIZE)
                 {
                     UtinniCore.DirectX.directx9.BlockPresent(true);
 
