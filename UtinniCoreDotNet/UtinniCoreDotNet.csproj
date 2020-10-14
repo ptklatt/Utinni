@@ -74,6 +74,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Controls\UtinniContextMenuStripRenderer.cs" />
+    <Compile Include="UI\Controls\UtinniLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Controls\UtinniNumericUpDown.cs">
       <SubType>Component</SubType>
     </Compile>

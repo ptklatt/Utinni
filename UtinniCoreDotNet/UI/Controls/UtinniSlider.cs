@@ -17,7 +17,7 @@ namespace UtinniCoreDotNet.UI.Controls
             }
         }
 
-        private float sliderValue = 50;
+        private float sliderValue = 0;
         public float Value
         {
             get { return sliderValue; }
