@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using UtinniCoreDotNet.Properties;
 using UtinniCoreDotNet.UI;
 using UtinniCoreDotNet.UI.Controls;
 using UtinniCoreDotNet.UI.Theme;
@@ -31,7 +32,8 @@ namespace UtinniCoreDotNet.UI.Forms
             set { base.FormBorderStyle = value; }
         }
 
-        private const int titleBarHeight = 22;
+        private const int titleBarHeight = 32;
+        private int leftTitlebarOffset = 0;
 
         private readonly Font nameFont = new Font("Arcon", 12);
 
@@ -44,7 +46,9 @@ namespace UtinniCoreDotNet.UI.Forms
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.UserPaint, true);
 
+            Padding = new Padding(0, titleBarHeight, 0, 0);
             FormBorderStyle = FormBorderStyle.None;
+            this.Icon = Resources.TJT;
 
             UtinniTitlebarButton closeButton = new UtinniTitlebarButton(new Bitmap(Properties.Resources.close), Color.Red);
             closeButton.Click += CloseButton_Click;
@@ -64,13 +68,8 @@ namespace UtinniCoreDotNet.UI.Forms
                 RightTitleBarButtons.Add(minimizeButton);
             }
 
+            base.BackColor = Colors.Primary(); // ToDo do this proper
             UpdateForeColor();
-        }
-
-        private void UpdateForeColor()
-        {
-            foreColorBrush = new SolidBrush(Colors.Font());
-            ForeColor = Colors.Font();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -85,7 +84,7 @@ namespace UtinniCoreDotNet.UI.Forms
                 rightButtonEdge += btn.Width;
             }
 
-            int leftButtonEdge = 0;
+            int leftButtonEdge = leftTitlebarOffset;
             foreach (UtinniTitlebarButton btn in LeftTitleBarButtons)
             {
                 btn.Anchor = AnchorStyles.Top | AnchorStyles.Left;
@@ -98,6 +97,12 @@ namespace UtinniCoreDotNet.UI.Forms
             {
                 IconImage = new Bitmap(IconImage, 24, 24);
             }
+        }
+
+        private void UpdateForeColor()
+        {
+            foreColorBrush = new SolidBrush(Colors.Font());
+            ForeColor = Colors.Font();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -114,14 +119,15 @@ namespace UtinniCoreDotNet.UI.Forms
 
             if (IconImage != null)
             {
+                leftTitlebarOffset = 27;
                 e.Graphics.DrawImage(IconImage, 5, 5);
             }
 
             e.Graphics.DrawLine(new Pen(Colors.Secondary(), 2), 0, 0, Width, 0);
 
-            if (DrawName)
+            if (DrawName) // ToDo potentially add an offset for this, for when you have left titlebar buttons
             {
-                e.Graphics.DrawString(Text, nameFont, foreColorBrush, 48, 7, new StringFormat());
+                e.Graphics.DrawString(Text, nameFont, foreColorBrush, leftTitlebarOffset + 3, 5, new StringFormat());
             }
         }
 
