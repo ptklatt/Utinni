@@ -9,7 +9,10 @@ namespace UtinniCoreDotNet.UI.Controls
     public class UtinniTitlebarDropDownButton : UtinniTitlebarButton
     {
         [Description("ContextMenu"), Category("Data")]
-        public ContextMenuStrip Menu { get; set; } = null;
+        public UtinniContextMenuStrip Menu { get; set; } = null;
+
+        [Description("Use the entire Button for Menu"), Category("Data")]
+        public bool UseEntireButtonForMenu { get; set; } = true;
 
         private const int dropDownClickArea = 15;
 
@@ -35,13 +38,7 @@ namespace UtinniCoreDotNet.UI.Controls
         private void Setup()
         {
             UpdateColors();
-            Menu = new ContextMenuStrip
-            {
-                BackColor = Colors.Primary(),
-                ForeColor = Colors.Font(),
-                ShowImageMargin = false,
-                Renderer = new UtinniContextMenuStripRenderer(Colors.Secondary())
-            };
+            Menu = new UtinniContextMenuStrip();
         }
 
         private void UpdateColors()
@@ -62,7 +59,7 @@ namespace UtinniCoreDotNet.UI.Controls
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            if (Menu != null && e.Button == MouseButtons.Left && e.X >= Width - dropDownClickArea)
+            if (Menu != null && e.Button == MouseButtons.Left && (UseEntireButtonForMenu || e.X >= Width - dropDownClickArea))
             {
                 Menu.Show(this, 0, Height);
             }
