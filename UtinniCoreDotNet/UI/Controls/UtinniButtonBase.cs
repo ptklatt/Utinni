@@ -73,6 +73,8 @@ namespace UtinniCoreDotNet.UI.Controls
                 e.Graphics.FillRectangle(primaryBrush, 0, 0, Width, Height);
             }
 
+            // ToDo move DrawOutline to OnPaintForeground so classes that inherit it don't need to call it again
+
             // Draw the outline
             if (DrawOutline)
             {

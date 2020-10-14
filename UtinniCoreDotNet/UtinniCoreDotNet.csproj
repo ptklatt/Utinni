@@ -67,10 +67,19 @@
     <Compile Include="UI\Controls\UndoRedoTitlebarButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\Controls\UtinniTitlebarToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Controls\UtinniButtonBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Controls\UtinniComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\UtinniContextMenuStrip.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Controls\UtinniContextMenuStripRenderer.cs" />
