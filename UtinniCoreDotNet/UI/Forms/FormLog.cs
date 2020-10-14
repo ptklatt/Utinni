@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
+using UtinniCoreDotNet.UI.Theme;
 using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet.UI.Forms
 {
-    public partial class FormLog : Form
+    public partial class FormLog : UtinniForm
     {
         public FormLog()
         {
             InitializeComponent();
+            lbLog.BackColor = Colors.Primary();
+            lbLog.ForeColor = Colors.Font();
+            lbLog.BorderStyle = BorderStyle.None;
 
             Log.AddOuputSinkCallback(OnOutputSinkCallback);
         }

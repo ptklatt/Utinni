@@ -37,11 +37,10 @@
             this.lbLog.FormattingEnabled = true;
             this.lbLog.HorizontalScrollbar = true;
             this.lbLog.IntegralHeight = false;
-            this.lbLog.Location = new System.Drawing.Point(0, 0);
-            this.lbLog.Margin = new System.Windows.Forms.Padding(0);
+            this.lbLog.Location = new System.Drawing.Point(0, 32);
             this.lbLog.Name = "lbLog";
             this.lbLog.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbLog.Size = new System.Drawing.Size(720, 450);
+            this.lbLog.Size = new System.Drawing.Size(720, 418);
             this.lbLog.TabIndex = 0;
             this.lbLog.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbLog_KeyDown);
             // 
@@ -51,6 +50,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(720, 450);
             this.Controls.Add(this.lbLog);
+            this.DrawName = true;
             this.Name = "FormLog";
             this.Text = "Log";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormLog_FormClosing);
