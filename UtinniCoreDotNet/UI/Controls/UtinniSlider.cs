@@ -24,6 +24,7 @@ namespace UtinniCoreDotNet.UI.Controls
             set
             {
                 sliderValue = Math.Min(Math.Max(value, Minimum), Maximum);
+                UpdateTogglePos();
                 OnValueChanged();
                 Invalidate();
             }
@@ -218,13 +219,7 @@ namespace UtinniCoreDotNet.UI.Controls
         private void UpdateValueByPos(int x)
         {
             float increment = (Maximum - Minimum) / (Width - sliderOffset);
-            UpdateValue((x - sliderOffset) * increment + Minimum);
-        }
-
-        private void UpdateValue(float value)
-        {
-            Value = value;
-            UpdateTogglePos();
+            Value = (x - sliderOffset) * increment + Minimum;
         }
 
         private void UpdateTogglePos()
