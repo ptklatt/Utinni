@@ -91,9 +91,11 @@ namespace UtinniCoreDotNet.UI.Forms
             formHotkeyManager.Hotkeys.Add("Toggle UI", new Hotkey("Toggle UI", "Shift + Oemtilde", ToggleFullWindowGame, true));
 
             // ToDo move these elsewhere
-            formHotkeyManager.Hotkeys.Add("SetGizmoTransformOperationMode", new Hotkey("SetGizmoTransformOperationMode", "Control + Q", SetGizmoOperationModeToTranslate, true));
-            formHotkeyManager.Hotkeys.Add("SetGizmoRotationOperationMode", new Hotkey("SetGizmoRotationOperationMode", "Control + E", SetGizmoOperationModeToRotate, true));
-            formHotkeyManager.Hotkeys.Add("ToggleGizmoSnap", new Hotkey("ToggleGizmoSnap", "Control + B", ToggleGizmoSnap, true));
+            ImGuiCallbacks.AddOnEnabledCallback(OnGizmoEnabled);
+            ImGuiCallbacks.AddOnDisabledCallback(OnGizmoDisabled);
+            formHotkeyManager.Hotkeys.Add("SetGizmoTransformOperationMode", new Hotkey("SetGizmoTransformOperationMode", "Control + Q", SetGizmoOperationModeToTranslate, true, false));
+            formHotkeyManager.Hotkeys.Add("SetGizmoRotationOperationMode", new Hotkey("SetGizmoRotationOperationMode", "Control + E", SetGizmoOperationModeToRotate, true, false));
+            formHotkeyManager.Hotkeys.Add("ToggleGizmoSnap", new Hotkey("ToggleGizmoSnap", "Control + B", ToggleGizmoSnap, true, false));
 
             formHotkeyManager.CreateSettings();
             formHotkeyManager.Load();
@@ -350,6 +352,20 @@ namespace UtinniCoreDotNet.UI.Forms
         private void ToggleGizmoSnap()
         {
             UtinniCore.ImguiGizmo.imgui_impl.ToggleSnap();
+        }
+
+        private void OnGizmoEnabled()
+        {
+            formHotkeyManager.Hotkeys["SetGizmoTransformOperationMode"].Enabled = true;
+            formHotkeyManager.Hotkeys["SetGizmoRotationOperationMode"].Enabled = true;
+            formHotkeyManager.Hotkeys["ToggleGizmoSnap"].Enabled = true;
+        }
+
+        private void OnGizmoDisabled()
+        {
+            formHotkeyManager.Hotkeys["SetGizmoTransformOperationMode"].Enabled = false;
+            formHotkeyManager.Hotkeys["SetGizmoRotationOperationMode"].Enabled = false;
+            formHotkeyManager.Hotkeys["ToggleGizmoSnap"].Enabled = false;
         }
     }
 }

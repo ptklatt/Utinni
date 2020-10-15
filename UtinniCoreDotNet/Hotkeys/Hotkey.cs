@@ -11,24 +11,26 @@ namespace UtinniCoreDotNet.Hotkeys
         public Keys Key;
         public Action OnDownCallback;
         public bool OverrideGameInput;
-        public bool Enabled = true;
+        public bool Enabled;
 
-        public Hotkey(string name, string keyComboStr, Action onDownCallback, bool overrideGameInput)
+        public Hotkey(string name, string keyComboStr, Action onDownCallback, bool overrideGameInput, bool enabled = true)
         {
             Name = name;
             OnDownCallback = onDownCallback;
             OverrideGameInput = overrideGameInput;
+            Enabled = enabled;
 
             ProcessString(keyComboStr);
         }
 
-        public Hotkey(string name, Keys modifierKeys, Keys key, Action onDownCallback, bool overrideGameInput)
+        public Hotkey(string name, Keys modifierKeys, Keys key, Action onDownCallback, bool overrideGameInput, bool enabled = true)
         {
             Name = name;
             ModifierKeys = modifierKeys;
             Key = key;
             OnDownCallback = onDownCallback;
             OverrideGameInput = overrideGameInput;
+            Enabled = enabled;
         }
 
         private void ProcessString(string keyComboStr)
