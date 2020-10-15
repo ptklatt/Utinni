@@ -86,13 +86,14 @@ namespace UtinniCoreDotNet.UI.Forms
             LeftTitleBarButtons.Add(tbbtnUndo);
             LeftTitleBarButtons.Add(tbbtnRedo);
 
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Undo", "Control + Z", undoRedoManager.Undo, false));
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Redo", "Control + Y", undoRedoManager.Redo, false));
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle UI", "Shift + Oemtilde", ToggleFullWindowGame, false));
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Undo", "Control + Z", undoRedoManager.Undo, true));
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Redo", "Control + Y", undoRedoManager.Redo, true));
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle UI", "Shift + Oemtilde", ToggleFullWindowGame, true));
 
             // ToDo move these elsewhere
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle Gizmo Operation Mode", "Shift, Control + Q", ToggleGizmoOperationMode, false));
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle Gizmo Snap", "Shift, Control + E", ToggleGizmoSnap, false));
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle Gizmo Operation Mode", "Control + Q", SetGizmoOperationModeToTranslate, true));
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle Gizmo Operation Mode", "Control + E", SetGizmoOperationModeToRotate, true));
+            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle Gizmo Snap", "Control + B", ToggleGizmoSnap, true));
 
             formHotkeyManager.CreateSettings();
             formHotkeyManager.Load();
@@ -334,6 +335,16 @@ namespace UtinniCoreDotNet.UI.Forms
         private void ToggleGizmoOperationMode()
         {
             UtinniCore.ImguiGizmo.imgui_impl.ToggleOperationMode();
+        }
+
+        private void SetGizmoOperationModeToTranslate()
+        {
+            UtinniCore.ImguiGizmo.imgui_impl.SetOperationModeToTranslate();
+        }
+
+        private void SetGizmoOperationModeToRotate()
+        {
+            UtinniCore.ImguiGizmo.imgui_impl.SetOperationModeToRotate();
         }
 
         private void ToggleGizmoSnap()

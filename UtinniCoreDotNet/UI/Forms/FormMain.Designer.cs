@@ -72,7 +72,7 @@ namespace UtinniCoreDotNet.UI.Forms
             this.pnlPlugins.Controls.Add(this.cmbPanels);
             this.pnlPlugins.Location = new System.Drawing.Point(0, 34);
             this.pnlPlugins.Name = "pnlPlugins";
-            this.pnlPlugins.Size = new System.Drawing.Size(446, 433);
+            this.pnlPlugins.Size = new System.Drawing.Size(446, 460);
             this.pnlPlugins.TabIndex = 7;
             // 
             // FormMain

@@ -284,6 +284,16 @@ void toggleOperationMode()
     }
 }
 
+void setOperationModeToTranslate()
+{
+	 operationMode = ImGuizmo::TRANSLATE;
+}
+
+void setOperationModeToRotate()
+{
+	 operationMode = ImGuizmo::ROTATE;
+}
+
 void toggleSnap()
 {
 	 useSnap = !useSnap;

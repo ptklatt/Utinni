@@ -30,6 +30,8 @@ UTINNI_API extern bool hasMouseHover();
 UTINNI_API extern void addOnPositionChangedCallback(void(*func)());
 UTINNI_API extern void addOnRotationChangedCallback(void(*func)());
 UTINNI_API extern void toggleOperationMode();
+UTINNI_API extern void setOperationModeToTranslate();
+UTINNI_API extern void setOperationModeToRotate();
 UTINNI_API extern void toggleSnap();
 
 void draw();
