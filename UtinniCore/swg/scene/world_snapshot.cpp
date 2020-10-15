@@ -413,10 +413,10 @@ int WorldSnapshot::generateHighestId()
     return newId;
 }
 
-Object* createObject(WorldSnapshotReaderWriter::Node* mode)
+Object* createObject(WorldSnapshotReaderWriter::Node* node)
 {
     DWORD errorCode = 0;
-    return (Object*)swg::worldsnapshot::createObject(WorldSnapshotReaderWriter::get(), mode, errorCode);
+    return (Object*)swg::worldsnapshot::createObject(WorldSnapshotReaderWriter::get(), node, errorCode);
 }
 
 bool WorldSnapshot::isValidObject(const char* objectFilename)

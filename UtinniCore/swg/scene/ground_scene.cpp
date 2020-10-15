@@ -104,13 +104,11 @@ void GroundScene::addUpdateLoopCallback(void(*func)(GroundScene* pThis, float el
 
 void __fastcall hkUpdateLoop(utinni::GroundScene* pThis, DWORD EDX, float time)
 {
-  
-    swg::groundScene::update(pThis, time);
     for (const auto& func : updateLoopCallbacks)
     {
         func(pThis, time);
     }
-
+    swg::groundScene::update(pThis, time);
 }
 
 void GroundScene::detour()
