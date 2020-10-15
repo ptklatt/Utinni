@@ -23,6 +23,7 @@ namespace imgui_impl
 static std::vector<void(*)()> renderCallbacks;
 
 bool enableUi;
+bool rendering;
 
 void enableInternalUi(bool enable)
 {
@@ -143,6 +144,7 @@ bool isSetup = false;
  {
 	  if (isSetup)
 	  {
+			rendering = true;
 			ImGui_ImplDX9_NewFrame();
 			ImGui_ImplWin32_NewFrame();
 			ImGui::NewFrame();
@@ -192,8 +194,14 @@ bool isSetup = false;
 			ImGui::EndFrame();
 			ImGui::Render();
 			ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
+			rendering = false;
 	  }
  }
+
+bool isRendering()
+{
+	 return rendering;
+}
 
 void addRenderCallback(void(*func)())
  {

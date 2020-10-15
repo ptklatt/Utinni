@@ -13,6 +13,7 @@ swgptr dllBaseAddress = 0;
 
 static bool blockPresentCall = false;
 static bool isPresenting = false;
+bool enableWireframe = false;
 
 using pBeginScene = HRESULT(__stdcall*)(LPDIRECT3DDEVICE9 pDevice);
 using pEndScene = HRESULT(__stdcall*)(LPDIRECT3DDEVICE9 pDevice);
@@ -177,6 +178,7 @@ HRESULT __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion)
 {
 	 imgui_impl::render();
+
 	 HRESULT result = 0;
 
 	 // Workaround for WinForms crashes on maximize and minimize/restore, something breaks inside of Present when either occur.
@@ -204,14 +206,13 @@ HRESULT __stdcall hkReset(LPDIRECT3DDEVICE9 pDevice, D3DPRESENT_PARAMETERS* pPre
     return result;
 }
 
-bool enableWireframe = false;
 HRESULT __stdcall hkDrawIndexedPrimitive(LPDIRECT3DDEVICE9 pDevice, D3DPRIMITIVETYPE type, int baseVertexIndex, unsigned int minVertexIndex, unsigned int numVertices, unsigned int startIndex, unsigned int primitiveCount)
 {
-    if (pDevice != nullptr && ((enableWireframe && utinni::CuiManager::isRenderingUi()) || !enableWireframe))
+    if (pDevice != nullptr && ((enableWireframe && utinni::CuiManager::isRenderingUi()) || (enableWireframe && imgui_impl::isRendering()) || !enableWireframe))
     {
         pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
     }
-    else if (pDevice != nullptr && enableWireframe && !utinni::CuiManager::isRenderingUi())
+    else if (pDevice != nullptr && enableWireframe && !utinni::CuiManager::isRenderingUi() && !imgui_impl::isRendering())
     {
         pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
     }
