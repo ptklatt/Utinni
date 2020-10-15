@@ -11,6 +11,7 @@ namespace UtinniCoreDotNet.Hotkeys
         public Keys Key;
         public Action OnDownCallback;
         public bool OverrideGameInput;
+        public bool Enabled = true;
 
         public Hotkey(string name, string keyComboStr, Action onDownCallback, bool overrideGameInput)
         {

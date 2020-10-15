@@ -11,7 +11,7 @@ namespace UtinniCoreDotNet.Hotkeys
     {
         private readonly UtINI ini;
 
-        public List<Hotkey> Hotkeys = new List<Hotkey>();
+        public readonly Dictionary<string, Hotkey> Hotkeys = new Dictionary<string, Hotkey>();
         public bool OnGameFocusOnly;
 
         public HotkeyManager(bool onGameFocusOnly)
@@ -22,9 +22,10 @@ namespace UtinniCoreDotNet.Hotkeys
 
         public void ProcessInput(Keys modifierKeys, Keys key)
         {
-            foreach (Hotkey hotkey in Hotkeys)
+            foreach (var pair in Hotkeys)
             {
-                if (hotkey.ModifierKeys == modifierKeys && hotkey.Key == key)
+                Hotkey hotkey = pair.Value;
+                if (hotkey.Enabled && hotkey.ModifierKeys == modifierKeys && hotkey.Key == key)
                 {
                     if (hotkey.OverrideGameInput)
                     {
@@ -51,9 +52,9 @@ namespace UtinniCoreDotNet.Hotkeys
 
         public void CreateSettings()
         {
-            foreach (Hotkey hotkey in Hotkeys)
+            foreach (var pair in Hotkeys)
             {
-                ini.AddSetting("Hotkeys", hotkey.Name, hotkey.GetKeyComboString(), UtINI.Value.Types.VtString);
+                ini.AddSetting("Hotkeys", pair.Key, pair.Value.GetKeyComboString(), UtINI.Value.Types.VtString);
             }
         }
 
@@ -61,17 +62,17 @@ namespace UtinniCoreDotNet.Hotkeys
         {
             ini.Load();
 
-            foreach (Hotkey hotkey in Hotkeys)
+            foreach (var pair in Hotkeys)
             {
-                hotkey.UpdateKeys(ini.GetString("Hotkeys", hotkey.Name));
+                pair.Value.UpdateKeys(ini.GetString("Hotkeys", pair.Key));
             }
         }
 
         public void Save()
         {
-            foreach (Hotkey hotkey in Hotkeys)
+            foreach (var pair in Hotkeys)
             {
-                ini.SetString("Hotkeys", hotkey.Name, hotkey.GetKeyComboString());
+                ini.SetString("Hotkeys", pair.Key, pair.Value.GetKeyComboString());
             }
 
             ini.Save();

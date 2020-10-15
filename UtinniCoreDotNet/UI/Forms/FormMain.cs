@@ -86,14 +86,14 @@ namespace UtinniCoreDotNet.UI.Forms
             LeftTitleBarButtons.Add(tbbtnUndo);
             LeftTitleBarButtons.Add(tbbtnRedo);
 
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Undo", "Control + Z", undoRedoManager.Undo, true));
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Redo", "Control + Y", undoRedoManager.Redo, true));
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle UI", "Shift + Oemtilde", ToggleFullWindowGame, true));
+            formHotkeyManager.Hotkeys.Add("Undo", new Hotkey("Undo", "Control + Z", undoRedoManager.Undo, true));
+            formHotkeyManager.Hotkeys.Add("Redo", new Hotkey("Redo", "Control + Y", undoRedoManager.Redo, true));
+            formHotkeyManager.Hotkeys.Add("Toggle UI", new Hotkey("Toggle UI", "Shift + Oemtilde", ToggleFullWindowGame, true));
 
             // ToDo move these elsewhere
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle Gizmo Operation Mode", "Control + Q", SetGizmoOperationModeToTranslate, true));
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle Gizmo Operation Mode", "Control + E", SetGizmoOperationModeToRotate, true));
-            formHotkeyManager.Hotkeys.Add(new Hotkey("Toggle Gizmo Snap", "Control + B", ToggleGizmoSnap, true));
+            formHotkeyManager.Hotkeys.Add("SetGizmoTransformOperationMode", new Hotkey("SetGizmoTransformOperationMode", "Control + Q", SetGizmoOperationModeToTranslate, true));
+            formHotkeyManager.Hotkeys.Add("SetGizmoRotationOperationMode", new Hotkey("SetGizmoRotationOperationMode", "Control + E", SetGizmoOperationModeToRotate, true));
+            formHotkeyManager.Hotkeys.Add("ToggleGizmoSnap", new Hotkey("ToggleGizmoSnap", "Control + B", ToggleGizmoSnap, true));
 
             formHotkeyManager.CreateSettings();
             formHotkeyManager.Load();
