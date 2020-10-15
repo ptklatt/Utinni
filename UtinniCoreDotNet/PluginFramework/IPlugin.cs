@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using UtinniCore.Utinni;
 
 namespace UtinniCoreDotNet.PluginFramework
 {
@@ -20,6 +21,7 @@ namespace UtinniCoreDotNet.PluginFramework
     public interface IPlugin
     {
         PluginInformation Information { get; }
+        UtINI GetConfig();
     }
 
 }

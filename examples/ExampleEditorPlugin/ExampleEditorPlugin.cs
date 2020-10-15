@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UtinniCore.Utinni;
 using UtinniCoreDotNet.Hotkeys;
 using UtinniCoreDotNet.PluginFramework;
 using UtinniCoreDotNet.UI.Controls;
@@ -31,6 +32,11 @@ namespace ExampleEditorPlugin
         }
 
         public PluginInformation Information { get; }
+
+        public UtINI GetConfig()
+        {
+            return null;
+        }
 
         public EventHandler<AddUndoCommandEventArgs> AddUndoCommand { get; set; }
 
