@@ -6,9 +6,11 @@
 namespace swg::cuiChatWindow
 {
 using pCtor = swgptr(__thiscall*)(swgptr pThis, swgptr uiPage, DWORD unk1, DWORD unk2, DWORD unk3);
-using pWriteToTab = swgptr(__thiscall*)(swgptr pThis, const swg::WString& str);
+using pEnableTextInput = void(__thiscall*)(swgptr pThis, bool value, bool setKeyboardInput, bool unfocus);
+using pWriteToTab = swgptr(__thiscall*)(swgptr pThis, const WString& str);
 
 pCtor ctor = (pCtor)0x00F364B0;
+pEnableTextInput enableTextInput = (pEnableTextInput)0x00F38500;
 pWriteToTab writeToAllTabs = (pWriteToTab)0x00F3BFD0;
 pWriteToTab writeToCurrentTab = (pWriteToTab)0x00F3C1F0;
 }
@@ -20,19 +22,25 @@ pSendInput sendInput = (pSendInput)0x009141D0;
 
 }
 
-static swgptr pCuiChatWindow;
+static swgptr pCuiChatWindow; // ToDo use the getChatWindow function instead of the ctor detour?
 static swgptr pCuiConsoleHelper;
 static std::vector<void(*)(utinni::CommandParser* mainCommandParser)> addCommandParserCallback;
 
 namespace utinni
 {
+bool enableInput;
 
 void CuiChatWindow::addCreateCommandParserCallback(void(*func)(CommandParser* commandParser))
 {
     addCommandParserCallback.emplace_back(func);
 }
 
-void CuiChatWindow::writeToAllTabs(const char* str) // Accepts color codes by prefixing them with \\, ie "\\#888888 test"
+void CuiChatWindow::enableTextInput(bool value) // Accepts color codes by prefixing them with \\, ie "\\#888888 test"
+{
+    enableInput = value;
+}
+
+void CuiChatWindow::writeToAllTabs(const char* str)
 {
     if (pCuiChatWindow == 0)
     {
@@ -84,6 +92,11 @@ void CuiChatWindow::sendMessage(const char* msg, bool addToChatHistory)
     memory::set(0x0091428C, 0x74, 1);
 }
 
+void __fastcall hkEnableTextInput(swgptr pThis, swgptr EDX, bool value, bool setKeyboardInput, bool unfocus)
+{
+    swg::cuiChatWindow::enableTextInput(pCuiChatWindow, value, setKeyboardInput, unfocus);
+}
+
 CommandParser* mainCommandParser;
 swgptr __fastcall hkCtor(swgptr pThis, swgptr EDX, swgptr uiPage, DWORD unk1, DWORD unk2, DWORD unk3)
 {
@@ -126,7 +139,9 @@ __declspec(naked) void midCtor()
 void CuiChatWindow::detour()
 {
     swg::cuiChatWindow::ctor = (swg::cuiChatWindow::pCtor)Detour::Create(swg::cuiChatWindow::ctor, hkCtor, DETOUR_TYPE_PUSH_RET);
+    //swg::cuiChatWindow::enableTextInput = (swg::cuiChatWindow::pEnableTextInput)Detour::Create(swg::cuiChatWindow::enableTextInput, hkEnableTextInput, DETOUR_TYPE_PUSH_RET);
 
     memory::createJMP(0x00F36797, (swgptr)midCtor, 6); // Mid CuiChatWindow::ctor detour
 }
+
 }

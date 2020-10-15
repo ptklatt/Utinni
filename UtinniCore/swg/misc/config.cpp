@@ -7,9 +7,15 @@ using pLoadConfigFileBuffer = bool(__cdecl*)(byte* buffer, int bufferLength);
 using pLoadConfigFileString = bool(__cdecl*)(const char* filename);
 using pLoadOverrideConfig = int(__cdecl*)();
 
+using pSetModalChat = void(__cdecl*)(bool value);
+using pGetModalChat = bool(__cdecl*)();
+
 pLoadConfigFileBuffer loadConfigFileBuffer = (pLoadConfigFileBuffer)0x00A9C6C0;
 pLoadConfigFileString loadConfigFileString = (pLoadConfigFileString)0x00A9C780;
 pLoadOverrideConfig loadOverrideConfig = (pLoadOverrideConfig)0x00401000;
+
+pSetModalChat setModalChat = (pSetModalChat)0x00910A70;
+pGetModalChat getModalChat = (pGetModalChat)0x00910D40;
 
 bool loadConfigFile(byte* buffer, int bufferLength)
 {
@@ -19,6 +25,11 @@ bool loadConfigFile(byte* buffer, int bufferLength)
 bool loadConfigFile(const char* fileName)
 {
     return loadConfigFileString(fileName);
+}
+
+void enableModalChat(bool value)
+{
+    setModalChat(value);
 }
 
 int __cdecl hkLoadOverrideConfig()

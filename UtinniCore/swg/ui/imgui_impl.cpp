@@ -10,6 +10,7 @@
 #include "swg/misc/direct_input.h"
 #include "swg/scene/ground_scene.h"
 #include "swg/misc/network.h"
+#include "swg/misc/config.h"
 #include "command_parser.h"
 
 #pragma comment(lib, "imgui/lib/imgui.lib")
@@ -155,13 +156,6 @@ bool isSetup = false;
 				 {
 					  if (ImGui::Button("Test"))
 					  {
-							//WorldSnapshot::createAddNode("object/tangible/furniture/elegant/shared_chair_s01.iff", utinni::Game::getPlayer()->objectToParent);
-
-							CommandParser::CommandData cmdData;
-
-							//auto tit = swg_new<CommandParser>(cmdData, nullptr);
-
-							//auto tit = swg_new<CommandParser>();
 					  }
 				 }
 
