@@ -16,6 +16,7 @@
 #include "swg/ui/cui_menu.h"
 #include "swg/ui/cui_misc.h"
 #include "swg/object/creature_object.h"
+#include "swg/ui/cui_io.h"
 
 std::string path;
 std::string swgOverrideCfgFilename = "utinni.cfg";
@@ -37,6 +38,7 @@ void createDetours()
     utinni::CuiChatWindow::detour();
     utinni::CuiManager::detour();
     utinni::cuiHud::detour();
+    utinni::cuiIo::detour();
     utinni::cuiMenu::detour();
     utinni::cuiRadialMenuManager::detour();
     utinni::creatureObject::detour();

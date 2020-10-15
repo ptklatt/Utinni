@@ -85,7 +85,7 @@ void CuiChatWindow::sendMessage(const char* msg, bool addToChatHistory)
 }
 
 CommandParser* mainCommandParser;
-swgptr __fastcall hkCtor(swgptr pThis, DWORD EDX, swgptr uiPage, DWORD unk1, DWORD unk2, DWORD unk3)
+swgptr __fastcall hkCtor(swgptr pThis, swgptr EDX, swgptr uiPage, DWORD unk1, DWORD unk2, DWORD unk3)
 {
     swgptr result = swg::cuiChatWindow::ctor(pThis, uiPage, unk1, unk2, unk3);
     pCuiChatWindow = pThis;

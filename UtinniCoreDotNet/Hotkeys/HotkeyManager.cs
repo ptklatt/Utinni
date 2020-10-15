@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using UtinniCore.Utinni;
+using UtinniCoreDotNet.Callbacks;
 
 namespace UtinniCoreDotNet.Hotkeys
 {
@@ -25,11 +26,24 @@ namespace UtinniCoreDotNet.Hotkeys
             {
                 if (hotkey.ModifierKeys == modifierKeys && hotkey.Key == key)
                 {
-                    hotkey.OnDownCallback();
-
                     if (hotkey.OverrideGameInput)
                     {
-                        // ToDo block game input
+                        // Not happy about this solution, but works, ToDo find a better way
+                        GameCallbacks.AddPreMainLoopCall(() =>
+                        {
+                            UtinniCore.Utinni.CuiIo.cui_io.EnableKeyboard(false);
+
+                            hotkey.OnDownCallback();
+
+                            GameCallbacks.AddMainLoopCall(() =>
+                            {
+                                UtinniCore.Utinni.CuiIo.cui_io.RestorePreviousEnableKeyboardValue();
+                            });
+                        });
+                    }
+                    else
+                    {
+                        hotkey.OnDownCallback();
                     }
                 }
             }

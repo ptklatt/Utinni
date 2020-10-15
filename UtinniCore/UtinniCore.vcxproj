@@ -157,6 +157,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="..\external\DetourXS\ADE32.cpp" />
     <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
     <ClCompile Include="..\external\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="swg\ui\cui_io.cpp" />
     <ClCompile Include="utility\string_utility.cpp" />
     <ClCompile Include="swg\scene\client_world.cpp" />
     <ClCompile Include="swg\misc\audio.cpp" />
@@ -204,6 +205,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\misc\swg_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="swg\ui\cui_io.h" />
     <ClInclude Include="utility\string_utility.h" />
     <ClInclude Include="swg\scene\client_world.h" />
     <ClInclude Include="swg\misc\audio.h" />
