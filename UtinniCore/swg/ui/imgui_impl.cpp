@@ -215,6 +215,8 @@ bool isInternalUiHovered()
 
 }
 
+static std::vector<void(*)()> onGizmoEnabledCallbacks;
+static std::vector<void(*)()> onGizmoDisabledCallbacks;
 static std::vector<void(*)()> onGizmoPositionChangedCallbacks;
 static std::vector<void(*)()> onGizmoRotationChangedCallbacks;
 
@@ -234,12 +236,22 @@ void enable(Object* obj)
 {
 	 object = obj;
 	 enabled = true;
+
+	 for (const auto& func : onGizmoEnabledCallbacks)
+	 {
+		  func();
+	 }
 }
 
 void disable()
 {
 	 enabled = false;
 	 object = nullptr;
+
+	 for (const auto& func : onGizmoDisabledCallbacks)
+	 {
+		  func();
+	 }
 }
 
 bool isEnabled()
@@ -260,6 +272,16 @@ bool hasRecentRotationChange()
 bool hasMouseHover()
 {
 	 return gizmoHasMouseHover;
+}
+
+void addOnEnabledCallback(void(*func)())
+{
+	 onGizmoEnabledCallbacks.emplace_back(func);
+}
+
+void addOnDisabledCallback(void(*func)())
+{
+	 onGizmoDisabledCallbacks.emplace_back(func);
 }
 
 void addOnPositionChangedCallback(void(*func)())

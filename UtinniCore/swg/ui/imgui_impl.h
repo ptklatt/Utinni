@@ -27,6 +27,8 @@ UTINNI_API extern bool isEnabled();
 UTINNI_API bool hasRecentPositionChange();
 UTINNI_API bool hasRecentRotationChange();
 UTINNI_API extern bool hasMouseHover();
+UTINNI_API extern void addOnEnabledCallback(void(*func)());
+UTINNI_API extern void addOnDisabledCallback(void(*func)());
 UTINNI_API extern void addOnPositionChangedCallback(void(*func)());
 UTINNI_API extern void addOnRotationChangedCallback(void(*func)());
 UTINNI_API extern void toggleOperationMode();
