@@ -8,11 +8,13 @@ namespace UtinniCoreDotNet.Callbacks
         private static readonly List<Action> installCallback = new List<Action>();
         private static readonly List<Action> setupSceneCallback = new List<Action>();
         private static readonly List<Action> cleanupSceneCallback = new List<Action>();
+        private static readonly Queue<Action> preMainLoopCallQueue = new Queue<Action>();
         private static readonly Queue<Action> mainLoopCallQueue = new Queue<Action>();
 
         private static UtinniCore.Delegates.Action_ callInstallCallbacksAction;
         private static UtinniCore.Delegates.Action_ callSetupSceneCallbacksAction;
         private static UtinniCore.Delegates.Action_ callCleanupSceneCallbacksAction;
+        private static UtinniCore.Delegates.Action_ dequeuePreMainLoopCallsAction;
         private static UtinniCore.Delegates.Action_ dequeueMainLoopCallsAction;
         public static void Initialize()
         {
@@ -20,10 +22,13 @@ namespace UtinniCoreDotNet.Callbacks
             callInstallCallbacksAction = CallInstallCallbacks;
             callSetupSceneCallbacksAction = CallSetupSceneCallbacks;
             callCleanupSceneCallbacksAction = CallCleanupSceneCallbacks;
+            dequeuePreMainLoopCallsAction = DequeuePreMainLoopCalls;
             dequeueMainLoopCallsAction = DequeueMainLoopCalls;
+
             UtinniCore.Utinni.Game.AddInstallCallback(callInstallCallbacksAction);
             UtinniCore.Utinni.Game.AddSetSceneCallback(callSetupSceneCallbacksAction);
             UtinniCore.Utinni.Game.AddCleanupSceneCallback(callCleanupSceneCallbacksAction);
+            UtinniCore.Utinni.Game.AddPreMainLoopCallback(dequeuePreMainLoopCallsAction);
             UtinniCore.Utinni.Game.AddMainLoopCallback(dequeueMainLoopCallsAction);
         }
 
@@ -40,6 +45,11 @@ namespace UtinniCoreDotNet.Callbacks
         public static void AddCleanupSceneCall(Action call)
         {
             cleanupSceneCallback.Add(call);
+        }
+
+        public static void AddPreMainLoopCall(Action call)
+        {
+            preMainLoopCallQueue.Enqueue(call);
         }
 
         public static void AddMainLoopCall(Action call)
@@ -60,6 +70,18 @@ namespace UtinniCoreDotNet.Callbacks
         public static void RemoveCleanupSceneCall(Action call)
         {
             cleanupSceneCallback.Remove(call);
+        }
+
+        private static void DequeuePreMainLoopCalls()
+        {
+            while (preMainLoopCallQueue.Count > 0)
+            {
+                var func = preMainLoopCallQueue.Dequeue();
+                if (func != null)
+                {
+                    func();
+                }
+            }
         }
 
         private static void DequeueMainLoopCalls()

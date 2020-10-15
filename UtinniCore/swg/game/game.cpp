@@ -45,6 +45,7 @@ pIsHudSceneTypeSpace isHudSceneTypeSpace = (pIsHudSceneTypeSpace)0x00426170;
 }
 
 static std::vector<void(*)()> installCallbacks;
+static std::vector<void(*)()> preMainLoopCallbacks;
 static std::vector<void(*)()> mainLoopCallbacks;
 static std::vector<void(*)()> setSceneCallbacks;
 static std::vector<void(*)()> cleanUpSceneCallbacks;
@@ -56,6 +57,11 @@ namespace utinni
 void Game::addInstallCallback(void(*func)())
 {
     installCallbacks.emplace_back(func);
+}
+
+void Game::addPreMainLoopCallback(void(*func)())
+{
+    preMainLoopCallbacks.emplace_back(func);
 }
 
 void Game::addMainLoopCallback(void(*func)())
@@ -84,6 +90,11 @@ std::string sceneToLoadTerrainFilename;
 std::string sceneToLoadAvatarObjectFilename;
 void __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
 {
+    for (const auto& func : preMainLoopCallbacks)
+    {
+        func();
+    }
+
     RECT rect;
     if (Client::getEditorMode() && GetWindowRect(Client::getHwnd(), &rect))
     {
