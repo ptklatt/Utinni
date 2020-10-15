@@ -93,8 +93,16 @@ namespace utinni
             // if the plugin is enabled, scan its directory for .DLL's and see if they implement createPlugin
             if (pluginCfg.isEnabled)
             {
-                auto tit = pluginDir + pluginCfg.directoryName + "/";
-                for (const auto& file : std::filesystem::recursive_directory_iterator(tit))
+                auto currentPluginDir = pluginDir + pluginCfg.directoryName + "/";
+
+                if (!std::filesystem::exists(currentPluginDir))
+                {
+                    pImpl->pluginConfigs.erase(pImpl->pluginConfigs.begin() + j);
+                    j--;
+                    continue;
+                }
+
+                for (const auto& file : std::filesystem::recursive_directory_iterator(currentPluginDir))
                 {
                     if (file.path().extension() == ".dll")
                     {
