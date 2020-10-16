@@ -471,10 +471,17 @@ WorldSnapshotReaderWriter::Node* WorldSnapshot::createAddNode(const char* object
         return nullptr;
     }
 
+    auto objectTemplate = ObjectTemplateList::getObjectTemplateByFilename(objectFilename);
+
+    const char* pobFilename = ObjectTemplateList::getObjectTemplateByFilename(objectFilename)->getPortalLayoutFilename();
+    if (!objectTemplate->getAppearanceFilename() && !objectTemplate->getClientDataFilename() && !pobFilename)
+    {
+        return nullptr;
+    }
+
     // Check if the object contains cells
     int pobCrc = 0;
     int pobCellCount = 0;
-    const char* pobFilename = ObjectTemplateList::getObjectTemplateByFilename(objectFilename)->getPortalLayoutFilename();
     if (pobFilename != nullptr && pobFilename[0] != '\0')
     {
         PortalPropertyTemplate* pPob = PortalPropertyTemplateList::getPobByCrcString(PersistentCrcString::ctor(pobFilename));
