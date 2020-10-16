@@ -83,7 +83,7 @@ namespace UtinniCoreDotNet.UI.Forms
             this.Controls.Add(this.pnlPlugins);
             this.Controls.Add(this.pnlGame);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.IconImage = global::UtinniCoreDotNet.Properties.Resources.TJT1;
+            this.IconImage = ((System.Drawing.Image)(resources.GetObject("$this.IconImage")));
             this.KeyPreview = true;
             this.Name = "FormMain";
             this.Text = "Utinni";

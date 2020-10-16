@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using UtinniCoreDotNet.Properties;
-using UtinniCoreDotNet.UI;
 using UtinniCoreDotNet.UI.Controls;
 using UtinniCoreDotNet.UI.Theme;
 using UtinniCoreDotNet.Utility;
@@ -22,8 +21,16 @@ namespace UtinniCoreDotNet.UI.Forms
         [Description("Draw Name"), Category("Data")]
         public bool DrawName { get; set; } = false;
 
+        private Image iconImage = null;
         [Description("Icon Image"), Category("Data")]
-        public Image IconImage { get; set; } = null;
+        public Image IconImage
+        {
+            get { return iconImage; }
+            set
+            {
+                iconImage = new Bitmap(value, 24, 24);
+            }
+        }
 
         [Browsable(false)]
         public new FormBorderStyle FormBorderStyle
