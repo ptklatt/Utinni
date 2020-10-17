@@ -216,11 +216,11 @@ static std::vector<void(*)()> onGizmoRotationChangedCallbacks;
 
 namespace imgui_gizmo
 {
-static bool recentPositionChange = false;
-static bool recentRotationChange = false;
 bool enabled = false;
 bool gizmoHasMouseHover = false;
 
+bool wasUsed = false;
+Transform originalTransform;
 Object* object = nullptr;
 
 static ImGuizmo::OPERATION operationMode(ImGuizmo::TRANSLATE);
@@ -251,16 +251,6 @@ void disable()
 bool isEnabled()
 {
 	 return enabled;
-}
-
-bool hasRecentPositionChange()
-{
-	 return recentPositionChange;
-}
-
-bool hasRecentRotationChange()
-{
-	 return recentRotationChange;
 }
 
 bool hasMouseHover()
@@ -334,22 +324,9 @@ void draw()
 		  return;
 	 }
 
-	 if (!ImGui::IsAnyMouseDown())
-	 {
-		  if (recentPositionChange)
-		  {
-				recentPositionChange = false;
-		  }
-
-		  if (recentRotationChange)
-		  {
-				recentRotationChange = false;
-		  }
-	 }
-
 	 Camera* camera = GroundScene::get()->getCurrentCamera();
 
-	 // Set up the Matrices for the gizmo
+	 // Set up the matrices for the gizmo
 	 Transform w2c;
 	 w2c.invert(*camera->getTransform_o2w());
 	 const Matrix4x4 view = Matrix4x4(w2c);
@@ -371,31 +348,48 @@ void draw()
 
 	 gizmoHasMouseHover = ImGuizmo::IsOver();
 
-	 // Pass the updated matrix back to the object
-	 float* updatedObjMatrix = &Matrix4x4().matrix[0][0];
-	 Matrix4x4::transpose(objMatrix, updatedObjMatrix);
-
-	 Transform oldTransform = Transform(*object->getTransform_o2w());
-	 Vector oldPos = oldTransform.getPosition();
-	 object->setTransform_o2w(*(Transform*)updatedObjMatrix);
-	 object->positionAndRotationChanged(false, oldPos);
-
-	 if (oldPos != object->getTransform_o2w()->getPosition())
+	 if (ImGuizmo::IsUsing())
 	 {
-		  for (const auto& func : onGizmoPositionChangedCallbacks)
+		  // If the mouse went up or it's the initial use, store the original transform
+		  if (!wasUsed)
 		  {
-				func();
+				originalTransform = Transform(*object->getTransform_o2w());
 		  }
-		  recentPositionChange = true;
+
+		  // Pass the updated matrix back to the object
+		  float* updatedObjMatrix = &Matrix4x4().matrix[0][0];
+		  Matrix4x4::transpose(objMatrix, updatedObjMatrix);
+
+		  Transform previousTransform = Transform(*object->getTransform_o2w());
+		  object->setTransform_o2w(*(Transform*)updatedObjMatrix);
+		  Vector oldPos = previousTransform.getPosition();
+		  object->positionAndRotationChanged(false, oldPos);
+
+		  wasUsed = true;
 	 }
-
-	 if (!object->getTransform_o2w()->isRotationEqual(oldTransform))
+	 else
 	 {
-		  for (const auto& func : onGizmoRotationChangedCallbacks)
+		  // If there the gizmo was used and there was a change, notify the callbacks
+		  if (wasUsed)
 		  {
-				func();
+				if (originalTransform.getPosition() != object->getTransform_o2w()->getPosition())
+				{
+
+					 for (const auto& func : onGizmoPositionChangedCallbacks)
+					 {
+						  func();
+					 }
+				}
+
+				if (!object->getTransform_o2w()->isRotationEqual(originalTransform))
+				{
+					 for (const auto& func : onGizmoRotationChangedCallbacks)
+					 {
+						  func();
+					 }
+				}
 		  }
-		  recentRotationChange = true;
+		  wasUsed = false;
 	 }
 }
 }
