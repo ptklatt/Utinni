@@ -187,6 +187,9 @@
     <EmbeddedResource Include="UI\Controls\CollapsiblePanel.resx">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\FormHotkeyEditor.resx">
+      <DependentUpon>FormHotkeyEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FormLog.resx">
       <DependentUpon>FormLog.cs</DependentUpon>
     </EmbeddedResource>

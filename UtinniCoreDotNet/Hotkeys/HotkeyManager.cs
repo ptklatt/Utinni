@@ -13,6 +13,7 @@ namespace UtinniCoreDotNet.Hotkeys
 
         public readonly Dictionary<string, Hotkey> Hotkeys = new Dictionary<string, Hotkey>();
         public bool OnGameFocusOnly;
+        public bool Enabled = true;
 
         public HotkeyManager(bool onGameFocusOnly)
         {
@@ -22,6 +23,11 @@ namespace UtinniCoreDotNet.Hotkeys
 
         public void ProcessInput(Keys modifierKeys, Keys key)
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
             foreach (var pair in Hotkeys)
             {
                 Hotkey hotkey = pair.Value;
