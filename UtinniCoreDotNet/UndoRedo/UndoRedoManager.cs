@@ -27,6 +27,7 @@ namespace UtinniCoreDotNet.UndoRedo
         {
             editorPlugin.AddUndoCommand += (sender, args) =>
             {
+                RedoCommands.Clear();
                 if (UndoCommands.Count > 0 && UndoCommands.Peek().Merge(args.UndoCommand))
                 {
                     return;

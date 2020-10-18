@@ -88,9 +88,8 @@ namespace UtinniCoreDotNet.UI.Controls
 
         protected override void OnEnabledChanged(EventArgs e)
         {
-            base.OnEnabledChanged(e);
-
             UpdateImageForecolor();
+            base.OnEnabledChanged(e);
         }
     }
 

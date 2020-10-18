@@ -126,6 +126,8 @@ namespace UtinniCoreDotNet.UI.Controls
             {
                 ForeColor = Colors.FontDisabled();
             }
+
+            Invalidate();
         }
     }
 }
