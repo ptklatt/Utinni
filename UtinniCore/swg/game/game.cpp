@@ -129,7 +129,8 @@ void __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
 
 void __cdecl hkInstall(int application)
 {
-    swg::game::install(application);
+    swg::game::install(Client::getEditorMode());
+
     repository = Repository();
     WorldSnapshot::generateHighestId();
 
