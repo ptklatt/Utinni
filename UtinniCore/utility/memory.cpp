@@ -65,7 +65,12 @@ void set(swgptr pDest, swgptr value, size_t length)
 
 void patchAddress(swgptr address, swgptr value)
 {
-	 set(address, value, 4); // ToDo check if this works right, doesn't it need write or copy vs set?
+	 DWORD oldProtect;
+	 DWORD newProtect;
+
+	 VirtualProtect((LPVOID)address, 4, PAGE_EXECUTE_READWRITE, &oldProtect);
+	 write<swgptr>(address, value);
+	 VirtualProtect((LPVOID)address, 4, oldProtect, &newProtect);
 }
 
 std::tuple<swgptr, std::vector<char>> nopAddress(swgptr address, int nopCount)
