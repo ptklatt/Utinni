@@ -78,23 +78,21 @@ namespace ExampleEditorPlugin
 
         public void OnPositionChanged() // ToDo Something is broken where it sometimes has 1-2 too many undo stages
         {
-            bool allowMerge = UtinniCore.ImguiGizmo.imgui_impl.HasRecentPositionChange();
-            GroundSceneCallbacks.AddUpdateLoopCall(() =>
+            GroundSceneCallbacks.AddPreDrawLoopCall(() =>
             {
                 var obj = Game.PlayerLookAtTargetObject;
                 WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeByNetworkId(obj.NetworkId);
 
                 if (node != null)
                 {
+                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodePositionChangedCommand(node, node.Transform, obj.Transform)));
                     node.Transform.Position = obj.Transform.Position;
-                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodePositionChangedCommand(node, allowMerge)));
                 }
             });
         }
 
         public void OnRotationChanged() // ToDo Something is broken where it sometimes has 1-2 too many undo stages
         {
-            bool allowMerge = UtinniCore.ImguiGizmo.imgui_impl.HasRecentRotationChange();
             GroundSceneCallbacks.AddUpdateLoopCall(() =>
             {
                 var obj = Game.PlayerLookAtTargetObject;
@@ -102,8 +100,9 @@ namespace ExampleEditorPlugin
 
                 if (node != null)
                 {
+                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodeRotationChangedCommand(node, node.Transform, obj.Transform)));
                     node.Transform.CopyRotation(obj.Transform);
-                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodeRotationChangedCommand(node, allowMerge)));
+                    //snapshotPanel.UpdateSelectedNodeControlsPosition(node.Transform.RotationAxis);
                 }
             });
         }

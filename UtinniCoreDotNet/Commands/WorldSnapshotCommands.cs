@@ -1,6 +1,8 @@
-﻿using UtinniCore.Utinni;
+﻿using UtinniCore.Swg.Math;
+using UtinniCore.Utinni;
 using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.UndoRedo;
+using UtinniCoreDotNet.Utility;
 
 namespace UtinniCoreDotNet.Commands
 {
@@ -92,26 +94,28 @@ namespace UtinniCoreDotNet.Commands
 
     public class WorldSnapshotNodePositionChangedCommand : IUndoCommand
     {
-        private WorldSnapshotReaderWriter.Node nodeCopy;
-        private readonly bool allowMerge;
+        private readonly WorldSnapshotReaderWriter.Node nodeCopy;
+        private readonly Transform originalTransform;
+        private readonly Transform newTransform;
 
-        public WorldSnapshotNodePositionChangedCommand(WorldSnapshotReaderWriter.Node node, bool allowMerge)
+        public WorldSnapshotNodePositionChangedCommand(WorldSnapshotReaderWriter.Node node, Transform originalTransform, Transform newTransform)
         {
             nodeCopy = new WorldSnapshotReaderWriter.Node(node);
-            this.allowMerge = allowMerge;
+            this.originalTransform = new Transform(originalTransform);
+            this.newTransform = new Transform(newTransform);
         }
 
         public string GetText()
         {
-            return "Changed position of WorldSnapshot Node: (" + nodeCopy.Id + ") " + nodeCopy.ObjectTemplateName;
+            return "Changed Node position: (" + nodeCopy.Id + ") " + nodeCopy.ObjectTemplateName;
         }
 
-        private void RestorePreviousPosition()
+        private void SetPosition(Vector position)
         {
             GroundSceneCallbacks.AddUpdateLoopCall(() =>
             {
                 var obj = Network.GetObjectById(nodeCopy.Id);
-                obj.Transform.Position = nodeCopy.Transform.Position;
+                obj.Transform.Position = position;
 
                 WorldSnapshotReaderWriter.Node node;
                 if (nodeCopy.ParentId > 0)
@@ -123,8 +127,7 @@ namespace UtinniCoreDotNet.Commands
                     node = WorldSnapshotReaderWriter.Get().GetNodeById(nodeCopy.Id);
                 }
 
-                nodeCopy = new WorldSnapshotReaderWriter.Node(node); // Update the nodeCopy to the up to date previous state
-                node.Transform.Position = obj.Transform.Position;
+                node.Transform.Position = position;
 
                 WorldSnapshot.DetailLevelChanged();
             });
@@ -132,56 +135,49 @@ namespace UtinniCoreDotNet.Commands
 
         public void Execute()
         {
-            RestorePreviousPosition();
+            SetPosition(newTransform.Position);
         }
 
         public void Undo()
         {
-            RestorePreviousPosition();
+            SetPosition(originalTransform.Position);
         }
 
         public bool AllowMerge()
         {
-            return allowMerge;
+            return false;
         }
 
         public bool Merge(IUndoCommand newCommand)
         {
-            if (newCommand.GetType() == typeof(WorldSnapshotNodePositionChangedCommand))
-            {
-                var cmd = (WorldSnapshotNodePositionChangedCommand)newCommand;
-
-                if (nodeCopy.Id == cmd.nodeCopy.Id && newCommand.AllowMerge())
-                {
-                    return true;
-                }
-            }
-
             return false;
         }
     }
 
     public class WorldSnapshotNodeRotationChangedCommand : IUndoCommand
     {
-        private WorldSnapshotReaderWriter.Node nodeCopy;
-        private readonly bool allowMerge;
-        public WorldSnapshotNodeRotationChangedCommand(WorldSnapshotReaderWriter.Node node, bool allowMerge)
+        private readonly WorldSnapshotReaderWriter.Node nodeCopy;
+        private readonly Transform originalTransform;
+        private readonly Transform newTransform;
+
+        public WorldSnapshotNodeRotationChangedCommand(WorldSnapshotReaderWriter.Node node, Transform originalTransform, Transform newTransform)
         {
             nodeCopy = new WorldSnapshotReaderWriter.Node(node);
-            this.allowMerge = allowMerge;
+            this.originalTransform = new Transform(originalTransform);
+            this.newTransform = new Transform(newTransform);
         }
 
         public string GetText()
         {
-            return "Changed rotation of WorldSnapshot Node: (" + nodeCopy.Id + ") " + nodeCopy.ObjectTemplateName;
+            return "Changed Node rotation: (" + nodeCopy.Id + ") " + nodeCopy.ObjectTemplateName;
         }
 
-        private void RestorePreviousPosition()
+        private void SetRotation(Transform transform)
         {
             GroundSceneCallbacks.AddUpdateLoopCall(() =>
             {
                 var obj = Network.GetObjectById(nodeCopy.Id);
-                obj.Transform.CopyRotation(nodeCopy.Transform);
+                obj.Transform.CopyRotation(transform);
 
                 WorldSnapshotReaderWriter.Node node;
                 if (nodeCopy.ParentId > 0)
@@ -193,8 +189,7 @@ namespace UtinniCoreDotNet.Commands
                     node = WorldSnapshotReaderWriter.Get().GetNodeById(nodeCopy.Id);
                 }
 
-                nodeCopy = new WorldSnapshotReaderWriter.Node(node); // Update the nodeCopy to the up to date previous state
-                node.Transform.CopyRotation(obj.Transform);
+                node.Transform.CopyRotation(transform);
 
                 WorldSnapshot.DetailLevelChanged();
             });
@@ -202,31 +197,21 @@ namespace UtinniCoreDotNet.Commands
 
         public void Execute()
         {
-            RestorePreviousPosition();
+            SetRotation(newTransform);
         }
 
         public void Undo()
         {
-            RestorePreviousPosition();
+            SetRotation(originalTransform);
         }
 
         public bool AllowMerge()
         {
-            return allowMerge;
+            return false;
         }
 
         public bool Merge(IUndoCommand newCommand)
         {
-            if (newCommand.GetType() == typeof(WorldSnapshotNodeRotationChangedCommand))
-            {
-                var cmd = (WorldSnapshotNodeRotationChangedCommand)newCommand;
-
-                if (nodeCopy.Id == cmd.nodeCopy.Id && newCommand.AllowMerge())
-                {
-                    return true;
-                }
-            }
-
             return false;
         }
     }
