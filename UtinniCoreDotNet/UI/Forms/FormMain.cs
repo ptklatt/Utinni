@@ -55,7 +55,7 @@ namespace UtinniCoreDotNet.UI.Forms
         public FormMain(PluginLoader pluginLoader)
         {
             InitializeComponent();
-            undoRedoManager = new UndoRedoManager(OnAddUndoRedoCommand, OnUndo, OnRedo);
+            undoRedoManager = new UndoRedoManager(OnUpdateCommandsCallback, OnUndo, OnRedo);
 
             foreach (IPlugin plugin in pluginLoader.Plugins)
             {
@@ -187,7 +187,7 @@ namespace UtinniCoreDotNet.UI.Forms
             }
         }
 
-        private void OnAddUndoRedoCommand()
+        private void OnUpdateCommandsCallback()
         {
             tbbtnUndo.Enabled = undoRedoManager.UndoCommands.Count > 0;
             tbbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;

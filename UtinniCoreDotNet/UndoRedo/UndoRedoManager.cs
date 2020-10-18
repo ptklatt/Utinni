@@ -1,26 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using UtinniCoreDotNet.Callbacks;
 using UtinniCoreDotNet.PluginFramework;
 
 namespace UtinniCoreDotNet.UndoRedo
 {
     public class UndoRedoManager
     {
-        private readonly Action addUndoRedoCommandCallback;
+        private readonly Action onUpdateCommandsCallback;
         private readonly Action undoCallback;
         private readonly Action redoCallback;
 
         public readonly Stack<IUndoCommand> UndoCommands;
         public readonly Stack<IUndoCommand> RedoCommands;
 
-        public UndoRedoManager(Action addUndoRedoCommandCallback, Action undoCallback, Action redoCallback)
+        public UndoRedoManager(Action onUpdateCommandsCallback, Action undoCallback, Action redoCallback)
         {
             UndoCommands = new Stack<IUndoCommand>();
             RedoCommands = new Stack<IUndoCommand>();
 
-            this.addUndoRedoCommandCallback = addUndoRedoCommandCallback;
+            this.onUpdateCommandsCallback = onUpdateCommandsCallback;
             this.undoCallback = undoCallback;
             this.redoCallback = redoCallback;
+
+            GameCallbacks.AddCleanupSceneCall(OnCleanupCallback);
+        }
+
+        private void OnCleanupCallback()
+        {
+            UndoCommands.Clear();
+            RedoCommands.Clear();
+            onUpdateCommandsCallback();
         }
 
         public void AddUndoCommand(IEditorPlugin editorPlugin)
@@ -35,7 +45,7 @@ namespace UtinniCoreDotNet.UndoRedo
 
                 UndoCommands.Push(args.UndoCommand);
 
-                addUndoRedoCommandCallback();
+                onUpdateCommandsCallback();
             };
         }
 
