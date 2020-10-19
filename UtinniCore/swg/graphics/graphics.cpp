@@ -24,6 +24,10 @@ using pFlushResources = void(__cdecl*)(bool reset);
 
 using pTextureListReloadTextures = void(__cdecl*)();
 
+using pSetStaticShader = void(__cdecl*)(swgptr staticShader, int pass);
+using pSetObjectToWorldTransformAndScale = void(__cdecl*)(math::Transform* objecToWorld, math::Vector* scale);
+using pDrawExtent = void(__cdecl*)(utinni::Extent* extent, swgptr vecArgbColor);
+
 pInstall install = (pInstall)0x007548A0;
 
 pUpdate update = (pUpdate)0x00755700; 
@@ -41,6 +45,10 @@ pResize resize = (pResize)0x00754E40;
 pFlushResources flushResources = (pFlushResources)0x00755520;
 
 pTextureListReloadTextures textureListReloadTextures = (pTextureListReloadTextures)0x00764B70;
+
+pSetStaticShader setStaticShader = (pSetStaticShader)0x00755910;
+pSetObjectToWorldTransformAndScale setObjectToWorldTransformAndScale = (pSetObjectToWorldTransformAndScale)0x00755D30;
+pDrawExtent drawExtent = (pDrawExtent)0x00759A70;
 }
 
 
@@ -264,6 +272,21 @@ void Graphics::flushResources(bool fullFlush)
 void Graphics::reloadTextures()
 {
     swg::graphics::textureListReloadTextures();
+}
+
+void Graphics::setStaticShader(swgptr staticShader, int pass)
+{
+    swg::graphics::setStaticShader(staticShader, pass);
+}
+
+void Graphics::setObjectToWorldTransformAndScale(swg::math::Transform* objecToWorld, swg::math::Vector* scale)
+{
+    swg::graphics::setObjectToWorldTransformAndScale(objecToWorld, scale);
+}
+
+void Graphics::drawExtent(Extent* extent, swgptr vecArgbColor)
+{
+    swg::graphics::drawExtent(extent, vecArgbColor);
 }
 
 }

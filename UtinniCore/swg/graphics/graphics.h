@@ -1,10 +1,12 @@
 #pragma once
 
 #include "utinni.h"
+#include "swg/misc/swg_math.h"
+#include "swg/appearance/extent.h"
 
 namespace utinni
 {
-class UTINNI_API Graphics
+    class UTINNI_API Graphics
 {
 public:
     static void addPreUpdateLoopCallback(void (*func)(float elapsedTime));
@@ -30,6 +32,10 @@ public:
     static void flushResources(bool fullFlush);
 
     static void reloadTextures();
+
+    static void setStaticShader(swgptr staticShader, int pass = 0);
+    static void setObjectToWorldTransformAndScale(swg::math::Transform* objecToWorld, swg::math::Vector* scale);
+    static void drawExtent(Extent* extent, swgptr vecArgbColor);
 };
 };
 
