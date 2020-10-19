@@ -36,12 +36,17 @@ namespace UtinniCoreDotNet.UI.Controls
 
             KeyDown += PanelGame_KeyDown;
 
+            Layout += PanelGame_Layout;
+
             GameDragDropEventHandlers.Initialize(this);
 
+            this.pluginLoader = pluginLoader;
+        }
+
+        private void PanelGame_Layout(object sender, LayoutEventArgs e)
+        {
             Client.SetHwnd(Handle);
             Client.SetHInstance(Process.GetCurrentProcess().Handle);
-
-            this.pluginLoader = pluginLoader;
         }
 
         private void PanelGame_Disposed(object sender, EventArgs e)

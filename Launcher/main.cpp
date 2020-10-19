@@ -153,6 +153,9 @@ void inject(PROCESS_INFORMATION procInfo)
 
     LPVOID lpLoadLibraryA = (LPVOID)GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
     HANDLE hThread = CreateRemoteThread(procInfo.hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE)lpLoadLibraryA, lpMemory, 0, nullptr);
+
+    WaitForInputIdle(procInfo.hProcess, 5000);
+
     if (!hThread)
         throw std::runtime_error("[ERROR] Couldn't open LoadLibraryA thread. Dll not injected.");
 
@@ -166,6 +169,7 @@ void inject(PROCESS_INFORMATION procInfo)
     if (hDll == 0x00000000)
         throw std::runtime_error("[ERROR] LoadLibraryA couldn't inject dll.");
 }
+
 std::string swgClientPath;
 std::string getSwgClientFilename()
 {
