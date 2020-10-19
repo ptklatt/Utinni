@@ -356,6 +356,17 @@ void draw()
 				originalTransform = Transform(*object->getTransform_o2w());
 		  }
 
+		  if (ImGui::IsKeyDown(ImGui::GetKeyIndex(ImGuiKey_Escape)))
+		  {
+				object->setTransform_o2w(originalTransform);
+				Vector originalPos = originalTransform.getPosition();
+				object->positionAndRotationChanged(false, originalPos);
+				wasUsed = false;
+				ImGuizmo::Enable(false);
+				ImGuizmo::Enable(true);
+				return;
+		  }
+
 		  // Pass the updated matrix back to the object
 		  float* updatedObjMatrix = &Matrix4x4().matrix[0][0];
 		  Matrix4x4::transpose(objMatrix, updatedObjMatrix);
