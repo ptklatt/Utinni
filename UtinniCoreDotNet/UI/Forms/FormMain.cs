@@ -74,6 +74,14 @@ namespace UtinniCoreDotNet.UI.Forms
 
             tbddWindows = new UtinniTitlebarDropDownButton("Open...");
 
+            ToolStripDropDownItem tsddItem = new ToolStripMenuItem("Log");
+            tsddItem.Click += (sender, args) =>
+            {
+                OpenLogWindow();
+            };
+
+            tbddWindows.Menu.Items.Add(tsddItem);
+
             CreatePluginControls();
 
             tbbtnUndo = new UndoRedoTitlebarButton(this, "Undo", Resources.undo, undoRedoManager.Undo);
@@ -307,17 +315,12 @@ namespace UtinniCoreDotNet.UI.Forms
             ImGuiCallbacks.Initialize();
         }
 
-        private void tsmiLog_Click(object sender, EventArgs e)
-        {
-            OpenLogWindow();
-        }
-
         private void OpenLogWindow()
         {
             // Check if the log is already open
             foreach (Form form in Application.OpenForms)
             {
-                if (form.GetType() == typeof(FormLog))
+                if (form.GetType() == typeof(FormLog)) // ToDo fix this, it's broken since using UtinniForm
                 {
                     form.Activate();
                     return;
