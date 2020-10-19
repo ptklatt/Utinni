@@ -44,7 +44,7 @@ namespace UtinniCoreDotNet.UI.Forms
             this.pnlGame.BackColor = System.Drawing.Color.Black;
             this.pnlGame.Location = new System.Drawing.Point(452, 34);
             this.pnlGame.Name = "pnlGame";
-            this.pnlGame.Size = new System.Drawing.Size(742, 460);
+            this.pnlGame.Size = new System.Drawing.Size(735, 460);
             this.pnlGame.TabIndex = 3;
             // 
             // cmbPanels
@@ -79,7 +79,7 @@ namespace UtinniCoreDotNet.UI.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1207, 500);
+            this.ClientSize = new System.Drawing.Size(1200, 500);
             this.Controls.Add(this.pnlPlugins);
             this.Controls.Add(this.pnlGame);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

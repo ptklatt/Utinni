@@ -55,6 +55,10 @@ namespace UtinniCoreDotNet.UI.Forms
         public FormMain(PluginLoader pluginLoader)
         {
             InitializeComponent();
+
+            Width = UtinniCore.Utinni.utinni.GetConfig().GetInt("Editor", "width");
+            Height = UtinniCore.Utinni.utinni.GetConfig().GetInt("Editor", "height");
+
             undoRedoManager = new UndoRedoManager(OnUpdateCommandsCallback, OnUndo, OnRedo);
 
             foreach (IPlugin plugin in pluginLoader.Plugins)

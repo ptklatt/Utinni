@@ -24,6 +24,8 @@ const static UtINI::Value utinniSettings[] = {
     { "Editor", "enableEditorMode", "false", UtINI::Value::vt_bool },
     { "Editor", "defaultPluginPanel", "Main Controls", UtINI::Value::vt_string },
     { "Editor", "autoOpenLogWindow", "false", UtINI::Value::vt_bool },
+    { "Editor", "width", "1200", UtINI::Value::vt_int },
+    { "Editor", "height", "500", UtINI::Value::vt_int },
 
 };
 
