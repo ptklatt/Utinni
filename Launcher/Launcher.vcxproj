@@ -148,6 +148,9 @@
   <ItemGroup>
     <ResourceCompile Include="Launcher.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\data\Icons\TJT.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

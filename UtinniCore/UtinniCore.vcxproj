@@ -209,6 +209,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\misc\swg_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="swg\appearance\particle.h" />
     <ClInclude Include="swg\appearance\portal.h" />
     <ClInclude Include="swg\appearance\skeleton.h" />
@@ -265,6 +266,9 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ProjectReference Include="..\UtINI\UtINI.vcxproj">
       <Project>{5f903813-e62a-49f6-8b3e-0443decadb5d}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UtinniCore.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

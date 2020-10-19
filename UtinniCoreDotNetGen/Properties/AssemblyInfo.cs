@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Philip Klatt")]
 [assembly: AssemblyProduct("UtinniCoreDotNetGen")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright ©  2020, Philip Klatt")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
