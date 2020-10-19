@@ -6,6 +6,7 @@
 #include "swg/game/game.h"
 #include "swg/object/client_object.h"
 #include "utility/string_utility.h"
+#include "swg/appearance/portal.h"
 
 
 namespace swg::groundScene

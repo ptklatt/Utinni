@@ -17,6 +17,8 @@
 #include "swg/ui/cui_misc.h"
 #include "swg/object/creature_object.h"
 #include "swg/ui/cui_io.h"
+#include "swg/appearance/skeleton.h"
+#include "swg/scene/client_world.h"
 
 std::string path;
 std::string swgOverrideCfgFilename = "utinni.cfg";
@@ -30,11 +32,13 @@ void createDetours()
 
     swg::config::detour();
 
+    utinni::ParticleEffectAppearance::detour();
     utinni::treefile::detour();
     utinni::Client::detour();
     utinni::Game::detour();
     utinni::GroundScene::detour();
     utinni::Graphics::detour();
+    utinni::clientWorld::detour();
     utinni::CuiChatWindow::detour();
     utinni::CuiManager::detour();
     utinni::cuiHud::detour();
@@ -84,6 +88,7 @@ void main()
     utinni::log::info("Loading .NET plugins");
     // Load the clr and UtinniCoreDotNet
     clr::load();
+
 }
 
 void detatch()

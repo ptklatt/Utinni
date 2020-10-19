@@ -5,6 +5,7 @@
 #include "swg/misc/swg_math.h"
 #include "swg/misc/swg_misc.h"
 #include "swg/appearance/appearance.h"
+#include "swg/appearance/portal.h"
 
 namespace utinni
 {

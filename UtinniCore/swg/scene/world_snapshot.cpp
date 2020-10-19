@@ -6,6 +6,7 @@
 #include "swg/object/object.h"
 #include "swg/object/client_object.h"
 #include "swg/game/game.h"
+#include "swg/appearance/portal.h"
 
 namespace swg::worldSnapshotReaderWriter
 {

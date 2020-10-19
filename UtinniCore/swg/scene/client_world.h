@@ -13,4 +13,6 @@ namespace utinni
 namespace utinni::clientWorld
 {
 extern bool collide(CellProperty* cell, swg::math::Vector* worldStart, swg::math::Vector* worldEnd, CollisionInfo& collisionResults, uint16_t collisionFlags, Object* excludeObject);
+
+extern void detour();
 }

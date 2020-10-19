@@ -10,5 +10,9 @@ UTINNI_API bool collideCursorWithWorld(int x, int y, swg::math::Vector& result, 
 UTINNI_API const swg::math::Vector& getCursorWorldPosition();
 UTINNI_API void patchAllowTargetEverything(bool value);
 
+extern swg::math::Vector* getWs();
+extern swg::math::Vector* getWe();
+
+
 void detour();
 }

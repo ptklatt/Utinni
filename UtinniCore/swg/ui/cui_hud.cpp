@@ -49,8 +49,7 @@ bool collideCursorWithWorld(int x, int y, swg::math::Vector& result, Object* exc
 
     static constexpr uint16_t flags = (1 | 128 | 4096); // terrain | child objects | disable portal crossing
     CollisionInfo collisionResults;
-    auto tit = camera->getParentCell();
-    if (clientWorld::collide(tit, &worldStart, &worldEnd, collisionResults, flags, excludeObject))
+    if (clientWorld::collide(camera->getParentCell(), &worldStart, &worldEnd, collisionResults, flags, excludeObject))
     {
         result = swg::math::Vector(collisionResults.point);
         return true;
@@ -58,15 +57,24 @@ bool collideCursorWithWorld(int x, int y, swg::math::Vector& result, Object* exc
     return false;
 }
 
+static swg::math::Vector ws;
+static swg::math::Vector we;
+
 static swg::math::Vector cursorWorldPos;
 Object* __cdecl hkGetTarget(Camera* pCamera, swg::math::Vector* worldStart, swg::math::Vector* worldEnd, Object* obj)
 {
-    static constexpr uint16_t flags = (1 | 128 | 4096); // terrain | child objects | disable portal crossing
+    ws = swg::math::Vector(*worldStart);
+    we = swg::math::Vector(*worldEnd);
+
+    static constexpr uint16_t flags = 511; // (1 | 128 | 4096); // terrain | child objects | disable portal crossing
     CollisionInfo collisionResults;
     if (clientWorld::collide(pCamera->getParentCell(), worldStart, worldEnd, collisionResults, flags, obj))
     {
         cursorWorldPos = swg::math::Vector(collisionResults.point);
+
+        //log::info(collisionResults.object->getAppearanceFilename());
     }
+
     return swg::cuiHud::getTarget(pCamera, worldStart, worldEnd, obj);
 }
 
@@ -116,6 +124,16 @@ void patchAllowTargetEverything(bool value)
         static constexpr byte originalBytes[] = { 0x8B, 0xCE, 0xE8, 0x76, 0xF9 }; // call client.9C18A0
         memory::copy(0x00BD3FA3, originalBytes);
     }
+}
+
+swg::math::Vector* getWs()
+{
+    return &ws;
+}
+
+swg::math::Vector* getWe()
+{
+    return &we;
 }
 
 void detour()
