@@ -227,7 +227,7 @@ namespace UtinniCoreDotNet.UI.Forms
             tbbtnRedo.Enabled = undoRedoManager.RedoCommands.Count > 0;
         }
 
-        private int cmbPanelsPreviousIndex;
+        private int cmbPanelsPreviousIndex = -1;
         private void cmbPanels_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbPanelsPreviousIndex != cmbPanels.SelectedIndex)
