@@ -114,6 +114,16 @@ namespace UtinniCoreDotNet.UI.Forms
 
             InitializeEditorCallbacks(); // Initialize callbacks that are purely editor related
 
+
+            UtinniTitlebarButton tbbtnHotkeyEditor = new UtinniTitlebarButton("Hotkey Editor");
+            tbbtnHotkeyEditor.Click += (sender, args) =>
+            {
+                FormHotkeyEditor form = new FormHotkeyEditor(formHotkeyManager, editorPlugins);
+                form.Show();
+            };
+
+            RightTitleBarButtons.Add(tbbtnHotkeyEditor);
+
             if (UtinniCore.Utinni.utinni.GetConfig().GetBool("Editor", "autoOpenLogWindow"))
             {
                 OpenLogWindow();

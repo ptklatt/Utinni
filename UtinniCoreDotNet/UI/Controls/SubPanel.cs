@@ -8,17 +8,20 @@ namespace UtinniCoreDotNet.UI.Controls
     {
         public readonly string CheckboxPanelText;
         public readonly bool IsOpenByDefault;
+        private readonly bool forceWidth;
         private const int width = 417;
 
-        public SubPanel()
+        public SubPanel(bool forceWidth = true)
         {
+            this.forceWidth = forceWidth;
             Width = width;
             base.BackColor = Colors.Primary();
             base.ForeColor = Colors.Font();
         }
 
-        public SubPanel(string name, bool isOpenByDefault = false)
+        public SubPanel(string name, bool isOpenByDefault = false, bool forceWidth = true)
         {
+            this.forceWidth = forceWidth;
             Width = width;
             CheckboxPanelText = name;
             IsOpenByDefault = isOpenByDefault;
@@ -29,7 +32,10 @@ namespace UtinniCoreDotNet.UI.Controls
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            Width = width;
+            if (forceWidth)
+            {
+                Width = width;
+            }
         }
     }
 }

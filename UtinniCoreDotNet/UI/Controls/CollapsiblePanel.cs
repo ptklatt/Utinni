@@ -37,7 +37,7 @@ namespace UtinniCoreDotNet.UI.Controls
 
         private readonly SubPanel subPanel;
 
-        public CollapsiblePanel(SubPanel subPanel, string panelText = "")
+        public CollapsiblePanel(SubPanel subPanel, string panelText = "", int width = 420)
         {
             InitializeComponent();
 
@@ -45,7 +45,7 @@ namespace UtinniCoreDotNet.UI.Controls
             CollapsablePanelText = panelText;
             Open = this.subPanel.IsOpenByDefault;
 
-            Width = 420;
+            Width = width;
             this.subPanel.Width = Width - 6;
         }
 
