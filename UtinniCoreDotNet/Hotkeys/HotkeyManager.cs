@@ -42,9 +42,14 @@ namespace UtinniCoreDotNet.Hotkeys
 
                             hotkey.OnDownCallback();
 
+                            // ToDo really far from perfect, occasionally doesn't proper block a call
+
                             GameCallbacks.AddMainLoopCall(() =>
                             {
-                                UtinniCore.Utinni.CuiIo.cui_io.RestorePreviousEnableKeyboardValue();
+                                GameCallbacks.AddPreMainLoopCall(() =>
+                                {
+                                    UtinniCore.Utinni.CuiIo.cui_io.EnableKeyboard(true);
+                                });
                             });
                         });
                     }

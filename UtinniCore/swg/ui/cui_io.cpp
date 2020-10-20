@@ -38,7 +38,8 @@ void cuiIo::enableKeyboard(bool value)
 
 void cuiIo::restorePreviousEnableKeyboardValue()
 {
-    isKeyboardEnabled = oldIsKeyboardEnabled;
+    // ToDo this can get broken somehow when called from .NET, figure out why. Use enableKeyboard(true) for now
+    isKeyboardEnabled = true;
 }
 
 swgptr __fastcall hkProcessEvent(swgptr pThis, swgptr EDX, swgptr pEvent)
