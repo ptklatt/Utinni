@@ -34,6 +34,9 @@ namespace UtinniCoreDotNet.UI.Controls
             MouseLeave += PanelGame_MouseLeave;
             MouseMove += PanelGame_MouseMove;
 
+            GotFocus += PanelGame_GotFocus;
+            LostFocus += PanelGame_LostFocus;
+
             KeyDown += PanelGame_KeyDown;
 
             Layout += PanelGame_Layout;
@@ -41,6 +44,16 @@ namespace UtinniCoreDotNet.UI.Controls
             GameDragDropEventHandlers.Initialize(this);
 
             this.pluginLoader = pluginLoader;
+        }
+
+        private void PanelGame_GotFocus(object sender, EventArgs e)
+        {
+            ResumeGameInput();
+        }
+
+        private void PanelGame_LostFocus(object sender, EventArgs e)
+        {
+            SuspendGameInput();
         }
 
         private void PanelGame_Layout(object sender, LayoutEventArgs e)
@@ -54,42 +67,60 @@ namespace UtinniCoreDotNet.UI.Controls
             Game.Quit();
         }
 
-        int cursorHideCount; // ToDo Implement proper, hacky workaround when a single Cursor.Show() doesn't show the Cursor
         private void PanelGame_MouseEnter(object sender, EventArgs e)
         {
-            isCursorVisible = false;
-            Client.ResumeInput();
-            Cursor.Hide();
-            cursorHideCount++;
-            HasFocus = true;
+            Focus();
         }
 
         private void PanelGame_MouseLeave(object sender, EventArgs e)
         {
-            isCursorVisible = true;
-            Client.SuspendInput();
-
-            for (int i = 0; i < cursorHideCount; i++)
-            {
-                Cursor.Show();
-            }
-            cursorHideCount = 0;
-
-            HasFocus = false;
+            SuspendGameInput();
         }
 
         private void PanelGame_MouseMove(object sender, MouseEventArgs e)
         {
             if (imgui_impl.IsInternalUiHovered() && !isCursorVisible)
             {
-                isCursorVisible = true;
-                Cursor.Show();
+                ShowCursor();
+                SuspendGameInput();
             }
             else if (!imgui_impl.IsInternalUiHovered() && isCursorVisible)
             {
-                isCursorVisible = false;
-                Cursor.Hide();
+                ResumeGameInput();
+                HideCursor();
             }
+        }
+
+        private void ResumeGameInput()
+        {
+            Client.ResumeInput();
+            HideCursor();
+            HasFocus = true;
+        }
+
+        private void SuspendGameInput()
+        {
+            ShowCursor();
+            Client.SuspendInput();
+            HasFocus = false;
+        }
+
+        int cursorHideCount; // ToDo Implement proper, hacky workaround when a single Cursor.Show() doesn't show the Cursor
+        private void HideCursor()
+        {
+            Cursor.Hide();
+            cursorHideCount++;
+            isCursorVisible = false;
+        }
+
+        private void ShowCursor()
+        {
+            for (int i = 0; i < cursorHideCount; i++)
+            {
+                Cursor.Show();
+            }
+            cursorHideCount = 0;
+            isCursorVisible = true;
         }
 
         private void PanelGame_KeyDown(object sender, KeyEventArgs e)
