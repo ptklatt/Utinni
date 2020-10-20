@@ -85,6 +85,7 @@ namespace UtinniCoreDotNet.UI.Forms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IconImage = ((System.Drawing.Image)(resources.GetObject("$this.IconImage")));
             this.KeyPreview = true;
+            this.MinimumSize = new System.Drawing.Size(750, 250);
             this.Name = "FormMain";
             this.Text = "Utinni";
             this.Shown += new System.EventHandler(this.FormMain_Shown);
