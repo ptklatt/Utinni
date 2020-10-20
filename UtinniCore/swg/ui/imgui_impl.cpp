@@ -220,8 +220,8 @@ bool enabled = false;
 bool gizmoHasMouseHover = false;
 
 bool wasUsed = false;
-Transform originalTransform;
-Object* object = nullptr;
+static Transform originalTransform;
+static Object* object = nullptr;
 
 static ImGuizmo::OPERATION operationMode(ImGuizmo::TRANSLATE);
 static bool useSnap = false;
@@ -385,7 +385,6 @@ void draw()
 		  {
 				if (originalTransform.getPosition() != object->getTransform_o2w()->getPosition())
 				{
-
 					 for (const auto& func : onGizmoPositionChangedCallbacks)
 					 {
 						  func();

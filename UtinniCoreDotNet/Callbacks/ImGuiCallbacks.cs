@@ -5,10 +5,10 @@ namespace UtinniCoreDotNet.Callbacks
 {
     public static class ImGuiCallbacks
     {
-        private static readonly List<Action> onEnabledCallbacks = new List<Action>();
-        private static readonly List<Action> onDisabledCallbacks = new List<Action>();
-        private static readonly List<Action> onPositionChangedCallbacks = new List<Action>();
-        private static readonly List<Action> onRotationChangedCallbacks = new List<Action>();
+        private static readonly SynchronizedCollection<Action> onEnabledCallbacks = new SynchronizedCollection<Action>();
+        private static readonly SynchronizedCollection<Action> onDisabledCallbacks = new SynchronizedCollection<Action>();
+        private static readonly SynchronizedCollection<Action> onPositionChangedCallbacks = new SynchronizedCollection<Action>();
+        private static readonly SynchronizedCollection<Action> onRotationChangedCallbacks = new SynchronizedCollection<Action>();
 
         private static UtinniCore.Delegates.Action_ onEnabledCallbackAction;
         private static UtinniCore.Delegates.Action_ onDisabledCallbackAction;

@@ -11,7 +11,7 @@ namespace UtinniCoreDotNet.Utility
         private static bool writeClassName;
         private static bool writeFunctionName;
 
-        private static readonly List<Action<string>> outputSinkCallbacks = new List<Action<string>>();
+        private static readonly SynchronizedCollection<Action<string>> outputSinkCallbacks = new SynchronizedCollection<Action<string>>();
 
         private static UtinniCore.Delegates.Action_string outputSinkCallbacksAction;
         public static void Setup()

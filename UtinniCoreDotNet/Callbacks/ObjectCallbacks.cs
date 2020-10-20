@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace UtinniCoreDotNet.Callbacks
 {
     public static class ObjectCallbacks
     {
-        private static readonly List<Action> onTargetCallbacks = new List<Action>();
-
-        private static readonly Queue<Action> onTargetCallQueue = new Queue<Action>();
+        private static readonly SynchronizedCollection<Action> onTargetCallbacks = new SynchronizedCollection<Action>();
+        private static readonly ConcurrentQueue<Action> onTargetCallQueue = new ConcurrentQueue<Action>();
 
         private static UtinniCore.Delegates.Action_IntPtr_C dequeueOnTargetCallsAction;
         public static void Initialize()
@@ -35,8 +35,7 @@ namespace UtinniCoreDotNet.Callbacks
         {
             while (onTargetCallQueue.Count > 0)
             {
-                var func = onTargetCallQueue.Dequeue();
-                if (func != null)
+                if (onTargetCallQueue.TryDequeue(out var func))
                 {
                     func(); // ToDo fix being able to set IntPtr to object, etc, to be able to pass it
                 }

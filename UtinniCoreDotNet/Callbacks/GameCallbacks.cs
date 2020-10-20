@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace UtinniCoreDotNet.Callbacks
 {
     public static class GameCallbacks
     {
-        private static readonly List<Action> installCallback = new List<Action>();
-        private static readonly List<Action> setupSceneCallback = new List<Action>();
-        private static readonly List<Action> cleanupSceneCallback = new List<Action>();
-        private static readonly Queue<Action> preMainLoopCallQueue = new Queue<Action>();
-        private static readonly Queue<Action> mainLoopCallQueue = new Queue<Action>();
+        private static readonly SynchronizedCollection<Action> installCallback = new SynchronizedCollection<Action>();
+        private static readonly SynchronizedCollection<Action> setupSceneCallback = new SynchronizedCollection<Action>();
+        private static readonly SynchronizedCollection<Action> cleanupSceneCallback = new SynchronizedCollection<Action>();
+        private static readonly ConcurrentQueue<Action> preMainLoopCallQueue = new ConcurrentQueue<Action>();
+        private static readonly ConcurrentQueue<Action> mainLoopCallQueue = new ConcurrentQueue<Action>();
 
         private static UtinniCore.Delegates.Action_ callInstallCallbacksAction;
         private static UtinniCore.Delegates.Action_ callSetupSceneCallbacksAction;
@@ -76,8 +77,7 @@ namespace UtinniCoreDotNet.Callbacks
         {
             while (preMainLoopCallQueue.Count > 0)
             {
-                var func = preMainLoopCallQueue.Dequeue();
-                if (func != null)
+                if (preMainLoopCallQueue.TryDequeue(out var func))
                 {
                     func();
                 }
@@ -88,8 +88,7 @@ namespace UtinniCoreDotNet.Callbacks
         {
             while (mainLoopCallQueue.Count > 0)
             {
-                var func = mainLoopCallQueue.Dequeue();
-                if (func != null)
+                if (mainLoopCallQueue.TryDequeue(out var func))
                 {
                     func();
                 }
