@@ -27,6 +27,7 @@ namespace UtinniCoreDotNet.UI.Forms
 
         private readonly List<IEditorPlugin> editorPlugins = new List<IEditorPlugin>();
         private readonly List<SubPanelContainer> subContainers = new List<SubPanelContainer>();
+        private readonly List<Form> formChildren = new List<Form>();
 
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override void WndProc(ref Message m)
@@ -291,7 +292,7 @@ namespace UtinniCoreDotNet.UI.Forms
                         ToolStripDropDownItem tsddItem = new ToolStripMenuItem(editorPlugin.Information.Name + " - " + form.GetName());
                         tsddItem.Click += (sender, args) =>
                         {
-                            form.Create(editorPlugin);
+                            form.Create(editorPlugin, formChildren);
                         };
 
                         tbddWindows.Menu.Items.Add(tsddItem);
@@ -332,7 +333,7 @@ namespace UtinniCoreDotNet.UI.Forms
         private void OpenLogWindow()
         {
             // Check if the log is already open
-            foreach (Form form in Application.OpenForms)
+            foreach (Form form in formChildren)
             {
                 if (form.GetType() == typeof(FormLog)) // ToDo fix this, it's broken since using UtinniForm
                 {
@@ -344,6 +345,7 @@ namespace UtinniCoreDotNet.UI.Forms
             // If not, create a new one
             FormLog formLog = new FormLog();
             formLog.Show();
+            formChildren.Add(formLog);
         }
 
         private void tsbtnToggleUI_Click(object sender, EventArgs e)
