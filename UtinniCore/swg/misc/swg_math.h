@@ -61,9 +61,21 @@ struct UTINNI_API Transform
     void multiply(const Transform& left, const Transform& right);
 
     void invert(const Transform& transform);
+
+    void yaw(float degrees);
+    void pitch(float degrees);
+    void roll(float degrees);
+    void setRotationAxis(float x, float y, float z);
+    void setRotationAxis(const Vector& vector);
+
+    float getYaw_p2l();
+    float getPitch_p2l();
+
     Vector rotate_o2w(const Vector& vector);
     Vector rotate_p2w(const Vector& vector);
     Vector rotate_l2p(const Vector& vector);
+
+    Vector rotateTranslate_l2p(const Vector& vector);
 
     void copyRotation(const Transform& transform);
     bool isRotationEqual(const Transform& transform);

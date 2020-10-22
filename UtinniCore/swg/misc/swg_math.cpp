@@ -1,5 +1,7 @@
 #include "swg_math.h"
 
+static constexpr float pi = 3.14159265358979323846;
+
 namespace swg::math
 {
 
@@ -250,6 +252,118 @@ void Transform::invert(const Transform& transform)
     matrix[2][3] = -(matrix[2][0] * x + matrix[2][1] * y + matrix[2][2] * z);
 }
 
+void Transform::yaw(float degrees)
+{
+    const float radians = degrees * pi / 180;
+    const float sine = sin(radians);
+    const float cosine = cos(radians);
+
+    const float a = matrix[0][0];
+    const float c = matrix[0][2];
+    const float e = matrix[1][0];
+    const float g = matrix[1][2];
+    const float i = matrix[2][0];
+    const float k = matrix[2][2];
+
+    matrix[0][0] = a * cosine + c * -sine;
+    matrix[0][2] = a * sine + c * cosine;
+
+    matrix[1][0] = e * cosine + g * -sine;
+    matrix[1][2] = e * sine + g * cosine;
+
+    matrix[2][0] = i * cosine + k * -sine;
+    matrix[2][2] = i * sine + k * cosine;
+}
+
+void Transform::pitch(float degrees)
+{
+    const float radians = degrees * pi / 180;
+    const float sine = sin(radians);
+    const float cosine = cos(radians);
+
+    const float b = matrix[0][1];
+    const float c = matrix[0][2];
+
+    const float f = matrix[1][1];
+    const float g = matrix[1][2];
+
+    const float j = matrix[2][1];
+    const float k = matrix[2][2];
+
+    matrix[0][1] = b * cosine + c * sine;
+    matrix[0][2] = b * -sine + c * cosine;
+
+    matrix[1][1] = f * cosine + g * sine;
+    matrix[1][2] = f * -sine + g * cosine;
+
+    matrix[2][1] = j * cosine + k * sine;
+    matrix[2][2] = j * -sine + k * cosine;
+}
+
+void Transform::roll(float degrees)
+{
+    const float radians = degrees * pi / 180;
+    const float sine = sin(radians);
+    const float cosine = cos(radians);
+
+    const float a = matrix[0][0];
+    const float b = matrix[0][1];
+
+    const float e = matrix[1][0];
+    const float f = matrix[1][1];
+
+    const float i = matrix[2][0];
+    const float j = matrix[2][1];
+
+    matrix[0][0] = a * cosine + b * sine;
+    matrix[0][1] = a * -sine + b * cosine;
+
+    matrix[1][0] = e * cosine + f * sine;
+    matrix[1][1] = e * -sine + f * cosine;
+
+    matrix[2][0] = i * cosine + j * sine;
+    matrix[2][1] = i * -sine + j * cosine;
+}
+
+void Transform::setRotationAxis(float x, float y, float z)
+{
+    const float cx = cos(x);
+    const float sx = sin(x);
+    
+    const float cy = cos(y);
+    const float sy = sin(y);
+
+    const float cz = cos(z);
+    const float sz = sin(z);
+
+    matrix[0][0] = sy * sz * sx + cz * cx;
+    matrix[0][1] = cz * sy * sx - cx * sz;
+    matrix[0][2] = cy * sx;
+
+    matrix[1][0] = cy * sz;
+    matrix[1][1] = cy * cz;
+    matrix[1][2] = -sy;
+
+    matrix[2][0] = cx * sy * sz - cz * sx;
+    matrix[2][1] = cz * cx * sy + sz * sx;
+    matrix[2][2] = cy * cx;
+}
+
+void Transform::setRotationAxis(const Vector& vector)
+{
+    setRotationAxis(vector.X, vector.Y, vector.Z);
+}
+
+float Transform::getPitch_p2l()
+{
+    return atan2(-matrix[1][2], sqrt((matrix[0][2] * matrix[0][2]) + (matrix[2][2] * matrix[2][2]))) * 180 / pi;
+}
+
+float Transform::getYaw_p2l()
+{
+    return atan2(matrix[0][2], matrix[2][2]) * 180 / pi;
+}
+
 Vector Transform::rotate_o2w(const Vector& vector)
 {
     return {
@@ -274,6 +388,14 @@ Vector Transform::rotate_l2p(const Vector& vector)
         matrix[1][0] * vector.X + matrix[1][1] * vector.Y + matrix[1][2] * vector.Z,
         matrix[2][0] * vector.X + matrix[2][1] * vector.Y + matrix[2][2] * vector.Z);
 
+}
+
+Vector Transform::rotateTranslate_l2p(const Vector& vector)
+{
+    return Vector(
+        matrix[0][0] * vector.X + matrix[0][1] * vector.Y + matrix[0][2] * vector.Z + matrix[0][3],
+        matrix[1][0] * vector.X + matrix[1][1] * vector.Y + matrix[1][2] * vector.Z + matrix[1][3],
+        matrix[2][0] * vector.X + matrix[2][1] * vector.Y + matrix[2][2] * vector.Z + matrix[2][3]);
 }
 
 void Transform::copyRotation(const Transform& transform)
