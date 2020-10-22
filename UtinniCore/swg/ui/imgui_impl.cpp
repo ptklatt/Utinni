@@ -218,13 +218,16 @@ namespace imgui_gizmo
 {
 bool enabled = false;
 bool gizmoHasMouseHover = false;
-
 bool wasUsed = false;
+
 static Transform originalTransform;
 static Object* object = nullptr;
 
+static ImGuizmo::MODE gizmoMode(ImGuizmo::MODE::LOCAL);
 static ImGuizmo::OPERATION operationMode(ImGuizmo::TRANSLATE);
+
 static bool useSnap = false;
+static float snapSize = 1;
 
 void enable(Object* obj)
 {
@@ -278,6 +281,18 @@ void addOnRotationChangedCallback(void(*func)())
 	 onGizmoRotationChangedCallbacks.emplace_back(func);
 }
 
+void toggleGizmoMode()
+{
+	 if (gizmoMode != ImGuizmo::MODE::LOCAL)
+	 {
+		  gizmoMode = ImGuizmo::MODE::WORLD;
+	 }
+	 else
+	 {
+		  gizmoMode = ImGuizmo::MODE::LOCAL;
+	 }
+}
+
 void toggleOperationMode()
 {
     if (operationMode != ImGuizmo::TRANSLATE)
@@ -305,16 +320,25 @@ void toggleSnap()
 	 useSnap = !useSnap;
 }
 
+bool isSnapOn()
+{
+	 return useSnap;
+}
+
+void setSnapSize(float value)
+{
+	 snapSize = value;
+}
+
 void editTransform(const float* cameraView, float* cameraProjection, float* matrix)
 {
-	 static ImGuizmo::MODE currentGizmoMode(ImGuizmo::LOCAL);
-	 static float snap[3] = { 1.f, 1.f, 1.f };
+	 static float snap[3] = { snapSize, snapSize, snapSize };
 	 static float bounds[] = { -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f };
 	 static float boundsSnap[] = { 0.1f, 0.1f, 0.1f };
 	 static bool boundSizing = false;
 	 static bool boundSizingSnap = false;
 
-	 ImGuizmo::Manipulate(cameraView, cameraProjection, operationMode, currentGizmoMode, matrix, nullptr, useSnap ? &snap[0] : nullptr, boundSizing ? bounds : nullptr, boundSizingSnap ? boundsSnap : nullptr);
+	 ImGuizmo::Manipulate(cameraView, cameraProjection, operationMode, gizmoMode, matrix, nullptr, useSnap ? &snap[0] : nullptr, boundSizing ? bounds : nullptr, boundSizingSnap ? boundsSnap : nullptr);
 }
 
 void draw()

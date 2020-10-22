@@ -11,18 +11,20 @@ namespace UtinniCoreDotNet.UI.Controls
         private readonly bool forceWidth;
         private const int width = 417;
 
-        public SubPanel(bool forceWidth = true)
+        public SubPanel()
         {
-            this.forceWidth = forceWidth;
             Width = width;
             base.BackColor = Colors.Primary();
             base.ForeColor = Colors.Font();
         }
 
-        public SubPanel(string name, bool isOpenByDefault = false, bool forceWidth = true)
+        public SubPanel(bool forceWidth = true) : this()
         {
             this.forceWidth = forceWidth;
-            Width = width;
+        }
+
+        public SubPanel(string name, bool isOpenByDefault = false, bool forceWidth = true) : this(forceWidth)
+        {
             CheckboxPanelText = name;
             IsOpenByDefault = isOpenByDefault;
         }

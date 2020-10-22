@@ -29,10 +29,13 @@ UTINNI_API extern void addOnEnabledCallback(void(*func)());
 UTINNI_API extern void addOnDisabledCallback(void(*func)());
 UTINNI_API extern void addOnPositionChangedCallback(void(*func)());
 UTINNI_API extern void addOnRotationChangedCallback(void(*func)());
+UTINNI_API extern void toggleGizmoMode();
 UTINNI_API extern void toggleOperationMode();
 UTINNI_API extern void setOperationModeToTranslate();
 UTINNI_API extern void setOperationModeToRotate();
 UTINNI_API extern void toggleSnap();
+UTINNI_API extern bool isSnapOn();
+UTINNI_API extern void setSnapSize(float value);
 
 void draw();
 }
