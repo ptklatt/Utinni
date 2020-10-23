@@ -228,7 +228,7 @@ static ImGuizmo::MODE gizmoMode(ImGuizmo::MODE::LOCAL);
 static ImGuizmo::OPERATION operationMode(ImGuizmo::TRANSLATE);
 
 static bool useSnap = false;
-static float snapSize = 1;
+static float snap[3] = { 1, 1, 1 };
 
 void enable(Object* obj)
 {
@@ -309,6 +309,16 @@ void toggleOperationMode()
     }
 }
 
+void setGizmoModeToWorld()
+{
+	 gizmoMode = ImGuizmo::MODE::WORLD;
+}
+
+void setGizmoModeToLocal()
+{
+	 gizmoMode = ImGuizmo::MODE::LOCAL;
+}
+
 void setOperationModeToTranslate()
 {
 	 operationMode = ImGuizmo::TRANSLATE;
@@ -324,6 +334,11 @@ void toggleSnap()
 	 useSnap = !useSnap;
 }
 
+void enableSnap(bool value)
+{
+	 useSnap = value;
+}
+
 bool isSnapOn()
 {
 	 return useSnap;
@@ -331,12 +346,13 @@ bool isSnapOn()
 
 void setSnapSize(float value)
 {
-	 snapSize = value;
+	 snap[0] = value;
+	 snap[1] = value;
+	 snap[2] = value;
 }
 
 void editTransform(const float* cameraView, float* cameraProjection, float* matrix)
 {
-	 static float snap[3] = { snapSize, snapSize, snapSize };
 	 static float bounds[] = { -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f };
 	 static float boundsSnap[] = { 0.1f, 0.1f, 0.1f };
 	 static bool boundSizing = false;
