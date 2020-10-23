@@ -11,6 +11,8 @@ public:
 
     void setTimeOfDay(float time);
     float getTimeOfDay();
+    int getTimeOfDayHours();
+    int getTimeOfDayMinutes();
     int getWeatherIndex();
     void setWeatherIndex(int weatherIndex);
     const char* getFilename();

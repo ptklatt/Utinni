@@ -30,6 +30,21 @@ float Terrain::getTimeOfDay()
 	 return swg::terrain::getTimeOfDay(this);
 }
 
+int Terrain::getTimeOfDayHours()
+{
+	 int result = 6 + (int)(getTimeOfDay() * 24.f * 60.f) / 60;
+	 if (result >= 24)
+	 {
+		  result -= 24;
+	 }
+	 return result;
+}
+
+int Terrain::getTimeOfDayMinutes()
+{
+	 return (int)fmodf(getTimeOfDay() * 24.f * 60.f, 60.f);
+}
+
 int Terrain::getWeatherIndex()
 {
 	 return memory::read<int>(0x01924B6C); // Current terrain weatherIndex static pointer
