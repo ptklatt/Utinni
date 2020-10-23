@@ -59,23 +59,9 @@ namespace UtinniCoreDotNet.UI.Forms
             FormBorderStyle = FormBorderStyle.None;
             this.Icon = Resources.TJT;
 
-            UtinniTitlebarButton closeButton = new UtinniTitlebarButton(new Bitmap(Properties.Resources.close), Color.Red);
+            UtinniTitlebarButton closeButton = new UtinniTitlebarButton(new Bitmap(Resources.close), Color.Red);
             closeButton.Click += CloseButton_Click;
             RightTitleBarButtons.Add(closeButton);
-
-            if (MaximizeBox)
-            {
-                UtinniTitlebarButton maximizeButton = new UtinniTitlebarButton(new Bitmap(Properties.Resources.maximize));
-                maximizeButton.Click += MaximizeButton_Click;
-                RightTitleBarButtons.Add(maximizeButton);
-            }
-
-            if (MinimizeBox)
-            {
-                UtinniTitlebarButton minimizeButton = new UtinniTitlebarButton(new Bitmap(Properties.Resources.min));
-                minimizeButton.Click += MinimizeButton_Click;
-                RightTitleBarButtons.Add(minimizeButton);
-            }
 
             base.BackColor = Colors.Primary(); // ToDo do this proper
             UpdateForeColor();
@@ -83,6 +69,20 @@ namespace UtinniCoreDotNet.UI.Forms
 
         protected override void OnLoad(EventArgs e)
         {
+            if (MinimizeBox)
+            {
+                UtinniTitlebarButton minimizeButton = new UtinniTitlebarButton(new Bitmap(Resources.min));
+                minimizeButton.Click += MinimizeButton_Click;
+                RightTitleBarButtons.Insert(1, minimizeButton);
+            }
+
+            if (MaximizeBox)
+            {
+                UtinniTitlebarButton maximizeButton = new UtinniTitlebarButton(new Bitmap(Resources.maximize));
+                maximizeButton.Click += MaximizeButton_Click;
+                RightTitleBarButtons.Insert(1, maximizeButton);
+            }
+
             int rightButtonEdge = 0;
             foreach (UtinniTitlebarButton btn in RightTitleBarButtons)
             {
@@ -142,28 +142,31 @@ namespace UtinniCoreDotNet.UI.Forms
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == Native.WM_NCHITTEST || m.Msg == Native.WM_MOUSEMOVE)
+            if (Resizable)
             {
-                Point screenPoint = new Point(m.LParam.ToInt32());
-                Point clientPoint = this.PointToClient(screenPoint);
-
-                Dictionary<Native.WM_HitTests, Rectangle> hitBoxes = new Dictionary<Native.WM_HitTests, Rectangle>()
+                if (m.Msg == Native.WM_NCHITTEST || m.Msg == Native.WM_MOUSEMOVE)
                 {
-                    { Native.WM_HitTests.HTBOTTOM, new Rectangle(resizeBorderHitWidth, Size.Height - resizeBorderHitWidth, Size.Width - 2 * resizeBorderHitWidth, resizeBorderHitWidth) },
-                    { Native.WM_HitTests.HTBOTTOMRIGHT, new Rectangle(Size.Width - resizeBorderHitWidth, Size.Height - resizeBorderHitWidth, resizeBorderHitWidth, resizeBorderHitWidth) },
-                    { Native.WM_HitTests.HTRIGHT, new Rectangle(Size.Width - resizeBorderHitWidth, resizeBorderHitWidth, resizeBorderHitWidth, Size.Height - 2 * resizeBorderHitWidth) },
-                };
+                    Point screenPoint = new Point(m.LParam.ToInt32());
+                    Point clientPoint = this.PointToClient(screenPoint);
 
-                foreach (KeyValuePair<Native.WM_HitTests, Rectangle> hitBox in hitBoxes)
-                {
-                    if (hitBox.Value.Contains(clientPoint))
+                    Dictionary<Native.WM_HitTests, Rectangle> hitBoxes = new Dictionary<Native.WM_HitTests, Rectangle>()
                     {
-                        m.Result = (IntPtr)hitBox.Key;
-                        return;
+                        { Native.WM_HitTests.HTBOTTOM, new Rectangle(resizeBorderHitWidth, Size.Height - resizeBorderHitWidth, Size.Width - 2 * resizeBorderHitWidth, resizeBorderHitWidth) },
+                        { Native.WM_HitTests.HTBOTTOMRIGHT, new Rectangle(Size.Width - resizeBorderHitWidth, Size.Height - resizeBorderHitWidth, resizeBorderHitWidth, resizeBorderHitWidth) },
+                        { Native.WM_HitTests.HTRIGHT, new Rectangle(Size.Width - resizeBorderHitWidth, resizeBorderHitWidth, resizeBorderHitWidth, Size.Height - 2 * resizeBorderHitWidth) },
+                    };
+
+                    foreach (KeyValuePair<Native.WM_HitTests, Rectangle> hitBox in hitBoxes)
+                    {
+                        if (hitBox.Value.Contains(clientPoint))
+                        {
+                            m.Result = (IntPtr)hitBox.Key;
+                            return;
+                        }
                     }
                 }
             }
-
+            
             base.WndProc(ref m);
         }
 
