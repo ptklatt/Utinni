@@ -20,6 +20,7 @@ pWndProc wndProc = (pWndProc)0x00AA0970; // SWG's WndProc
 bool enableEditorMode = false;
 HWND hwnd = nullptr;
 HINSTANCE hInstance = nullptr;
+bool allowInput = false;
 
 namespace utinni
 {
@@ -60,6 +61,7 @@ void Client::suspendInput()
         SetFocus(nullptr);
         Graphics::showMouseCursor(false);
         DirectInput::suspend();
+        allowInput = false;
     }
 }
 
@@ -70,7 +72,13 @@ void Client::resumeInput()
         SetFocus(Client::getHwnd());
         Graphics::showMouseCursor(true);
         DirectInput::resume();
+        allowInput = true;
     }
+}
+
+bool Client::isInputAllowed()
+{
+    return allowInput;
 }
 
 int __cdecl hkSetupStartInstall(StartupData* pStartupData)

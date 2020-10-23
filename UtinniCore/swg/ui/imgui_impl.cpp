@@ -12,6 +12,7 @@
 #include "swg/misc/network.h"
 #include "swg/misc/config.h"
 #include "command_parser.h"
+#include "cui_io.h"
 
 #pragma comment(lib, "imgui/lib/imgui.lib")
 
@@ -249,6 +250,9 @@ void disable()
 	 {
 		  func();
 	 }
+
+	 // Ensure it's set to false in case the gizmo is disabled with mouse hovered
+	 gizmoHasMouseHover = false;
 }
 
 bool isEnabled()

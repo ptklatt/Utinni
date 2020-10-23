@@ -50,6 +50,7 @@ public:
 
     static void suspendInput();
     static void resumeInput();
+    static bool isInputAllowed();
 
     static void detour();
 };

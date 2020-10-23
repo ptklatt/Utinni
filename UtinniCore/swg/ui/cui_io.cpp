@@ -42,6 +42,11 @@ void cuiIo::restorePreviousEnableKeyboardValue()
     isKeyboardEnabled = true;
 }
 
+bool cuiIo::isInputBlocked()
+{
+    return !isKeyboardEnabled;
+}
+
 swgptr __fastcall hkProcessEvent(swgptr pThis, swgptr EDX, swgptr pEvent)
 {
     const int eventType = memory::read<int>(pEvent + 4);
