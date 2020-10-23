@@ -42,6 +42,8 @@ namespace UtinniCoreDotNet.UI.Forms
         private const int titleBarHeight = 32;
         private int leftTitlebarOffset = 0;
 
+        private int resizeBorderHitWidth = 5;
+
         private readonly Font nameFont = new Font("Arcon", 12);
 
         public List<UtinniTitlebarButton> LeftTitleBarButtons = new List<UtinniTitlebarButton>();
@@ -140,17 +142,26 @@ namespace UtinniCoreDotNet.UI.Forms
 
         protected override void WndProc(ref Message m)
         {
-            switch (m.Msg)
+            if (m.Msg == Native.WM_NCHITTEST || m.Msg == Native.WM_MOUSEMOVE)
             {
-                case Native.WM_NCHITTEST:
-                    Native.WM_HitTests ht = HitTest(m.HWnd, m.WParam, m.LParam);
-                    if (ht != Native.WM_HitTests.HTCLIENT)
+                Point screenPoint = new Point(m.LParam.ToInt32());
+                Point clientPoint = this.PointToClient(screenPoint);
+
+                Dictionary<Native.WM_HitTests, Rectangle> hitBoxes = new Dictionary<Native.WM_HitTests, Rectangle>()
+                {
+                    { Native.WM_HitTests.HTBOTTOM, new Rectangle(resizeBorderHitWidth, Size.Height - resizeBorderHitWidth, Size.Width - 2 * resizeBorderHitWidth, resizeBorderHitWidth) },
+                    { Native.WM_HitTests.HTBOTTOMRIGHT, new Rectangle(Size.Width - resizeBorderHitWidth, Size.Height - resizeBorderHitWidth, resizeBorderHitWidth, resizeBorderHitWidth) },
+                    { Native.WM_HitTests.HTRIGHT, new Rectangle(Size.Width - resizeBorderHitWidth, resizeBorderHitWidth, resizeBorderHitWidth, Size.Height - 2 * resizeBorderHitWidth) },
+                };
+
+                foreach (KeyValuePair<Native.WM_HitTests, Rectangle> hitBox in hitBoxes)
+                {
+                    if (hitBox.Value.Contains(clientPoint))
                     {
-                        m.Result = (IntPtr)ht;
+                        m.Result = (IntPtr)hitBox.Key;
                         return;
                     }
-
-                    break;
+                }
             }
 
             base.WndProc(ref m);

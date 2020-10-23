@@ -7,6 +7,7 @@ namespace UtinniCoreDotNet.Utility
     {
         public const int WM_SYSCOMMAND = 0x112;
         public const int WM_NCHITTEST = 0x0084;
+        public const int WM_MOUSEMOVE = 0x0200;
 
         public const int SC_DRAGMOVE = 0xF012; // SC_MOVE | HTCAPTION 
         public const int SC_MINIMIZE = 0xF020;
