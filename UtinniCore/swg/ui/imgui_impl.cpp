@@ -289,11 +289,11 @@ void toggleGizmoMode()
 {
 	 if (gizmoMode != ImGuizmo::MODE::LOCAL)
 	 {
-		  gizmoMode = ImGuizmo::MODE::WORLD;
+		  gizmoMode = ImGuizmo::MODE::LOCAL;
 	 }
 	 else
 	 {
-		  gizmoMode = ImGuizmo::MODE::LOCAL;
+		  gizmoMode = ImGuizmo::MODE::WORLD;
 	 }
 }
 
@@ -319,6 +319,16 @@ void setGizmoModeToLocal()
 	 gizmoMode = ImGuizmo::MODE::LOCAL;
 }
 
+bool isGizmoModeToLocal()
+{
+	 return gizmoMode == ImGuizmo::MODE::LOCAL;
+}
+
+bool isGizmoModeToWorld()
+{
+	 return gizmoMode == ImGuizmo::MODE::WORLD;
+}
+
 void setOperationModeToTranslate()
 {
 	 operationMode = ImGuizmo::TRANSLATE;
@@ -327,6 +337,16 @@ void setOperationModeToTranslate()
 void setOperationModeToRotate()
 {
 	 operationMode = ImGuizmo::ROTATE;
+}
+
+bool isOperationModeTransform()
+{
+	 return operationMode == ImGuizmo::TRANSLATE;
+}
+
+bool isOperationModeRotate()
+{
+	 return operationMode == ImGuizmo::ROTATE;
 }
 
 void toggleSnap()
