@@ -50,7 +50,7 @@ public:
 
     void clear();
     static void clearPreloadList(swgptr unk1, swgptr unk2, swgptr unk3);
-    void saveFile();
+    void saveFile(const char* snapshotName = "");
 
     const char* getObjectTemplateName(int objectTemplateNameIndex);
 

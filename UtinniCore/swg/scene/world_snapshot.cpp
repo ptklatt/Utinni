@@ -7,6 +7,7 @@
 #include "swg/object/client_object.h"
 #include "swg/game/game.h"
 #include "swg/appearance/portal.h"
+#include "utility/string_utility.h"
 
 namespace swg::worldSnapshotReaderWriter
 {
@@ -359,10 +360,19 @@ void WorldSnapshotReaderWriter::clearPreloadList(swgptr unk1, swgptr unk2, swgpt
     swg::worldsnapshot::clearPreloadList(unk1, unk2, unk3);
 }
 
-void WorldSnapshotReaderWriter::saveFile()
+void WorldSnapshotReaderWriter::saveFile(const char* snapshotName)
 {
     CreateDirectory((utility::getWorkingDirectory() + "/snapshot/").c_str(), nullptr);
-    swg::worldSnapshotReaderWriter::saveFile(this, ("snapshot/" + GroundScene::get()->getName() + ".ws").c_str());
+
+    if (constCharUtility::isEmpty(snapshotName))
+    {
+        swg::worldSnapshotReaderWriter::saveFile(this, ("snapshot/" + GroundScene::get()->getName() + ".ws").c_str());
+    }
+    else
+    {
+
+        swg::worldSnapshotReaderWriter::saveFile(this, ("snapshot/" + std::string(snapshotName) + ".ws").c_str());
+    }
 }
 
 bool WorldSnapshot::getPreloadSnapshot()
