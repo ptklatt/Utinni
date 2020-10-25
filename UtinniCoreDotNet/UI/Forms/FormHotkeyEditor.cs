@@ -30,6 +30,8 @@ namespace UtinniCoreDotNet.UI.Forms
             this.mainHotkeyManager = mainHotkeyManager;
             this.editorPlugins = editorPlugins;
 
+            TopMost = true;
+
             spnlContainer.Dock = DockStyle.Fill;
 
             CreateControls();
@@ -77,9 +79,16 @@ namespace UtinniCoreDotNet.UI.Forms
 
                 btn.Click += (sender, args) =>
                 {
-                    // ToDo add popup which lets you set it, with an accept button and then if accepted, sets the text
-
-                    // ToDo also set HasChanges with the result of accept or decline
+                    FormHotkeyEditorDialog form = new FormHotkeyEditorDialog(hotkeyEntry.Value);
+                    form.Top = (this.Top + (this.Height / 2)) - form.Height / 2;
+                    form.Left = (this.Left + (this.Width / 2)) - form.Width / 2;
+                    DialogResult dialogResult = form.ShowDialog(this);
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        hotkeyEntry.Value.UpdateKeys(form.NewValue);
+                        btn.Text = form.NewValue;
+                        HasChanges = true; // ToDo have HasChanges specific to each hotkeyManager and only save those that are changed?
+                    }
                 };
 
                 spnl.Controls.Add(lbl);

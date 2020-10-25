@@ -106,6 +106,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Controls\UtinniToolbarRenderer.cs" />
+    <Compile Include="UI\Forms\FormHotkeyEditorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\FormHotkeyEditorDialog.Designer.cs">
+      <DependentUpon>FormHotkeyEditorDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\GameDragDropEventHandlers.cs" />
     <Compile Include="Callbacks\GameCallbacks.cs" />
     <Compile Include="Callbacks\GroundSceneCallbacks.cs" />
@@ -178,6 +184,9 @@
     <Compile Include="Utility\Native.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI\Forms\FormHotkeyEditorDialog.resx">
+      <DependentUpon>FormHotkeyEditorDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
