@@ -62,6 +62,8 @@ namespace swg::object
 {
 using pCtor = utinni::Object* (__thiscall*)(utinni::Object* pThis);
 
+using pIsActive = bool (__thiscall*)(utinni::Object* pThis);
+
 using pDisallowDelete = void(__cdecl*)(bool disallowDelete);
 
 using pGetType = unsigned int(__thiscall*)(utinni::Object* pThis);
@@ -70,6 +72,8 @@ using pSetParentCell = void(__thiscall*)(utinni::Object* pThis, DWORD parentCell
 
 using pAddToWorld = void(__thiscall*)(utinni::Object* pThis);
 using pRemoveFromWorld = void(__thiscall*)(utinni::Object* pThis);
+
+using pMove = void(__thiscall*)(utinni::Object* pThis, const swg::math::Vector& vector);
 
 using pGetTransform_o2w = swg::math::Transform* (__thiscall*)(utinni::Object* pThis);
 using pSetTransform_o2w = void(__thiscall*)(utinni::Object* pThis, swg::math::Transform& objectToWorld);
@@ -102,6 +106,8 @@ using pGetTemplateFilename = const char* (__thiscall*)(utinni::Object* pThis);
 
 pCtor ctor = (pCtor)0x00B21B80;
 
+pIsActive isActive = (pIsActive)0xB222D0;
+
 pDisallowDelete disallowDelete;
 
 pGetType getType = (pGetType)0x00B23C60;
@@ -110,6 +116,8 @@ pSetParentCell setParentCell = (pSetParentCell)0x00B22C30;
 
 pAddToWorld addToWorld = (pAddToWorld)0x00B225F0;
 pRemoveFromWorld removeFromWorld = (pRemoveFromWorld)0x00B22680;
+
+pMove move = (pMove)0x00B23960;
 
 pGetTransform_o2w getTransform_o2w = (pGetTransform_o2w)0x00B22C80;
 pSetTransform_o2w setTransform_o2w = (pSetTransform_o2w)0x00B22CC0;
@@ -223,6 +231,11 @@ void Object::remove()
     (**(void(__thiscall***)(Object*, bool))this)(this, true); // ToDo do this proper at some point, taken from IDA pseudo code
 }
 
+bool Object::isActive()
+{
+    return swg::object::isActive(this);
+}
+
 swg::math::Transform* Object::getTransform()
 {
     if (parentObject == nullptr)
@@ -248,6 +261,11 @@ void Object::setTransform_o2w(swg::math::Transform& object2world)
 const swg::math::Vector Object::rotate_o2w(const swg::math::Vector* o2w, const swg::math::Vector* pointInSpace)
 {
     return swg::object::rotate_o2w(this, 0, o2w, pointInSpace);
+}
+
+void Object::move(const swg::math::Vector& vector)
+{
+    swg::object::move(this, vector);
 }
 
 void Object::addNotification(swgptr notification, bool allowWhenInWorld)
