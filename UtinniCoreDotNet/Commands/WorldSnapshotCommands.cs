@@ -127,6 +127,7 @@ namespace UtinniCoreDotNet.Commands
                     node = WorldSnapshotReaderWriter.Get().GetNodeById(nodeCopy.Id);
                 }
 
+                obj.PositionAndRotationChanged(false, node.Transform.Position);
                 node.Transform.Position = position;
 
                 WorldSnapshot.DetailLevelChanged();
@@ -189,6 +190,7 @@ namespace UtinniCoreDotNet.Commands
                     node = WorldSnapshotReaderWriter.Get().GetNodeById(nodeCopy.Id);
                 }
 
+                obj.PositionAndRotationChanged(false, node.Transform.Position);
                 node.Transform.CopyRotation(transform);
 
                 WorldSnapshot.DetailLevelChanged();
