@@ -39,6 +39,13 @@ pAddExcludedObject addExcludedObject = (pAddExcludedObject)0x00778FE0;
 pClearExcludedObjects clearExcludedObjects = (pClearExcludedObjects)0x00779130;
 }
 
+namespace swg::gameCamera
+{
+using pAlter = float(__thiscall*)(utinni::GameCamera* pThis, float time);
+
+pAlter alter = (pAlter)0x00788740;
+}
+
 namespace utinni
 {
 void Camera::getViewport(int& viewPortX0, int& viewPortY0, int& viewPortX1, int& viewPortY1)
@@ -105,4 +112,8 @@ void RenderWorldCamera::clearExcludedObjects()
     swg::renderWorldCamera::clearExcludedObjects(camera);
 }
 
+float GameCamera::alter(float time)
+{
+    return swg::gameCamera::alter(this, time);
+}
 }

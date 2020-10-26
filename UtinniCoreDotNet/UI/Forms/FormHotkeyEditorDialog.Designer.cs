@@ -85,7 +85,7 @@
             this.MinimizeBox = false;
             this.Name = "FormHotkeyEditorDialog";
             this.Resizable = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Hotkey";
             this.ResumeLayout(false);
             this.PerformLayout();

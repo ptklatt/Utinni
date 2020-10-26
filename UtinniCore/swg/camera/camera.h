@@ -62,13 +62,18 @@ public:
 
 };
 
-class UTINNI_API RenderWorldCamera
+class UTINNI_API RenderWorldCamera : public Camera
 {
 public:
 	 static void addExcludedObject(Object* obj);
 	 static void clearExcludedObjects();
 };
 
+class UTINNI_API GameCamera : public RenderWorldCamera
+{
+public:
+	 float alter(float time);
+};
 
 }
 

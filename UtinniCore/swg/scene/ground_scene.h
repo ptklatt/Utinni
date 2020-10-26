@@ -57,13 +57,15 @@ public:
     static void addPreDrawLoopCallback(void(*func)(GroundScene* pThis));
     static void addPostDrawLoopCallback(void(*func)(GroundScene* pThis));
     static void addUpdateLoopCallback(void(*func)(GroundScene* pThis, float elapsedTime));
+    static void addCameraChangeCallback(void(*func)());
 
     static void detour();
     static void removeDetour();
 
     Camera* getCurrentCamera();
     void toggleFreeCamera();
-    void GroundScene::changeCameraMode(int cameraMode);
+    void changeCameraMode(int cameraMode);
+    bool isFreeCameraActive() const;
 
     void reloadTerrain();
 

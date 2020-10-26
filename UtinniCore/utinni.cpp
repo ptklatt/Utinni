@@ -19,6 +19,7 @@
 #include "swg/ui/cui_io.h"
 #include "swg/appearance/skeleton.h"
 #include "swg/scene/client_world.h"
+#include "swg/camera/debug_camera.h"
 
 std::string path;
 std::string swgOverrideCfgFilename = "utinni.cfg";
@@ -48,6 +49,7 @@ void createDetours()
     utinni::creatureObject::detour();
     utinni::report::detour();
     utinni::skeletalAppearance::detour();
+    utinni::debugCamera::detour();
 }
 
 void createPatches()
@@ -55,6 +57,7 @@ void createPatches()
     utinni::log::info("Creating patches");
 
     utinni::cuiMisc::patch();
+    utinni::debugCamera::patch();
 }
 
 void main()

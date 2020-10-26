@@ -6,9 +6,9 @@ namespace UtinniCoreDotNet.Callbacks
 {
     public static class GameCallbacks
     {
-        private static readonly SynchronizedCollection<Action> installCallback = new SynchronizedCollection<Action>();
-        private static readonly SynchronizedCollection<Action> setupSceneCallback = new SynchronizedCollection<Action>();
-        private static readonly SynchronizedCollection<Action> cleanupSceneCallback = new SynchronizedCollection<Action>();
+        private static readonly SynchronizedCollection<Action> installCallbacks = new SynchronizedCollection<Action>();
+        private static readonly SynchronizedCollection<Action> setupSceneCallbacks = new SynchronizedCollection<Action>();
+        private static readonly SynchronizedCollection<Action> cleanupSceneCallbacks = new SynchronizedCollection<Action>();
         private static readonly ConcurrentQueue<Action> preMainLoopCallQueue = new ConcurrentQueue<Action>();
         private static readonly ConcurrentQueue<Action> mainLoopCallQueue = new ConcurrentQueue<Action>();
 
@@ -35,17 +35,17 @@ namespace UtinniCoreDotNet.Callbacks
 
         public static void AddInstallCallback(Action call)
         {
-            installCallback.Add(call);
+            installCallbacks.Add(call);
         }
 
         public static void AddSetupSceneCall(Action call)
         {
-            setupSceneCallback.Add(call);
+            setupSceneCallbacks.Add(call);
         }
 
         public static void AddCleanupSceneCall(Action call)
         {
-            cleanupSceneCallback.Add(call);
+            cleanupSceneCallbacks.Add(call);
         }
 
         public static void AddPreMainLoopCall(Action call)
@@ -60,17 +60,17 @@ namespace UtinniCoreDotNet.Callbacks
 
         public static void RemoveInstallCallback(Action call)
         {
-            installCallback.Remove(call);
+            installCallbacks.Remove(call);
         }
 
         public static void RemoveSetupSceneCall(Action call)
         {
-            setupSceneCallback.Remove(call);
+            setupSceneCallbacks.Remove(call);
         }
 
         public static void RemoveCleanupSceneCall(Action call)
         {
-            cleanupSceneCallback.Remove(call);
+            cleanupSceneCallbacks.Remove(call);
         }
 
         private static void DequeuePreMainLoopCalls()
@@ -97,7 +97,7 @@ namespace UtinniCoreDotNet.Callbacks
 
         private static void CallInstallCallbacks()
         {
-            foreach (Action callback in installCallback)
+            foreach (Action callback in installCallbacks)
             {
                 callback();
             }
@@ -105,7 +105,7 @@ namespace UtinniCoreDotNet.Callbacks
 
         private static void CallSetupSceneCallbacks()
         {
-            foreach (Action callback in setupSceneCallback)
+            foreach (Action callback in setupSceneCallbacks)
             {
                 callback();
             }
@@ -113,7 +113,7 @@ namespace UtinniCoreDotNet.Callbacks
 
         private static void CallCleanupSceneCallbacks()
         {
-            foreach (Action callback in cleanupSceneCallback)
+            foreach (Action callback in cleanupSceneCallbacks)
             {
                 callback();
             }

@@ -46,6 +46,7 @@ namespace UtinniCoreDotNetGen
 
                 module.Headers.Add("swg\\appearance\\skeleton.h");
                 module.Headers.Add("swg\\client\\client.h");
+                module.Headers.Add("swg\\camera\\debug_camera.h");
                 module.Headers.Add("swg\\game\\game.h");
                 module.Headers.Add("swg\\graphics\\directx9.h");
                 module.Headers.Add("swg\\graphics\\graphics.h");

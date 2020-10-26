@@ -7,6 +7,7 @@
 #include "swg/object/client_object.h"
 #include "utility/string_utility.h"
 #include "swg/appearance/portal.h"
+#include "swg/camera/debug_camera.h"
 
 
 namespace swg::groundScene
@@ -19,7 +20,7 @@ using pGetCurrentCamera = utinni::Camera* (__thiscall*)(utinni::GroundScene* pTh
 using pDraw = void(__thiscall*)(utinni::GroundScene* pThis);
 using pUpdate = void(__thiscall*)(utinni::GroundScene* pThis, float time);
 using pHandleInputMapUpdate = void(__thiscall*)(utinni::GroundScene* pThis);
-using pHandleInputMapEvent = void(__thiscall*)(utinni::GroundScene* pThis, swgptr ioEvent);
+using pHandleInputMapEvent = void(__thiscall*)(utinni::GroundScene* pThis, utinni::IoEvent* ioEvent);
 
 using pInit = void(__thiscall*)(utinni::GroundScene* pThis, const char* terrain, utinni::Object* playerObj, float time);
 
@@ -39,6 +40,7 @@ pInit init = (pInit)0x00518EB0;
 static std::vector<void(*)(utinni::GroundScene* pThis)> preDrawLoopCallbacks;
 static std::vector<void(*)(utinni::GroundScene* pThis)> postDrawLoopCallbacks;
 static std::vector<void(*)(utinni::GroundScene* pThis, float time)> updateLoopCallbacks;
+static std::vector<void(*)()> cameraChangeCallbacks;
 
 namespace utinni
 {
@@ -103,7 +105,12 @@ void GroundScene::addUpdateLoopCallback(void(*func)(GroundScene* pThis, float el
     updateLoopCallbacks.emplace_back(func);
 }
 
-void __fastcall hkUpdateLoop(utinni::GroundScene* pThis, DWORD EDX, float time)
+void GroundScene::addCameraChangeCallback(void(*func)())
+{
+    cameraChangeCallbacks.emplace_back(func);
+}
+
+void __fastcall hkUpdateLoop(GroundScene* pThis, DWORD EDX, float time)
 {
     for (const auto& func : updateLoopCallbacks)
     {
@@ -112,10 +119,21 @@ void __fastcall hkUpdateLoop(utinni::GroundScene* pThis, DWORD EDX, float time)
     swg::groundScene::update(pThis, time);
 }
 
+void __fastcall hkHandleInputEvent(GroundScene* pThis, DWORD EDX, IoEvent* ioEvent)
+{
+    if (pThis->isFreeCameraActive())
+    {
+        debugCamera::processIoEvent(ioEvent);
+    }
+
+    swg::groundScene::handleInputMapEvent(pThis, ioEvent);
+}
+
 void GroundScene::detour()
 {
     swg::groundScene::draw = (swg::groundScene::pDraw)Detour::Create(swg::groundScene::draw, hkDrawLoop, DETOUR_TYPE_PUSH_RET);
     swg::groundScene::update = (swg::groundScene::pUpdate)Detour::Create(swg::groundScene::update, hkUpdateLoop, DETOUR_TYPE_PUSH_RET);
+    swg::groundScene::handleInputMapEvent = (swg::groundScene::pHandleInputMapEvent )Detour::Create(swg::groundScene::handleInputMapEvent, hkHandleInputEvent, DETOUR_TYPE_PUSH_RET);
 
     WorldSnapshot::setPreloadSnapshot(false);
 }
@@ -130,27 +148,31 @@ Camera* GroundScene::getCurrentCamera()
     return swg::groundScene::getCurrentCamera(this);
 }
 
-bool isFreeCam;
-void GroundScene::toggleFreeCamera() // ToDo Shitty, do proper
+void GroundScene::toggleFreeCamera()
 {
-    isFreeCam = !isFreeCam;
-
-    Camera::Modes cameraMode;
-    if (isFreeCam)
+    if (isFreeCameraActive())
     {
-        cameraMode = Camera::Modes::cm_Free;
+        swg::groundScene::changeCamera(this, Camera::Modes::cm_FreeChase, 0);
     }
     else
     {
-        cameraMode = Camera::Modes::cm_FreeChase;
+        swg::groundScene::changeCamera(this, Camera::Modes::cm_Free, 0);
     }
 
-    swg::groundScene::changeCamera(this, cameraMode, 0);
+    for (const auto& func : cameraChangeCallbacks)
+    {
+        func();
+    }
 }
 
 void GroundScene::changeCameraMode(int cameraMode)
 {
     swg::groundScene::changeCamera(this, (Camera::Modes) cameraMode, 0);
+}
+
+bool GroundScene::isFreeCameraActive() const
+{
+    return currentView == Camera::Modes::cm_Free;
 }
 
 void GroundScene::reloadTerrain()
