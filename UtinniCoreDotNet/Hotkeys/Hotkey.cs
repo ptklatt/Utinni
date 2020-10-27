@@ -7,15 +7,17 @@ namespace UtinniCoreDotNet.Hotkeys
     public class Hotkey
     {
         public string Name;
+        public string Text;
         public Keys ModifierKeys;
         public Keys Key;
         public Action OnDownCallback;
         public bool OverrideGameInput;
         public bool Enabled;
 
-        public Hotkey(string name, string keyComboStr, Action onDownCallback, bool overrideGameInput, bool enabled = true)
+        public Hotkey(string name, string text, string keyComboStr, Action onDownCallback, bool overrideGameInput, bool enabled = true)
         {
             Name = name;
+            Text = text;
             OnDownCallback = onDownCallback;
             OverrideGameInput = overrideGameInput;
             Enabled = enabled;
@@ -23,9 +25,10 @@ namespace UtinniCoreDotNet.Hotkeys
             ProcessString(keyComboStr);
         }
 
-        public Hotkey(string name, Keys modifierKeys, Keys key, Action onDownCallback, bool overrideGameInput, bool enabled = true)
+        public Hotkey(string name, string text, Keys modifierKeys, Keys key, Action onDownCallback, bool overrideGameInput, bool enabled = true)
         {
             Name = name;
+            Text = text;
             ModifierKeys = modifierKeys;
             Key = key;
             OnDownCallback = onDownCallback;

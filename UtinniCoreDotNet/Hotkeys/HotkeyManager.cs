@@ -61,6 +61,11 @@ namespace UtinniCoreDotNet.Hotkeys
             }
         }
 
+        public void Add(Hotkey hotkey)
+        {
+            Hotkeys[hotkey.Name] = hotkey;
+        }
+
         public void CreateSettings()
         {
             foreach (var pair in Hotkeys)

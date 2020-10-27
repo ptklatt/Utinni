@@ -99,9 +99,9 @@ namespace UtinniCoreDotNet.UI.Forms
             LeftTitleBarButtons.Add(tbbtnUndo);
             LeftTitleBarButtons.Add(tbbtnRedo);
 
-            formHotkeyManager.Hotkeys.Add("Undo", new Hotkey("Undo", "Control + Z", undoRedoManager.Undo, true));
-            formHotkeyManager.Hotkeys.Add("Redo", new Hotkey("Redo", "Control + Y", undoRedoManager.Redo, true));
-            formHotkeyManager.Hotkeys.Add("Toggle UI", new Hotkey("Toggle UI", "Shift + Oemtilde", ToggleFullWindowGame, true));
+            formHotkeyManager.Add(new Hotkey("Undo", "Undo", "Control + Z", undoRedoManager.Undo, true));
+            formHotkeyManager.Add(new Hotkey("Redo", "Redo", "Control + Y", undoRedoManager.Redo, true));
+            formHotkeyManager.Add(new Hotkey("ToggleUI", "Toggle UI", "Shift + Oemtilde", ToggleFullWindowGame, true));
 
             formHotkeyManager.CreateSettings();
             formHotkeyManager.Load();

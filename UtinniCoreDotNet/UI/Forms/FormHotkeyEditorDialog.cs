@@ -11,7 +11,7 @@ namespace UtinniCoreDotNet.UI.Forms
         public FormHotkeyEditorDialog(Hotkey hotkey)
         {
             InitializeComponent();
-            base.Text = hotkey.Name;
+            base.Text = hotkey.Text;
 
             this.hotkey = hotkey;
             txtInput.Text = hotkey.GetKeyComboString();

@@ -65,7 +65,7 @@ namespace UtinniCoreDotNet.UI.Forms
             {
                 UtinniLabel lbl = new UtinniLabel
                 {
-                    Text = hotkeyEntry.Key, 
+                    Text = hotkeyEntry.Value.Text, 
                     Location = new Point(0, yOffset),
                     Width = 350
                 };
