@@ -45,13 +45,13 @@ using pGetNodeNetworkId = int(__thiscall*)(utinni::WorldSnapshotReaderWriter::No
 using pGetNodeSpatialSubdivisionHandle = swgptr(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis);
 using pSetNodeSpatialSubdivisionHandle = void(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis, swgptr handle);
 
-using pNodeRemoveFromWorld = void(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis);
+using pRemoveFromWorld = void(__thiscall*)(utinni::WorldSnapshotReaderWriter::Node* pThis);
 
 pGetNodeNetworkId getNodeNetworkId = (pGetNodeNetworkId)0x00B971D0;
 pGetNodeSpatialSubdivisionHandle getNodeSpatialSubdivisionHandle = (pGetNodeSpatialSubdivisionHandle)0x00B97390;
 pSetNodeSpatialSubdivisionHandle setNodeSpatialSubdivisionHandle = (pSetNodeSpatialSubdivisionHandle)0x00B973A0;
 
-pNodeRemoveFromWorld nodeRemoveFromWorld = (pNodeRemoveFromWorld)0x00B97440;
+pRemoveFromWorld removeFromWorld = (pRemoveFromWorld)0x00B97440;
 
 }
 }
@@ -250,15 +250,17 @@ void WorldSnapshotReaderWriter::Node::removeNodeFull() // WIP - Messy IDA pseudo
         }
         setNodeSpatialSubdivisionHandle(0);
 
-        Object* nodeObject = Network::getObjectById(id);
-
-        // Need to nullptr check because only loaded objects are non null, ie in range or previously 'seen'
-        // and the loop goes through all nodes in the entire .WS
-        if (nodeObject != nullptr)
-        {
-            nodeObject->remove(); 
-        }
     }
+
+    Object* nodeObject = Network::getObjectById(id);
+
+    // Need to nullptr check because only loaded objects are non null, ie in range or previously 'seen'
+    // and the loop goes through all nodes in the entire .WS
+    if (nodeObject != nullptr)
+    {
+        nodeObject->remove();
+    }
+    swg::worldSnapshotReaderWriter::node::removeFromWorld(this);
 }
 
 int64_t WorldSnapshotReaderWriter::Node::getNodeNetworkId()
@@ -325,44 +327,15 @@ void WorldSnapshot::load(const std::string& name)
     swg::worldsnapshot::load(name.c_str());
 }
 
-void WorldSnapshot::unload() // WIP - Messy IDA pseudo code
+void WorldSnapshot::unload() 
 {
-    swgptr v0 = memory::read<swgptr>(0x1913E08);
-    swgptr v1 = memory::read<swgptr>(0x1913E04);
-    int  i = 0;
-    if (((BYTE*)v0 - (BYTE*)v1) >> 2)
-    {
-        do // Still doesn't do anything
-        {
-            (*(void(__thiscall**)(swgptr))(**((swgptr**)v1 + i) + 8))(*((swgptr*)v1 + i));
-            v0 = memory::read<swgptr>(0x1913E08);
-            v1 = memory::read<swgptr>(0x1913E04);
-            ++i;
-        } while (i < ((BYTE*)v0 - (BYTE*)v1) >> 2);
-    }
-
     auto readerWriter = WorldSnapshotReaderWriter::get();
-
-    WorldSnapshotReaderWriter::clearPreloadList(v0, v0, v1);
-
-    for (i = 0; i < readerWriter->getNodeCount(); ++i)
+    for (int i = 0; i < readerWriter->getNodeCount(); ++i)
     {
         readerWriter->getNodeAt(i)->removeNodeFull();
     }
 
-    using pUnkVoid1 = int(__thiscall*)(swgptr);
-    pUnkVoid1 unkVoid1 = (pUnkVoid1)0x005A2570;
-
-    for (int j = memory::read<int>(0x1913E4C); j != memory::read<int>(0x1913E50); ++j)
-    {
-        unkVoid1(j);
-    }
-
-    memory::write<swgptr>(0x1913E40, memory::read<swgptr>(0x1913E3C));
-    memory::write<swgptr>(0x1913E28, memory::read<swgptr>(0x1913E24));
-    memory::write<swgptr>(0x1913E1C, memory::read<swgptr>(0x1913E18));
-
-    readerWriter->clear();
+    swg::worldsnapshot::unload();
 }
 
 void WorldSnapshot::reload()
