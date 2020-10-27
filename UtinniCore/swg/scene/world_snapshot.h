@@ -58,6 +58,7 @@ public:
     int getNodeCountTotal();
 
     Node* getNodeById(int id);
+    Node* getNodeByIdWithParent(int id, Object* parentObject);
     Node* getNodeByNetworkId(int64_t networkId);
     Node* getNodeAt(int index);
     Node* getLastNode();

@@ -106,6 +106,23 @@ int WorldSnapshotReaderWriter::getNodeCountTotal()
 WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeById(int id)
 {
     Node* result = nullptr;
+    for (int i = 0; i < nodeList->size(); ++i)
+    {
+        Node* node = nodeList->at(i);
+        if (node->id == id)
+        {
+            result = node;
+            break;
+        }
+    }
+    return result;
+}
+
+WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByIdWithParent(int id, Object* parentObject)
+{
+    Node* result = nullptr;
+
+    // ToDo recursivly find top parent, get that node, then go back down to find the right child node, use getChildById?
 
     for (int i = 0; i < nodeList->size(); ++i)
     {
@@ -116,7 +133,7 @@ WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeById(int id)
             break;
         }
     }
-    
+
     return result;
 }
 
