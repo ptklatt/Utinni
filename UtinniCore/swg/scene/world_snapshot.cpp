@@ -444,10 +444,10 @@ bool WorldSnapshot::isValidObject(const char* objectFilename)
 
 WorldSnapshotReaderWriter::Node* WorldSnapshot::createAddNode(const char* objectFilename, swg::math::Transform& transform)
 {
-    if (!isValidObject(objectFilename))
+   /* if (!isValidObject(objectFilename))
     {
         return nullptr;
-    }
+    }*/
 
     const auto reader = WorldSnapshotReaderWriter::get();
 

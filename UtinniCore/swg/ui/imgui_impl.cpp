@@ -153,12 +153,12 @@ bool isSetup = false;
 
 			if (enableUi)
 			{
-				 ImGui::Begin("Tests", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse); // ImVec2(250, 300), 0.9f,  ImGuiWindowFlags_NoResize |
-				 {
-					  if (ImGui::Button("Test"))
-					  {
-					  }
-				 }
+				 //ImGui::Begin("Tests", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse); // ImVec2(250, 300), 0.9f,  ImGuiWindowFlags_NoResize |
+				 //{
+					//  if (ImGui::Button("Test"))
+					//  {
+					//  }
+				 //}
 
 				 for (const auto& func : renderCallbacks) // ToDo add an additional callback to host controls in the future main ImGui window
 				 {
