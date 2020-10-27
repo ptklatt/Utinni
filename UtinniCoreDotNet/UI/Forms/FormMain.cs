@@ -280,12 +280,19 @@ namespace UtinniCoreDotNet.UI.Forms
                 var forms = editorPlugin.GetForms();
                 if (forms != null)
                 {
-                    foreach (IEditorForm form in forms)
+                    foreach (IEditorForm iEditorForm in forms)
                     {
-                        ToolStripDropDownItem tsddItem = new ToolStripMenuItem(editorPlugin.Information.Name + " - " + form.GetName());
+                        ToolStripDropDownItem tsddItem = new ToolStripMenuItem(editorPlugin.Information.Name + " - " + iEditorForm.GetName());
                         tsddItem.Click += (sender, args) =>
                         {
-                            form.Create(editorPlugin, formChildren);
+                            Form form = iEditorForm.Create(editorPlugin, formChildren);
+                            if (form != null)
+                            {
+                                form.Closing += (o, eventArgs) =>
+                                {
+                                    formChildren.Remove(form);
+                                };
+                            }
                         };
 
                         tbddWindows.Menu.Items.Add(tsddItem);
@@ -339,6 +346,10 @@ namespace UtinniCoreDotNet.UI.Forms
             FormLog formLog = new FormLog();
             formLog.Show();
             formChildren.Add(formLog);
+            formLog.Closing += (o, eventArgs) =>
+            {
+                formChildren.Remove(formLog);
+            };
         }
 
         private void tsbtnToggleUI_Click(object sender, EventArgs e)

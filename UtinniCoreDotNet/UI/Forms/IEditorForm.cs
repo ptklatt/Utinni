@@ -7,6 +7,6 @@ namespace UtinniCoreDotNet.UI.Forms
     public interface IEditorForm
     {
         string GetName();
-        void Create(IEditorPlugin editorPlugin, List<Form> parentChildren);
+        Form Create(IEditorPlugin editorPlugin, List<Form> parentChildren);
     }
 }
