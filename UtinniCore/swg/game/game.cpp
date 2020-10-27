@@ -260,4 +260,10 @@ const Camera* Game::getConstCamera()
     return swg::game::getConstCamera();
 }
 
+
+bool Game::isSafeToUse()
+{
+    return memory::read<bool>(0x01908858) || memory::read<bool>(0x01919410);
+}
+
 }

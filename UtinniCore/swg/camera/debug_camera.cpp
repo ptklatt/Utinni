@@ -2,6 +2,7 @@
 #include "camera.h"
 #include "swg/scene/ground_scene.h"
 #include "swg/object/player_object.h"
+#include "swg/game/game.h"
 
 namespace swg::debugCamera
 {
@@ -264,7 +265,7 @@ float __fastcall hkAlter(GameCamera* pThis, swgptr EDX, float time)
 
     pThis->move(pThis->objectToParent.rotate_l2p(direction));
 
-    if (dragPlayer && (direction.X != 0 || direction.Y != 0 || direction.Z != 0))
+    if (Game::isSafeToUse() && dragPlayer && (direction.X != 0 || direction.Y != 0 || direction.Z != 0))
     {
         const auto pos = pThis->getTransform()->getPosition();
         playerObject::teleport(pos.X, 0, pos.Z);

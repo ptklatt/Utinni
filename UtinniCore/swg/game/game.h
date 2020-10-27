@@ -36,6 +36,7 @@ public:
     static Camera* getCamera();
     static const Camera* getConstCamera();
 
+    static bool isSafeToUse();
 
 };
 }

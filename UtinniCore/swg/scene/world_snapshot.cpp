@@ -173,6 +173,11 @@ WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::addNode(int nodeId, 
 
 void WorldSnapshotReaderWriter::Node::removeNode()
 {
+    if (!Game::isSafeToUse())
+    {
+        return;
+    }
+
     if (parentId == 0)
     {
         removeNodeFull();
@@ -216,6 +221,11 @@ void WorldSnapshotReaderWriter::Node::removeNode()
 
 void WorldSnapshotReaderWriter::Node::removeNodeFull() // WIP - Messy IDA pseudo code
 {
+    if (!Game::isSafeToUse())
+    {
+        return;
+    }
+
     using Void1 = int(__thiscall*)(swgptr, int);
     using Void2 = int(__thiscall*)(swgptr);
     using Void3 = void(__cdecl*)();
@@ -329,6 +339,11 @@ void WorldSnapshot::load(const std::string& name)
 
 void WorldSnapshot::unload() 
 {
+    if (!Game::isSafeToUse())
+    {
+        return;
+    }
+
     auto readerWriter = WorldSnapshotReaderWriter::get();
     for (int i = 0; i < readerWriter->getNodeCount(); ++i)
     {

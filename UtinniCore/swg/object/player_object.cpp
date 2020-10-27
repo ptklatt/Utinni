@@ -37,11 +37,21 @@ float getSpeed()
 
 void setSpeed(float value)
 {
+	 if (!Game::isSafeToUse())
+	 {
+		  return;
+	 }
+
     memory::write<float>(0x0191BFB4, 0x674, value);
 }
 
 void teleport(float x, float y, float z) // ToDo do more proper in the future
 {
+	 if (!Game::isSafeToUse())
+	 {
+		  return;
+	 }
+
     swg::math::Transform destPos(x, y, z);
     swg::teleportHelper::teleportPlayer(memory::read<swgptr>((swgptr)Game::getPlayerCreatureObject() + 0x2C), &destPos);
 }
