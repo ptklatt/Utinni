@@ -1,6 +1,8 @@
 # Utinni
 Utinni is a client plugin and injection framework which aims to provide an easier access to client and content development for Pre-CU Star Wars Galaxies and more specifically [SWGEmu](https://github.com/swgemu). 
 
+Official plugins can be found [here](https://github.com/ptklatt/UtinniPlugins).
+
 **Features**
 * Gizmo implementation via ImGuizmo
 * C# Plugin Framework
