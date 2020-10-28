@@ -44,7 +44,7 @@ public:
     std::vector<Node*>* nodeList;
     std::vector<char*>* objectTemplateNameList;
     std::unordered_map<int, int>* objectTemplateCrcMap;
-    std::map<int64_t, Node*>* networkIdMap;
+    std::map<int, Node*>* networkIdMap;
 
     static WorldSnapshotReaderWriter* get();
 
@@ -58,8 +58,10 @@ public:
     int getNodeCountTotal();
 
     Node* getNodeById(int id);
-    Node* getNodeByIdWithParent(int id, Object* parentObject);
-    Node* getNodeByNetworkId(int64_t networkId);
+    Node* getNodeById(int id, Object* parentObject);
+    Node* findChildNode(Node* parentNode, int id);
+    Node* getNodeByIdWithParent(Object* parentObject, int id);
+    Node* getNodeByNetworkId(int networkId);
     Node* getNodeAt(int index);
     Node* getLastNode();
 

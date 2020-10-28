@@ -44,12 +44,15 @@ namespace ExampleEditorPlugin
         {
             GroundSceneCallbacks.AddUpdateLoopCall(() =>
             {
-                WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeByNetworkId(Game.PlayerLookAtTargetObject.NetworkId);
-
-                if (node != null)
+                var obj = Game.PlayerLookAtTargetObject;
+                if (obj != null)
                 {
-                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new RemoveWorldSnapshotNodeCommand(node)));
-                    WorldSnapshot.RemoveNode(node);
+                    WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeById((int)obj.NetworkId, obj.ParentObject);
+                    if (node != null)
+                    {
+                        editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new RemoveWorldSnapshotNodeCommand(node)));
+                        WorldSnapshot.RemoveNode(node);
+                    }
                 }
             });
         }
@@ -63,7 +66,7 @@ namespace ExampleEditorPlugin
             }
             else
             {
-                WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeByNetworkId(target.NetworkId);
+                WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeById((int)target.NetworkId, target.ParentObject);
 
                 if (node == null || !enableNodeEditing)
                 {
@@ -76,33 +79,37 @@ namespace ExampleEditorPlugin
             }
         }
 
-        public void OnPositionChanged() // ToDo Something is broken where it sometimes has 1-2 too many undo stages
+        public void OnPositionChanged() 
         {
             GroundSceneCallbacks.AddPreDrawLoopCall(() =>
             {
                 var obj = Game.PlayerLookAtTargetObject;
-                WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeByNetworkId(obj.NetworkId);
-
-                if (node != null)
+                if (obj != null)
                 {
-                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodePositionChangedCommand(node, node.Transform, obj.Transform)));
-                    node.Transform.Position = obj.Transform.Position;
+                    WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeById((int) obj.NetworkId, obj.ParentObject);
+                    if (node != null)
+                    {
+                        editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodePositionChangedCommand(node, node.Transform, obj.Transform)));
+                        node.Transform.Position = obj.Transform.Position;
+                    }
                 }
             });
         }
 
-        public void OnRotationChanged() // ToDo Something is broken where it sometimes has 1-2 too many undo stages
+        public void OnRotationChanged()
         {
             GroundSceneCallbacks.AddUpdateLoopCall(() =>
             {
                 var obj = Game.PlayerLookAtTargetObject;
-                WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeByNetworkId(obj.NetworkId);
-
-                if (node != null)
+                if (obj != null)
                 {
-                    editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodeRotationChangedCommand(node, node.Transform, obj.Transform)));
-                    node.Transform.CopyRotation(obj.Transform);
-                    //snapshotPanel.UpdateSelectedNodeControlsPosition(node.Transform.RotationAxis);
+                    WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeById((int)obj.NetworkId, obj.ParentObject);
+                    if (node != null)
+                    {
+                        editorPlugin.AddUndoCommand(this, new AddUndoCommandEventArgs(new WorldSnapshotNodeRotationChangedCommand(node, node.Transform, obj.Transform)));
+                        node.Transform.CopyRotation(obj.Transform);
+                        //snapshotPanel.UpdateSelectedNodeControlsPosition(node.Transform.RotationAxis);
+                    }
                 }
             });
         }
@@ -122,7 +129,7 @@ namespace ExampleEditorPlugin
                     }
                     else
                     {
-                        WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeByNetworkId(obj.NetworkId);
+                        WorldSnapshotReaderWriter.Node node = WorldSnapshotReaderWriter.Get().GetNodeById((int)obj.NetworkId, obj.ParentObject);
 
                         if (node != null)
                         {

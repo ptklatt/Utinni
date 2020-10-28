@@ -118,26 +118,77 @@ WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeById(int id)
     return result;
 }
 
-WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByIdWithParent(int id, Object* parentObject)
+WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeById(int id, Object* parentObject)
+{
+    if (parentObject == nullptr)
+    {
+        return getNodeById(id);
+    }
+    else
+    {
+        return getNodeByIdWithParent(parentObject, id);
+    }
+}
+
+WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::findChildNode(Node* parentNode, int id)
 {
     Node* result = nullptr;
 
-    // ToDo recursivly find top parent, get that node, then go back down to find the right child node, use getChildById?
-
-    for (int i = 0; i < nodeList->size(); ++i)
+    for (int i = 0; i < parentNode->children->size(); ++i)
     {
-        Node* node = nodeList->at(i);
-        if (node->id == id)
+        Node* child = parentNode->children->at(i);
+        if (child->id == id)
         {
-            result = node;
+            result = child;
             break;
+        }
+    }
+
+    if (result == nullptr)
+    {
+        for (int i = 0; i < parentNode->children->size(); ++i)
+        {
+            Node* child = parentNode->children->at(i);
+
+            if (child->children != nullptr && !child->children->empty())
+            {
+                Node* childResult = findChildNode(child, id);
+                if (childResult != nullptr && childResult->id == id)
+                {
+                    result = childResult;
+                    break;
+                }
+            }
         }
     }
 
     return result;
 }
 
-WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByNetworkId(int64_t networkId)
+WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByIdWithParent(Object* parentObject, int id)
+{
+    Node* result = nullptr;
+
+    Object* topParent = parentObject;
+
+    while (true)
+    {
+        if (topParent->parentObject == nullptr)
+        {
+            break;
+        }
+
+        topParent = topParent->parentObject;
+    }
+
+    Node* parentNode = getNodeById(topParent->networkId);
+
+    result = findChildNode(parentNode, id);
+
+    return result;
+}
+
+WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByNetworkId(int networkId)
 {
     return swg::worldSnapshotReaderWriter::getNodeByNetworkId(this, networkId);
 }
@@ -196,12 +247,11 @@ void WorldSnapshotReaderWriter::Node::removeNode()
     {
         // ToDo check if removeNodeFull can replace the below remove obj
 
-        Node* pParentNode = get()->getNodeByNetworkId(parentId);
-        for (int i = 0; i < pParentNode->children->size(); ++i)
+        for (int i = 0; i < parentNode->children->size(); ++i)
         {
-            if (pParentNode->children->at(i)->id == id)
+            if (parentNode->children->at(i)->id == id)
             {
-                pParentNode->children->erase(pParentNode->children->begin() + i);
+                parentNode->children->erase(parentNode->children->begin() + i);
                 break;
             }
         }
@@ -466,23 +516,25 @@ WorldSnapshotReaderWriter::Node* WorldSnapshot::createAddNode(const char* object
 
     const auto reader = WorldSnapshotReaderWriter::get();
 
-    WorldSnapshotReaderWriter::Node* pParentNode = nullptr;
+
+    WorldSnapshotReaderWriter::Node* parentNode = nullptr;
+
 
     // Temporary check to get parent, make this better
     int parentNodeId = 0;
-    Camera* pCamera = GroundScene::get()->getCurrentCamera(); // If camera is outside of the POB and the new node to be created is inside, it crashes as parentObject is nullptr
-    if (pCamera->parentObject != nullptr)
+    Camera* camera = GroundScene::get()->getCurrentCamera(); // If camera is outside of the POB and the new node to be created is inside, it crashes as parentObject is nullptr
+    if (camera->parentObject != nullptr)
     {
-        pParentNode = reader->getNodeByNetworkId(pCamera->parentObject->networkId);
-        if (pParentNode == nullptr)
+        parentNode = reader->getNodeById(camera->parentObject->networkId, camera->parentObject->parentObject);
+        if (parentNode == nullptr)
         {
             return nullptr;
         }
 
-        parentNodeId = pParentNode->id;
+        parentNodeId = parentNode->id;
     }
 
-    if (pCamera->parentObject != nullptr && pParentNode == nullptr)
+    if (camera->parentObject != nullptr && parentNode == nullptr)
     {
         return nullptr;
     }
@@ -518,13 +570,13 @@ WorldSnapshotReaderWriter::Node* WorldSnapshot::createAddNode(const char* object
 
     // Workaround to the unreliable ptr return of reader->addNode
     WorldSnapshotReaderWriter::Node* node;
-    if (pParentNode == nullptr)
+    if (parentNode == nullptr)
     {
         node = reader->nodeList->back();
     }
     else
     {
-        node = pParentNode->children->back();
+        node = parentNode->children->back();
     }
 
     Object* obj = createObject(node);
