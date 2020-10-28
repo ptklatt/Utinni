@@ -29,6 +29,11 @@ void patch()
                                           0xE8, 0x17, 0x43, 0xD4, 0xFF }; // call client.9C18A0
         memory::copy(0x00C7D57F, locationBtnPatchBuffer);
 
+
+        // Disable the CUI resize based on RESO chunk in settings
+        memory::nopAddress(0x009CC385, 6); // Removes RESO.Y changing CUI.X
+        memory::nopAddress(0x009CC39C, 5); // Removes RESO.Y changing CUI.Y
+        memory::nopAddress(0x009CC3BD, 3); // Removes isOk bool being set to false
     }
 }
 }
