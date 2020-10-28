@@ -29,8 +29,6 @@ pGetTangibleObject getTangibleObject = (pGetTangibleObject)0x00554C00;
 
 namespace swg::buildingObject
 {
-// sub_70DBB0
-
 using pCtor = utinni::Object * (__thiscall*)(DWORD pThis, DWORD sharedTemplate);
 using pAddToWorld = void(__thiscall*)(utinni::Object* pThis);
 using pRemoveFromWorld = void(__thiscall*)(utinni::Object* pThis);

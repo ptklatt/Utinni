@@ -93,6 +93,7 @@ using pGetAppearanceFilename = const char* (__thiscall*)(utinni::Object* pThis);
 using pSetAppearanceByFilename = void(__thiscall*)(utinni::Object* pThis, const char* filename);
 
 using pAddNotification = void(__thiscall*)(utinni::Object* pThis, swgptr notification, bool allowInWorld);
+using pRemoveNotification = void(__thiscall*)(utinni::Object* pThis, swgptr notification, bool allowInWorld);
 
 using pGetParentCell = utinni::CellProperty* (__thiscall*)(utinni::Object* pThis);
 
@@ -137,6 +138,7 @@ pGetAppearanceFilename getAppearanceFilename = (pGetAppearanceFilename)0x00B243E
 pSetAppearanceByFilename setAppearanceByFilename = (pSetAppearanceByFilename)0x00B243A0;
 
 pAddNotification addNotification = (pAddNotification)0x00B225A0;
+pRemoveNotification removeNotification = (pRemoveNotification)0x00B225D0;
 
 pGetParentCell getParentCell = (pGetParentCell)0x00B22C00;
 
@@ -271,6 +273,11 @@ void Object::move(const swg::math::Vector& vector)
 void Object::addNotification(swgptr notification, bool allowWhenInWorld)
 {
     swg::object::addNotification(this, notification, allowWhenInWorld);
+}
+
+void Object::removeNotification(swgptr notification, bool allowWhenInWorld)
+{
+    swg::object::removeNotification(this, notification, allowWhenInWorld);
 }
 
 void Object::addToWorld()

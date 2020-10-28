@@ -101,6 +101,7 @@ public:
 
     CellProperty* getParentCell();
     void addNotification(swgptr notification, bool allowWhenInWorld);
+    void removeNotification(swgptr notification, bool allowWhenInWorld);
 
     void setObjectToWorldDirty(bool isDirty);
 
