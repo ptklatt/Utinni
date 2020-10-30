@@ -17,12 +17,13 @@ Official plugins can be found [here](https://github.com/ptklatt/UtinniPlugins).
 * Cmd passthrough for the launcher, enabling game settings being set via Windows shortcut
 * FreeCam, including the ability to hide the player model (Only works in freecam)
 
-**Key planned features**
+**Planned key features**
 * WinForm color themes (Almost done)
 * Settings editor
 * Game CUI Framework which allows the modification of existing UI elements and the creation of new
 * Expanded FreeCam controls
 * Setting to automatically attach Visual Studio on injection (Partly working)
+* Combined mouse and keyboard hotkeys (Currently keyboard only)
 
 **Third party libraries used:**
 
