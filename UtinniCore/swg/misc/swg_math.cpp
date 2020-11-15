@@ -595,14 +595,21 @@ Quaternion::Quaternion(const Transform& transform)
     }
     else
     {
-        int i = 0, j = 1, k = 2;
+        int i = 0;
+        int j = 1;
+        int k = 2;
         if (transform.matrix[1][1] > transform.matrix[i][i])
         {
-            i = 1, j = 2, k = 0;
+            i = 1;
+            j = 2;
+            k = 0;
         }
+
         if (transform.matrix[2][2] > transform.matrix[i][i])
         {
-            i = 2, j = 0, k = 1;
+            i = 2;
+            j = 0;
+            k = 1;
         }
 
         float* v = &X;

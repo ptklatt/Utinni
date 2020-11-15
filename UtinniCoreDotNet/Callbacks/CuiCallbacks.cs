@@ -23,44 +23,32 @@
 **/
 
 using System;
-using System.Windows.Forms;
-using UtinniCoreDotNet.Callbacks;
-using UtinniCoreDotNet.PluginFramework;
-using UtinniCoreDotNet.UI.Forms;
-using UtinniCoreDotNet.Utility;
+using System.Collections.Generic;
 
-namespace UtinniCoreDotNet
+namespace UtinniCoreDotNet.Callbacks
 {
-    internal static class Startup
+    public static class CuiCallbacks
     {
-        private static bool initialized;
+        private static readonly SynchronizedCollection<Action<string>> onReceiveSystemMessage = new SynchronizedCollection<Action<string>>();
 
-        [STAThread]
-        private static int EntryPoint(string args)
+        private static UtinniCore.Delegates.Action_string dequeueOnReceiveSystemMessageAction;
+        public static void Initialize()
         {
-            if (!initialized)
+            dequeueOnReceiveSystemMessageAction = DequeueOnReceiveSystemMessageCallbacks; // Storing this in a variable is somehow needed to prevent corruption on WinForms resize. Very odd bug that I still don't fully understand.
+            UtinniCore.Utinni.SystemMessageManager.AddReceiveMessageCallback(dequeueOnReceiveSystemMessageAction);
+        }
+
+        public static void AddOnReceiveSystemMessageCallback(Action<string> call)
+        {
+            onReceiveSystemMessage.Add(call);
+        }
+
+        private static void DequeueOnReceiveSystemMessageCallbacks(string msg)
+        {
+            foreach (Action<string> callback in onReceiveSystemMessage)
             {
-                initialized = true;
-                Application.EnableVisualStyles();
-
-                Log.Setup();
-
-                // Load plugins from the /Plugins/ directory
-                PluginLoader pluginLoader = new PluginLoader();
-                
-                // Initialize callbacks that aren't purely editor related
-                GameCallbacks.Initialize();
-                GroundSceneCallbacks.Initialize();
-                ObjectCallbacks.Initialize();
-                CuiCallbacks.Initialize();
-
-                if (UtinniCore.Utinni.utinni.GetConfig().GetBool("Editor", "enableEditorMode"))
-                { 
-                    Application.Run(new FormMain(pluginLoader));
-                }
-
+                callback(msg);
             }
-            return 0;
         }
     }
 }

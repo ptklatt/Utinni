@@ -70,6 +70,7 @@ void createDetours()
     utinni::cuiIo::detour();
     utinni::cuiMenu::detour();
     utinni::cuiRadialMenuManager::detour();
+    utinni::SystemMessageManager::detour();
     utinni::creatureObject::detour();
     utinni::report::detour();
     utinni::skeletalAppearance::detour();

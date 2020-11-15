@@ -51,7 +51,10 @@ public:
 class UTINNI_API SystemMessageManager
 {
 public:
+    static void addReceiveMessageCallback(void(*func)(const char* msg));
     static void sendMessage(const char* message, bool chatOnly);
+
+    static void detour();
 };
 
 }

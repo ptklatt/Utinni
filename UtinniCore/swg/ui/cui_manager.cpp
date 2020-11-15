@@ -55,11 +55,15 @@ pDrawCursor drawCursor = (pDrawCursor)0x010E8410;
 
 namespace swg::systemMessageManager
 {
+using pReceiveMessage = void(__cdecl*)(swgptr pChatSystemMsg);
 using pSendMessage = void(__cdecl*)(const swg::WString& message, bool chatOnly);
 
+pReceiveMessage receiveMessage = (pReceiveMessage)0x008ABEB0;
 pSendMessage sendMessage = (pSendMessage)0x008AC250;
 
 }
+
+static std::vector<void(*)(const char* msg)> receiveSystemMessageCallbacks;
 
 namespace utinni
 {
@@ -123,8 +127,40 @@ void UiManager::drawCursor(bool value)
     swg::uiManager::drawCursor(this, value);
 }
 
+void SystemMessageManager::addReceiveMessageCallback(void(* func)(const char* msg))
+{
+    receiveSystemMessageCallbacks.emplace_back(func);
+}
+
 void SystemMessageManager::sendMessage(const char* message, bool chatOnly)
 {
     swg::systemMessageManager::sendMessage(swg::WString(message), chatOnly);
+}
+
+void __cdecl hkReceiveMessage(swgptr pChatSystemMsg)
+{
+    const auto msg = memory::read<swg::WString>(pChatSystemMsg + 0x44); // ToDo do this proper int he future
+
+    if (msg.isEmpty())
+    {
+        return;
+    }
+
+    const std::string msgStr = msg.toString();
+
+    if (!msgStr._Starts_with("[____hidden____]"))
+    {
+        swg::systemMessageManager::receiveMessage(pChatSystemMsg);
+    }
+
+    for (const auto& func : receiveSystemMessageCallbacks)
+    {
+        func(msgStr.c_str());
+    }
+}
+
+void SystemMessageManager::detour()
+{
+    swg::systemMessageManager::receiveMessage = (swg::systemMessageManager::pReceiveMessage)Detour::Create(swg::systemMessageManager::receiveMessage, hkReceiveMessage, DETOUR_TYPE_PUSH_RET);
 }
 }
