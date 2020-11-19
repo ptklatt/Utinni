@@ -23,6 +23,8 @@
 **/
 
 #include "cui_misc.h"
+#include "ui_textbox.h"
+#include <fstream>
 
 namespace swg::cuiMisc
 {
@@ -30,6 +32,19 @@ using pSwgCuiHudFactoryReloadUi = void(__cdecl*)();
 
 pSwgCuiHudFactoryReloadUi swgCuiHudFactoryReloadUi = (pSwgCuiHudFactoryReloadUi)0x00BAA7E0;
 }
+
+namespace swg::cuiLoginScreen
+{
+using pCtor = swgptr(__thiscall*)(swgptr pThis, swgptr unk);
+using pActivate = void(__thiscall*)(swgptr pThis);
+using pLogin = void(__thiscall*)(swgptr pThis);
+
+pCtor ctor = (pCtor)0x00C8CE00;
+pActivate activate = (pActivate)0x00C8D190;
+pLogin login = (pLogin)0x00C8D5D0;
+
+}
+
 
 namespace utinni::cuiMisc
 {
@@ -60,4 +75,52 @@ void patch()
         memory::nopAddress(0x009CC3BD, 3); // Removes isOk bool being set to false
     }
 }
+}
+
+namespace utinni::cuiLoginScreen
+{
+swgptr pLoginScreen;
+
+swgptr __fastcall hkCtor(swgptr pThis, DWORD EDX, swgptr unk)
+{
+    pLoginScreen = swg::cuiLoginScreen::ctor(pThis, unk);
+    return pLoginScreen;
+}
+
+void __fastcall hkActivate(swgptr pThis)
+{
+    swg::cuiLoginScreen::activate(pThis);
+
+    // ToDo get it more proper at some point
+    UiTextbox* txtUsername = memory::read<UiTextbox*>(pThis + 0xA0);
+    UiTextbox* txtPassword = memory::read<UiTextbox*>(pThis + 0xA4);
+
+    // ToDo add an option to auto fill data without auto login
+    if (!getConfig().getBool("UtinniCore", "autoLoadScene") && getConfig().getBool("UtinniCore", "autoLogin"))
+    {
+        txtUsername->setLocalText(getConfig().getString("UtinniCore", "autoLoginUsername").c_str());
+
+        // ToDo absolutely WIP, currently stored in plaintext, store with simple encryption to not leave a plaintext password on disk
+        std::fstream infile(getPath() + "autoLoginData", std::fstream::in | std::fstream::out | std::fstream::app);
+        if (infile.good())
+        {
+            std::string line;
+            getline(infile, line);
+
+            // ToDo Store multiple encrypted passwords with associated usernames in file and then look up the correct password to decrypt and enter, based on autoLoginUsername
+
+            txtPassword->setLocalText(line.c_str());
+        }
+        infile.close();
+
+        swg::cuiLoginScreen::login(pThis);
+    }
+}
+
+void detour()
+{
+   swg::cuiLoginScreen::ctor = (swg::cuiLoginScreen::pCtor)Detour::Create(swg::cuiLoginScreen::ctor, hkCtor, DETOUR_TYPE_PUSH_RET);
+   swg::cuiLoginScreen::activate = (swg::cuiLoginScreen::pActivate)Detour::Create(swg::cuiLoginScreen::activate, hkActivate, DETOUR_TYPE_PUSH_RET);
+}
+
 }

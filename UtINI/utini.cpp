@@ -23,7 +23,6 @@
 **/
 
 #include "utini.h"
-
 #include "LeksysINI/iniparser.hpp"
 
 namespace utinni
@@ -32,13 +31,15 @@ const static UtINI::Value utinniSettings[] = {
 
     // Launcher settings
     { "Launcher", "swgClientName", "", UtINI::Value::vt_string },
-    { "Launcher", "swgClientName", "", UtINI::Value::vt_string },
+    { "Launcher", "swgClientPath", "", UtINI::Value::vt_string },
 
     // UtinniCore settings
     { "UtinniCore", "enableInternalUi", "false", UtINI::Value::vt_bool },
     { "UtinniCore", "enableOfflineScenes", "false", UtINI::Value::vt_bool },
     { "UtinniCore", "useSwgOverrideCfg", "false", UtINI::Value::vt_bool },
     { "UtinniCore", "autoLoadScene", "false", UtINI::Value::vt_bool },
+    { "UtinniCore", "autoLogin", "false", UtINI::Value::vt_bool },
+    { "UtinniCore", "autoLoginUsername", "Local", UtINI::Value::vt_string },
 
     // Log settings
     { "Log", "writeClassName", "false", UtINI::Value::vt_bool },

@@ -598,6 +598,7 @@ Quaternion::Quaternion(const Transform& transform)
         int i = 0;
         int j = 1;
         int k = 2;
+
         if (transform.matrix[1][1] > transform.matrix[i][i])
         {
             i = 1;

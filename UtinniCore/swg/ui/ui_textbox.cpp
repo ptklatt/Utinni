@@ -22,17 +22,20 @@
  * SOFTWARE.
 **/
 
-#pragma once
-#include "utinni.h"
+#include "ui_textbox.h"
 
-namespace utinni::cuiMisc
+namespace swg::uiTextbox
 {
-UTINNI_API void reloadUi();
+using pSetLocalText = void(__thiscall*)(utinni::UiTextbox* pThis, const swg::WString& text);
 
-extern void patch();
+pSetLocalText setLocalText = (pSetLocalText)0x01120250;
 }
 
-namespace utinni::cuiLoginScreen
+namespace utinni
 {
-extern void detour();
+void UiTextbox::setLocalText(const swg::WString& text)
+{
+    swg::uiTextbox::setLocalText(this, text);
+}
+
 }

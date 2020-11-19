@@ -24,15 +24,15 @@
 
 #pragma once
 #include "utinni.h"
+#include "swg/misc/swg_string.h"
 
-namespace utinni::cuiMisc
+namespace utinni
 {
-UTINNI_API void reloadUi();
+UTINNI_API class UiTextbox
+{
+public:
+    void setLocalText(const swg::WString& text);
+};
 
-extern void patch();
 }
 
-namespace utinni::cuiLoginScreen
-{
-extern void detour();
-}

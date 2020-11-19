@@ -157,6 +157,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="..\external\DetourXS\ADE32.cpp" />
     <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
     <ClCompile Include="..\external\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="swg\ui\ui_textbox.cpp" />
     <ClCompile Include="swg\camera\debug_camera.cpp" />
     <ClCompile Include="swg\appearance\particle.cpp" />
     <ClCompile Include="swg\appearance\portal.cpp" />
@@ -210,6 +211,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\misc\swg_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="swg\ui\ui_textbox.h" />
     <ClInclude Include="swg\camera\debug_camera.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="swg\appearance\particle.h" />
