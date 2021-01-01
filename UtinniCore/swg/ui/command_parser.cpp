@@ -41,11 +41,6 @@ pAddSubCommand addSubCommand = (pAddSubCommand)0x00A85CD0;
 
 namespace utinni
 {
-// Dummy virtual functions for the vtable that's to be overwritten by SWG's ctor
-CommandParser::~CommandParser() { }
-bool CommandParser::performParsing(const int64_t& userId, const std::vector<swg::WString>& args, const wchar_t* originalCommand, const wchar_t* result, const CommandParser* node) { return false; }
-void CommandParser::unk_161E72C() { }
-
 CommandParser::CommandParser(const char* command, size_t argCount, const char* args, const char* helpInfo, utinni::CommandParser* delegate)
 {
     swg::commandParser::ctor1(this, command, argCount, args, helpInfo, delegate);
