@@ -44,8 +44,6 @@ public:
     static void addPrePresentCallback(void (*func)());
     static void addPostPresentCallback(void (*func)());
 
-    static void detour();
-
     static void useHardwareCursor(bool value);
     static void showMouseCursor(bool isShown);
     static void setSystemMouseCursorPosition(int X, int Y);
@@ -60,6 +58,9 @@ public:
     static void setStaticShader(swgptr staticShader, int pass = 0);
     static void setObjectToWorldTransformAndScale(swg::math::Transform* objecToWorld, swg::math::Vector* scale);
     static void drawExtent(Extent* extent, swgptr vecArgbColor);
+
+    static void detour();
+
 };
 };
 

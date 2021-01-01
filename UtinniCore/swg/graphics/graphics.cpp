@@ -52,6 +52,8 @@ using pSetStaticShader = void(__cdecl*)(swgptr staticShader, int pass);
 using pSetObjectToWorldTransformAndScale = void(__cdecl*)(math::Transform* objecToWorld, math::Vector* scale);
 using pDrawExtent = void(__cdecl*)(utinni::Extent* extent, swgptr vecArgbColor);
 
+using pScreenshot = bool(__cdecl*)(const char* filename);
+
 pInstall install = (pInstall)0x007548A0;
 
 pUpdate update = (pUpdate)0x00755700; 
@@ -73,8 +75,11 @@ pTextureListReloadTextures textureListReloadTextures = (pTextureListReloadTextur
 pSetStaticShader setStaticShader = (pSetStaticShader)0x00755910;
 pSetObjectToWorldTransformAndScale setObjectToWorldTransformAndScale = (pSetObjectToWorldTransformAndScale)0x00755D30;
 pDrawExtent drawExtent = (pDrawExtent)0x00759A70;
+
+pScreenshot screenshot = (pScreenshot)0x00755890;
 }
 
+static std::string screenshotsDir = "screenshots/";
 
 static std::vector<void(*)(float elapsedTime)> preUpdateCallback;
 static std::vector<void(*)(float elapsedTime)> postUpdateCallback;
@@ -141,6 +146,56 @@ void Graphics::addPrePresentCallback(void(*func)())
 void Graphics::addPostPresentCallback(void(*func)())
 {
     postPresentCallback.emplace_back(func);
+}
+
+void Graphics::useHardwareCursor(bool value)
+{
+    swg::graphics::useHardwareCursor(value);
+}
+
+void Graphics::showMouseCursor(bool isShown)
+{
+    swg::graphics::showMouseCursor(isShown);
+}
+
+void Graphics::setSystemMouseCursorPosition(int X, int Y)
+{
+    swg::graphics::setSystemMouseCursorPosition(X, Y);
+}
+
+int Graphics::getCurrentRenderTargetWidth() // 0x00754DB0 is the clients function address
+{
+    return memory::read<int>(0x1922E64); // static ptr to RenderTargetWidth
+}
+
+int Graphics::getCurrentRenderTargetHeight() // 0x00754DC0 is the clients function address
+{
+    return memory::read<int>(0x1922E60); // static ptr to RenderTargetHeight
+}
+
+void Graphics::flushResources(bool fullFlush)
+{
+    swg::graphics::flushResources(fullFlush);
+}
+
+void Graphics::reloadTextures()
+{
+    swg::graphics::textureListReloadTextures();
+}
+
+void Graphics::setStaticShader(swgptr staticShader, int pass)
+{
+    swg::graphics::setStaticShader(staticShader, pass);
+}
+
+void Graphics::setObjectToWorldTransformAndScale(swg::math::Transform* objecToWorld, swg::math::Vector* scale)
+{
+    swg::graphics::setObjectToWorldTransformAndScale(objecToWorld, scale);
+}
+
+void Graphics::drawExtent(Extent* extent, swgptr vecArgbColor)
+{
+    swg::graphics::drawExtent(extent, vecArgbColor);
 }
 
 bool __cdecl hkInstall()
@@ -251,6 +306,25 @@ void __cdecl hkPresent()
     }
 }
 
+bool __cdecl hkScreenshot(const char* filename)
+{
+    std::string newFilename = screenshotsDir;
+
+    const char* pos = strrchr(filename, '/');
+    if (pos != nullptr)
+    {
+        newFilename += pos + 1;
+    }
+    else
+    {
+        newFilename += filename;
+    }
+
+    CreateDirectory((utility::getWorkingDirectory() + "/" + screenshotsDir).c_str(), nullptr);
+
+    return swg::graphics::screenshot(newFilename.c_str());
+}
+
 void Graphics::detour()
 {
     swg::graphics::install = (swg::graphics::pInstall)Detour::Create(swg::graphics::install, hkInstall, DETOUR_TYPE_PUSH_RET);
@@ -261,56 +335,8 @@ void Graphics::detour()
 
     swg::graphics::presentWindow = (swg::graphics::pPresentWindow)Detour::Create(swg::graphics::presentWindow, hkPresentWindow, DETOUR_TYPE_JMP, 5);
     swg::graphics::present = (swg::graphics::pPresent)Detour::Create(swg::graphics::present, hkPresent, DETOUR_TYPE_JMP, 5);
-}
 
-void Graphics::useHardwareCursor(bool value)
-{
-    swg::graphics::useHardwareCursor(value);
-}
-
-void Graphics::showMouseCursor(bool isShown)
-{
-    swg::graphics::showMouseCursor(isShown);
-}
-
-void Graphics::setSystemMouseCursorPosition(int X, int Y)
-{
-    swg::graphics::setSystemMouseCursorPosition(X, Y);
-}
-
-int Graphics::getCurrentRenderTargetWidth() // 0x00754DB0 is the clients function address
-{
-    return memory::read<int>(0x1922E64); // static ptr to RenderTargetWidth
-}
-
-int Graphics::getCurrentRenderTargetHeight() // 0x00754DC0 is the clients function address
-{
-    return memory::read<int>(0x1922E60); // static ptr to RenderTargetHeight
-}
-
-void Graphics::flushResources(bool fullFlush)
-{
-    swg::graphics::flushResources(fullFlush);
-}
-
-void Graphics::reloadTextures()
-{
-    swg::graphics::textureListReloadTextures();
-}
-
-void Graphics::setStaticShader(swgptr staticShader, int pass)
-{
-    swg::graphics::setStaticShader(staticShader, pass);
-}
-
-void Graphics::setObjectToWorldTransformAndScale(swg::math::Transform* objecToWorld, swg::math::Vector* scale)
-{
-    swg::graphics::setObjectToWorldTransformAndScale(objecToWorld, scale);
-}
-
-void Graphics::drawExtent(Extent* extent, swgptr vecArgbColor)
-{
-    swg::graphics::drawExtent(extent, vecArgbColor);
+    swg::graphics::screenshot = (swg::graphics::pScreenshot)Detour::Create(swg::graphics::screenshot, hkScreenshot, DETOUR_TYPE_PUSH_RET);
 }
 
 }

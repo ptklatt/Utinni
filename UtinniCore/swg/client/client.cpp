@@ -34,6 +34,7 @@ using pMainLoop = int(__cdecl*)(HINSTANCE hInstance, int a2, int a3);
 
 using pWndProc = int(__stdcall*)(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
+using pWriteCrashLog = long(__stdcall*)(swgptr unk);
 using pWriteMiniDump = bool(__cdecl*)(const char* filename, swgptr unk);
 
 pSetupInstall setupStartDataInstall = (pSetupInstall)0x00A9F970;
@@ -41,8 +42,8 @@ pMainLoop clientMain = (pMainLoop)0x00401050;
 
 pWndProc wndProc = (pWndProc)0x00AA0970; // SWG's WndProc
 
+pWriteCrashLog writeCrashLog = (pWriteCrashLog)0x00A9F640;
 pWriteMiniDump writeMiniDump = (pWriteMiniDump)0x00A8A170;
-
 }
 
 bool enableEditorMode = false;
@@ -50,7 +51,7 @@ HWND hwnd = nullptr;
 HINSTANCE hInstance = nullptr;
 bool allowInput = false;
 
-static std::string logPath = "logs/";
+static std::string logDir = "logs/";
 
 namespace utinni
 {
@@ -152,10 +153,17 @@ int __cdecl hkMainLoop(HINSTANCE hInstance, int unk1, int unk2)
     }
 }
 
+
+long __stdcall hWriteCrashLog(swgptr unk)
+{
+    CreateDirectory((utility::getWorkingDirectory() + "/" + logDir).c_str(), nullptr);
+    return swg::client::writeCrashLog(unk);
+}
+
 bool __cdecl hWriteMiniDump(const char* filename, swgptr unk)
 {
-    logPath += filename;
-    return swg::client::writeMiniDump(logPath.c_str(), unk);
+    logDir += filename;
+    return swg::client::writeMiniDump(logDir.c_str(), unk);
 }
 
 std::string fn_MidCrashLogWrite;
@@ -172,7 +180,7 @@ __declspec(naked) void MidCrashLogWrite()
         pushfd
     }
 
-    fn_MidCrashLogWrite = logPath;
+    fn_MidCrashLogWrite = logDir;
     fn_MidCrashLogWrite += (const char*)fnInput_MidCrashLogWrite;
     fnModified_MidCrashLogWrite = (swgptr)(fn_MidCrashLogWrite).c_str();
 
@@ -194,7 +202,7 @@ void Client::detour()
     DirectInput::detour();
 
     // Move crash log location to logs/
-    CreateDirectory((utility::getWorkingDirectory() + "/" + logPath).c_str(), nullptr);
+    swg::client::writeCrashLog = (swg::client::pWriteCrashLog)Detour::Create((LPVOID)swg::client::writeCrashLog, hWriteCrashLog, DETOUR_TYPE_PUSH_RET);
     swg::client::writeMiniDump = (swg::client::pWriteMiniDump)Detour::Create((LPVOID)swg::client::writeMiniDump, hWriteMiniDump, DETOUR_TYPE_PUSH_RET);
     memory::createJMP(start_MidCrashLogWrite, (swgptr)MidCrashLogWrite, 5);
 }
