@@ -22,12 +22,19 @@
  * SOFTWARE.
 **/
 
-#pragma once
-#include "utinni.h"
+#include "ui_base_object.h"
 
-namespace utinni::treefile
+namespace swg::uiBaseObject
 {
-extern std::vector<std::string> getAllFilenames();
-void detour();
+using pCtor = utinni::UIBaseObject*(__thiscall*)(utinni::UIBaseObject* pThis);
+
+pCtor ctor = (pCtor)0x010F2A00;
 }
 
+namespace utinni
+{
+    UIBaseObject::UIBaseObject()
+    {
+        swg::uiBaseObject::ctor(this);
+    }
+}

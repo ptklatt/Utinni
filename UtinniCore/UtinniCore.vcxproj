@@ -164,6 +164,8 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\appearance\skeleton.cpp" />
     <ClCompile Include="swg\appearance\extent.cpp" />
     <ClCompile Include="swg\ui\cui_io.cpp" />
+    <ClCompile Include="swg\ui\controls\ui_base_object.cpp" />
+    <ClCompile Include="swg\ui\controls\ui_widget.cpp" />
     <ClCompile Include="utility\string_utility.cpp" />
     <ClCompile Include="swg\scene\client_world.cpp" />
     <ClCompile Include="swg\misc\audio.cpp" />
@@ -219,6 +221,8 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClInclude Include="swg\appearance\skeleton.h" />
     <ClInclude Include="swg\appearance\extent.h" />
     <ClInclude Include="swg\ui\cui_io.h" />
+    <ClInclude Include="swg\ui\controls\ui_base_object.h" />
+    <ClInclude Include="swg\ui\controls\ui_widget.h" />
     <ClInclude Include="utility\string_utility.h" />
     <ClInclude Include="swg\scene\client_world.h" />
     <ClInclude Include="swg\misc\audio.h" />

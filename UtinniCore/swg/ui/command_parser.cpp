@@ -26,7 +26,7 @@
 
 namespace swg::commandParser
 {
-using pCtor1 = utinni::CommandParser* (__thiscall*)(utinni::CommandParser* pThis, const char* command, size_t argCount, const char* args, const char* helpInfo, utinni::CommandParser* delegate);
+using pCtor1 = utinni::CommandParser*(__thiscall*)(utinni::CommandParser* pThis, const char* command, size_t argCount, const char* args, const char* helpInfo, utinni::CommandParser* delegate);
 using pCtor2 = utinni::CommandParser*(__thiscall*)(utinni::CommandParser* pThis, const utinni::CommandParser::CommandData& commandData, utinni::CommandParser* delegate);
 
 using pCreateDelegateCommands = void(__thiscall*)(utinni::CommandParser* pThis, const utinni::CommandParser::CommandData commands[]);

@@ -43,7 +43,7 @@ public:
         const char* helpInfo;
     };
 
-    //swgptr vtbl;
+    //  vtbl
     const swg::WString command;
     size_t argCount;
     swg::WString args;

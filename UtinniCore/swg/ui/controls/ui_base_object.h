@@ -25,9 +25,23 @@
 #pragma once
 #include "utinni.h"
 
-namespace utinni::treefile
+namespace utinni
 {
-extern std::vector<std::string> getAllFilenames();
-void detour();
-}
+class UTINNI_API UIBaseObject
+{
+public:
+    // vtbl
+    swgptr unk1;
+    swgptr unk2;
+    swgptr unk3;
+    swgptr unk4;
+    swgptr unk5;
+    swgptr unk6;
+    swgptr unk7;
 
+    UIBaseObject();
+
+    virtual void attach(UIBaseObject* obj);
+    virtual void detatch(UIBaseObject* obj);
+};
+}
