@@ -22,19 +22,21 @@
  * SOFTWARE.
 **/
 
+#pragma once
+#include "utinni.h"
 #include "ui_base_object.h"
-
-namespace swg::uiBaseObject
-{
-using pCtor = utinni::UIBaseObject* (__thiscall*)(utinni::UIBaseObject* pThis);
-
-pCtor ctor = (pCtor)0x010F2A00;
-}
 
 namespace utinni
 {
-    UIBaseObject::UIBaseObject()
-    {
-        swg::uiBaseObject::ctor(this);
-    }
+class UTINNI_API UICursorSet : public UIBaseObject // Size (Excluding base class): 8 (0x8)
+{
+public:
+    swgptr UICursorSet_unkv01;
+    swgptr UICursorSet_unkv02;
+
+    UICursorSet();
+
+
+};
+
 }

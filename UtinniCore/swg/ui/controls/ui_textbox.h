@@ -22,20 +22,34 @@
  * SOFTWARE.
 **/
 
-#include "ui_textbox.h"
-
-namespace swg::uiTextbox
-{
-using pSetLocalText = void(__thiscall*)(utinni::UiTextbox* pThis, const swg::WString& text);
-
-pSetLocalText setLocalText = (pSetLocalText)0x01120250;
-}
+#pragma once
+#include "utinni.h"
+#include "ui_widget.h"
+#include "swg/misc/swg_string.h"
 
 namespace utinni
 {
-void UiTextbox::setLocalText(const swg::WString& text)
+UTINNI_API class UITextbox : public UIWidget // Size (Excluding base class): 48 (0x30)
 {
-    swg::uiTextbox::setLocalText(this, text);
-}
+public:
+    swgptr UITextbox_unkv01;
+    swgptr UITextbox_unkv02;
+    swgptr UITextbox_unkv03;
+    swgptr UITextbox_unkv04;
+    swgptr UITextbox_unkv05;
+    swgptr UITextbox_unkv06;
+    swgptr UITextbox_unkv07;
+    swgptr UITextbox_unkv08;
+    swgptr UITextbox_unkv09;
+    swgptr UITextbox_unkv10;
+    swgptr UITextbox_unkv11;
+    swgptr UITextbox_unkv12;
+    swgptr UITextbox_unkv13;
+
+    UITextbox();
+
+    void setLocalText(const swg::WString& text);
+};
 
 }
+

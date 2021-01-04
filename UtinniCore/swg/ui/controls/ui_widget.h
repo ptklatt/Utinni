@@ -28,76 +28,83 @@
 
 namespace utinni
 { 
-class UTINNI_API UIWidget : public UIBaseObject
+class UTINNI_API UIWidget : public UIBaseObject // Size (Excluding base class): 260 (0x110)
 {
 public:
-    swgptr unk08;
-    swgptr unk09;
-    swgptr unk10;
+    swgptr UIWidget_unkv01;
+    swgptr UIWidget_unkv02;
+    swgptr UIWidget_unkv03;
+    swgptr UIWidget_unkv04;
+    swgptr UIWidget_unkv05;
+    swgptr UIWidget_unkv06;
+    swgptr UIWidget_unkv07;
+    swgptr UIWidget_unkv08;
+    swgptr UIWidget_unkv09;
+    swgptr UIWidget_unkv10;
 
-    swgptr unk11;
-    swgptr unk12;
-    swgptr unk13;
-    swgptr unk14;
-    swgptr unk15;
-    swgptr unk16;
-    swgptr unk17;
-    swgptr unk18;
-    swgptr unk19;
+    swgptr UIWidget_unkv11;
+    swgptr UIWidget_unkv12;
+    swgptr UIWidget_unkv13;
+    swgptr UIWidget_unkv14;
+    swgptr UIWidget_unkv15;
+    swgptr UIWidget_unkv16;
+    swgptr UIWidget_unkv17;
+    swgptr UIWidget_unkv18;
+    swgptr UIWidget_unkv19;
 
-    swgptr unk20;
-    swgptr unk21;
-    swgptr unk22;
-    swgptr unk23;
-    swgptr unk24;
-    swgptr unk25;
-    swgptr unk26;
-    swgptr unk27;
-    swgptr unk28;
-    swgptr unk29;
+    swgptr UIWidget_unkv20;
+    swgptr UIWidget_unkv21;
+    swgptr UIWidget_unkv22;
+    swgptr UIWidget_unkv23;
+    swgptr UIWidget_unkv24;
+    swgptr UIWidget_unkv25;
+    swgptr UIWidget_unkv26;
+    swgptr UIWidget_unkv27;
+    swgptr UIWidget_unkv28;
+    swgptr UIWidget_unkv29;
 
-    swgptr unk30;
-    swgptr unk31;
-    swgptr unk32;
-    swgptr unk33;
-    swgptr unk34;
-    swgptr unk35;
-    swgptr unk36;
-    swgptr unk37;
-    swgptr unk38;
-    swgptr unk39;
+    swgptr UIWidget_unkv30;
+    swgptr UIWidget_unkv31;
+    swgptr UIWidget_unkv32;
+    swgptr UIWidget_unkv33;
+    swgptr UIWidget_unkv34;
+    swgptr UIWidget_unkv35;
+    swgptr UIWidget_unkv36;
+    swgptr UIWidget_unkv37;
+    swgptr UIWidget_unkv38;
+    swgptr UIWidget_unkv39;
 
-    swgptr unk40;
-    swgptr unk41;
-    swgptr unk42;
-    swgptr unk43;
-    swgptr unk44;
-    swgptr unk45;
-    swgptr unk46;
-    swgptr unk47;
-    swgptr unk48;
-    swgptr unk49;
+    swgptr UIWidget_unkv40;
+    swgptr UIWidget_unkv41;
+    swgptr UIWidget_unkv42;
+    swgptr UIWidget_unkv43;
+    swgptr UIWidget_unkv44;
+    swgptr UIWidget_unkv45;
+    swgptr UIWidget_unkv46;
+    swgptr UIWidget_unkv47;
+    swgptr UIWidget_unkv48;
+    swgptr UIWidget_unkv49;
 
-    swgptr unk50;
-    swgptr unk51;
-    swgptr unk52;
-    swgptr unk53;
-    swgptr unk54;
-    swgptr unk55;
-    swgptr unk56;
-    swgptr unk57;
-    swgptr unk58;
-    swgptr unk59;
+    swgptr UIWidget_unkv50;
+    swgptr UIWidget_unkv51;
+    swgptr UIWidget_unkv52;
+    swgptr UIWidget_unkv53;
+    swgptr UIWidget_unkv54;
+    swgptr UIWidget_unkv55;
+    swgptr UIWidget_unkv56;
+    swgptr UIWidget_unkv57;
+    swgptr UIWidget_unkv58;
+    swgptr UIWidget_unkv59;
 
-    swgptr unk60;
-    swgptr unk61;
-    swgptr unk62;
-    swgptr unk63;
-    swgptr unk64;
-    swgptr unk65;
-    swgptr unk66;
-    swgptr unk67;
-    swgptr unk68;
+    swgptr UIWidget_unkv60;
+    swgptr UIWidget_unkv61;
+    swgptr UIWidget_unkv62;
+    swgptr UIWidget_unkv63;
+    swgptr UIWidget_unkv64;
+    swgptr UIWidget_unkv65;
+    swgptr UIWidget_unkv66;
+    swgptr UIWidget_unkv67;
+    swgptr UIWidget_unkv68;
 
     UIWidget();
 

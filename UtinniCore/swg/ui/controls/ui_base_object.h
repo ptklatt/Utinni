@@ -27,21 +27,22 @@
 
 namespace utinni
 {
-class UTINNI_API UIBaseObject
+class UTINNI_API UIBaseObject // Size (Excluding base class): 28 (0x1C)
 {
 public:
     // vtbl
-    swgptr unk1;
-    swgptr unk2;
-    swgptr unk3;
-    swgptr unk4;
-    swgptr unk5;
-    swgptr unk6;
-    swgptr unk7;
+    swgptr UIBaseObject_unkv01;
+    swgptr UIBaseObject_unkv02;
+    swgptr UIBaseObject_unkv03;
+    swgptr UIBaseObject_unkv04;
+    swgptr UIBaseObject_unkv05;
+    swgptr UIBaseObject_unkv06;
+    swgptr UIBaseObject_unkv07;
 
     UIBaseObject();
 
-    virtual void attach(UIBaseObject* obj);
-    virtual void detatch(UIBaseObject* obj);
+    // ToDo set up vtbl dummies proper
+    //virtual void attach(UIBaseObject* obj);
+    //virtual void detatch(UIBaseObject* obj);
 };
 }

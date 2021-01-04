@@ -22,19 +22,19 @@
  * SOFTWARE.
 **/
 
-#include "ui_base_object.h"
+#include "ui_cursor.h"
 
-namespace swg::uiBaseObject
+namespace swg::uiCursor
 {
-using pCtor = utinni::UIBaseObject* (__thiscall*)(utinni::UIBaseObject* pThis);
+using pCtor = utinni::UICursor* (__thiscall*)(utinni::UICursor* pThis);
 
-pCtor ctor = (pCtor)0x010F2A00;
+pCtor ctor = (pCtor)0x0112C630;
 }
 
 namespace utinni
 {
-    UIBaseObject::UIBaseObject()
-    {
-        swg::uiBaseObject::ctor(this);
-    }
+UICursor::UICursor()
+{
+    swg::uiCursor::ctor(this);
+}
 }

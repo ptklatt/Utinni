@@ -1,4 +1,4 @@
-/**
+﻿/**
  * MIT License
  *
  * Copyright (c) 2020 Philip Klatt
@@ -22,17 +22,19 @@
  * SOFTWARE.
 **/
 
-#pragma once
-#include "utinni.h"
-#include "swg/misc/swg_string.h"
+#include "ui_data.h"
+
+namespace swg::uiData
+{
+using pCtor = utinni::UIData* (__thiscall*)(utinni::UIData* pThis);
+
+pCtor ctor = (pCtor)0x01133130;
+}
 
 namespace utinni
 {
-UTINNI_API class UiTextbox
+UIData::UIData()
 {
-public:
-    void setLocalText(const swg::WString& text);
-};
-
+    swg::uiData::ctor(this);
 }
-
+}

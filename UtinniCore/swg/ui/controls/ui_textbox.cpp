@@ -22,19 +22,27 @@
  * SOFTWARE.
 **/
 
-#include "ui_base_object.h"
+#include "ui_textbox.h"
 
-namespace swg::uiBaseObject
+namespace swg::uiTextbox
 {
-using pCtor = utinni::UIBaseObject* (__thiscall*)(utinni::UIBaseObject* pThis);
+using pCtor = utinni::UITextbox* (__thiscall*)(utinni::UITextbox* pThis);
+using pSetLocalText = void(__thiscall*)(utinni::UITextbox* pThis, const swg::WString& text);
 
-pCtor ctor = (pCtor)0x010F2A00;
+pCtor ctor = (pCtor)0x0112CFC0;
+pSetLocalText setLocalText = (pSetLocalText)0x01120250;
 }
 
 namespace utinni
 {
-    UIBaseObject::UIBaseObject()
-    {
-        swg::uiBaseObject::ctor(this);
-    }
+UITextbox::UITextbox()
+{
+    swg::uiTextbox::ctor(this);
+}
+
+void UITextbox::setLocalText(const swg::WString& text)
+{
+    swg::uiTextbox::setLocalText(this, text);
+}
+
 }

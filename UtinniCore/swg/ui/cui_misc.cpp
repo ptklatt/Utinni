@@ -23,7 +23,7 @@
 **/
 
 #include "cui_misc.h"
-#include "ui_textbox.h"
+#include "controls/ui_textbox.h"
 #include <fstream>
 
 namespace swg::cuiMisc
@@ -92,8 +92,8 @@ void __fastcall hkActivate(swgptr pThis)
     swg::cuiLoginScreen::activate(pThis);
 
     // ToDo get it more proper at some point
-    UiTextbox* txtUsername = memory::read<UiTextbox*>(pThis + 0xA0);
-    UiTextbox* txtPassword = memory::read<UiTextbox*>(pThis + 0xA4);
+    UITextbox* txtUsername = memory::read<UITextbox*>(pThis + 0xA0);
+    UITextbox* txtPassword = memory::read<UITextbox*>(pThis + 0xA4);
 
     // ToDo add an option to auto fill data without auto login
     if (!getConfig().getBool("UtinniCore", "autoLoadScene") && getConfig().getBool("UtinniCore", "autoLogin"))

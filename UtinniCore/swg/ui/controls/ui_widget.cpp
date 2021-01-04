@@ -26,7 +26,7 @@
 
 namespace swg::uiWidget
 {
-using pCtor = utinni::UIBaseObject*(__thiscall*)(utinni::UIBaseObject* pThis);
+using pCtor = utinni::UIBaseObject* (__thiscall*)(utinni::UIBaseObject* pThis);
 
 pCtor ctor = (pCtor)0x01105910;
 }
