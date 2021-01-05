@@ -511,6 +511,11 @@ Object* createObject(WorldSnapshotReaderWriter::Node* node)
 
 bool WorldSnapshot::isValidObject(const char* objectFilename)
 {
+    if (ObjectTemplateList::getObjectTemplateByFilename(objectFilename) == nullptr)
+    {
+        return false;
+    }
+
     if (strstr(objectFilename, "/base/"))
     {
         return false;
@@ -533,16 +538,14 @@ bool WorldSnapshot::isValidObject(const char* objectFilename)
 
 WorldSnapshotReaderWriter::Node* WorldSnapshot::createAddNode(const char* objectFilename, swg::math::Transform& transform)
 {
-   /* if (!isValidObject(objectFilename))
+    /*if (!isValidObject(objectFilename))
     {
         return nullptr;
     }*/
 
     const auto reader = WorldSnapshotReaderWriter::get();
 
-
     WorldSnapshotReaderWriter::Node* parentNode = nullptr;
-
 
     // Temporary check to get parent, make this better
     int parentNodeId = 0;
@@ -564,6 +567,11 @@ WorldSnapshotReaderWriter::Node* WorldSnapshot::createAddNode(const char* object
     }
 
     auto objectTemplate = ObjectTemplateList::getObjectTemplateByFilename(objectFilename);
+
+    if (objectTemplate == nullptr)
+    {
+        return nullptr;
+    }
 
     const char* pobFilename = ObjectTemplateList::getObjectTemplateByFilename(objectFilename)->getPortalLayoutFilename();
     if (!objectTemplate->getAppearanceFilename() && !objectTemplate->getClientDataFilename() && !pobFilename)

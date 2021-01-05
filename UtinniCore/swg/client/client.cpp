@@ -171,7 +171,7 @@ swgptr fnInput_MidCrashLogWrite;
 swgptr fnModified_MidCrashLogWrite;
 static constexpr swgptr start_MidCrashLogWrite = 0x00A9F766;
 static constexpr swgptr return_MidCrashLogWrite = 0x00A9F76B;
-__declspec(naked) void MidCrashLogWrite()
+__declspec(naked) void midCrashLogWrite()
 {
     __asm
     {
@@ -204,7 +204,7 @@ void Client::detour()
     // Move crash log location to logs/
     swg::client::writeCrashLog = (swg::client::pWriteCrashLog)Detour::Create((LPVOID)swg::client::writeCrashLog, hWriteCrashLog, DETOUR_TYPE_PUSH_RET);
     swg::client::writeMiniDump = (swg::client::pWriteMiniDump)Detour::Create((LPVOID)swg::client::writeMiniDump, hWriteMiniDump, DETOUR_TYPE_PUSH_RET);
-    memory::createJMP(start_MidCrashLogWrite, (swgptr)MidCrashLogWrite, 5);
+    memory::createJMP(start_MidCrashLogWrite, (swgptr)midCrashLogWrite, 5);
 }
 
 }
