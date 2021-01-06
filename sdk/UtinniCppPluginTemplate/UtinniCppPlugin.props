@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ImportGroup Label="PropertySheets" />
+	<PropertyGroup>
+        <UtinniDir>..\..\Utinni</UtinniDir>
+    </PropertyGroup>
+    <ItemGroup Label="ProjectConfigurations">
+        <ProjectConfiguration Include="Debug|Win32">
+            <Configuration>Debug</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|Win32">
+            <Configuration>Release</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="RelWithDbgInfo|Win32">
+            <Configuration>RelWithDbgInfo</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <UseDebugLibraries>true</UseDebugLibraries>
+        <PlatformToolset>v142</PlatformToolset>
+        <CharacterSet>NotSet</CharacterSet>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <UseDebugLibraries>false</UseDebugLibraries>
+        <PlatformToolset>v142</PlatformToolset>
+        <WholeProgramOptimization>false</WholeProgramOptimization>
+        <CharacterSet>NotSet</CharacterSet>
+        <CLRSupport>false</CLRSupport>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDbgInfo|Win32'" Label="Configuration">
+        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <UseDebugLibraries>false</UseDebugLibraries>
+        <PlatformToolset>v142</PlatformToolset>
+        <WholeProgramOptimization>false</WholeProgramOptimization>
+        <CharacterSet>NotSet</CharacterSet>
+        <CLRSupport>false</CLRSupport>
+    </PropertyGroup>
+    <PropertyGroup Label="UserMacros" />
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+        <LinkIncremental>true</LinkIncremental>
+        <OutDir>$(UtinniDir)\bin\Debug\Plugins\$(SolutionName)\</OutDir>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+        <LinkIncremental>false</LinkIncremental>
+        <OutDir>$(UtinniDir)\bin\Release\Plugins\$(SolutionName)\</OutDir>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDbgInfo|Win32'">
+        <LinkIncremental>false</LinkIncremental>
+        <OutDir>$(UtinniDir)\bin\RelWithDbgInfo\Plugins\$(SolutionName)\</OutDir>
+    </PropertyGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+        <ClCompile>
+            <WarningLevel>Level3</WarningLevel>
+            <SDLCheck>true</SDLCheck>
+            <PreprocessorDefinitions>SPDLOG_NO_EXCEPTIONS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <ConformanceMode>true</ConformanceMode>
+            <AdditionalIncludeDirectories>$(UtinniDir);$(UtinniDir)\UtinniCore;%(AdditionalIncludeDirectories);$(UtinniDir)\external;$(ProjectDir);</AdditionalIncludeDirectories>
+            <LanguageStandard>stdcpp17</LanguageStandard>
+        </ClCompile>
+        <Link>
+            <SubSystem>Console</SubSystem>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <AdditionalDependencies>%(AdditionalDependencies);$(UtinniDir)\bin\Debug\UtinniCore.lib;</AdditionalDependencies>
+            <AdditionalLibraryDirectories>$(UtinniDir)\bin\Debug\UtinniCore.lib;$(UtinniDir)\external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+        <ClCompile>
+            <WarningLevel>Level3</WarningLevel>
+            <FunctionLevelLinking>true</FunctionLevelLinking>
+            <IntrinsicFunctions>false</IntrinsicFunctions>
+            <SDLCheck>
+            </SDLCheck>
+            <PreprocessorDefinitions>SPDLOG_NO_EXCEPTIONS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <ConformanceMode>false</ConformanceMode>
+            <LanguageStandard>stdcpp17</LanguageStandard>
+            <AdditionalIncludeDirectories>$(UtinniDir);$(UtinniDir)\UtinniCore;%(AdditionalIncludeDirectories);$(UtinniDir)\external;$(ProjectDir);</AdditionalIncludeDirectories>
+            <DebugInformationFormat />
+            <DiagnosticsFormat>Caret</DiagnosticsFormat>
+            <MultiProcessorCompilation>true</MultiProcessorCompilation>
+            <Optimization>Full</Optimization>
+            <StringPooling>true</StringPooling>
+        </ClCompile>
+        <Link>
+            <SubSystem>Console</SubSystem>
+            <EnableCOMDATFolding>true</EnableCOMDATFolding>
+            <OptimizeReferences>true</OptimizeReferences>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <AdditionalDependencies>%(AdditionalDependencies);$(UtinniDir)\bin\Release\UtinniCore.lib;</AdditionalDependencies>
+            <AdditionalLibraryDirectories>$(UtinniDir)\bin\Release\UtinniCore.lib;$(UtinniDir)\external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDbgInfo|Win32'">
+        <ClCompile>
+            <WarningLevel>Level3</WarningLevel>
+            <FunctionLevelLinking>true</FunctionLevelLinking>
+            <IntrinsicFunctions>false</IntrinsicFunctions>
+            <SDLCheck>
+            </SDLCheck>
+            <PreprocessorDefinitions>SPDLOG_NO_EXCEPTIONS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <ConformanceMode>false</ConformanceMode>
+            <LanguageStandard>stdcpp17</LanguageStandard>
+            <AdditionalIncludeDirectories>$(UtinniDir);$(UtinniDir)\UtinniCore;%(AdditionalIncludeDirectories);$(UtinniDir)\external;$(ProjectDir);</AdditionalIncludeDirectories>
+            <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+            <DiagnosticsFormat>Caret</DiagnosticsFormat>
+            <MultiProcessorCompilation>true</MultiProcessorCompilation>
+            <StringPooling>true</StringPooling>
+            <Optimization>Disabled</Optimization>
+        </ClCompile>
+        <Link>
+            <SubSystem>Console</SubSystem>
+            <EnableCOMDATFolding>true</EnableCOMDATFolding>
+            <OptimizeReferences>true</OptimizeReferences>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <AdditionalDependencies>%(AdditionalDependencies);$(UtinniDir)\bin\RelWithDbgInfo\UtinniCore.lib;</AdditionalDependencies>
+            <AdditionalLibraryDirectories>$(UtinniDir)\bin\RelWithDbgInfo\UtinniCore.lib;$(UtinniDir)\external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup />
+    <ItemGroup />
+</Project>
