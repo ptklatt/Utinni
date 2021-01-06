@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtinniDotNetEditorPluginTemplate", "UtinniDotNetEditorPluginTemplate\UtinniDotNetEditorPluginTemplate.csproj", "{DECA57A3-758F-4ACC-8917-83FAF139809D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		RelWithDbgInfo|Any CPU = RelWithDbgInfo|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.RelWithDbgInfo|Any CPU.ActiveCfg = RelWithDbgInfo|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.RelWithDbgInfo|Any CPU.Build.0 = RelWithDbgInfo|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85FFF510-5F4E-42BD-9BF8-852A0B690230}
+	EndGlobalSection
+EndGlobal
