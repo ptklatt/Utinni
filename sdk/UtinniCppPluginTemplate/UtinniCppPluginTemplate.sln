@@ -7,17 +7,17 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UtinniCppPluginTemplate", "
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x86 = Debug|x86
-		Release|x86 = Release|x86
 		RelWithDbgInfo|x86 = RelWithDbgInfo|x86
+		Release|x86 = Release|x86
+		Debug|x86 = Debug|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E194459C-666A-45DD-8104-FF698FB086EA}.Debug|x86.ActiveCfg = Debug|Win32
-		{E194459C-666A-45DD-8104-FF698FB086EA}.Debug|x86.Build.0 = Debug|Win32
-		{E194459C-666A-45DD-8104-FF698FB086EA}.Release|x86.ActiveCfg = Release|Win32
-		{E194459C-666A-45DD-8104-FF698FB086EA}.Release|x86.Build.0 = Release|Win32
 		{E194459C-666A-45DD-8104-FF698FB086EA}.RelWithDbgInfo|x86.ActiveCfg = RelWithDbgInfo|Win32
 		{E194459C-666A-45DD-8104-FF698FB086EA}.RelWithDbgInfo|x86.Build.0 = RelWithDbgInfo|Win32
+		{E194459C-666A-45DD-8104-FF698FB086EA}.Release|x86.ActiveCfg = Release|Win32
+		{E194459C-666A-45DD-8104-FF698FB086EA}.Release|x86.Build.0 = Release|Win32
+		{E194459C-666A-45DD-8104-FF698FB086EA}.Debug|x86.ActiveCfg = Debug|Win32
+		{E194459C-666A-45DD-8104-FF698FB086EA}.Debug|x86.Build.0 = Debug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

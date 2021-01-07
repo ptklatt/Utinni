@@ -1,23 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30523.141
+VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtinniDotNetEditorPluginTemplate", "UtinniDotNetEditorPluginTemplate\UtinniDotNetEditorPluginTemplate.csproj", "{DECA57A3-758F-4ACC-8917-83FAF139809D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		RelWithDbgInfo|Any CPU = RelWithDbgInfo|Any CPU
-		Release|Any CPU = Release|Any CPU
-		Debug|Any CPU = Debug|Any CPU
+		RelWithDbgInfo|x86 = RelWithDbgInfo|x86
+		Release|x86 = Release|x86
+		Debug|x86 = Debug|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DECA57A3-758F-4ACC-8917-83FAF139809D}.RelWithDbgInfo|Any CPU.ActiveCfg = RelWithDbgInfo|Any CPU
-		{DECA57A3-758F-4ACC-8917-83FAF139809D}.RelWithDbgInfo|Any CPU.Build.0 = RelWithDbgInfo|Any CPU
-		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.RelWithDbgInfo|x86.ActiveCfg = RelWithDbgInfo|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.RelWithDbgInfo|x86.Build.0 = RelWithDbgInfo|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Release|x86.ActiveCfg = Release|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Release|x86.Build.0 = Release|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DECA57A3-758F-4ACC-8917-83FAF139809D}.Debug|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

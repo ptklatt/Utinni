@@ -7,7 +7,7 @@
         <DefineConstants>TRACE</DefineConstants>
         <Optimize>true</Optimize>
         <DebugType>pdbonly</DebugType>
-        <PlatformTarget>AnyCPU</PlatformTarget>
+        <PlatformTarget>x86</PlatformTarget>
         <LangVersion>7.3</LangVersion>
         <ErrorReport>prompt</ErrorReport>
         <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -17,6 +17,7 @@
         <Optimize>true</Optimize>
         <OutputPath>$(PluginOutputDir)\bin\Release\</OutputPath>
         <DefineConstants>TRACE</DefineConstants>
+        <PlatformTarget>x86</PlatformTarget>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
@@ -26,12 +27,13 @@
         <Optimize>false</Optimize>
         <OutputPath>$(PluginOutputDir)\bin\Debug\</OutputPath>
         <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <PlatformTarget>x86</PlatformTarget>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="UtinniCoreDotNet">
-            <HintPath>..\..\Utinni\bin\Release\UtinniCoreDotNet.dll</HintPath>
+            <HintPath>..\..\..\bin\Release\UtinniCoreDotNet.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
