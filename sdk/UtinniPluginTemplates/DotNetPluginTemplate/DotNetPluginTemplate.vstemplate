@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+    <TemplateData>
+        <Name>UtinniDotNetPlugin</Name>
+        <Description>A .NET starter plugin project for Utinni</Description>
+        <Icon>TJT.ico</Icon>
+        <ProjectType>CSharp</ProjectType>
+        <LanguageTag>csharp</LanguageTag>
+        <PlatformTag>windows</PlatformTag>
+        <ProjectTypeTag>games</ProjectTypeTag>
+        <ProjectTypeTag>desktop</ProjectTypeTag>
+        <ProjectTypeTag>Plugin</ProjectTypeTag>
+        <ProjectTypeTag>Utinni</ProjectTypeTag>
+        <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+        <SortOrder>1000</SortOrder>
+        <TemplateID>6a657649-45a6-4ed8-911b-76d38e27ea23</TemplateID>
+        <CreateNewFolder>true</CreateNewFolder>
+        <DefaultName>UtinniDotNetPlugin</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+    </TemplateData>
+    <TemplateContent>
+        <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
+            <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+            <ProjectItem ReplaceParameters="true" OpenInEditor="true">Plugin.cs</ProjectItem>
+        </Project>
+    </TemplateContent>
+
+    <WizardExtension>
+        <Assembly>UtinniPluginTemplateVsix, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=b88acbeaac85080b</Assembly>
+        <FullClassName>UtinniPluginTemplateVsix.Wizards.DotNetSolutionWizard</FullClassName>
+    </WizardExtension>
+</VSTemplate>
