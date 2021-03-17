@@ -43,6 +43,13 @@
 #include "UtINI/utini.h"
 
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") // Disables the popping up of the console
+#pragma comment(lib, "version.lib") // To use GetFileVersionInfo, etc
+
+void throwError(const std::string& message)
+{
+    MessageBoxA(nullptr, message.c_str(), "Error", MB_OK);
+    throw std::runtime_error(message);
+}
 
 //DWORD getParentPID()
 //{
@@ -181,17 +188,25 @@ void inject(PROCESS_INFORMATION procInfo)
     WaitForInputIdle(procInfo.hProcess, 5000);
 
     if (!hThread)
-        throw std::runtime_error("[ERROR] Couldn't open LoadLibraryA thread. Dll not injected.");
+    {
+        throwError("[ERROR] Couldn't open LoadLibraryA thread. Dll not injected.");
+    }
 
     if (WaitForSingleObject(hThread, INFINITE))
-        throw std::runtime_error("[ERROR] Thread didn't return 0. Dll not injected.");
+    {
+        throwError("[ERROR] Thread didn't return 0. Dll not injected.");
+    }
 
     DWORD hDll;
     if (!GetExitCodeThread(hThread, &hDll))
-        throw std::runtime_error("[ERROR] Can't get LoadLibraryA return handle.");
+    {
+        throwError("[ERROR] Can't get LoadLibraryA return handle.");
+    }
 
     if (hDll == 0x00000000)
-        throw std::runtime_error("[ERROR] LoadLibraryA couldn't inject dll.");
+    {
+        throwError("[ERROR] LoadLibraryA couldn't inject dll.");
+    }
 }
 
 std::string swgClientPath;
@@ -240,12 +255,46 @@ std::string getSwgClientFilename()
         }
         else
         {
-            throw std::runtime_error("[ERROR] Can't open the selected file.");
+            throwError("[ERROR] Can't open the selected file.");
         }
     }
 
-    return swgClientPath + swgClientName;
+    std::string result = swgClientPath + swgClientName;
+
+    if (result.size() > 4 && result.compare(result.size() - 3, 3, "exe") != 0)
+    {
+        throwError("[ERROR] Target SWG client is not an executable.");
+    }
+
+    DWORD targetHandle = 0;
+    const DWORD targetSize = GetFileVersionInfoSize(result.c_str(), &targetHandle);
+    if (targetSize <= 0)
+    {
+        throwError("[ERROR] Target SWG client size is invalid.");
+    }
+
+    uint32_t verInfoSize;
+    const char* targetProductName;
+    BYTE* targetVersionInfo = new BYTE[targetSize];
+    if (GetFileVersionInfo(result.c_str(), targetHandle, targetSize, targetVersionInfo))
+    {
+        if (VerQueryValue(targetVersionInfo, TEXT("\\StringFileInfo\\040904B0\\ProductName"), (LPVOID*)&targetProductName, &verInfoSize) && strcmp(targetProductName, "Star Wars Galaxies") != 0)
+        {
+            delete[] targetVersionInfo;
+
+            ini.setString("Launcher", "swgClientPath", "");
+            ini.setString("Launcher", "swgClientName", "");
+
+            ini.save();
+
+            throwError("[ERROR] Target client is not a valid SWG client.");
+        }
+        delete[] targetVersionInfo;
+    }
+
+    return result;
 }
+
 void loadDll(const std::string& cmdLine)
 {
     STARTUPINFOA StartupInfo = { 0 };
@@ -290,7 +339,7 @@ void loadDll(const std::string& cmdLine)
             if (context.Eip != (DWORD)entry)
             {
                 // Wait timed out
-                throw std::runtime_error("Timed out trying to reach the entry point");
+                throwError("Timed out trying to reach the entry point");
             }
 
             // Attach the debugger before we inject, only do this in RelWithDbgInfo or Debug configuration 
@@ -314,7 +363,7 @@ void loadDll(const std::string& cmdLine)
     }
     else
     {
-        throw std::runtime_error("Unable to load the specified executable");
+        throwError("Unable to load the specified executable");
     }
 
 
