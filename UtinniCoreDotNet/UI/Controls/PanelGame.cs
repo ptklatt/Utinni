@@ -158,7 +158,7 @@ namespace UtinniCoreDotNet.UI.Controls
 
                     if (hotkeyManager != null && hotkeyManager.OnGameFocusOnly)
                     {
-                        hotkeyManager.ProcessInput(e.Modifiers, e.KeyCode);
+                        hotkeyManager.ProcessInput(e.Modifiers, e.KeyCode, HasFocus);
                     }
                 }
             }

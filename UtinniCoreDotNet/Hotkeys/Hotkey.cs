@@ -37,19 +37,21 @@ namespace UtinniCoreDotNet.Hotkeys
         public Action OnDownCallback;
         public bool OverrideGameInput;
         public bool Enabled;
+        public bool OnGameFocusOnly;
 
-        public Hotkey(string name, string text, string keyComboStr, Action onDownCallback, bool overrideGameInput, bool enabled = true)
+        public Hotkey(string name, string text, string keyComboStr, Action onDownCallback, bool overrideGameInput, bool enabled = true, bool onGameFocusOnly = false)
         {
             Name = name;
             Text = text;
             OnDownCallback = onDownCallback;
             OverrideGameInput = overrideGameInput;
             Enabled = enabled;
+            OnGameFocusOnly = onGameFocusOnly;
 
             ProcessString(keyComboStr);
         }
 
-        public Hotkey(string name, string text, Keys modifierKeys, Keys key, Action onDownCallback, bool overrideGameInput, bool enabled = true)
+        public Hotkey(string name, string text, Keys modifierKeys, Keys key, Action onDownCallback, bool overrideGameInput, bool enabled = true, bool onGameFocusOnly = false)
         {
             Name = name;
             Text = text;
@@ -58,6 +60,7 @@ namespace UtinniCoreDotNet.Hotkeys
             OnDownCallback = onDownCallback;
             OverrideGameInput = overrideGameInput;
             Enabled = enabled;
+            OnGameFocusOnly = onGameFocusOnly;
         }
 
         private void ProcessString(string keyComboStr)

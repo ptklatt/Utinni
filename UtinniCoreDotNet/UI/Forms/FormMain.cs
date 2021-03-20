@@ -163,7 +163,7 @@ namespace UtinniCoreDotNet.UI.Forms
             // Handle the form HotkeyManager first
             if (game.HasFocus && formHotkeyManager.OnGameFocusOnly)
             {
-                formHotkeyManager.ProcessInput(keyData & Keys.Modifiers, keyData & Keys.KeyCode);
+                formHotkeyManager.ProcessInput(keyData & Keys.Modifiers, keyData & Keys.KeyCode, game.HasFocus);
             }
 
             // Then handle the each plugins HotkeyManager
@@ -177,11 +177,11 @@ namespace UtinniCoreDotNet.UI.Forms
 
                 if (!hotkeyManager.OnGameFocusOnly)
                 {
-                    hotkeyManager.ProcessInput(keyData & Keys.Modifiers, keyData & Keys.KeyCode);
+                    hotkeyManager.ProcessInput(keyData & Keys.Modifiers, keyData & Keys.KeyCode, game.HasFocus);
                 }
                 else if (game.HasFocus && hotkeyManager.OnGameFocusOnly)
                 {
-                    hotkeyManager.ProcessInput(keyData & Keys.Modifiers, keyData & Keys.KeyCode);
+                    hotkeyManager.ProcessInput(keyData & Keys.Modifiers, keyData & Keys.KeyCode, game.HasFocus);
                 }
             }
 

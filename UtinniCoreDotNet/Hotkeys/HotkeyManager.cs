@@ -45,7 +45,7 @@ namespace UtinniCoreDotNet.Hotkeys
             ini = new UtINI(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location) + "\\input.ini");
         }
 
-        public void ProcessInput(Keys modifierKeys, Keys key)
+        public void ProcessInput(Keys modifierKeys, Keys key, bool isGameFocused)
         {
             if (!Enabled)
             {
@@ -55,8 +55,13 @@ namespace UtinniCoreDotNet.Hotkeys
             foreach (var pair in Hotkeys)
             {
                 Hotkey hotkey = pair.Value;
-                if (hotkey.Enabled && hotkey.ModifierKeys == modifierKeys && hotkey.Key == key)
+                if (hotkey.Enabled && hotkey.ModifierKeys == modifierKeys && hotkey.Key == key) // ToDo figure out a way to have some hotkeys only work if the game has focus
                 {
+                    if (hotkey.OnGameFocusOnly && !isGameFocused)
+                    {
+                        continue;
+                    }
+
                     if (hotkey.OverrideGameInput)
                     {
                         // Not happy about this solution, but works, ToDo find a better way
