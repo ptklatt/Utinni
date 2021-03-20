@@ -48,6 +48,8 @@ using pSetRenderTarget = HRESULT(__stdcall*)(LPDIRECT3DDEVICE9 pDevice, DWORD in
 using pSetDepthStencil = HRESULT(__stdcall*)(LPDIRECT3DDEVICE9 pDevice, IDirect3DSurface9* surface);
 using pSetRenderState = HRESULT(__stdcall*) (LPDIRECT3DDEVICE9 pDevice, D3DRENDERSTATETYPE State, DWORD Value);
 
+using pCompileShader = HRESULT(__stdcall*)(LPCSTR pSrcData, UINT srcDataLen, LPVOID* pDefines, LPVOID pInclude, LPCSTR pFunctionName, LPCSTR pProfile, DWORD Flags, LPVOID* ppShader, LPVOID* ppErrorMsgs, LPVOID* ppConstantTable);
+
 pBeginScene beginScene;
 pEndScene endScene;
 pPresent present;
@@ -56,6 +58,8 @@ pDrawIndexedPrimitive drawIndexedPrimitive;
 pSetRenderTarget setRenderTarget;
 pSetDepthStencil setDepthStencil;
 pSetRenderState setRenderState;
+
+pCompileShader compileShader = (pCompileShader)0x62A4F9DB; // from s207_r.dll
 
 enum D3DInformation
 {
@@ -263,6 +267,12 @@ HRESULT __stdcall hkSetRenderState(LPDIRECT3DDEVICE9 pDevice, D3DRENDERSTATETYPE
     return setRenderState(pDevice, State, Value);
 }
 
+HRESULT __stdcall hkD3DXCompileShader(LPCSTR pSrcData, UINT srcDataLen, LPVOID* pDefines, LPVOID pInclude, LPCSTR pFunctionName, LPCSTR pProfile, DWORD Flags, LPVOID* ppShader, LPVOID* ppErrorMsgs, LPVOID* ppConstantTable)
+{
+	 // pixel shaders are precompiled, so it's safe to hard override this as vertex (vs) only
+	 return compileShader(pSrcData, srcDataLen, pDefines, pInclude, pFunctionName, "vs_3_0", Flags, ppShader, ppErrorMsgs, ppConstantTable);
+}
+
 void detour()
 {
     setDevice();
@@ -287,6 +297,9 @@ void detour()
 
 	 swgptr SetDepthStencilAddress = Detour::CheckPointer(vtbl[d3di_SetDepthStencilSurface_Index]);
     setDepthStencil = (pSetDepthStencil)Detour::Create((LPVOID)SetDepthStencilAddress, hkSetDepthStencil, DETOUR_TYPE_PUSH_RET);
+
+	 // ToDo Potentially make this an option, in case it creates issues
+	 compileShader = (pCompileShader)Detour::Create((LPVOID)compileShader, hkD3DXCompileShader, DETOUR_TYPE_PUSH_RET);
 }
 
 void toggleWireframe()
