@@ -191,8 +191,6 @@ WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::findChildNode(Node* 
 
 WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByIdWithParent(Object* parentObject, int id)
 {
-    Node* result = nullptr;
-
     Object* topParent = parentObject;
 
     while (true)
@@ -207,9 +205,12 @@ WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByIdWithParen
 
     Node* parentNode = getNodeById(topParent->networkId);
 
-    result = findChildNode(parentNode, id);
+    if (Network::isServerId(topParent->networkId) || parentNode == nullptr)
+    {
+        return nullptr;
+    }
 
-    return result;
+    return findChildNode(parentNode, id);
 }
 
 WorldSnapshotReaderWriter::Node* WorldSnapshotReaderWriter::getNodeByNetworkId(int networkId)

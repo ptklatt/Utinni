@@ -37,5 +37,16 @@ public:
     static Object* getCachedObjectById(swgptr pCachedNetworkId);
 
     static int64_t cast(int id);
+
+public:
+    static bool isServerId(int64_t id)
+    {
+        if (id >= 0x1000000)
+        {
+            return true;
+        }
+
+        return false;
+    }
 };
 }
