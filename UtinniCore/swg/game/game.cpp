@@ -111,7 +111,7 @@ int getMainLoopCount()
 bool loadNewScene = false;
 bool sceneCleaned = false;
 std::string sceneToLoadTerrainFilename;
-std::string sceneToLoadAvatarObjectFilename;
+std::string sceneToLoadAvatarObjectFilename = "object/creature/player/shared_human_male.iff";
 void __cdecl hkMainLoop(bool presentToWindow, HWND hwnd, int width, int height)
 {
     for (const auto& func : preMainLoopCallbacks)
@@ -218,8 +218,25 @@ bool Game::isRunning()
 
 void Game::loadScene()
 {
-    sceneToLoadTerrainFilename = swg::config::clientGame::getSceneTerrainFilename();
-    sceneToLoadAvatarObjectFilename = swg::config::clientGame::getSceneAvatarFilename();
+    const char* terrainFilename = swg::config::clientGame::getSceneTerrainFilename();
+    const char* avatarFilename = swg::config::clientGame::getSceneAvatarFilename();
+
+    if (terrainFilename != nullptr)
+    {
+        sceneToLoadTerrainFilename = terrainFilename;
+    }
+
+    if (avatarFilename != nullptr)
+    {
+        sceneToLoadAvatarObjectFilename = avatarFilename;
+    }
+
+    if (sceneToLoadTerrainFilename.empty())
+    {
+        log::error("Failed to load scene due to there being no set terrain filename.");
+        return;
+    }
+
     loadNewScene = true;
 }
 
