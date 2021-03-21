@@ -57,14 +57,16 @@ namespace UtinniCoreDotNet.UI.Forms
             // 
             // lbLog
             // 
-            this.lbLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbLog.FormattingEnabled = true;
             this.lbLog.HorizontalScrollbar = true;
             this.lbLog.IntegralHeight = false;
-            this.lbLog.Location = new System.Drawing.Point(0, 32);
+            this.lbLog.Location = new System.Drawing.Point(5, 35);
             this.lbLog.Name = "lbLog";
             this.lbLog.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbLog.Size = new System.Drawing.Size(720, 418);
+            this.lbLog.Size = new System.Drawing.Size(720, 415);
             this.lbLog.TabIndex = 0;
             this.lbLog.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbLog_KeyDown);
             // 
@@ -78,7 +80,6 @@ namespace UtinniCoreDotNet.UI.Forms
             this.Name = "FormLog";
             this.Text = "Log";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormLog_FormClosing);
-            this.Load += new System.EventHandler(this.FormLog_Load);
             this.ResumeLayout(false);
 
         }

@@ -40,10 +40,6 @@ namespace UtinniCoreDotNet.UI.Forms
             lbLog.BorderStyle = BorderStyle.None;
 
             Log.AddOuputSinkCallback(OnOutputSinkCallback);
-        }
-
-        private void FormLog_Load(object sender, EventArgs e)
-        {
             UpdateListboxItems();
         }
 
