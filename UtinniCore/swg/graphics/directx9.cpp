@@ -199,10 +199,12 @@ void setDevice()
 HRESULT __stdcall hkBeginScene(LPDIRECT3DDEVICE9 pDevice)
 {
     HRESULT result = beginScene(pDevice);
-	 if (depthTexture != nullptr && depthTexture->isSupported())
+
+	 if (depthTexture != nullptr && depthTexture->isSupported() && depthTexture->getTexture() != nullptr)
 	 {
 		  depthTexture->resolveDepth(pDevice);
 	 }
+
     return result;
 }
 
@@ -230,11 +232,15 @@ HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, 
 		  isPresenting = false;
 	 }
 	
-
-	 if (depthTexture == nullptr && utinni::Graphics::getCurrentRenderTargetWidth() > 0)
+	 if (depthTexture == nullptr)
 	 {
 		  depthTexture = new DepthTexture();
+	 }
+
+	 if (utinni::Graphics::getCurrentRenderTargetWidth() > 0 && depthTexture->getTexture() == nullptr)
+	 {
 		  depthTexture->createTexture(pDevice, utinni::Graphics::getCurrentRenderTargetWidth(), utinni::Graphics::getCurrentRenderTargetHeight());
+		  //utinni::log::info("Creating Texture");
 	 }
 
 	 imgui_impl::setup(pDevice);
@@ -243,7 +249,12 @@ HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, 
 
 HRESULT __stdcall hkReset(LPDIRECT3DDEVICE9 pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters)
 {
-	
+	 if (depthTexture != nullptr && depthTexture->getTexture() != nullptr)
+	 {
+		  depthTexture->release();
+		  //utinni::log::info("Releasing Texture");
+	 }
+
 	 ImGui_ImplDX9_InvalidateDeviceObjects();
     HRESULT result = reset(pDevice, pPresentationParameters);
 	 ImGui_ImplDX9_CreateDeviceObjects();

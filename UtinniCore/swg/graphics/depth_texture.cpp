@@ -61,13 +61,13 @@ void DepthTexture::createTexture(LPDIRECT3DDEVICE9 device, int width, int height
 
 		  if (m_isNVAPI)
 		  {
-				utinni::log::info("nVidia GPU Selected");
+				//utinni::log::info("nVidia GPU Selected");
 				NvAPI_D3D9_RegisterResource(pTexture);
 		  }
-		  else
+		  /*else
 		  {
 				utinni::log::info("ATI or Intel GPU Selected");
-		  }
+		  }*/
 	 }
 }
 
@@ -82,6 +82,7 @@ void DepthTexture::release()
 		  if (pTexture != nullptr)
 		  {
 				pTexture->Release();
+				pTexture = nullptr;
 		  }
 	 }
 
@@ -93,8 +94,8 @@ void DepthTexture::release()
 		  }
 		  if (pRegisteredDSS != nullptr)
 		  {
-
 				pRegisteredDSS->Release();
+				pRegisteredDSS = nullptr;
 		  }
 	 }
 }
