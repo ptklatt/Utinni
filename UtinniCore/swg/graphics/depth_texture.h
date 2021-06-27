@@ -23,16 +23,34 @@
 **/
 
 #pragma once
-#include "utinni.h"
-#include "depth_texture.h"
+
+#include <d3d9.h>
 
 namespace directX
 {
-void detour();
-void cleanup();
-DepthTexture* getDepthTexture();
+class DepthTexture
+{
+private:
+	 LPDIRECT3DTEXTURE9 pTexture;
+	 bool m_isRESZ;
+	 bool m_isINTZ;
+	 bool m_isNVAPI;
+	 bool m_isSupported;
+	 IDirect3DSurface9* pRegisteredDSS;
 
-UTINNI_API extern void toggleWireframe();
-UTINNI_API extern void blockPresent(bool value);
-UTINNI_API extern bool isPresentBlocked();
+public:
+
+	 DepthTexture();
+	 ~DepthTexture();
+	 void release();
+	 void createTexture(LPDIRECT3DDEVICE9 device, int width, int height);
+	 void resolveDepth(LPDIRECT3DDEVICE9 device);
+	 void resolveDepth(LPDIRECT3DDEVICE9 device, IDirect3DSurface9* surface);
+
+	 LPDIRECT3DTEXTURE9 getTexture() { return pTexture; }
+	 bool isINTZ() { return m_isINTZ; }
+	 bool isSupported() { return m_isSupported; }
+	 bool isNvidia() { return m_isNVAPI; }
+};
+
 }

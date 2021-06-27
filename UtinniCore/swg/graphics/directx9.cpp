@@ -24,16 +24,21 @@
 
 #include "directx9.h"
 #include <d3d9.h>
+#include <d3d9types.h>
 #include <imgui/imgui_impl_dx9.h>
 #include "utinni.h"
 #include "swg/ui/imgui_impl.h"
 #include "swg/ui/cui_manager.h"
+#include "depth_texture.h"
+#include "graphics.h"
 
 namespace directX
 {
 LPDIRECT3DDEVICE9 pDevice = nullptr;
 swgptr* vtbl = nullptr;
 swgptr dllBaseAddress = 0;
+
+DepthTexture* depthTexture = nullptr;
 
 static bool blockPresentCall = false;
 static bool isPresenting = false;
@@ -194,6 +199,10 @@ void setDevice()
 HRESULT __stdcall hkBeginScene(LPDIRECT3DDEVICE9 pDevice)
 {
     HRESULT result = beginScene(pDevice);
+	 if (depthTexture != nullptr && depthTexture->isSupported())
+	 {
+		  depthTexture->resolveDepth(pDevice);
+	 }
     return result;
 }
 
@@ -208,7 +217,7 @@ HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, 
 	 imgui_impl::render();
 
 	 HRESULT result = 0;
-
+	 
 	 // Workaround for WinForms crashes on maximize and minimize/restore, something breaks inside of Present when either occur.
     // ToDo: Find better solution in the future
 	 if (!blockPresentCall)
@@ -218,8 +227,14 @@ HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, 
 	 }
 	 else
 	 {
-
 		  isPresenting = false;
+	 }
+	
+
+	 if (depthTexture == nullptr && utinni::Graphics::getCurrentRenderTargetWidth() > 0)
+	 {
+		  depthTexture = new DepthTexture();
+		  depthTexture->createTexture(pDevice, utinni::Graphics::getCurrentRenderTargetWidth(), utinni::Graphics::getCurrentRenderTargetHeight());
 	 }
 
 	 imgui_impl::setup(pDevice);
@@ -228,9 +243,11 @@ HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, 
 
 HRESULT __stdcall hkReset(LPDIRECT3DDEVICE9 pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters)
 {
+	
 	 ImGui_ImplDX9_InvalidateDeviceObjects();
     HRESULT result = reset(pDevice, pPresentationParameters);
 	 ImGui_ImplDX9_CreateDeviceObjects();
+	
     return result;
 }
 
@@ -300,6 +317,17 @@ void detour()
 
 	 // ToDo Potentially make this an option, in case it creates issues
 	 compileShader = (pCompileShader)Detour::Create((LPVOID)compileShader, hkD3DXCompileShader, DETOUR_TYPE_PUSH_RET);
+}
+
+void cleanup()
+{
+	 delete depthTexture;
+	 depthTexture = nullptr;
+}
+
+DepthTexture* getDepthTexture()
+{
+	 return depthTexture;
 }
 
 void toggleWireframe()
