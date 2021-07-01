@@ -37,6 +37,10 @@
 #include "swg/misc/config.h"
 #include "command_parser.h"
 #include "cui_io.h"
+#include "cui_mediator_factory.h"
+#include "swg/graphics/directx9.h"
+#include "swg/game/game.h"
+#include "swg/scene/render_world.h"
 
 #pragma comment(lib, "imgui/lib/imgui.lib")
 
@@ -164,6 +168,76 @@ bool isSetup = false;
 	  isSetup = true;
  }
 
+
+ int GetWidth()
+ {
+	  return Graphics::getCurrentRenderTargetWidth() / 3;
+ }
+
+ int GetHeight()
+ {
+	  return Graphics::getCurrentRenderTargetHeight() / 3;
+ }
+
+ void DrawDepth()
+ {
+	  auto depthTex = directX::getDepthTexture();
+
+	  if (depthTex == nullptr || depthTex->getTextureColor() == nullptr || utinni::Game::getPlayer() == nullptr)
+			return;
+
+	  ImVec2 size2(GetWidth() + 5, GetHeight() + 31);
+	  ImGui::SetNextWindowSize(size2);
+	  if (ImGui::Begin("Depth", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysUseWindowPadding | ImGuiWindowFlags_NoCollapse))
+	  {
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+			const ImVec2 pos = ImGui::GetCursorScreenPos();
+			//const ImVec2 pos(0,0);
+
+			const ImVec2 posMax(pos.x + GetWidth(), pos.y + GetHeight());
+
+			ImGui::SetNextWindowSize(size2);
+			ImGui::BeginChild("GameWindow");
+
+			ImGui::GetWindowDrawList()->AddImage((void*)depthTex->getTextureDepth(), pos, posMax);
+
+			ImGui::EndChild();
+
+			ImGui::SetWindowSize(size2);
+			ImGui::PopStyleVar();
+	  }
+ }
+
+ void DrawColor()
+ {
+	  auto depthTex = directX::getDepthTexture();
+
+	  if (depthTex == nullptr || depthTex->getTextureColor() == nullptr || utinni::Game::getPlayer() == nullptr)
+			return;
+
+	  ImVec2 size2(GetWidth() + 5, GetHeight() + 31);
+	  ImGui::SetNextWindowSize(size2);
+	  if (ImGui::Begin("Color", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysUseWindowPadding | ImGuiWindowFlags_NoCollapse))
+	  {
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+			const ImVec2 pos = ImGui::GetCursorScreenPos();
+			//const ImVec2 pos(0,0);
+
+			const ImVec2 posMax(pos.x + GetWidth(), pos.y + GetHeight());
+
+			ImGui::SetNextWindowSize(size2);
+			ImGui::BeginChild("GameWindow");
+
+			ImGui::GetWindowDrawList()->AddImage((void*)depthTex->getTextureColor(), pos, posMax);
+
+			ImGui::EndChild();
+
+			ImGui::SetWindowSize(size2);
+			ImGui::PopStyleVar();
+	  }
+ }
+
+
  static bool imguiHasHover = false;
  bool gameInputSuspended = false;
  void render()
@@ -175,19 +249,39 @@ bool isSetup = false;
 			ImGui_ImplWin32_NewFrame();
 			ImGui::NewFrame();
 
-			if (enableUi)
+			static bool showWindows = false;
+			if (!enableUi)
 			{
-				 //ImGui::Begin("Tests", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse); // ImVec2(250, 300), 0.9f,  ImGuiWindowFlags_NoResize |
-				 //{
-					//  if (ImGui::Button("Test"))
-					//  {
-					//  }
-				 //}
+				 ImGui::Begin("Tests", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse); // ImVec2(250, 300), 0.9f,  ImGuiWindowFlags_NoResize |
+				 {
+					  if (ImGui::Button("Test"))
+					  {
+
+							CuiMediatorFactory::activate("Testzzz");
+					  }
+
+
+					  auto depthTex = directX::getDepthTexture();
+
+					  if (depthTex != nullptr)
+					  {
+							if (ImGui::Checkbox("Show Windows", &showWindows)) {  }
+
+							int stage = depthTex->getStage();
+							if (ImGui::SliderInt("Stage", &stage, 0, 11)) { depthTex->setStage(stage); }
+					  }
+				 }
 
 				 for (const auto& func : renderCallbacks) // ToDo add an additional callback to host controls in the future main ImGui window
 				 {
 					  func();
 				 }
+			}
+
+			if (showWindows)
+			{
+				 DrawDepth();
+				 DrawColor();
 			}
 
 			imgui_gizmo::draw();
@@ -207,6 +301,7 @@ bool isSetup = false;
 				 Graphics::showMouseCursor(true);
 				 SetCursor(nullptr);
 			}
+
 
 			ImGui::End();
 
@@ -231,6 +326,7 @@ bool isInternalUiHovered()
 {
 	 return imguiHasHover;
 }
+
 
 }
 
