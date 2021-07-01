@@ -200,11 +200,6 @@ HRESULT __stdcall hkBeginScene(LPDIRECT3DDEVICE9 pDevice)
 {
     HRESULT result = beginScene(pDevice);
 
-	 if (depthTexture != nullptr && depthTexture->isSupported() && depthTexture->getTexture() != nullptr)
-	 {
-		  depthTexture->resolveDepth(pDevice);
-	 }
-
     return result;
 }
 
@@ -216,10 +211,10 @@ HRESULT __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 
 HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion)
 {
+	 HRESULT result = 0;
+
 	 imgui_impl::render();
 
-	 HRESULT result = 0;
-	 
 	 // Workaround for WinForms crashes on maximize and minimize/restore, something breaks inside of Present when either occur.
     // ToDo: Find better solution in the future
 	 if (!blockPresentCall)
@@ -237,7 +232,7 @@ HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, 
 		  depthTexture = new DepthTexture();
 	 }
 
-	 if (utinni::Graphics::getCurrentRenderTargetWidth() > 0 && depthTexture->getTexture() == nullptr)
+	 if (utinni::Graphics::getCurrentRenderTargetWidth() > 0 && depthTexture->getTextureDepth() == nullptr)
 	 {
 		  depthTexture->createTexture(pDevice, utinni::Graphics::getCurrentRenderTargetWidth(), utinni::Graphics::getCurrentRenderTargetHeight());
 		  //utinni::log::info("Creating Texture");
@@ -249,7 +244,7 @@ HRESULT __stdcall hkPresent(LPDIRECT3DDEVICE9 pDevice, const RECT* pSourceRect, 
 
 HRESULT __stdcall hkReset(LPDIRECT3DDEVICE9 pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters)
 {
-	 if (depthTexture != nullptr && depthTexture->getTexture() != nullptr)
+	 if (depthTexture != nullptr && depthTexture->getTextureDepth() != nullptr)
 	 {
 		  depthTexture->release();
 		  //utinni::log::info("Releasing Texture");
@@ -286,7 +281,7 @@ HRESULT _stdcall hkSetRenderTarget(LPDIRECT3DDEVICE9 pDevice, DWORD index, IDire
 
 HRESULT __stdcall hkSetDepthStencil(LPDIRECT3DDEVICE9 pDevice, IDirect3DSurface9* surface)
 {
-    HRESULT result = setDepthStencil(pDevice, surface);
+	 HRESULT result = setDepthStencil(pDevice, surface);
     return result;
 }
 
@@ -328,6 +323,7 @@ void detour()
 
 	 // ToDo Potentially make this an option, in case it creates issues
 	 compileShader = (pCompileShader)Detour::Create((LPVOID)compileShader, hkD3DXCompileShader, DETOUR_TYPE_PUSH_RET);
+
 }
 
 void cleanup()

@@ -36,11 +36,15 @@
 
 namespace directX
 {
+
+// ?getBuffer@Commander@DPVS@@IBE?AW4BufferType@LibraryDefs@2@AAPBEAAH1@Z
+
 DepthTexture::DepthTexture()
-    : pTexture(nullptr)
+    : pTextureDepth(nullptr)
 	 , m_isNVAPI(false)
 	 , m_isSupported(false)
 	 , pRegisteredDSS(nullptr)
+	 , stage(5)
 {
 	 if (NvAPI_Initialize() == NVAPI_OK)
 	 {
@@ -52,37 +56,43 @@ DepthTexture::DepthTexture()
 }
 
 //--------------------------------------------------------------------------------------
-void DepthTexture::createTexture(LPDIRECT3DDEVICE9 device, int width, int height)
+void DepthTexture::createTexture(LPDIRECT3DDEVICE9 pDevice, int width, int height)
 {
 	 if (m_isSupported)
 	 {
+		  _pDevice = pDevice;
 		  D3DFORMAT format = FOURCC_INTZ; //m_isNVAPI ? FOURCC_INTZ : FOURCC_RAWZ;
-		  device->CreateTexture(width, height, 1, D3DUSAGE_DEPTHSTENCIL, format, D3DPOOL_DEFAULT, &pTexture, NULL);
+		  pDevice->CreateTexture(width, height, 1, D3DUSAGE_DEPTHSTENCIL, format, D3DPOOL_DEFAULT, &pTextureDepth, nullptr);
+		  pDevice->CreateTexture(width, height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &pTextureColor, nullptr);
+
 
 		  if (m_isNVAPI)
 		  {
 				//utinni::log::info("nVidia GPU Selected");
-				NvAPI_D3D9_RegisterResource(pTexture);
+				NvAPI_D3D9_RegisterResource(pTextureDepth);
+				NvAPI_D3D9_RegisterResource(pTextureColor);
 		  }
 		  /*else
 		  {
 				utinni::log::info("ATI or Intel GPU Selected");
 		  }*/
+
+		  //pTexture->GetLevelDesc(0, &textureDesc);
 	 }
 }
 
 void DepthTexture::release()
 {
-	 if (pTexture)
+	 if (pTextureDepth)
 	 {
 		  if (m_isNVAPI)
 		  {
-				NvAPI_D3D9_UnregisterResource(pTexture);
+				NvAPI_D3D9_UnregisterResource(pTextureDepth);
 		  }
-		  if (pTexture != nullptr)
+		  if (pTextureDepth != nullptr)
 		  {
-				pTexture->Release();
-				pTexture = nullptr;
+				pTextureDepth->Release();
+				pTextureDepth = nullptr;
 		  }
 	 }
 
@@ -98,12 +108,41 @@ void DepthTexture::release()
 				pRegisteredDSS = nullptr;
 		  }
 	 }
+
+	 if (pTextureColor)
+	 {
+		  if (m_isNVAPI)
+		  {
+				NvAPI_D3D9_UnregisterResource(pTextureColor);
+		  }
+		  if (pTextureColor != nullptr)
+		  {
+				pTextureColor->Release();
+				pTextureColor = nullptr;
+		  }
+	 }
 }
 
 
 DepthTexture::~DepthTexture()
 {
 	 release();
+}
+
+void copyTextureData(LPDIRECT3DTEXTURE9 pTexture, D3DSURFACE_DESC textureDesc)
+{
+	 D3DLOCKED_RECT lockedRect;
+	 RECT rect;
+	 rect.top = 0;
+	 rect.left = 0;
+	 rect.right = textureDesc.Width;
+	 rect.bottom = textureDesc.Height;
+
+	 pTexture->LockRect(0, &lockedRect, &rect, 0);
+	 const size_t size = textureDesc.Width * textureDesc.Height * lockedRect.Pitch;
+	 std::vector<byte> textureData(size);
+	 memcpy(textureData.data(), lockedRect.pBits, size);
+	 pTexture->UnlockRect(0);
 }
 
 void resolveDepthWithResz(const LPDIRECT3DDEVICE9 pDevice, LPDIRECT3DTEXTURE9 pTexture)
@@ -152,20 +191,23 @@ void DepthTexture::resolveDepth(const LPDIRECT3DDEVICE9 pDevice, IDirect3DSurfac
 				}
 				pRegisteredDSS = pSurface;
 		  }
-		  DWORD result = NvAPI_D3D9_StretchRectEx(pDevice, pSurface, nullptr, pTexture, nullptr, D3DTEXF_NONE);
+		  DWORD result = NvAPI_D3D9_StretchRectEx(pDevice, pSurface, nullptr, pTextureDepth, nullptr, D3DTEXF_NONE);
 	 }
     else if (m_isRESZ)
 	 {
-		  resolveDepthWithResz(pDevice, pTexture);
+		  resolveDepthWithResz(pDevice, pTextureDepth);
 	 }
+
+	 //copyTextureData(pTexture, textureDesc);
 }
 
-void DepthTexture::resolveDepth(const LPDIRECT3DDEVICE9 pDevice)
+void DepthTexture::resolveDepth()
 {
 	 if (m_isNVAPI)
 	 {
 		  IDirect3DSurface9* pDSS = nullptr;
-		  pDevice->GetDepthStencilSurface(&pDSS);
+		  _pDevice->GetDepthStencilSurface(&pDSS);
+
 		  if (pRegisteredDSS != pDSS)
 		  {
 				//Registering Fails, something is up with the depth stencil surface
@@ -177,12 +219,23 @@ void DepthTexture::resolveDepth(const LPDIRECT3DDEVICE9 pDevice)
 				}
 				pRegisteredDSS = pDSS;
 		  }
-		  DWORD result = NvAPI_D3D9_StretchRectEx(pDevice, pDSS, nullptr, pTexture, nullptr, D3DTEXF_NONE);
+		  DWORD result = NvAPI_D3D9_StretchRectEx(_pDevice, pDSS, nullptr, pTextureDepth, nullptr, D3DTEXF_NONE);
 		  pDSS->Release();
+
+		  LPDIRECT3DSURFACE9 pRenderTarget;
+		  LPDIRECT3DSURFACE9 pSurface;
+	     pTextureColor->GetSurfaceLevel(0, &pSurface);
+	     _pDevice->GetRenderTarget(0, &pRenderTarget);
+	     _pDevice->StretchRect(pRenderTarget, nullptr, pSurface, nullptr, D3DTEXF_NONE);
+		  pRenderTarget->Release();
+		  pSurface->Release();
 	 }
 	 else if (m_isRESZ)
 	 {
-		  resolveDepthWithResz(pDevice, pTexture);
+		  resolveDepthWithResz(_pDevice, pTextureDepth);
 	 }
+
+	 _pDevice->SetTexture(14, pTextureColor);
+	 _pDevice->SetTexture(15, pTextureDepth);
 }
 }

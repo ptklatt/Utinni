@@ -34,4 +34,8 @@ namespace utinni
 namespace utinni::renderWorld
 {
 UTINNI_API extern void addObjectNotifications(Object* obj);
+
+static int renderStage;
+
+void detour();
 }
