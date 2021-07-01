@@ -44,6 +44,8 @@
 #include "swg/ui/cui_menu.h"
 #include "swg/ui/cui_misc.h"
 #include "swg/ui/cui_io.h"
+#include "swg/graphics/directx9.h"
+#include "swg/scene/render_world.h"
 
 std::string path;
 std::string swgOverrideCfgFilename = "utinni.cfg";
@@ -57,25 +59,28 @@ void createDetours()
 
     swg::config::detour();
 
-    utinni::ParticleEffectAppearance::detour();
-    utinni::treefile::detour();
     utinni::Client::detour();
-    utinni::Game::detour();
-    utinni::GroundScene::detour();
-    utinni::Graphics::detour();
     utinni::clientWorld::detour();
+    utinni::creatureObject::detour();
     utinni::CuiChatWindow::detour();
     utinni::CuiManager::detour();
     utinni::cuiHud::detour();
     utinni::cuiIo::detour();
+    //utinni::cuiIntro::detour();
     utinni::cuiMenu::detour();
     utinni::cuiRadialMenuManager::detour();
     utinni::cuiLoginScreen::detour();
-    utinni::SystemMessageManager::detour();
-    utinni::creatureObject::detour();
+    //utinni::cuiMediatorFactorySetup::detour();
+    utinni::debugCamera::detour();
+    utinni::Game::detour();
+    utinni::GroundScene::detour();
+    utinni::Graphics::detour();
+    utinni::ParticleEffectAppearance::detour();
     utinni::report::detour();
     utinni::skeletalAppearance::detour();
-    utinni::debugCamera::detour();
+    utinni::SystemMessageManager::detour();
+    utinni::treefile::detour();
+    utinni::renderWorld::detour();
 }
 
 void createPatches()
@@ -117,11 +122,11 @@ void main()
     utinni::log::info("Loading .NET plugins");
     // Load the clr and UtinniCoreDotNet
     clr::load();
-
 }
 
 void detatch()
 {
+    directX::cleanup();
     clr::stop();
 }
 

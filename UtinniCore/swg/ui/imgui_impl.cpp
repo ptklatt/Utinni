@@ -37,7 +37,6 @@
 #include "swg/misc/config.h"
 #include "command_parser.h"
 #include "cui_io.h"
-#include "cui_mediator_factory.h"
 #include "swg/graphics/directx9.h"
 #include "swg/game/game.h"
 #include "swg/scene/render_world.h"
@@ -256,8 +255,7 @@ bool isSetup = false;
 				 {
 					  if (ImGui::Button("Test"))
 					  {
-
-							CuiMediatorFactory::activate("Testzzz");
+							//CuiMediatorFactory::activate("Testzzz");
 					  }
 
 
