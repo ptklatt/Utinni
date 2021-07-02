@@ -30,13 +30,14 @@ namespace swg::shaderPrimitiveSorter
 
 }
 
+static std::vector<void(*)(int currentPhase)> drawPhaseCallbacks;
+
 namespace utinni::shaderPrimitiveSorter
 {
-
-
 directX::DepthTexture* depthTexture;
 
 int vecOffset = 0;
+int phase = 0;
 constexpr uint8_t phaseStructSize = 36;
 constexpr swgptr midPopCell_Call = 0x772D60;
 constexpr swgptr start_midPopCell = 0x00773E39;
@@ -52,12 +53,18 @@ __declspec(naked) void midPopCell()
     }
 
     depthTexture = directX::getDepthTexture();
-    if ((vecOffset / phaseStructSize) == depthTexture->getStage()) // divide offset by struct size to get stage
+    phase = vecOffset / phaseStructSize;
+    if (phase == depthTexture->getStage()) // divide offset by struct size to get stage
     {
         if (depthTexture != nullptr && depthTexture->isSupported() && depthTexture->getTextureDepth() != nullptr)
         {
             depthTexture->resolveDepth();
         }
+    }
+
+    for (const auto& func : drawPhaseCallbacks)
+    {
+        func(phase);
     }
 
     __asm
@@ -69,6 +76,11 @@ __declspec(naked) void midPopCell()
     }
 }
 
+
+void drawPhaseCallback(void(* func)(int currentPhase))
+{
+    drawPhaseCallbacks.emplace_back(func);
+}
 
 void detour()
 {

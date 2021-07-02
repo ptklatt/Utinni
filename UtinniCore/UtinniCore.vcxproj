@@ -76,7 +76,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SPDLOG_NO_EXCEPTIONS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>EXPORT_UTINNI;SPDLOG_NO_EXCEPTIONS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir);$(SolutionDir)external;$(ProjectDir);</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -160,6 +160,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="..\external\DetourXS\ADE32.cpp" />
     <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
     <ClCompile Include="..\external\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="swg\graphics\post_processing.cpp" />
     <ClCompile Include="swg\graphics\shader.cpp" />
     <ClCompile Include="swg\graphics\depth_texture.cpp" />
     <ClCompile Include="swg\ui\controls\ui_button.cpp" />
@@ -235,6 +236,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\misc\swg_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="swg\graphics\post_processing.h" />
     <ClInclude Include="swg\graphics\shader.h" />
     <ClInclude Include="swg\graphics\depth_texture.h" />
     <ClInclude Include="swg\ui\controls\ui_button.h" />

@@ -34,8 +34,7 @@
 
 namespace directX
 {
-LPDIRECT3DDEVICE9 pDevice = nullptr;
-swgptr* vtbl = nullptr;
+LPDIRECT3DDEVICE9 pDirectXDevice = nullptr;
 swgptr dllBaseAddress = 0;
 
 DepthTexture* depthTexture = nullptr;
@@ -190,14 +189,13 @@ enum D3DInformation
 	 d3di_NumberOfFunctions = 118
 };
 
-void setDevice()
-{
-    pDevice = (LPDIRECT3DDEVICE9)memory::findPattern((swgptr)GetModuleHandle("d3d9.dll"), 0x128000, "\xC7\x06\x00\x00\x00\x00\x89\x86\x00\x00\x00\x00\x89\x86", "xx????xx????xx");
-    memcpy(&vtbl, (void*)(((swgptr)pDevice) + 2), 4);
-}
-
 HRESULT __stdcall hkBeginScene(LPDIRECT3DDEVICE9 pDevice)
 {
+	 if (pDirectXDevice == nullptr)
+	 {
+		  pDirectXDevice = pDevice;
+	 }
+
     HRESULT result = beginScene(pDevice);
 
     return result;
@@ -296,9 +294,17 @@ HRESULT __stdcall hkD3DXCompileShader(LPCSTR pSrcData, UINT srcDataLen, LPVOID* 
 	 return compileShader(pSrcData, srcDataLen, pDefines, pInclude, pFunctionName, "vs_3_0", Flags, ppShader, ppErrorMsgs, ppConstantTable);
 }
 
+swgptr* getVtbl()
+{
+	 swgptr* vtbl = nullptr;
+	 auto pDevice = (LPDIRECT3DDEVICE9)memory::findPattern((swgptr)GetModuleHandle("d3d9.dll"), 0x128000, "\xC7\x06\x00\x00\x00\x00\x89\x86\x00\x00\x00\x00\x89\x86", "xx????xx????xx");
+	 memcpy(&vtbl, (void*)(((swgptr)pDevice) + 2), 4);
+	 return vtbl;
+}
+
 void detour()
 {
-    setDevice();
+    auto vtbl = getVtbl();
 
 	 swgptr BeginSceneAddress = Detour::CheckPointer(vtbl[d3di_BeginScene_Index]);
     beginScene = (pBeginScene)Detour::Create((LPVOID)BeginSceneAddress, hkBeginScene, DETOUR_TYPE_PUSH_RET);
@@ -354,7 +360,7 @@ bool isPresentBlocked()
 
 IDirect3DDevice9* getDevice()
 {
-	 return pDevice;
+	 return pDirectXDevice;
 }
 }
 

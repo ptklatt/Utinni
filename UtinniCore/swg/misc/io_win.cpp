@@ -24,6 +24,13 @@
 
 #include "io_win.h"
 
+namespace swg::ioWin
+{
+using pDraw = void(__thiscall*)(utinni::IoWin* pThis);
+
+pDraw draw = (pDraw)0x00AB58E0;
+}
+
 namespace swg::messageQueue
 {
 using pGetCount = int(__thiscall*)(utinni::MessageQueue* pThis);
@@ -39,6 +46,16 @@ pAppendMessageData appendMessageData = (pAppendMessageData)0x00AA6480;
 
 namespace utinni
 {
+
+void __fastcall hkDraw(IoWin* pThis, swgptr EDX)
+{
+    swg::ioWin::draw(pThis);
+}
+void IoWin::detour()
+{
+    //swg::ioWin::draw = (swg::ioWin::pDraw)Detour::Create(swg::ioWin::draw, hkDraw, DETOUR_TYPE_PUSH_RET);
+}
+
 int MessageQueue::getCount()
 {
     return swg::messageQueue::getCount(this);

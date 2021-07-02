@@ -30,10 +30,13 @@ namespace swg::cuiIo
 using pProcessEvent = swgptr(__thiscall*)(swgptr pThis, swgptr pEvent);
 using pSetKeyboardInputActive = swgptr(__thiscall*)(swgptr pThis, bool value);
 using pRequestKeyboard = swgptr(__thiscall*)(swgptr pThis, bool value);
+using pDraw = void(__thiscall*)(swgptr pThis);
+
 
 pProcessEvent processEvent = (pProcessEvent)0x093BD50;
 pSetKeyboardInputActive setKeyboardInputActive = (pSetKeyboardInputActive)0x0093D490;
 pRequestKeyboard requestKeyboard = (pRequestKeyboard)0x0093D560;
+pDraw draw = (pDraw)0x0093B2B0;
 
 }
 
@@ -82,9 +85,15 @@ swgptr __fastcall hkProcessEvent(swgptr pThis, swgptr EDX, swgptr pEvent)
     return swg::cuiIo::processEvent(pThis, pEvent);
 }
 
+void __fastcall hkDraw(swgptr pThis, swgptr EDX)
+{
+    swg::cuiIo::draw(pThis);
+}
+
 void cuiIo::detour()
 {
    swg::cuiIo::processEvent = (swg::cuiIo::pProcessEvent)Detour::Create((LPVOID)swg::cuiIo::processEvent, hkProcessEvent, DETOUR_TYPE_PUSH_RET);
+   //swg::cuiIo::draw = (swg::cuiIo::pDraw)Detour::Create((LPVOID)swg::cuiIo::draw, hkDraw, DETOUR_TYPE_PUSH_RET);
 }
 
 }

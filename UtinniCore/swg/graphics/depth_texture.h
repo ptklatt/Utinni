@@ -34,6 +34,8 @@ public:
 
 	 int getStage() { return stage; }
 	 void setStage(int value) { stage = value; }
+
+	 UTINNI_API static void addDepthResolveCallback(void (*func)());
 };
 
 }

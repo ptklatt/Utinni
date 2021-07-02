@@ -28,5 +28,7 @@
 
 namespace utinni::shaderPrimitiveSorter
 {
+UTINNI_API extern void drawPhaseCallback(void (*func)(int currentPhase));
+
 void detour();
 }

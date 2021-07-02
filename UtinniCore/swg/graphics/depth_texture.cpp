@@ -32,7 +32,9 @@
 #pragma comment(lib, "nvapi/x86/nvapi.lib")
 
 #define FOURCC_INTZ ((D3DFORMAT)(MAKEFOURCC('I','N','T','Z')))
-#define RESZ_CODE 0x7fa05000
+#define RESZ_CODE 0x7FA05000
+
+static std::vector<void(*)()> depthResolveCallbacks;
 
 namespace directX
 {
@@ -201,6 +203,11 @@ void DepthTexture::resolveDepth(const LPDIRECT3DDEVICE9 pDevice, IDirect3DSurfac
 	 //copyTextureData(pTexture, textureDesc);
 }
 
+void DepthTexture::addDepthResolveCallback(void(* func)())
+{
+	 depthResolveCallbacks.emplace_back(func);
+}
+
 void DepthTexture::resolveDepth()
 {
 	 if (m_isNVAPI)
@@ -237,5 +244,10 @@ void DepthTexture::resolveDepth()
 
 	 _pDevice->SetTexture(14, pTextureColor);
 	 _pDevice->SetTexture(15, pTextureDepth);
+
+	 for (const auto& func : depthResolveCallbacks)
+	 {
+		  func();
+	 }
 }
 }

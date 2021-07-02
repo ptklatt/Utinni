@@ -44,6 +44,8 @@ public:
     swgptr vtbl;
     char* name;
     IoWin* ioWin;
+
+    static void detour();
 };
 
 class UTINNI_API MouseCursor
