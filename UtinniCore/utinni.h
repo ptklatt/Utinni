@@ -39,7 +39,11 @@ using swgptr = uint32_t;
 #include "utility/memory.h"
 #include "utility/utility.h"
 
-#define UTINNI_API __declspec(dllexport)
+#ifdef EXPORT_UTINNI
+    #define UTINNI_API _declspec(dllexport)
+#else
+    #define UTINNI_API _declspec(dllimport)
+#endif
 
 namespace utinni
 {
