@@ -22,19 +22,56 @@
  * SOFTWARE.
 **/
 
-#pragma once
-#include "utinni.h"
-#include "depth_texture.h"
-#include <d3d9.h>
+#include "shader.h"
+#include "swg/graphics/directx9.h"
 
-namespace directX
+namespace swg::shaderPrimitiveSorter
 {
-void detour();
-void cleanup();
-DepthTexture* getDepthTexture();
 
-UTINNI_API extern void toggleWireframe();
-UTINNI_API extern void blockPresent(bool value);
-UTINNI_API extern bool isPresentBlocked();
-UTINNI_API extern IDirect3DDevice9* getDevice();
+}
+
+namespace utinni::shaderPrimitiveSorter
+{
+
+
+directX::DepthTexture* depthTexture;
+
+int vecOffset = 0;
+constexpr uint8_t phaseStructSize = 36;
+constexpr swgptr midPopCell_Call = 0x772D60;
+constexpr swgptr start_midPopCell = 0x00773E39;
+constexpr swgptr return_midPopCell = 0x00773E41;
+__declspec(naked) void midPopCell()
+{
+    __asm
+    {
+        mov vecOffset, esi
+        pushad
+        pushfd
+        call midPopCell_Call
+    }
+
+    depthTexture = directX::getDepthTexture();
+    if ((vecOffset / phaseStructSize) == depthTexture->getStage()) // divide offset by struct size to get stage
+    {
+        if (depthTexture != nullptr && depthTexture->isSupported() && depthTexture->getTextureDepth() != nullptr)
+        {
+            depthTexture->resolveDepth();
+        }
+    }
+
+    __asm
+    {
+        popfd
+        popad
+        add esi, 0x24
+        jmp[return_midPopCell]
+    }
+}
+
+
+void detour()
+{
+    memory::createJMP(start_midPopCell, (swgptr)midPopCell, 6);
+}
 }

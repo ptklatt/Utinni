@@ -178,10 +178,9 @@ bool isSetup = false;
 	  return Graphics::getCurrentRenderTargetHeight() / 3;
  }
 
- void DrawDepth()
+ void DrawDepthWindow()
  {
 	  auto depthTex = directX::getDepthTexture();
-
 	  if (depthTex == nullptr || depthTex->getTextureColor() == nullptr || utinni::Game::getPlayer() == nullptr)
 			return;
 
@@ -191,8 +190,6 @@ bool isSetup = false;
 	  {
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 			const ImVec2 pos = ImGui::GetCursorScreenPos();
-			//const ImVec2 pos(0,0);
-
 			const ImVec2 posMax(pos.x + GetWidth(), pos.y + GetHeight());
 
 			ImGui::SetNextWindowSize(size2);
@@ -207,11 +204,10 @@ bool isSetup = false;
 	  }
  }
 
- void DrawColor()
+ void DrawColorWindow()
  {
-	  auto depthTex = directX::getDepthTexture();
-
-	  if (depthTex == nullptr || depthTex->getTextureColor() == nullptr || utinni::Game::getPlayer() == nullptr)
+	  auto colorTex = directX::getDepthTexture();
+	  if (colorTex == nullptr || colorTex->getTextureColor() == nullptr || utinni::Game::getPlayer() == nullptr)
 			return;
 
 	  ImVec2 size2(GetWidth() + 5, GetHeight() + 31);
@@ -220,15 +216,11 @@ bool isSetup = false;
 	  {
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 			const ImVec2 pos = ImGui::GetCursorScreenPos();
-			//const ImVec2 pos(0,0);
-
 			const ImVec2 posMax(pos.x + GetWidth(), pos.y + GetHeight());
 
 			ImGui::SetNextWindowSize(size2);
 			ImGui::BeginChild("GameWindow");
-
-			ImGui::GetWindowDrawList()->AddImage((void*)depthTex->getTextureColor(), pos, posMax);
-
+			ImGui::GetWindowDrawList()->AddImage((void*)colorTex->getTextureColor(), pos, posMax);
 			ImGui::EndChild();
 
 			ImGui::SetWindowSize(size2);
@@ -248,7 +240,8 @@ bool isSetup = false;
 			ImGui_ImplWin32_NewFrame();
 			ImGui::NewFrame();
 
-			static bool showWindows = false;
+			static bool showDepthWindow = false;
+			static bool showColorWindow = false;
 			if (!enableUi)
 			{
 				 ImGui::Begin("Tests", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse); // ImVec2(250, 300), 0.9f,  ImGuiWindowFlags_NoResize |
@@ -258,12 +251,11 @@ bool isSetup = false;
 							//CuiMediatorFactory::activate("Testzzz");
 					  }
 
-
 					  auto depthTex = directX::getDepthTexture();
-
 					  if (depthTex != nullptr)
 					  {
-							if (ImGui::Checkbox("Show Windows", &showWindows)) {  }
+							if (ImGui::Checkbox("Show Depth Window", &showDepthWindow)) {  }
+							if (ImGui::Checkbox("Show Color Window", &showColorWindow)) {  }
 
 							int stage = depthTex->getStage();
 							if (ImGui::SliderInt("Stage", &stage, 0, 11)) { depthTex->setStage(stage); }
@@ -276,10 +268,14 @@ bool isSetup = false;
 				 }
 			}
 
-			if (showWindows)
+			if (showDepthWindow)
 			{
-				 DrawDepth();
-				 DrawColor();
+				 DrawDepthWindow();
+			}
+
+			if (showColorWindow)
+			{
+				 DrawColorWindow();
 			}
 
 			imgui_gizmo::draw();

@@ -23,18 +23,10 @@
 **/
 
 #pragma once
-#include "utinni.h"
-#include "depth_texture.h"
-#include <d3d9.h>
 
-namespace directX
+#include "utinni.h"
+
+namespace utinni::shaderPrimitiveSorter
 {
 void detour();
-void cleanup();
-DepthTexture* getDepthTexture();
-
-UTINNI_API extern void toggleWireframe();
-UTINNI_API extern void blockPresent(bool value);
-UTINNI_API extern bool isPresentBlocked();
-UTINNI_API extern IDirect3DDevice9* getDevice();
 }

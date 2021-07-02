@@ -27,14 +27,13 @@
 
 namespace swg::renderWorld
 {
-using pAddObjectNotifications = void(__cdecl*)(utinni::Object* obj);
-pAddObjectNotifications addObjectNotifications = (pAddObjectNotifications)0x007664F0;
-
-using pRender = void(__cdecl*)(swgptr pCamera);
-pRender render = (pRender)0x00766DE0;
-
 using pClearVisibleCells = void(__cdecl*)();
+using pAddObjectNotifications = void(__cdecl*)(utinni::Object* obj);
+using pRender = void(__cdecl*)(swgptr pCamera);
+
 pClearVisibleCells clearVisibleCells = (pClearVisibleCells)0x765C20;
+pAddObjectNotifications addObjectNotifications = (pAddObjectNotifications)0x007664F0;
+pRender render = (pRender)0x00766DE0;
 }
 
 namespace utinni::renderWorld
@@ -42,41 +41,6 @@ namespace utinni::renderWorld
 void addObjectNotifications(Object* obj)
 {
     swg::renderWorld::addObjectNotifications(obj);
-}
-
-directX::DepthTexture* depthTexture;
-
-swgptr pCall = 0x772D60;
-int listOffset = 0;
-swgptr start_midPopCell = 0x00773E39;
-swgptr return_midPopCell = 0x00773E41;
-__declspec(naked) void midPopCell()
-{
-    __asm
-    {
-        mov listOffset, esi
-        pushad
-        pushfd
-        call pCall
-    }
-
-    depthTexture = directX::getDepthTexture();
-
-    if (listOffset / 36 == depthTexture->getStage()) // 36 is struct size, divide to get stage
-    {
-        if (depthTexture != nullptr && depthTexture->isSupported() && depthTexture->getTextureDepth() != nullptr)
-        {
-            depthTexture->resolveDepth();
-        }
-    }
-
-    __asm
-    {
-        popfd
-        popad
-        add esi, 0x24
-        jmp[return_midPopCell]
-    }
 }
 
 void __cdecl hkRender(swgptr pCamera)
@@ -87,7 +51,6 @@ void __cdecl hkRender(swgptr pCamera)
     //if (depthTexture != nullptr && depthTexture->isSupported() && depthTexture->getTexture() != nullptr)
     //{
     //    depthTexture->resolveDepth();
-    //    //utinni::log::info("Test");
     //}
 }
 
@@ -95,20 +58,16 @@ void __cdecl hkClearVisibleCells()
 {
     swg::renderWorld::clearVisibleCells();
 
-    depthTexture = directX::getDepthTexture();
+   /* depthTexture = directX::getDepthTexture();
     if (depthTexture != nullptr && depthTexture->isSupported() && depthTexture->getTextureDepth() != nullptr)
     {
         depthTexture->resolveDepth();
-        //utinni::log::info("Test");
-    }
-
+    }*/
 }
 
 void detour()
 {
     //swg::renderWorld::render = (swg::renderWorld::pRender)Detour::Create(swg::renderWorld::render, hkRender, DETOUR_TYPE_PUSH_RET);
     //swg::renderWorld::clearVisibleCells = (swg::renderWorld::pClearVisibleCells)Detour::Create(swg::renderWorld::clearVisibleCells, hkClearVisibleCells, DETOUR_TYPE_PUSH_RET);
-    memory::createJMP(start_midPopCell, (swgptr)midPopCell, 6);
-  
 }
 }

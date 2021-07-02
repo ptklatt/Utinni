@@ -45,6 +45,7 @@
 #include "swg/ui/cui_misc.h"
 #include "swg/ui/cui_io.h"
 #include "swg/graphics/directx9.h"
+#include "swg/graphics/shader.h"
 #include "swg/scene/render_world.h"
 
 std::string path;
@@ -81,6 +82,7 @@ void createDetours()
     utinni::SystemMessageManager::detour();
     utinni::treefile::detour();
     utinni::renderWorld::detour();
+    utinni::shaderPrimitiveSorter::detour();
 }
 
 void createPatches()

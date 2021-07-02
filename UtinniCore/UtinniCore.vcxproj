@@ -160,6 +160,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="..\external\DetourXS\ADE32.cpp" />
     <ClCompile Include="..\external\DetourXS\detourxs.cpp" />
     <ClCompile Include="..\external\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="swg\graphics\shader.cpp" />
     <ClCompile Include="swg\graphics\depth_texture.cpp" />
     <ClCompile Include="swg\ui\controls\ui_button.cpp" />
     <ClCompile Include="swg\ui\controls\ui_data.cpp" />
@@ -234,6 +235,7 @@ $(SolutionDir)UtinniCoreDotNetGen\bin\$(Configuration)\UtinniCoreDotNetGen.exe</
     <ClCompile Include="swg\misc\swg_string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="swg\graphics\shader.h" />
     <ClInclude Include="swg\graphics\depth_texture.h" />
     <ClInclude Include="swg\ui\controls\ui_button.h" />
     <ClInclude Include="swg\ui\controls\ui_data.h" />

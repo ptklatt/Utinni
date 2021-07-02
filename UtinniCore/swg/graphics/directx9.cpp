@@ -352,6 +352,10 @@ bool isPresentBlocked()
 	 return !isPresenting;
 }
 
+IDirect3DDevice9* getDevice()
+{
+	 return pDevice;
+}
 }
 
 
