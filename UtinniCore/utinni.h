@@ -57,3 +57,4 @@ UTINNI_API extern const std::string& getSwgCfgFilename();
 UTINNI_API extern UtINI& getConfig();
 UTINNI_API extern PluginManager& getPluginManager();
 };
+
