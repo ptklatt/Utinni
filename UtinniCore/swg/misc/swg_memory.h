@@ -46,7 +46,7 @@ inline void operator delete(void*, utinni::NewPlaceholder, void*) { }
 namespace utinni
 {
 template<class Type, class... Args>
-UTINNI_API Type* swg_new(Args&&...args)
+Type* swg_new(Args&&...args)
 {
     return new (NewPlaceholder(), allocate(sizeof(Type))) Type(std::forward<Args>(args)...);
 }

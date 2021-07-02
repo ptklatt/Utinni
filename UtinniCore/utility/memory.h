@@ -32,7 +32,7 @@ UTINNI_API extern swgptr findPattern(swgptr startAddress, size_t length, const c
 UTINNI_API extern swgptr findPattern(const char* moduleName, const char* pattern, const char* mask);
 
 template<typename T>
-UTINNI_API extern T read(swgptr address)
+extern T read(swgptr address)
 {
     if (address > 0)
     {
@@ -42,7 +42,7 @@ UTINNI_API extern T read(swgptr address)
 }
 
 template<typename T>
-UTINNI_API extern T read(swgptr address, int offsetOfAddrResult)
+extern T read(swgptr address, int offsetOfAddrResult)
 {
     const swgptr resultAddress = read<swgptr>(address);
     if (resultAddress > 0)
@@ -53,7 +53,7 @@ UTINNI_API extern T read(swgptr address, int offsetOfAddrResult)
 }
 
 template<typename T>
-UTINNI_API extern void write(swgptr address, T value)
+extern void write(swgptr address, T value)
 {
     if (address > 0)
     {
@@ -62,7 +62,7 @@ UTINNI_API extern void write(swgptr address, T value)
 }
 
 template<typename T>
-UTINNI_API extern void write(swgptr address, int offsetOfAddrResult, T value)
+extern void write(swgptr address, int offsetOfAddrResult, T value)
 {
     const swgptr resultAddress = read<swgptr>(address);
     if (resultAddress > 0)
@@ -74,13 +74,13 @@ UTINNI_API extern void write(swgptr address, int offsetOfAddrResult, T value)
 UTINNI_API extern void copy(swgptr pDest, swgptr pSource, size_t length);
 
 template<size_t n>
-UTINNI_API extern void copy(swgptr pDest, const unsigned char(&buffer)[n])
+extern void copy(swgptr pDest, const unsigned char(&buffer)[n])
 {
     copy(pDest, (swgptr)buffer, n);
 }
 
 template<typename T>
-UTINNI_API extern void copy(swgptr pDest, const std::vector<T>& vector)
+extern void copy(swgptr pDest, const std::vector<T>& vector)
 {
     memory::copy(pDest, (swgptr)&vector[0], vector.size() * sizeof(T));
 }
